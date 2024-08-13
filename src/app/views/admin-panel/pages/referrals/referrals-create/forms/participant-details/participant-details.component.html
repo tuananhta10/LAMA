@@ -1,0 +1,293 @@
+<div class="card card-body px-md-5" [ngClass]="stepper === 1 ? 'pt-5' : 'pt-4 mb-3'">
+	<form *ngIf="!loading" [formGroup]="participantDetailsForm">
+		<div class="row" *ngIf="stepper === 1"
+		[@animate]="{value:'*', params:{ x:'-50px'}}">
+			<div class="col-12 col-md-4 mb-3">
+				<h5 class="mat-subtitle mb-3 text-start">Participant Details</h5>
+				<app-textfield 
+					label="First Name" 
+					[labelTop]="true"
+					formControlName="first_name"
+					[required]="true">
+				</app-textfield>
+
+				<app-textfield 
+					label="Last Name" 
+					[labelTop]="true"
+					formControlName="last_name"
+					[required]="true">
+				</app-textfield>
+
+				<app-textfield 
+					label="Preferred Name" 
+					[labelTop]="true"
+					formControlName="preferred_name"
+					>
+				</app-textfield>
+
+				<!-- <app-dropdown 
+					label="Cultural Identification" 
+					[labelTop]="true"
+					formControlName="background"
+					[options]="backgroundOption"
+					(keyevents)="showOthers($event)"
+					>
+				</app-dropdown> -->
+				
+				<app-textarea *ngIf="showOther"
+					label="Input the Cultural Identification" 
+					[labelTop]="true"
+					formControlName="background_other"
+					[rows]="1"
+				>
+				</app-textarea>
+
+				<app-date-picker 
+					label="Date of Birth" 
+					[labelTop]="true"
+					formControlName="birthdate"
+					(keyevents)="computeAge($event)"
+					[maxDate]="dateNow"
+					>
+				</app-date-picker>
+
+				<ng-container *ngIf="participantDetailsForm?.controls['birthdate'].value">
+					<app-textfield 
+						label="Age" 
+						[labelTop]="true"
+						[disabled]="true" 
+						formControlName="age"
+						[inputType]="'number'"
+						>
+					</app-textfield>
+				</ng-container>
+
+				<app-radio-button 
+					[labelTop]="true"
+					label="Are you a participant representative?" 
+					formControlName="referred_by_other"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<h5 class="mat-subtitle mb-3 text-start">Address</h5>
+				<app-google-places-input
+					label="Street Address" 
+					[labelTop]="true"
+					formControlName="address_a"
+					(addressChange)="onAddressChange($event)">
+				</app-google-places-input>
+
+				<app-textfield 
+					label="Suburb" 
+					[labelTop]="true"
+					formControlName="suburb"
+					>
+				</app-textfield>
+
+				<app-dropdown 
+					label="State" 
+					[labelTop]="true"
+					[options]="stateOption"
+					formControlName="state"
+					>
+				</app-dropdown>
+
+				<app-textfield 
+					label="Post Code" 
+					[labelTop]="true"
+					[inputType]="'number'"
+					formControlName="post_code"
+					>
+				</app-textfield>
+
+				
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<h5 class="mat-subtitle mb-3 text-start">Contact Details</h5>
+
+				<app-textfield 
+					label="Email Address" 
+					[labelTop]="true"
+					[inputType]="'email'"
+					formControlName="email_address">
+				</app-textfield>
+
+				<app-textfield 
+					label="Phone Number" 
+					[labelTop]="true"
+					[inputType]="'tel'"
+					formControlName="mobile_phone_no">
+				</app-textfield>
+
+				<!-- <app-search-list id="main_branch" 
+					label="Main Branch" 
+					[labelTop]="true"
+					formControlName="main_branch_id" 
+					placeholder="Select"
+					[options]="branchesEnum" 
+				></app-search-list>
+
+				<ng-container *ngIf="isUpdate">
+					<h5 class="mat-subtitle mb-1 text-start">Status Details</h5>
+					<app-dropdown 
+						[disabled]="participantDetailsForm?.controls['status'].value === 'Onboard Complete'"
+						[labelTop]="true"
+						formControlName="status"
+						[options]="status"
+						>
+					</app-dropdown>
+				</ng-container> -->
+			</div>
+
+			<div class="col-12 col-md-12 mb-3" *ngIf="participantDetailsForm.controls['referred_by_other']?.value">
+				<h5 class="mat-subtitle mb-3 text-start">Participant Representative Details</h5>
+
+				<div class="row">
+					<div class="col-12 col-md-6 col-lg-4">
+						<app-textfield
+							label="First Name" 
+							[labelTop]="true"
+							formControlName="representative_first_name"
+							>
+						</app-textfield>
+
+						<app-textfield
+							label="Last Name" 
+							[labelTop]="true"
+							formControlName="representative_last_name"
+							>
+						</app-textfield>
+
+						<app-textfield
+							label="Relationship to Participant" 
+							[labelTop]="true"
+							formControlName="representative_relationship"
+							>
+						</app-textfield>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4">
+						<!-- <app-textfield
+							label="Street Address" 
+							[labelTop]="true"
+							formControlName="representative_address_a"
+							>
+						</app-textfield> -->
+
+						<app-google-places-input
+							label="Street Address" 
+							[labelTop]="true"
+							formControlName="representative_address_a"
+							(addressChange)="onRepresentativeAddressChange($event)">
+						</app-google-places-input>
+
+						<app-textfield
+							label="Suburb" 
+							[labelTop]="true"
+							formControlName="representative_suburb"
+							>
+						</app-textfield>
+
+						<app-dropdown
+							label="State" 
+							[labelTop]="true"
+							formControlName="representative_state"
+							[options]="stateOption"
+							>
+						</app-dropdown>	
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4">
+						<app-textfield
+							label="Post Code" 
+							[labelTop]="true"
+							formControlName="representative_post_code"
+							>
+						</app-textfield>
+
+						<app-textfield
+							label="Email" 
+							[labelTop]="true"
+							[inputType]="'email'"
+							formControlName="representative_email_address"
+							>
+						</app-textfield>
+
+						<app-textfield
+							label="Phone Number" 
+							[labelTop]="true"
+							[inputType]="'tel'"
+							formControlName="representative_mobile_phone_no"
+							>
+						</app-textfield>
+					</div>
+				</div>
+			</div>
+
+			<!-- <div class="col-12 col-md-12 mb-3">
+				<h5 class="mat-subtitle mb-3 text-start">Emergency Contact Details</h5>
+
+				<div class="row">
+					<app-textfield class="col-12 col-md-6 col-lg-4"
+						label="Emergency Contact Person" 
+						[labelTop]="true"
+						formControlName="emergency_contact_name"
+						>
+					</app-textfield>
+
+					<app-textfield class="col-12 col-md-6 col-lg-4"
+						label="Emergency Contact Number" 
+						[labelTop]="true"
+						[inputType]="'tel'"
+						formControlName="emergency_contact_no"
+						>
+					</app-textfield>
+
+					<app-textfield class="col-12 col-md-6 col-lg-4"
+						label="Emergency Contact Relationship" 
+						[labelTop]="true"
+						formControlName="emergency_contact_relationship"
+						>
+					</app-textfield>
+				</div>
+			</div> -->
+		</div>
+
+		<div class="row" *ngIf="stepper === 2"
+		[@animate]="{value:'*', params:{ x:'-50px'}}">
+			<div class="col-12 col-md-4">
+				<app-search-list id="main_branch" 
+					label="Main Branch" 
+					[labelTop]="true"
+					formControlName="main_branch_id" 
+					placeholder="Select"
+					[options]="branchesEnum" 
+				></app-search-list>
+			</div>
+			<div class="col-12 col-md-4">
+				<ng-container>
+					<h5 class="mat-subtitle mb-1 text-start">Status Details</h5>
+					<app-dropdown 
+						[disabled]="participantDetailsForm?.controls['status'].value === 'Onboard Complete'"
+						[labelTop]="true"
+						formControlName="status"
+						[options]="status"
+						>
+					</app-dropdown>
+				</ng-container>
+			</div>
+		</div>
+	</form>
+	
+	<div class="px-5">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

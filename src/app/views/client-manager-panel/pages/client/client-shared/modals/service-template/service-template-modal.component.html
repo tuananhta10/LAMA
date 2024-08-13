@@ -1,0 +1,52 @@
+<div *ngIf="!loading" class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Service Template</h5>
+		<hr>
+	</div>
+	<form [formGroup]="serviceTemplateForm">
+		<div mat-dialog-content>
+			<app-textfield 
+				label="Assigned To" 
+				[required]="true"
+				[labelTop]="true"
+				formControlName="name">
+			</app-textfield>
+			<app-search-list 
+				label="Main Branch" 
+				formControlName="main_branch_obj" 
+				placeholder="Select"
+				[labelTop]="true"
+				[options]="branchesEnum" 
+				[objectReturn]="true"
+			></app-search-list>
+			<app-textfield 
+				label="Group" 
+				[labelTop]="true"
+				formControlName="group">
+			</app-textfield>
+			<app-date-picker 
+				label="End of Service Date" 
+				[labelTop]="true"
+				formControlName="end_of_service_date">
+			</app-date-picker>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+</div>
+<global-admin-loader 
+    [withSideBar]="false"
+    [fromDetailTab]="true"
+    [loading]="loading"
+    [formOnly]="true">
+</global-admin-loader>

@@ -1,0 +1,72 @@
+{
+    "data": {
+        "careWorkers": {
+            "brokerageNumbers": null,
+            "careWorkers": null,
+            "careWorkersNotToUse": null,
+            "clientNotes": null,
+            "medications": null,
+            "preferredLanguage": {
+                "id": "2", 
+                "value": "Japanese"
+            }
+        },
+        "clientDetail": {
+            "firstName": "Alphonso Gaston",
+            "fundType": {"id": "1", "name": "Mr."},
+            "gender": "Male",
+            "lastName": "Velarde",
+            "mainBranch": {"id": "1", "value": "Philippine Branch"},
+            "pmRequireApproval": {"id": "2", "value": "No"},
+            "preferredCwGender": {"id": "1", "name": "Mr."},
+            "preferredName": "Gaston",
+            "registrationNumber": "1234455",
+            "title": {"id": "1", "name": "Mr."}
+        },
+        "contactDetails": {
+            "address1": "107 bakersfield st. Laguna Bel air",
+            "address2": null,
+            "email": "gaston@moveup.app",
+            "emergencyContactName": "Tess Villar",
+            "emergencyContactNumber": "2244-1124",
+            "fax": null,
+            "homePhone": "5410221",
+            "mobilePhone": "09172847124",
+            "postCode": "4026",
+            "state": "Laguna",
+            "suburb": "Santa Rosa",
+            "workPhone": "5411234"
+        },
+        "demographics": {
+            "age": 23,
+            "background": {"id": "1", "name": "Single"},
+            "citizenship": {"id": "1", "name": "Filipino"},
+            "condition": {"id": "1", "name": "Good"},
+            "conditionDescription": "test",
+            "countryOfBirth": {"id": "1", "value": "Philippines"},
+            "dateOfBirth": null,
+            "familyStatus": {"id": "1", "name": "Single"},
+            "indigenous": {"id": "2", "value": "No"},
+            "placeOfBirth": "Philippines",
+            "preferredName": null,
+            "religion": {"id": "1", "value": "Roman Catholic"}
+        },
+        "onboardingNotes": {
+            "careNotes": "This is test",
+            "careNotesClientProvided": "This is test",
+            "generalNotes": "This is a test",
+            "preferredCareworker": {"id": "1", "name": "Gaston"}
+        },
+        "serviceDetails": {
+            "endOfServiceDate": null,
+            "entryDate": null,
+            "exitDate": null,
+            "lastServiceDate": null,
+            "minimumClassification": null,
+            "program": {"id": "1", "value": "Classification 1"},
+            "riskNotification": "test",
+            "serviceLocation": {"id": "1", "name": "Philippines"},
+            "serviceRequired": {"id": "1", "name": "Care"}
+        }
+    }
+}

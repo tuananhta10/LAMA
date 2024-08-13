@@ -1,0 +1,94 @@
+<div class="row">
+	<div class="col-12 col-md-12">
+		<form [formGroup]="serviceTravelForm">
+			<app-textfield 
+				label="Shift Address" 
+				[inputType]="'text'"
+				[labelTop]="true"
+				formControlName="shift_address">
+			</app-textfield>
+
+			<app-textfield 
+				label="End Shift Address" 
+				[inputType]="'text'"
+				[labelTop]="true"
+				formControlName="end_shift_address">
+			</app-textfield>
+
+			<app-dropdown 
+				label="Charge Travel To Client" 
+				[labelTop]="true"
+				formControlName="charge_travel_to_client"
+				[options]="chargeTravelOption">
+			</app-dropdown>
+
+			<app-textfield 
+				label="Travel Hours" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="travel_hours">
+			</app-textfield>
+
+			<app-textfield 
+				label="Travel Distance" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="travel_distance">
+			</app-textfield>
+
+			<app-textfield 
+				label="Travel Distance Rate" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="travel_distance_rate">
+			</app-textfield>
+
+			<app-textfield 
+				label="Total Travel KM" 
+				[inputType]="'number'"
+				[disabled]="true"
+				[labelTop]="true"
+				formControlName="total_travel_km">
+			</app-textfield>
+
+			<app-textfield 
+				label="Transport Distance" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="transport_distance">
+			</app-textfield>
+
+			<app-textfield 
+				label="Transport Distance Rate" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="transport_distance_rate">
+			</app-textfield>
+
+			<app-textfield 
+				label="Total Transport" 
+				[disabled]="true"
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="total_transport">
+			</app-textfield>
+
+			<app-textfield 
+				label="Travel Time Rate" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="travel_time_rate">
+			</app-textfield>
+
+			<h5 class="ps-4">Shift Notes</h5>
+			
+			<app-textarea 
+				label="Shift Notes" 
+				[labelTop]="true"
+				formControlName="shift_notes">
+			</app-textarea>
+			<!-- <p class="ps-4 text-muted">End of Service Date</p> -->
+
+		</form>
+	</div>
+</div>

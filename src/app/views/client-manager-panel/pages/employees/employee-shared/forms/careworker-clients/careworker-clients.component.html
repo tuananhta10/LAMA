@@ -1,0 +1,118 @@
+<!-- <div *ngIf="!loading" class="row" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}"> -->
+<div class="row" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form *ngIf="!loading" [formGroup]="careWorkersForm">
+			<mat-card>
+				<mat-card-title *ngIf="isUpdate">
+					Current Clients
+					<hr>
+				</mat-card-title>
+				<mat-card-content>
+					<div *ngIf="isUpdate" class="edit-table">
+						<div class="care-workers-table">
+							<app-form-table
+								label='Clients'
+								[columns]="careWorkersColumns"
+								[data]="careWorkersTableData"
+								(addEvent)="openCareWorkerModal($event)"
+								(deleteEvent)="deleteCareWorker($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+
+						<div class="row px-0">
+							<div class="col-sm-6">
+								<app-textarea 
+									label="Comments" 
+									[labelTop]="true"
+									[rows]="6"
+									formControlName="careworker_client_comment">
+								</app-textarea>
+							</div>
+
+							<div class="col-sm-6 pt-4">
+								<app-search-list 
+								label="Preferred language" 
+								[required]="true" 
+								placeholder="Select" 
+								formControlName="preferred_language_id"
+								[options]="languagesEnums" 
+								></app-search-list>
+							</div>
+
+							
+
+							<div class="col-sm-6">
+								<!-- <app-form-table
+									[columns]="languagesColumns"
+									[data]="languagesTableData"
+									[isAddEnabled]="false"
+									[isDeleteEnabled]="true"
+									[isViewMore]="false"
+								></app-form-table> -->
+							</div>
+
+							<!-- <div class="col-sm-6" style="padding-top:3px;">
+								<app-textarea 
+									label="Comments" 
+									[labelTop]="true"
+									[rows]="6"
+									formControlName="comments">
+								</app-textarea>
+							</div> 
+							<div class="col-sm-12">
+								<app-form-table
+									label='Rostering Branch'
+									[columns]="rosteringBranchColumns"
+									[data]="rosteringBranchTableData"
+									(addEvent)="openRosteringBranchModal($event)"
+									[isAddEnabled]="true"
+									[isDeleteEnabled]="true"
+								></app-form-table>
+							</div>-->
+						</div>
+					</div>
+				</mat-card-content>
+				<mat-card-actions>
+					<hr>
+
+					<div>
+						<div class="row">
+							<div *ngIf="!isUpdate" class="col-sm-12 justify-content-end d-flex">
+								<button (click)="back()" mat-button class="btn btn-header-gray">
+									Back
+								</button>
+								
+								<button (click)="next()" 
+								[disabled]="!careWorkersForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Next
+								</button>
+							</div>
+						</div>
+						<div *ngIf="isUpdate" class="row">
+							<div class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+									Back
+								</button>
+							</div>
+							<div class="col-sm-6 justify-content-end d-flex">
+								<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+									Next
+								</button>
+								
+								<button (click)="submit()" 
+								[disabled]="!careWorkersForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card-actions>
+			</mat-card>
+		</form>
+	</div>
+</div>
+<global-admin-loader [loading]="loading"></global-admin-loader>

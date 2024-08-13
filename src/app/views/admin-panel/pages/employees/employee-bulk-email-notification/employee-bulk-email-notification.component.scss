@@ -1,0 +1,174 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+
+:host ::ng-deep{
+	ckeditor{
+
+		border-radius: 20px !important;
+	}
+
+	.cke, .cke_1, #cke_editor1, .cke_inner { 
+		background-color:#fff;
+	    font-family:"Noto Sans" !important;
+	    font-size:12px;
+	    color:#cdcdcd;
+	    border: none;
+	    //border-radius: 20px !important;
+	 } 
+
+	.cke_top{
+		color: white !important;
+		background: #f4f4f4/*#755CA7*/ !important;
+		border-top-right-radius: 7px !important;
+		border-top-left-radius: 7px !important;
+		padding: 15px 20px 10px 20px !important;
+		//background: red !important;
+	}
+
+	.cke_bottom{
+		border: solid 1px #c9c9c9 !important;
+		//background: red !important;
+	}
+
+	.cke_toolbar_end,
+	.cke_toolbar_separator{
+		//margin-left: 0px !Important;
+		//margin-right: 15px !important;
+		display: none !important;
+	}
+
+	.cke_toolbox{
+
+	}
+
+	.cke_toolbar{
+
+	}
+
+	.cke_toolgroup{
+
+	}
+
+	.cke_source{
+		font-family: 'Noto Sans' !important;
+		padding: 5px 0px 15px 10px !important;
+	}
+
+	.cke_button,
+	.cke_combo{
+		background: #fff!important;
+		color: white !important;
+		font-family: 'Noto Sans' !important;
+		margin-right: 6px !important;
+		margin-bottom: 5px !important;
+		border-radius: 3px !important;
+		cursor: pointer !important;
+
+		&:last-child{
+			margin-right: 0 !important;
+		}
+	}
+
+	.cke_button{
+		padding: 5px 6px !important;
+		max-height: 28px;
+
+
+		&:hover{
+			border: none;
+			background: rgba($color-purple, 0.2) !important;
+			//transform: scale(0.9) !important;
+			//transition: all 0.2s ease !important;
+		}
+		//max-width: 28px;
+	}
+
+	.cke_combo{
+		padding: 1px !important;
+		cursor: pointer !important;
+
+		&:hover{
+			border: none;
+			background: rgba($color-purple, 0.2) !important;
+			//transform: scale(0.9) !important;
+			//transition: all 0.2s ease !important;
+		}
+	}
+
+	.cke_contents{
+		border-left: dashed 1px #d9d9d9 !important;
+		border-right: dashed 1px #d9d9d9 !important;
+		padding: 5px 0px 15px 10px !important;
+
+		box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.05) !important;
+		-webkit-box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.05) !important;
+		-moz-box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.05) !important;
+	}
+}
+
+h5{
+	color: $color-gray-dark;
+}
+
+.main-title{
+	font-size: 24px;
+	font-weight: 600;
+	color: $color-gray;
+
+}
+
+.img-title{
+	margin-top: -8px !important;
+}
+
+.btn-primary{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+}
+
+.btn-menu{
+	background: #F0F1F5 !important;
+	border: 1px solid rgba(93, 93, 93, 0.2) !important;
+	box-sizing: border-box !important;
+	border-radius: 8px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+.btn-primary-outline{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+	color: $color-purple;
+	border: solid 1px $color-purple;
+	font-weight: 600;
+}
+
+
+
+
+.btn-header{
+	background: #D0D0D0;
+	color: $color-gray-dark;
+    border-radius: 5px !important;
+    padding: 10px 30px !important;
+
+    &:hover{
+    	background: #c6c6c6 !important;
+    	color: $color-gray-dark !important;
+    }
+}
+
+.badge-employee{
+	margin-right: 10px;
+	padding: 4px 10px;
+	background: rgba(gray, 0.2);
+	border-radius: 5px;
+}

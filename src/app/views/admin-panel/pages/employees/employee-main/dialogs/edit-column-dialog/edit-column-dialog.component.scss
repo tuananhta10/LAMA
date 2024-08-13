@@ -1,0 +1,188 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+ ::ng-deep{
+  .cdk-global-scrollblock {
+     position: initial !important;
+     overflow: hidden !important;
+  }
+}
+
+.dialog-responsive .mat-dialog-container
+{
+    min-height: 70% !important;
+    min-width: 700px !important;
+    width: 720px !important;
+
+    @media (max-width: 768px){
+      min-height: 50%;
+      min-width: 100% !important
+    }
+}
+ 
+.selection-title{
+
+  &-inner{
+    color: $color-gray;
+    font-size: 13px;
+    text-align: left !important;
+  }
+
+  &-outer{
+    color: $color-gray;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left !important;
+  }
+
+  &-mode{
+    color: $color-gray;
+    font-size: 13px !important;
+    float: right;
+    font-weight: 500 !important;
+  }
+}
+
+*.unselectable {
+   -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   /*
+     Introduced in Internet Explorer 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+
+.selection-container {
+  @extend .unselectable;
+  width: 300px;
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px 20px;
+  border: solid 1px #ccc;
+  border-radius: 8px;
+
+  &:first-child{
+    margin: 10px 25px 15px 0;
+  }
+
+  &:last-child{
+    margin: 10px 5px 15px 0;
+  }
+}
+
+.selection-list {
+  min-height: 400px;
+  background: white !important;
+  display: block;
+  height: 400px;
+  overflow: auto !important;
+}
+
+.selection-box {
+  color: $color-gray-dark;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  font-size: 13px;
+  padding: 10px 20px;
+
+  &:active{
+    cursor: url('/assets/images/placeholder/grabbing.png'), auto;
+  }
+  
+  .material-icons{
+    font-size: 13px;
+  }
+
+  &-selected{
+    background: #F3F3F3;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    //background: blue;
+  }
+
+  &-not-selected{
+    background: #F3F3F3;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    //background: green;
+  }
+}
+
+.selection-check{
+  color: $color-gray-dark;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 13px;
+  padding: 10px 20px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.selection-box:last-child {
+  border: none;
+}
+
+.selection-list.cdk-drop-list-dragging .selection-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.btn-header-gray{
+    background: #D0D0D0;
+    color: $color-gray-dark;
+}
+
+.btn-header{
+    border-radius: 5px !important;
+    padding: 7px 30px !important;
+}
+
+
+::ng-deep .mat-checkbox-checked.mat-accent {
+    .mat-checkbox-ripple .mat-ripple-element {
+        background-color: $color-purple !important;
+    }
+
+    .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+        background-color: $color-purple;
+     }
+}
+
+::ng-deep .mat-checkbox.mat-accent {
+    .mat-checkbox-ripple .mat-ripple-element {
+        background-color: $color-purple !important;
+    }
+}

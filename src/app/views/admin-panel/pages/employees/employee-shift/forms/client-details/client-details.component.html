@@ -1,0 +1,33 @@
+<div>
+    <form [formGroup]="clientDetailForm">
+        <div>
+            <app-textfield 
+                label="Tasks associated to shift"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="task_associated_to_shift">
+            </app-textfield>
+    
+            <app-textfield 
+                label="Create task"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="create_task">
+            </app-textfield>
+    
+            <app-textfield 
+                label="Completed tasks"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="completed_task">
+            </app-textfield>
+
+            <app-textfield 
+                label="Total tasks"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="total_task">
+            </app-textfield>
+        </div>
+    </form>    
+</div>

@@ -1,0 +1,178 @@
+<div  mat-dialog-content>
+    <div class="row" >
+        <section class="col-12 col-md-6">
+            <form [formGroup]="serviceDetailsForm">
+                <h5 class="mat-subtitle">Service Schedule Details</h5>
+
+                <!-- <app-textfield  *ngIf="data"
+                    label="Status"
+                    [labelTop]="true"
+                    [disabled]="true"
+                    [readonly]="true"
+                    formControlName="status">
+                </app-textfield> -->
+
+                <app-textarea
+                    label="Support Item"
+                    [labelTop]="true"
+                    [disabled]="true"
+                    [readonly]="true"
+                    formControlName="service_type_support_item_name">
+                </app-textarea>
+
+                <div class="schedule-details mb-3" >
+                    <hr>
+
+                    <h5 class="mat-subtitle">Calendar Schedule: </h5>
+                    <div class=" ms-4">
+                        <div class="d-flex">
+                            <p class="mb-0" style="width: 100px; font-weight: 500;">
+                                Start Date:
+                            </p> 
+
+                            <p class="w-100 mb-0">
+                                {{ convertToDate(data?.client_service_schedule_start_date) | date: 'MMM d, y'}}, 
+                                {{ convertTo12Hrs(data?.client_service_schedule_start_time) }}
+                            </p>
+                        </div>
+
+                        <div class="d-flex">
+                            <p class="mb-0" style="width: 100px; font-weight: 500;">
+                                End Date:
+                            </p> 
+
+                            <p class="w-100 mb-0">
+                                {{ convertToDate(data?.client_service_schedule_end_date) | date: 'MMM d, y'}}, 
+                                {{ convertTo12Hrs(data?.client_service_schedule_end_time) }}
+                            </p>
+                        </div>
+
+                        <hr>
+                    </div>
+
+                    <div class="ms-1 mt-2 ms-4 pe-3">
+                        <p class="mb-3">
+                            <img src="/assets/images/icons/schedule.png" width="15px;" class="me-2">
+                            Total Hours: {{data?.client_service_schedule_total_hours}} hr/s
+                        </p>
+                        <p>
+                            <img src="/assets/images/icons/activity.png" width="20px;" class="me-2">
+                            Activity: {{data?.client_service_schedule_activity}}<br>
+                        </p>
+                        
+                        <p>
+                            <img src="/assets/images/icons/travel.png" width="20px;" class="me-2">
+                            Total Travel KM: {{data?.client_service_schedule_total_travel_km}}<br>
+                        </p>
+
+                        <p *ngIf="data?.total_transport !== 0">
+                            <img src="/assets/images/icons/transport.png" width="20px;" class="me-2">
+                            Total Transport: {{data?.client_service_schedule_total_transport}}<br>
+                        </p>
+                    </div>
+                </div> 
+            </form>
+
+            <form [formGroup]="timesheetDetailsForm" *ngIf="!serviceTypeLoading">
+                <app-textfield 
+                    label="Client Total"
+                    [labelTop]="true"
+                    [disabled]="true"
+                    [readonly]="true"
+                    formControlName="client_total">
+                </app-textfield>
+            </form>
+        </section>
+
+        <form class="col-12 col-md-6" [formGroup]="timesheetDetailsForm" *ngIf="!serviceTypeLoading">
+            <h5 class="mat-subtitle">Timesheet Details</h5>
+
+            <app-textfield
+                label="Employee"
+                [disabled]="true"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="employee_name">
+            </app-textfield>
+    
+            <!-- <app-textarea 
+                label="Support Item"
+                [disabled]="isReadOnly"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="service_schedule">
+            </app-textarea> -->
+    
+            <h5 class="mat-subtitle">Approval</h5>
+
+            <app-radio-button 
+                label="Approved"
+                [required]="true"
+                [disabled]="true"
+                [labelTop]="true"
+                formControlName="approved"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            <app-radio-button 
+                label="Paid"
+                [required]="true"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="paid"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            <app-textfield 
+                label="Batch Number"
+                [labelTop]="true"
+                [disabled]="true"
+                [readonly]="true"
+                formControlName="batch_number">
+            </app-textfield>
+
+            <app-textfield 
+                label="Employee Total"
+                [labelTop]="true"
+                [disabled]="true"
+                [readonly]="true"
+                formControlName="approved_total">
+            </app-textfield>
+        </form>
+
+        <form class="col-12 row" [formGroup]="serviceDetailsForm" *ngIf="data
+        && (serviceDetailsForm?.controls['support_worker_case_notes'].value || serviceDetailsForm?.controls['support_coordinator_case_notes'].value ||
+        serviceDetailsForm?.controls['service_facilitator_case_notes'].value)">
+            <hr>
+            <h5 class="mat-subtitle ms-md-2">Case Notes</h5>
+
+            <div class="col-12 col-md-12">
+
+                <label *ngIf="serviceDetailsForm?.controls['support_worker_case_notes'].value" class="label-text mt-10">Support Worker Case Notes</label>
+                <div *ngIf="serviceDetailsForm?.controls['support_worker_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                    <quill-editor formControlName="support_worker_case_notes"></quill-editor>
+                </div>
+
+                <label *ngIf="serviceDetailsForm?.controls['support_coordinator_case_notes'].value" class="label-text">Support Coordinator Case Notes</label>
+                <div *ngIf="serviceDetailsForm?.controls['support_coordinator_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                    <quill-editor formControlName="support_coordinator_case_notes"></quill-editor>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-12">
+                <label *ngIf="serviceDetailsForm?.controls['service_facilitator_case_notes'].value" class="label-text">Service Facilitator Case Notes</label>
+                <div *ngIf="serviceDetailsForm?.controls['service_facilitator_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                    <quill-editor formControlName="service_facilitator_case_notes"></quill-editor>
+                </div>
+            </div>
+        </form>
+    </div>    
+
+     <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="serviceTypeLoading"
+        [formOnly]="true">
+    </global-admin-loader>
+</div>

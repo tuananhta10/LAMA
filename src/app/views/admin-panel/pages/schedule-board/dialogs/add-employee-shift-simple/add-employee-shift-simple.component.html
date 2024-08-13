@@ -1,0 +1,71 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data?.schedule; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Service Schedule
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+			<!-- <span class="float-end">
+				<select class="form-select" [(ngModel)]="stepperSelector" 
+				(ngModelChange)="updateStepper($event)">
+				  	<option *ngFor="let step of steps; let i = index" [value]="i + 1">
+				  		{{step?.stepLabel}}
+				  	</option>
+				</select>
+			</span> -->
+		</h5>
+		<hr>
+	</div>
+	
+	<div class="d-flex overflow-x-lg" mat-dialog-content>
+		<div class="row">
+			<div class="col-12 col-md-12" style="min-width: 790px; max-width: 790px; ">
+				<app-service-details-simple 
+				*ngIf="formStep === 1" 
+				[data]="data"
+				(getSelectedClientFunding)="getSelectedClientFunding($event)"
+				(selectedPricelistDetails)="getPricelistSelected($event)"
+				(group_service_schedule_client)="getGroupClients($event)"
+				(setPlanExpired)="setPlanExpired($event)"
+				[serviceScheduleForm]="serviceScheduleForm">
+				</app-service-details-simple>
+			</div>
+		</div>
+
+		<!--  *ngIf="serviceScheduleForm.controls['shift_rate'].value" -->
+		
+		<div class="row">
+			<div class="col-12 col-md-12" style="min-width: 400px; max-width: 400px;">
+				<app-assign-employee-form 
+				[data]="serviceScheduleForm.value"
+				[serviceScheduleForm]="serviceScheduleForm"
+				[recurring_every]="serviceScheduleForm.controls['recurring_every'].value"
+				(employeeSelected)="getEmployeeSelected($event)"
+				*ngIf="formStep === 1" >
+				</app-assign-employee-form>
+			</div>
+		</div>
+	</div>
+
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="dialogRef.close()" 
+			class="btn btn-header-gray btn-header me-3">Back</button>
+
+			<button mat-button *ngIf="data?.grouping !== 'Group'"
+			(click)="checkRecurringAvailability()"
+			[disabled]="!serviceScheduleForm.valid || serviceScheduleForm.controls['total_hours'].value === 0 
+			|| !serviceScheduleForm.controls['total_hours'].value || isPlanExpired"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+
+			<button mat-button *ngIf="data?.grouping === 'Group'"
+			(click)="checkRecurringAvailability()"
+			[disabled]="serviceScheduleForm.controls['total_hours'].value === 0 
+			|| !serviceScheduleForm.controls['total_hours'].value"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+		</div>
+	</div>
+</div>

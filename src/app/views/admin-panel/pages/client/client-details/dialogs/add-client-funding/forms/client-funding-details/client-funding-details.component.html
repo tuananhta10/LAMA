@@ -1,0 +1,153 @@
+	<div mat-dialog-content *ngIf="stepper === 1 || stepper === 3  && versionList"
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<form *ngIf ="!clientLoading && !fundingSourceLoading && !priceListLoading" 
+		[formGroup]="partnerDetailsForm" style="min-width: 700px;">
+			<h5 class="mat-subtitle mt-2"*ngIf="stepper === 1" >Funding Details</h5>
+			
+			<div class="row">
+				<ng-container *ngIf="stepper === 1">
+					<section class="col-12 row" 
+					[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+						<div class="col-12 col-md-6 ps-1">
+							<app-dropdown 
+								[readonly]="isDisabled"
+								label="Type" 
+								[labelTop]="true"
+								formControlName="funding_type"
+								[required]="true"
+								[options]="type">
+							</app-dropdown>
+
+							<app-search-list 
+								[readonly]="isDisabled"
+								label="Participant" 
+								[required]="true"
+								[labelTop]="true"
+								formControlName="client_id" 
+								[objectReturn]="true"
+								[options]="clients"
+								[newOption]="true"
+								[newOptionLabel]="'Participants'"
+								[newOptionRoute]="'/admin/clients'">
+							</app-search-list>
+
+							<app-search-list 
+								[readonly]="isDisabled"
+								label="Funding Source" 
+								[labelTop]="true"
+								[isTextArea]="true"
+								formControlName="funding_source_id" 
+								[required]="true"
+								[rows]="1"
+								[options]="fundingSource"
+								[newOption]="true"
+								[newOptionLabel]="'Funding Source'"
+								[newOptionRoute]="'/admin/setup/funding-source'">
+							</app-search-list>
+
+							<app-dropdown 
+								[readonly]="isDisabled"
+								label="Main Branch" 
+								[labelTop]="true"
+								[required]="true"
+								[fromObjectOptions]="true"
+								formControlName="main_branch_id" 
+								[options]="branchEnums">
+							</app-dropdown>
+						</div>
+						<div class="col-12 col-md-6 ps-1">
+							<app-dropdown
+								[readonly]="isDisabled"
+								label="Service Location"
+								[labelTop]="true"
+								[required]="true"
+								formControlName="service_location"
+								(keyevents)="setPricelist($event)"
+								[options]="serviceLocation">
+							</app-dropdown>
+							
+							<h5 style="margin-top: 32px;" *ngIf="versionList?.length == 0">No Version found in this Service Location</h5>
+							<app-dropdown *ngIf="versionList?.length > 0" class="dropdown-half"
+								[readonly]="isDisabled"
+								label="Select Price List"	
+								[labelTop]="true"
+								[required]="false"
+								formControlName="version_items"
+								(keyevents)="setValuePriceList($event)"
+								[options]="versionList">
+							</app-dropdown>
+
+
+							<app-textfield 
+								[readonly]="isDisabled"
+								label="Registration Number" 
+								[labelTop]="true"
+								formControlName="registration_no">
+							</app-textfield>
+
+							<app-textfield 
+								[readonly]="isDisabled"
+								label="Invoice To" 
+								[labelTop]="true"
+								formControlName="invoice_to">
+							</app-textfield>
+						</div>
+					</section>
+				</ng-container>
+
+				<div class="col-12 px-1 pt-2" *ngIf="stepper === 3">
+
+					<div class="d-flex"
+					[ngClass]="linkSupport ? 'opacity-true' : 'opacity-zero'">
+					
+
+					<app-dropdown class="dropdown-half"
+						[readonly]="isDisabled"
+						label="Select Price List"	
+						[labelTop]="true"
+						[required]="false"
+						formControlName="version_items"
+						(keyevents)="setValuePriceList($event)"
+						[options]="versionList">
+					</app-dropdown>
+					
+					<mat-spinner style="margin-top: 24px;"  diameter="30" *ngIf="loading && partnerDetailsForm.get('version_items').value"></mat-spinner>
+					<h5 style="margin-top: 32px;" *ngIf="!loading && priceListSelected.length == 0 && partnerDetailsForm.get('version_items').value ">No Support Items found in this Version</h5>
+					<app-search-list *ngIf="!loading && priceListSelected.length > 0 " style="width: 400px !important; height: 30px !important;"
+						label="Select Support Items"
+						[labelTop]="true"
+						[options]="priceListSelected"
+						[isTextArea]="true"
+						[objectReturn]="true" 
+						[rows]="1"
+						formControlName="support_items">
+					</app-search-list>
+
+						<button class="btn btn-link btn-primary"
+						(click)="addSupportItem()"
+						*ngIf="partnerDetailsForm.get('support_items').value">Include Support Item</button>
+					</div>
+					
+					<section style="padding: 0 35px !important;" 
+					*ngIf="!fundingSourceLoading && data?.id">
+						<app-form-table 
+							(addEvent)="openLinkSupportItemData($event)"
+							[isAddEnabled]="!linkSupport ? true : false"
+							[columns]="supportItem"
+							[data]="supportItemData"
+							(deleteEvent)="deleteSupportItem($event)"
+							[isDeleteEnabled]="true"
+							label="Support Items"
+						></app-form-table>
+					</section>
+
+					<section style="padding: 0 35px !important; min-height: 300px;" 
+					*ngIf="!fundingSourceLoading && !data?.id">
+						<h5>You have to save record first before linking a support item or service to this funding.</h5>
+					</section>
+				</div>
+
+				
+			</div>
+		</form>
+	</div>

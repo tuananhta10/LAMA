@@ -1,0 +1,189 @@
+@import "src/scss/colors";
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #BDBDBD;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #BDBDBD;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #BDBDBD;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #BDBDBD;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #BDBDBD;
+}
+::placeholder { /* Most modern browsers support this now. */
+   color:    #BDBDBD;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator{
+    font-size: 18px;
+    color: $color-purple;
+    cursor: pointer;
+    filter: invert(77%) sepia(68%) saturate(6849%) hue-rotate(220deg) brightness(107%) contrast(95%);
+    //background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAEr0lEQVR4nO2af2hVZRjHP88550I/zNrCiLaUpBYkJYYWNmtFUU3UchPJzGGJs1oRhRDDJkWaYLAERdugZG70hwyj1BY0Y6VWWCEUEqbVH1v900hI/8ndc57+uLvRLtvded9zzr2i5wOXcc7e9/k+93mf57nnPedASkpKSsqli5TbgZkv6fTsCFsR6oDrLc2cVej3Alp/2yUnTSaWNQA3Pae3InwNVMRiUPjLdZh9ersMhZ3ixSJsiSdsUaUC6HOUtb6DI0o3UCfQdWqXrA5j5+YXtZosnSj1BLQDy8P64Ni5Hg+uz4NeAIzQ/PO78vsvO2XQ8XnWC8ANeDSsndPbZegyYZ0XgBfwiIkPViUwa50uJuAVhHnAlTY2QqAnOsVogWY1qwKc6JTQ38u4BO5Yq2/h0wqAms42wnhx3MBcxCgAd67RxRrQCpwXaFOl5/j78oe5bHHmrFGr0LoWs4wC4ObSHhE2HntPtprLhXTKMrNs5pkGYC4CrkM3wN2rdaEoHQjV5tJFsEhlKEEJuDAFhaOjaZ9ROhSqE+4FoSlFCYzBCXIr/2V3+K4bhvtWWfaApDOgsMZsa9VUJ8l5kTLAJuI2OknOMwuAFj+OC1u7ifeAtATSEih+nGfDYT2KcE9Is0c2L5B7w9htXK6Po6xSUFW6P+yVj8LMK0YiGVDph/7yAAsm0wFY3qgt6rPjf6caly3Tlt5e2TmZP8Uw2m15OrbOCo/zVI6YfSbTWdmgta7yTv68B695imYCtq1s0NrJ/Cn6nUwGhy2Ba7NmToyjcxa46skGnRFkGRFlrwuZ/P979snmp5bqNcB6YO8TS3Se45Fxcv78baKVTAlEDYDPAYQVLvyAAAFTgQHg/vyYoTO0zria9cANrvATfm77rHDARCuRDKjMcoRxansCDheeuMKn5R+XCsjdFVL4zHdZ4fkM58cMDEj2mSX/OTB19G9f4NASUhcwvQ4Iih/nuW3p2K5uyq6Dcgaof7pep0mGzO6Pc5uv5kVjI57XH/G5LuOhnftluNDWZFyQV4J5dvfJn2H0OwvGmZBIAF5YaLab2/FJuN1kEguQSAlMdD4qYfWNbJoMDrsC2z6N9/6Aqb4JF+ReoJT6iWRA60N2d3QK2dI/NpPKngFpDwi5Am9+frH2gBJfB5RCP22CRoNLdEuslPppBhg5cKn3gHFScAio3jE/nt/9SVFAGJzIHxuiPRpTmkXpAG6M7kooBsWheSJ/bIhUAs9/I33A9Ohu2FH2n8Fy0jVfq7Lj3FA1JVIPKCd6nqY4XnGLVALloGu2VrkeTSivx2HPqgQ+mKN1orwKzAWmxeGIEX58puwyQBmIzwVjhoHvRXlbhf6oxmy3w+cF2hyPnseOx/+WWFj23R69Jq0yQISNS35M7i2xsJRtO+z57IkuHZ04AmD2cDTgnBeAE5T/Nfv9NVo1+m6w0bPAQowC4CrfugoiNEURjYPLHZrc3NPg76LYMWuCPu0qPAC8cahG8YU9D58sbRM8VKNVAk0Eo9cBSnsUe8ap/MUtugnYEEU0RjbVnZK2KAasavmrmbpIhZeBu4ApURyw4BxwDKW99lc5WGLtlJSUlJSLin8BxSm4QhC/BVoAAAAASUVORK5CYII=");
+}
+
+:host ::ng-deep {
+    .timepicker__body{
+        position: relative !important;
+    }
+
+    .timepicker-period__warning{
+        position: absolute !important;
+        left: 0 !important;
+    }
+}
+
+.text-input {
+    position: relative;
+    margin-bottom: 25px;
+
+    .label-top{
+        //margin-left: -20px !important;
+        font-weight: 500;
+        padding-left: 25px;
+        font-size: 13px;
+        //width: 160px;
+        text-align: left;
+    }
+
+    .time-counter {
+        position: absolute;
+        right: 7px;
+        top: 55%;
+        transform: translateY(-55%);
+        -moz-transform: translateY(-55%);
+        -o-transform: translateY(-55%);
+        -webkit-transform: translateY(-55%);
+    }
+
+    button {
+        background-color: transparent;
+        border: none;
+        display: block;
+        height: 8px;
+        padding: 0px 0px 0px 0px;
+        width: 10px;
+        &.time-up {
+            background-image: url('/assets/images/employee/arrow-up.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+        }
+        &.time-down {
+            background-image: url('/assets/images/employee/arrow-down.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+        }
+    }
+    
+    p {
+        text-align: right;
+        margin-bottom: 0px;
+        font-weight: 500;
+        color: $color-gray;
+    }
+
+    .error-msg {
+        margin-top:5px;
+        text-align: left !important;
+        color:#E01515;
+        font-size: 10px;
+    }
+
+    .error {
+        border: 1px solid #E01515;
+    }
+
+    .asterisk-required {
+        margin-left: 4px;
+        color: #FF0000 !important;
+    }
+
+    .remove-border-left-radius{
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .disabled{
+        background: #F3F3F3 !important;
+        //background: red !important;
+        color: #BDBDBD !important;
+    }
+
+    input {
+        cursor: pointer;
+        height: 28px;
+        border-radius: 5px;
+        border: 1px solid #BDBDBD;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        padding-left: 5px;
+        width: 100%;
+
+        &:focus {
+            outline: 1px solid $color-purple;
+        }
+    }
+
+    input:focus {
+        outline: 1px solid $color-purple;
+    }
+
+    .container{
+        &-label{
+            width: 150px;
+            text-align: right;
+            font-weight: 500;
+            color: #595959;
+        }
+
+        &-input{
+            width: 55%;
+
+            .mat-icon{
+                vertical-align: center;
+                background: #D0D0D0;
+                color: #4D4D4D;
+                font-size: 19px;
+                height: 28px;
+                width: 32px;
+                padding: 5px 10px 0px 7px;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            .img-container{
+                background: #D0D0D0;
+                color: #4D4D4D;
+                padding: 3px 6px 3px 8px;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+                vertical-align: center;
+                img{
+                    width: 18px;
+                }
+            }
+        }
+    }
+
+    .container-info{
+        .img-info-container{
+            img{
+                margin-left: 13px;
+                margin-top: 6px;
+                width: 16px;
+                cursor: pointer;
+            }
+        }
+    }
+}

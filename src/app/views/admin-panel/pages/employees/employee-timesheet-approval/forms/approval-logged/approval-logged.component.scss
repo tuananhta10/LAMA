@@ -1,0 +1,14 @@
+@import "src/scss/colors";
+
+.mat-subtitle{
+    padding-left: 26px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-gray;
+}
+
+.time-logged{
+    @media (min-width: 1300px){
+        margin-top: -20px !important;
+    }
+}

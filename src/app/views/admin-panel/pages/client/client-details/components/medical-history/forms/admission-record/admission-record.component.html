@@ -1,0 +1,167 @@
+<div>
+	<form class="row" [formGroup]="admissionRecord">
+		<div class="col-12 col-md-4">
+		
+			<h5 class="ps-4">Referring Doctor</h5>
+			
+			<app-textfield 
+				label="Medical Record No" 
+				[labelTop]="true"
+				formControlName="medical_record_no">
+			</app-textfield>
+
+			<app-textfield 
+				label="Referring Doctor" 
+				[labelTop]="true"
+				formControlName="referring_doctor">
+			</app-textfield>
+
+			<app-textfield 
+				label="Referring Doctor Address" 
+				[labelTop]="true"
+				formControlName="referring_doctor_address">
+			</app-textfield>
+
+			<app-textfield 
+				label="Referring Doctor Phone" 
+				[labelTop]="true"
+				formControlName="referring_doctor_phone">
+			</app-textfield>
+
+			<app-textarea 
+				label="Medical Info / Bl.Presure / Pulse" 
+				[labelTop]="true"
+				formControlName="medical_info">
+			</app-textarea>
+
+			<app-textarea 
+				label="Admitted From other Facility" 
+				[labelTop]="true"
+				formControlName="admitted_from">
+			</app-textarea>
+
+			<app-textarea 
+				label="Reason for Admission" 
+				[labelTop]="true"
+				formControlName="reason_for_admission">
+			</app-textarea>
+
+		</div>
+
+		<div class="col-12 col-md-4">
+			<h5 class="ps-4">Admission Info</h5>
+
+			<app-textarea 
+				label="Diagnosis Mental" 
+				[labelTop]="true"
+				formControlName="diagnosis_mental">
+			</app-textarea> 
+
+			<app-textarea 
+				label="Allergies Comments" 
+				[labelTop]="true"
+				formControlName="allergies_comments">
+			</app-textarea>
+
+			<app-textarea 
+				label="Kidney Comments" 
+				[labelTop]="true"
+				formControlName="kidney_comments">
+			</app-textarea>
+
+			<app-textarea 
+				label="Muscular / Skeletal Comments" 
+				[labelTop]="true"
+				formControlName="muscular_skeletal_comments">
+			</app-textarea>
+
+			<app-textarea 
+				label="Drinking / Smoking Comments" 
+				[labelTop]="true"
+				formControlName="drinking_smoking_comments">
+			</app-textarea>
+
+			<app-date-picker 
+				label="Flu Vaccination" 
+				[labelTop]="true"
+				formControlName="flu_vaccination">
+			</app-date-picker>
+		</div>
+
+		<div class="col-12 col-md-4">
+			<h5 class="ps-4">Admission Summary</h5>
+			
+			<app-radio-button 
+				label="Adverse Effects Antibiotics" 
+				formControlName="adverse_effects_antibiotics" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-radio-button 
+				label="Adverse Effects Other Drugs" 
+				formControlName="adverse_effects_other_drugs" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-radio-button 
+				label="Pulmonary Embolus" 
+				formControlName="pulmonary_embulus" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-radio-button 
+				label="Deep Venous Trombosis" 
+				formControlName="deep_venous_trombosis" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-radio-button 
+				label="Bed Sores" 
+				formControlName="bed_sores" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-radio-button 
+				label="Wound Haemorr / Haematoma" 
+				formControlName="haematoma" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-radio-button 
+				label="Wound Infection" 
+				formControlName="wound_infection" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-radio-button 
+				label="Urinary Tract Infection" 
+				formControlName="urinary_track_infection" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-radio-button 
+				label="Blood Transfusion Reaction" 
+				formControlName="blood_transfusion_reaction" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button> 
+		</div>
+	</form>
+</div>

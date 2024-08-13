@@ -1,0 +1,244 @@
+
+<!-- Different Navbar for logged in user -->
+<nav class="navbar navbar-expand-lg navbar-loggedin pt-3" 
+*ngIf="loggedInAdmin && !location.match('/signin') && !location.match('/signup')"
+[@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+  
+  <div class="container-fluid py-3 pt-2"
+    [ngClass]="location.match('/staff/dashboard') 
+    || location.match('/staff/profile') 
+    || location.match('/staff/profile') 
+    || location.match('/staff/jobs') 
+    || location.match('/staff/payroll') 
+    || location.match('/staff/documents') 
+    || location.match('/staff/dependents') 
+    ? 'pb-md-2' : 'pb-md-0'">
+<!-- 
+    <img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+    <img src="/assets/images/placeholder/banner-dots-right.png" class="img-fluid banner-dots-right">
+    <img src="/assets/images/placeholder/banner-eclipse-left.png" class="img-fluid banner-eclipse-right"> -->
+
+    <a class="navbar-brand" routerLink="/staff/dashboard" >
+      <img src="/assets/images/placeholder/logo-placeholder-2.png" class="nav-logo">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLoggedAdmin" aria-controls="navbarLoggedAdmin" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="material-icons">menu</span>
+    </button>
+
+    <!-- ICON LIST AND NAVIGATOR -->
+    <div class="navbar-collapse collapse text-white"  id="navbarLoggedAdmin">
+      <!-- ICONS me-lg-auto-->
+      <ul class="nav-profile d-lg-flex d-none" style="margin-left: 165px !important;"
+      [ngClass]="location.match('/staff/dashboard') 
+      || location.match('/staff/profile')
+      || location.match('/staff/profile') 
+      || location.match('/staff/jobs') 
+      || location.match('/staff/payroll') 
+      || location.match('/staff/documents') 
+      || location.match('/staff/dependents')  ? 'reduce-margin-top-2' : 'reduce-margin-top-3'">
+        <li class="nav-item me-md-2 me-lg-0">
+          <div class="search-div">
+            <div class="input-group">
+              <img src="/assets/images/icons/search.png">
+              
+              <input type="text" class="form-control" placeholder="Looking for Something?" aria-label="Search" 
+              [(ngModel)]="searchGlobal" (keyup.enter)="globalSearchRoute()">
+            </div>
+          </div>
+        </li>
+
+        
+      </ul>
+
+      <ul class="navbar-nav me-auto navbar-module px-3 mt-4 mt-lg-0 d-none d-lg-inline"></ul>
+
+      <!-- ICONS me-lg-auto-->
+      <ul class="me-3 nav-profile d-lg-flex navbar-module"
+      [ngClass]="location.match('/staff/dashboard') 
+      || location.match('/staff/profile')
+      || location.match('/staff/profile') 
+      || location.match('/staff/jobs') 
+      || location.match('/staff/payroll') 
+      || location.match('/staff/documents') 
+      || location.match('/staff/dependents')  ? 'reduce-margin-top' : 'reduce-margin-top-4'">
+        <li *ngFor="let acc of access; let i = index" 
+        class="nav-item mt-md-2 mt-3 d-flex" 
+        (click)="navigateToLink(acc?.submenus, acc?.route)">
+
+          <div *ngIf="checkAccess(acc.access)" class="text-center d-flex d-lg-block" 
+          [ngClass]="location.match(acc?.route) ? 'nav-link-active' : ''"
+          [id]="acc.route" role="button" 
+          data-bs-toggle="dropdown" 
+          aria-haspopup="true" 
+          aria-expanded="false">
+            <!-- NOT ACTIVE ROUTE -->
+            <img class="img img-fluid navbar-nav-icon flex-wrap" 
+            *ngIf="!location.match(acc?.route) && acc.icon"
+            [ngClass]="acc.name.toLowerCase()"
+            [src]="acc.icon">
+
+            <!-- ACTIVE ROUTE IMAGE -->
+            <img class="img img-fluid navbar-nav-icon flex-wrap"
+            *ngIf="location.match(acc?.route) && acc.icon" 
+            [ngClass]="acc.name.toLowerCase()"
+            [src]="acc.icon_active">
+
+            <a class="nav-link flex-wrap" [ngClass]="!acc?.icon ? 'py-3 increase-font-size hvr-grow' : ''"
+            (click)="navigateToLink(acc?.submenus, acc?.route)">{{acc.name}}</a>
+
+            <div class="d-none d-lg-block" 
+            [ngClass]="location.match(acc?.route) ? 'nav-link-border-bottom' : ''"></div>
+          </div>
+
+          <!-- SUBMENU -->
+          <div class="dropdown-menu dropdown-menu-header" 
+          *ngIf="acc?.submenus?.length > 0"
+          id="dropdown-submenu"
+          [attr.aria-labelledby]="acc.route"> 
+            <ng-container *ngFor="let submenu of acc?.submenus">
+              <a class="dropdown-item" 
+              *ngIf="submenu?.name !== 'Search' && checkAccess(submenu.access);"
+              [ngClass]="[
+                location === submenu?.route ? 'submenu-active': '',
+                searchBy && !submenu.name.toLowerCase().includes(searchBy.toLowerCase()) 
+                ? 'd-none' : 'd-block'
+              ]"
+              [routerLink]="submenu?.route">{{submenu?.name}}</a>
+            </ng-container>
+
+            <!-- <ng-template #showSearch>
+              <div class="search-div-dropdown float-sm-end me-1 mb-1">
+                <div class="input-group">
+                  <img src="/assets/images/icons/search.png">
+                  
+                  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+                  [(ngModel)]="searchBy" (ngModelChange)="searchLink()">
+                </div>
+              </div>
+
+            </ng-template> -->
+          </div>
+        </li>
+
+        <li class="nav-item mt-lg-0 mt-3 d-none d-lg-inline">
+          <a class="nav-link px-md-3 px-lg-3" >
+            <img src="/assets/images/icons/separator.png" class="nav-profile-separator">
+          </a>
+        </li>
+
+        <li class="nav-item nav-item-no-hover"  *ngIf="!loggedInAdmin">
+          <a class="nav-link" routerLink="/admin/signin">Admin</a>
+        </li>
+
+        <li class="nav-item dropdown mt-3 mt-lg-0 " *ngIf="loggedInAdmin" style="width:186px;">
+          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="me-5 d-none d-lg-flex" style="position: relative; margin-right: 100px !important;">
+              <img src="/assets/images/icons/user-placeholder-2.png" class="nav-profile-photo" style="z-index: 9999;">
+              <div class="lama-logo ms-2 me-5 mt-2">
+                <span class="lama-text">
+                  <img src="/assets/images/placeholder/lama-logo-white.png"> 
+                  <!-- <img src="/assets/images/placeholder/llama.png"> --></span>
+              </div>
+            </div>
+
+            <div class="d-flex d-inline d-lg-none">
+              <img src="/assets/images/icons/user-placeholder-2.png" class="dropdown-profile-photo flex-wrap">
+              <span class="dropdown-profile-text text-capitalize flex-wrap"> 
+                {{loggedUser?.first_name}}  {{loggedUser?.last_name}} 
+                <br>
+                <span class="role text-capitalize">{{loggedUser.system_role}} | {{loggedUser?.organization_input}}</span>
+              </span>
+              
+            </div>
+          </a>
+
+          <!-- (click)="navigateToProfile()" -->
+          <div class="dropdown-menu dropdown-menu-profile" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item myDropdownLink dropdown-profile" 
+            (click)="navigateToProfile()" 
+            [ngClass]="location === '/staff/profile' ? 'submenu-active': ''">
+              <div class="d-flex">
+                <img src="/assets/images/icons/user-placeholder-2.png" class="dropdown-profile-photo flex-wrap">
+                <span class="dropdown-profile-text text-capitalize flex-wrap"> 
+                  {{loggedUser?.first_name}} {{loggedUser?.last_name}} 
+                  <br>
+                  <span class="role text-capitalize">{{loggedUser?.system_role}}</span>
+                </span>
+                
+              </div>
+            </a>
+
+            <a class="dropdown-item myDropdownLink" 
+            [ngClass]="location.match('/staff/employees/edit')? 'submenu-active': ''"
+            routerLink="/staff/employees/edit/{{loggedUser?.id}}">Edit Profile</a>
+
+            <a class="dropdown-item myDropdownLink" 
+            [ngClass]="location === '/staff/dashboard' ? 'submenu-active': ''"
+            routerLink="/staff/dashboard">Dashboard</a>
+
+            <!-- <a class="dropdown-item myDropdownLink" (click)="navigateToEmployeePortal()">Employee Portal</a>
+             -->
+            <a class="dropdown-item myDropdownLink" (click)="adminLogout()">Logout</a>
+          </div>
+        </li> 
+
+        <!-- HELP -->
+        <li class="nav-item mt-0 nav-help nav-profile-icon-container">
+          <a class="nav-link" href="#" id="help-header" role="button" 
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="/assets/images/icons/help-gray.png" class="nav-profile-icon">
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-help" aria-labelledby="help-header"
+          id="help-header-menu">
+            <section class="help-header-container">
+              <!-- HELP CENTER -->
+              <a class="dropdown-item">
+                <div class="d-inline py-3">
+                  <div class="float-start">
+                    <span class="help-title-main">Help</span>
+                  </div>
+
+                  <div class="float-end">
+                    <a routerLink="/staff/dashboard" class="help-link">Visit Help Center</a>
+                  </div>
+                </div>
+              </a>
+              <!-- SEARCH -->
+              <a class="dropdown-item">
+                <div class="search-div">
+                  <div class="input-group">
+                    <img src="/assets/images/icons/search.png">
+                    
+                    <input type="text" class="form-control" placeholder="What do you need help with?" aria-label="Search" 
+                    [(ngModel)]="search" (ngModelChange)="searchDataSource()">
+                  </div>
+                </div>
+              </a>
+
+              <a class="dropdown-item">
+                <div class="help-details d-flex" *ngFor="let item of helpFaqs">
+                  <div class="help-icon" [ngClass]="item?.id">
+                    <img [src]="item?.icon">
+                  </div>
+
+                  <div class="help-data">
+                    <h5 class="help-title">{{item?.title}}</h5>
+                    <p class="help-description">{{item?.description}}</p>
+                  </div>
+
+                  <div class="help-navigate">
+                    <img src="/assets/images/icons/caret-right.png" width="7px">
+                  </div>
+                </div>
+              </a>
+            </section>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+

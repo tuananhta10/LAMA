@@ -1,0 +1,101 @@
+/* PURPLE SHADES 
+$color-purple: #8C7FF9;
+$color-purple-hover: #7f70ff;
+$color-purple-blue: #3734A9;
+$color-purple-dark: #7f70ff;
+$color-purple-gradient: linear-gradient(91.16deg, $color-purple 0%, #421c4f 100%);
+
+$color-yellow: #FEC040;
+
+$color-green: #1BD82E;
+$color-green-light: #00FE19;
+$color-green-dark: #0bb31c;
+
+$color-red: #E01515;
+$color-red-dark: #c92424;
+
+$color-orange: #FEC040;
+$color-orange-dark: #d49c28;
+
+$color-gray: #595959;
+$color-gray-main: #767572;
+$color-gray-text: #4D4D4D;
+$color-gray-dark: #5D5D5D;
+$color-lightgray: #f5f5f5;
+$color-gray-border: #767676;
+
+$color-blue: #40BBEA;
+$color-pink: #EF5DA8;
+$color-danger: #f8d7da;
+$color-success:#d1e7dd;
+
+$color-schedule-completed: rgba(64, 187, 234, 1);
+$color-schedule-completed-light: rgba(215, 244, 248, 1);
+
+$color-schedule-pending: rgba(#E2A526, 1);
+$color-schedule-pending-light: rgba(251, 191, 36, 0.1);
+
+$color-schedule-scheduled: rgba(180, 138, 255, 1);
+$color-schedule-scheduled-light: rgba(237, 241, 252, 1);
+
+$color-schedule-created: #618c65;
+$color-schedule-created-light: rgba(#618c65, 0.2);
+
+$color-schedule-cancelled: #eb6e7f;
+$color-schedule-cancelled-light: rgba(#ebc3c8, 0.8);
+*/
+
+/* NEW COLOR PALETTE  */
+$color-purple: #512C77;
+$color-purple-light: #efeefc;
+$color-purple-hover: #542D79;
+$color-purple-blue: #613383;
+$color-purple-dark: #43276D; 
+$color-purple-gradient: linear-gradient(91.16deg, $color-purple 0%, $color-purple-dark 100%);
+
+$color-yellow: #FEC040; 
+$color-yellow-light: #FFD322; 
+$color-yellow-dark: #CCA91B; 
+
+$color-orange: #E58600;
+$color-orange-light: #FF9500;
+$color-orange-dark: #CC7700; 
+
+$color-green: #1FB2A1;
+$color-green-light: #24CCB8;
+$color-green-dark: #1B998A; 
+
+$color-red: #E5505D;
+$color-red-light: #FF5967;
+$color-red-dark: #CC4752; 
+
+$color-blue: #006EE5;
+$color-blue-light: #007AFF;
+$color-blue-dark: #0062CC;
+
+$color-gray: #767676;
+$color-gray: #595959;
+$color-gray-main: #767572;
+$color-gray-text: #4D4D4D;
+$color-gray-dark: #5D5D5D;
+$color-lightgray: #f5f5f5;
+$color-gray-border: #767676; 
+
+$color-pink: #EF5DA8;
+$color-danger: #f8d7da;
+$color-success:#d1e7dd; 
+
+$color-schedule-completed: #618c65; //rgba(64, 187, 234, 1);
+$color-schedule-completed-light: rgba(#618c65, 0.2);// rgba(215, 244, 248, 1);
+
+$color-schedule-pending: rgba(#E2A526, 1);
+$color-schedule-pending-light: rgba(251, 191, 36, 0.1);
+
+$color-schedule-scheduled: rgba(51, 98, 214, 1);//rgba(180, 138, 255, 1);
+$color-schedule-scheduled-light: rgba(215, 244, 248, 1);// rgba(237, 241, 252, 1);
+
+$color-schedule-created: #618c65;
+$color-schedule-created-light: rgba(#618c65, 0.2);
+
+$color-schedule-cancelled: #eb6e7f;
+$color-schedule-cancelled-light: rgba(#ebc3c8, 0.8); 

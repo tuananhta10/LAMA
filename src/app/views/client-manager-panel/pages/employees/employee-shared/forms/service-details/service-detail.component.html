@@ -1,0 +1,175 @@
+<div *ngIf="!branchLoading && !priceListLoading && !employeeLoading && !positionLoading" class="row" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="serviceDetailForm">
+			<mat-card>
+				<mat-card-title *ngIf="isUpdate">
+					Service Details
+					<hr>
+				</mat-card-title>
+
+				<mat-card-content>
+					<div class="row" [ngClass]="!isUpdate ? 'pt-3' : ''">
+						<div class="col-12 col-md-6">
+							<app-search-list id="main_branch_id" 
+								label="Main Branch" 
+								formControlName="main_branch_id"
+								[options]="mainBranchEnum" 
+								[addOption]="true"
+								[required]="true" 
+								(addMethod)="openAddMainBranch($event)"
+							></app-search-list>
+
+							<app-date-picker id="date_started"  
+								label="Date Started" 
+								formControlName="date_started">
+							</app-date-picker>
+
+							<app-date-picker id="date_left"  
+								label="Date Left" 
+								formControlName="date_left">
+							</app-date-picker>
+
+							<app-date-picker id="last_roster_date"  
+								label="Last Roster Date" 
+								formControlName="last_roster_date"
+								[info]="true"
+								[infoTitle]="'System Generated Date of last scheduled shift recorded in the system'" >
+							</app-date-picker>
+
+							<app-dropdown id="job_type"  
+								label="Job Type"
+								placeholder="Select" 
+								formControlName="job_type" 
+								[required]="true"
+								[options]="jobTypeEnum">
+							</app-dropdown>
+
+							<app-search-list id="position"  
+								label="Position" 
+								formControlName="position_id"
+								[required]="true"
+								[options]="positionEnum" 
+								[addOption]="true" 
+								(addMethod)="openAddPosition($event)"
+								(keyEvents)="updateQualification($event)"
+							></app-search-list>
+
+							<app-search-list id="manager"  
+								label="Manager" 
+								formControlName="manager"
+								[options]="managerEnum" 
+								[addOption]="true" 
+								(addMethod)="openAddManager($event)"
+							></app-search-list>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-radio-button id="on_hold"  
+								label="On Hold" 
+								formControlName="on_hold" 
+								[info]="true"
+								[infoTitle]="'If placed on hold, employee will not be shown when rostering. Employee is usually placed on hold while you wait for outstanding paperwork.'"
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button id="volunteer"  
+								label="Volunteer" 
+								formControlName="volunteer" 
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button id="risk_asses_roles"  
+								label="Risk Assess Roles" 
+								formControlName="risk_asses_roles" 
+								[options]="radioOptions">
+							</app-radio-button>
+
+							Pay Rates
+							<hr>
+
+							<app-dropdown id="employment_type"  
+								label="Employment Type" 
+								formControlName="employment_type"
+								[options]="employementTypeOption" 
+								[info]="true"
+								[required]="true" 
+								[infoTitle]="'Penalty rates for employee will be calculated based on the employment type selected here.'"
+							></app-dropdown>
+
+							<app-textfield id="hourly_rate"  
+								label="Hourly Rate"
+								[info]="true"
+								[required]="true"
+								[infoTitle]="'This should be the base hourly rate paid to the employee. Penalty rates will be automatically calculated by the system.'"
+								formControlName="hourly_rate">
+							</app-textfield>
+
+							<app-search-list id="price_list"  
+								label="Pricelist" 
+								formControlName="price_list"
+								[options]="priceListEnum" 
+								[addOption]="true" 
+								(addMethod)="openAddPriceList($event)"
+							></app-search-list>
+
+							<!-- <app-radio-button 
+								label="Pay Travel Time" 
+								formControlName="pay_travel_time" 
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button 
+								label="Pay Travel Mileage" 
+								formControlName="pay_travel_mileage" 
+								[info]="true"
+								[required]="true" 
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[options]="radioOptions">
+							</app-radio-button> -->
+						</div>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+
+					<div>
+						<div class="row">
+							<div *ngIf="!isUpdate" class="col-sm-12 justify-content-end d-flex">
+								<button (click)="back()" mat-button class="btn btn-header-gray">
+									Back
+								</button>
+								
+								<button (click)="next()" 
+								[disabled]="!serviceDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Next
+								</button>
+							</div>
+						</div>
+						<div *ngIf="isUpdate" class="row">
+							<div class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+									Back
+								</button>
+							</div>
+							<div class="col-sm-6 justify-content-end d-flex">
+								<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+									Next
+								</button>
+								
+								<button (click)="submit()" 
+								[disabled]="!serviceDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card-actions>
+
+			</mat-card>
+		</form>
+	</div>
+</div>
+<global-admin-loader [loading]="branchLoading || priceListLoading || employeeLoading || positionLoading"></global-admin-loader>

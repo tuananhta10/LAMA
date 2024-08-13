@@ -1,0 +1,102 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Qualification
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form [formGroup]="newQualificationForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div [ngClass]="data ? 'col-12 col-md-12' : 'col-12'">
+					<app-dropdown 
+		                label="Type" 
+		                [labelTop]="true"
+		                formControlName="type" 
+		                [required]="true"
+		                (keyevents)="showOthers($event)"
+		                [options]="typeOptions">
+					</app-dropdown>
+
+					<app-textarea *ngIf="showOther"
+						label="Input the type" 
+						[labelTop]="true"
+						formControlName="type_other"
+						>
+					</app-textarea>
+
+		            <app-textfield 
+		                label="Qualification" 
+		                [labelTop]="true"
+		                formControlName="qualification" 
+		                [required]="true">
+					</app-textfield>
+
+
+		            <app-textarea 
+		                label="Description"
+		                [required]="true"
+		                [labelTop]="true"
+		                formControlName="description">
+		            </app-textarea>
+
+		            <app-radio-button 
+		                label="Mandatory"
+		                [required]="true"
+		                [labelTop]="true"
+		                formControlName="mandatory"
+		                [options]="radioOptions">
+		            </app-radio-button>
+				</div>
+			</div>
+
+           <!--  <h5 class="mat-subtitle" *ngIf="!data">Employees</h5>
+            <p class="p-mat-subtitle" *ngIf="!data">Please save record first</p>
+
+            <div class="mt-2" *ngIf="data">
+                <section style="padding: 0 35px !important;">
+                    <app-form-table 
+                        (addEvent)="openLinkEmployee($event)"
+                        [isAddEnabled]="true"
+                        [columns]="employee"
+                        [data]="employeeData"
+                        [isDeleteEnabled]="true"
+                        label="Employees"
+                    ></app-form-table>
+                </section>
+
+                <div class="d-flex" style="margin-top: -20px;" 
+                [ngClass]="linkEmployee ? 'opacity-true' : 'opacity-zero'">
+                    <app-search-list style="width: 300px !important;"  
+                        label="Employee"
+                        [labelTop]="true"
+                        [options]="employeeOptions"
+                        formControlName="employees">
+                    </app-search-list>
+
+                    <button class="btn btn-link btn-primary"
+                    *ngIf="newQualificationForm.get('employees').value">Link Employee</button>
+                </div>
+            </div> -->
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				 class="btn btn-primary btn-header me-3">
+					<span *ngIf="!data else showSave">Add</span>
+					<ng-template #showSave>Save</ng-template> 	
+				</button>
+			</div>
+		</div>
+	</form>
+
+</div>

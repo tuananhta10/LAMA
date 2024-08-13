@@ -1,0 +1,148 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Participant Funding
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<div mat-dialog-content>
+		<form *ngIf ="!clientLoading && !fundingSourceLoading && !priceListLoading" [formGroup]="partnerDetailsForm">
+			<div class="row">
+				<div class="col-12 col-md-6 ps-1">
+					<h5 class="ps-4 title-header">Participant Details</h5>
+					<app-dropdown 
+						label="Type" 
+						[labelTop]="true"
+						formControlName="funding_type"
+						[required]="true"
+						[options]="type">
+					</app-dropdown>
+
+					<app-textfield
+						label="Client" 
+						[required]="true"
+						[labelTop]="true"
+						[readonly]="true"
+						formControlName="client_id">
+					</app-textfield>
+
+					<app-search-list 
+						label="Funding Source" 
+						[labelTop]="true"
+						formControlName="funding_source_obj" 
+						[required]="true"
+						[objectReturn]="true" 
+						[options]="fundingSource">
+					</app-search-list>
+
+					<app-textfield 
+						label="Registration Number" 
+						[labelTop]="true"
+						[inputType]="'number'"
+						formControlName="registration_no">
+					</app-textfield>
+
+					<app-search-list 
+						label="Pricelist" 
+						[labelTop]="true"
+						[required]="true"
+						formControlName="price_list_id" 
+						[options]="priceList">
+					</app-search-list>
+
+					<app-dropdown 
+						label="Invoice To" 
+						[labelTop]="true"
+						formControlName="invoice_to"
+						[options]="invoiceTo">
+					</app-dropdown>
+
+					<app-search-list 
+						label="Main Branch" 
+						formControlName="main_branch_obj" 
+						placeholder="Select"
+						[labelTop]="true"
+						[options]="branches"
+						[objectReturn]="true" 
+					></app-search-list>
+				</div>
+				<div class="col-12 col-md-6 ps-1">
+					<h5 class="ps-4 title-header">Budget</h5>
+					<app-date-picker 
+						label="Start Date" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="start_date">
+					</app-date-picker>
+
+					<app-date-picker 
+						label="End Date" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="end_date">
+					</app-date-picker>
+
+					<app-textfield 
+						label="Budget" 
+						[labelTop]="true"
+						[required]="true"
+						[inputType]="'number'"
+						formControlName="budget">
+					</app-textfield>
+
+					<app-textfield 
+						label="Allocated" 
+						[labelTop]="true"
+						[required]="true"
+						[inputType]="'number'"
+						formControlName="allocated">
+					</app-textfield>
+
+					<app-textfield 
+						label="Utilised Total" 
+						[labelTop]="true"
+						[required]="true"
+						[inputType]="'number'"
+						formControlName="utilise_total">
+					</app-textfield>
+
+					<app-date-picker 
+						label="Used to Date" 
+						[labelTop]="true"
+						formControlName="used_to_date">
+					</app-date-picker>
+
+					<app-textfield 
+						label="Balance" 
+						[labelTop]="true"
+						[required]="true"
+						[inputType]="'number'"
+						formControlName="balance">
+					</app-textfield>
+				</div>
+			</div>
+		</form>
+		<global-admin-loader 
+            [withSideBar]="false"
+            [fromDetailTab]="true"
+            [loading]="clientLoading || fundingSourceLoading || priceListLoading"
+            [formOnly]="true">
+        </global-admin-loader>
+	</div>
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="dialogRef.close()" 
+			class="btn btn-header-gray btn-header me-3">Cancel</button>
+
+
+			<button mat-button (click)="save()" [disabled]="!checkFormDisabled()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+		</div>
+	</div>
+</div>

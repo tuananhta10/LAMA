@@ -1,0 +1,143 @@
+<ng-container *ngIf="!labelTop">
+    <div class="text-input">
+        <div class="d-flex">
+            <div class="container-label flex-wrap me-3 justify-content-end d-flex align-items-center">
+                <div class="d-flex">
+                    <p [innerHtml]="label"></p>
+                    <div *ngIf="required" class="asterisk-required">*</div>
+                </div>
+            </div>
+            <div class="container-input flex-wrap">
+                <div class="d-flex">
+
+                    <span class="img-container">
+                        <img [src]="img_icon" class="img-fluid">
+                    </span>
+
+                    <input type="text"
+                    class="remove-border-left-radius autocomplete-chips"
+                    [required]="required" 
+                    [readonly]="readonly"  
+                    [placeholder]="placeholder" 
+                    [disabled]="disabled"
+                    [formControl]="inputControl"
+                    [matAutocomplete]="auto"
+                    [title]="inputControl?.value"
+                    (blur)="!disabled ? onTouch($event) : ''"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)"
+                    [ngClass]="[isTouched ? 'error' : '']">                
+                    
+                    <mat-autocomplete class="search-list" autoActiveFirstOption #auto="matAutocomplete">
+                        <!-- <mat-option *ngIf="addOption" (click)="onValueChanged('addValue')" [value]="'addValue'"><span class="add-msg">Add Value</span><span class="add-icon">+</span></mat-option> -->
+                        <mat-option [ngClass]="isTextArea ? 'wrap-long-text' : ''"
+                        *ngFor="let item of filteredOptions | async" 
+                        (click)="onValueChanged(item)" [value]="item">
+                        <span 
+                            [innerHtml]="item?.name?.trim() || item?.value?.trim() || item?.text?.trim()">
+                        </span>
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+            </div>
+
+            <div class="container-info">
+                <span class="img-info-container" *ngIf="info">
+                    <img src="/assets/images/icons/info-input-icon.png" 
+                    [matTooltip]="infoTitle"
+                    matTooltipPosition="above"
+                    class="img-fluid">
+                </span>
+            </div>
+        </div>
+        <mat-chip-list class="chips-div" #chipList>
+            <mat-chip class="d-flex"
+              *ngFor="let val of selectedValues"
+              [selectable]="true"
+              [removable]="true"
+              (removed)="remove(val)">
+              <p class="text-truncate" style="max-width: 170px" [title]="val?.name?.trim() || val?.value?.trim() || val?.text?.trim()">
+                  {{val?.name?.trim() || val?.value?.trim() || val?.text?.trim()}}
+              </p>
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+        </mat-chip-list>    
+    </div> 
+</ng-container>
+
+
+<ng-container *ngIf="labelTop">
+    <div class="text-input">
+        <div>
+            <p class="label-top text-start text-truncate">
+                <span [innerHtml]="label"></span>
+                <span *ngIf="required" class="asterisk-required">*</span>
+            </p> 
+        </div>
+
+        <div class="container-input pt-2 px-md-4"
+        [ngStyle]="{
+            'width': labelTop ? '100%': '',
+            'margin-left': labelTop ? '0px': ''
+        }">
+            <div class="d-flex">
+                <span class="img-container">
+                    <img [src]="img_icon" class="img-fluid search">
+                </span>
+
+                <input type="text"
+                class="remove-border-left-radius autocomplete-chips"
+                [required]="required" 
+                [readonly]="readonly"  
+                [placeholder]="placeholder" 
+                [disabled]="disabled"
+                [formControl]="inputControl"
+                [matAutocomplete]="auto"
+                [title]="inputControl?.value"
+                (blur)="!disabled ? onTouch($event) : ''"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)"
+                [ngClass]="[isTouched ? 'error' : '', 'isTextArea' ? 'text-area-input' : '']">
+                
+                <mat-autocomplete class="search-list" autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngIf="addOption" (click)="onValueChanged('addValue')" [value]="'addValue'"><span class="add-msg">Add Value</span><span class="add-icon">+</span></mat-option>
+                    <mat-option [ngClass]="isTextArea ? 'wrap-long-text' : ''"
+                    *ngFor="let item of filteredOptions | async" 
+                    (click)="onValueChanged(item)" [value]="item">
+                        <span 
+                            [innerHtml]="item?.name?.trim() || item?.value?.trim() || item?.text?.trim()">
+                        </span>
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+        </div>
+
+        <div class="container-info">
+            <span class="img-info-container" *ngIf="info">
+                <img src="/assets/images/icons/info-input-icon.png" 
+                [matTooltip]="infoTitle"
+                matTooltipPosition="above"
+                class="img-fluid">
+            </span>
+        </div>
+        
+        <div class="mt-3 ps-4">
+            <mat-chip-list #chipList>
+                <mat-chip class="d-flex"
+                  *ngFor="let val of selectedValues"
+                  [selectable]="true"
+                  [removable]="true"
+                  (removed)="remove(val)">
+                  <p class="text-truncate" style="max-width: 170px" [title]="val?.name?.trim() || val?.value?.trim() || val?.text?.trim()">
+                      {{val?.name?.trim() || val?.value?.trim() || val?.text?.trim()}}
+                  </p>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+
+
+    </div> 
+</ng-container>

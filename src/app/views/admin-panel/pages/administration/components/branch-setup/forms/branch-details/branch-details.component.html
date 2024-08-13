@@ -1,0 +1,59 @@
+<div class="card card-body mt-3 py-5 px-md-5">
+	<h5 class="text-center mb-4">Branch Details</h5>
+	<form *ngIf="!loading" [formGroup]="branchDetailsForm">
+		<div class="row">
+			<div class="col-12 col-md-1"></div>
+			<div class="col-12 col-md-5">
+				<app-textfield 
+					label="Name" 
+					[labelTop]="true"
+					formControlName="name"
+					[required]="true">
+				</app-textfield>
+
+				<app-textfield 
+					label="Code" 
+					[labelTop]="true"
+					formControlName="code" 
+					[required]="true">
+				</app-textfield>
+
+				<app-search-list 
+					label="Organisation" 
+					[labelTop]="true"
+					formControlName="organization"
+					[required]="true"
+					[disabled]="true"
+					[readonly]="true"
+					[options]="organizationEnum">
+				</app-search-list>
+			</div>
+
+			<div class="col-12 col-md-5">
+				<app-textfield 
+					label="GST%" 
+					[labelTop]="true"
+					formControlName="gst" 
+					[inputType]="'number'"
+					[required]="true">
+				</app-textfield>
+				
+				<app-dropdown 
+					label="Timezone" 
+					[labelTop]="true"
+					formControlName="timezone" 
+					[options]="timezone"
+					[required]="true">
+				</app-dropdown>
+			</div>
+		</div>
+	</form>
+	
+	<div class="px-5">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

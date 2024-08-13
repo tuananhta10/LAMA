@@ -1,0 +1,98 @@
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader [loading]="loading"></global-admin-loader>
+
+<section class="row mb-5" *ngIf="!loading"
+[@animate]="{value:'*', params:{ y:'-100px', delay:'300ms' }}" >
+  <div class="col-12 col-md-10 mt-3" >
+    <div class="card card-body">
+      <public-holiday-calendar-header
+        [(view)]="view" 
+        [(viewDate)]="viewDate">
+      </public-holiday-calendar-header> 
+
+      <ng-template #customCellTemplate let-day="day" let-locale="locale">
+        <div class="cal-cell-top" style="margin-bottom: 0 !important;">
+          <!-- <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">
+            {{ day.badgeTotal }}
+          </span> -->
+
+          <span class="cal-day-number">
+            {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+          </span>
+        </div>
+
+        <div class="p-1" style="margin-top: -30px">
+          <h5 class="event-title text-capitalized" *ngFor="let item of day?.events">
+            {{item?.title_only}}
+          </h5>
+        </div>
+      </ng-template>
+
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="calendarView"
+          [refresh]="refresh"
+          (dayClicked)="dayClicked($event.day)"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+          [cellTemplate]="customCellTemplate"
+        >
+        </mwl-calendar-month-view>
+
+        <!-- [dayStartHour]="7"
+          [dayEndHour]="23" -->
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+          [viewDate]="viewDate"
+          
+          [events]="calendarView"
+          [refresh]="refresh"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+        >
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="'day'"
+          [viewDate]="viewDate"
+          [events]="calendarView"
+          [refresh]="refresh"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+        >
+        </mwl-calendar-day-view>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-2 calendar-container" *ngIf="!loading">
+    <!-- <div class="card mb-3 mt-3">
+      <div class="card-body">
+        <h5 class="main-title">Calendar</h5>
+        
+        <div id="admin-calendar">
+          <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="card p-2 mt-3">
+      <div class="card-body status-list">
+        <h5 class="main-title-status mt-2">Upcoming Holidays</h5>
+        
+        <dl>
+          <dd class="yellow" 
+          [ngClass]="item?.bg_color_code"
+          *ngFor="let item of upcommingHoliday.slice(0, 5)">
+            <div class="text-truncate me-2">
+              <div class="status-badge">{{item?.date * 1000 | date: 'dd MMM yyyy'}}</div>
+            </div>
+            <div>{{item?.name}}</div>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

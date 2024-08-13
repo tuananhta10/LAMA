@@ -1,0 +1,47 @@
+<!-- LOADING ANIMATION SCREEN -->
+<div class="mt-3" *ngIf="loading">
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>
+
+<div class="mt-3" *ngIf="!loading">
+	<div class=""
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<img src="/assets/images/icons/target-arrow.png" width="30px" class="me-2 img-fluid img-title">
+			<span class="main-title">Search: {{search}}</span>
+
+			<div class="float-end dropdown me-3">
+				<button class="btn btn-secondary-filter  d-flex" type="button" 
+				id="filterButton" data-bs-toggle="dropdown">
+				  Sort by <span class="ms-1 material-icons">arrow_drop_down</span>
+				</button>
+
+				<ul class="dropdown-menu text-center" style="width: 110px !important;" 
+				aria-labelledby="filterButton">
+				  <li><a class="dropdown-item" (click)="sortBy('a-z')">a - Z</a></li>
+				  <li><a class="dropdown-item" (click)="sortBy('z-a')">z - A</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="mt-4">
+			<div class="card card-body mt-2" *ngFor="let item of searchObject">
+				<div class="hvr-underline-reveal search-link" [routerLink]="item?.route">
+					<h5 class="link-title">{{item?.name}}</h5>
+					<p class="link-description">{{item?.description}}</p>
+					<a class="link-route">{{item?.route}}</a>
+
+					<img src="/assets/images/icons/caret-right.png" class="navigator-button hvr-grow">
+				</div>
+			</div>
+		</div>
+
+		<br>
+		
+	</div>
+</div>

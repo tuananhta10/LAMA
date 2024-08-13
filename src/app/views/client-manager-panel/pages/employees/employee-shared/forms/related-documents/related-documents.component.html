@@ -1,0 +1,91 @@
+<div class="row" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<mat-card>
+			<mat-card-title *ngIf="isUpdate">
+				Employee Documents
+				<hr>
+			</mat-card-title>
+			<mat-card-content>
+				<div class="row" [ngClass]="!isUpdate ? 'pt-3' : ''">
+					<div class="col-sm-6">
+						<h5 class="table-label">Documents</h5>
+					</div>
+					<div class="col-sm-6 text-end">
+						<span class="add-new"
+						(click)="openCustomDocumentModal()"> 
+							<img src="/assets/images/icons/plus-purple.png" class="img-fluid" width="13px">
+						</span>
+					</div>
+					<div class="col-sm-12 table-border">
+						<table class="table">
+							<thead>
+							  <tr>
+							  	<th style="width: 18px !important;"></th>
+								<th scope="col">Title</th>
+								<th scope="col">Type</th>
+								<th scope="col">Description</th>
+								<th scope="col">File</th>
+								<th scope="col"></th>
+							  </tr>
+							</thead>
+							<tbody *ngIf="documents?.length > 0; else elseBlock">
+							  <tr *ngFor="let docs of documents; let i = index">
+							  	<td style="width: 18px !important;">
+						  			<img src="/assets/images/icons/folder-file.png" 
+						  	  		style="width: 18px !important;" class="me-2">	
+						  	  	</td>
+						  		<td>
+						  	  		{{docs?.title || '-'}}
+						  	  	</td>
+								<td>{{docs?.type || '-'}}</td>
+								<td>{{docs?.description || '-'}}</td>
+								<td>{{docs.attachment?.filename || docs.attachment[0].filename}}</td>
+								<td>
+									<img src="/assets/images/icons/delete-circle-red.png" class="hvr-grow delete-image" (click)="delete(i)" style="width: 30px !important; cursor: pointer;">
+								</td>
+							  </tr>
+							</tbody>
+							<ng-template #elseBlock>
+								<tbody>
+									<tr>
+										<td></td>
+										<td>List of documents is currently empty</td>
+									</tr>
+								</tbody>
+							</ng-template>
+						</table>
+					</div>
+				</div>
+			</mat-card-content>
+
+			<mat-card-actions>
+				<hr>
+				<div *ngIf="!isUpdate" class="row">
+					<div class="col-sm-12 justify-content-end d-flex">
+						<button (click)="back()" mat-button class="btn btn-header-gray">
+							Back
+						</button>
+
+						<button (click)="next()" 
+						mat-button class="btn btn-header btn-primary">
+							Save
+						</button>
+					</div>
+				</div>
+				<div *ngIf="isUpdate" class="row">
+					<div class="col-sm-6 justify-content-start d-flex">
+						<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+							Back
+						</button>
+					</div>
+					<div class="col-sm-6 justify-content-end d-flex">
+						<button (click)="submit()" 
+						mat-button class="btn btn-header btn-primary">
+							Save
+						</button>
+					</div>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

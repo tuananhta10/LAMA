@@ -1,0 +1,14 @@
+@import "src/scss/colors";
+
+.update-funding{
+	position: absolute;
+	right: 12px;
+	font-size: 11px;
+	cursor: pointer;
+	color: $color-purple;
+	top: 2px;
+
+	&:hover{
+		text-decoration: underline;
+	}
+}

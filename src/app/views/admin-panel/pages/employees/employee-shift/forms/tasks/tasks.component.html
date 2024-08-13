@@ -1,0 +1,58 @@
+<div class="row" mat-dialog-content>
+    <div class="col-12">
+        <form [formGroup]="taskForm">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="mat-subtitle">Tasks</h5>
+                </div>
+
+                <div class="col-12 col-md-6 pe-lg-0">
+                    <!-- <app-search-list 
+                        label="Task associated to shift"
+                        [labelTop]="true"
+                        formControlName="employee_task_id"
+                        [options]="tasksList">
+                    </app-search-list> -->
+                    
+                    <!-- TASK DETAILS -->
+                    <div *ngFor="let item of taskArray; 
+                    let i = index">
+                        
+                        <app-autocomplete-chip
+                            [labelTop]="true"
+                            [(ngModel)]="item.tasks"
+                            [isTextArea]="true"
+                            [ngModelOptions]="{standalone: true}" 
+                            [options]="tasksList">
+                        </app-autocomplete-chip>
+                    </div>
+                </div>
+
+                <!-- <div class="col-12 col-md-6 pe-lg-0">
+                    <app-textfield 
+                        label="Total task"
+                        [labelTop]="true"
+                        formControlName="total_task">
+                    </app-textfield>
+                </div> -->
+
+                <div class="col-12 col-md-12">
+                    <h5 class="mat-subtitle">Case Notes</h5>
+
+                    <label class="label-text mt-10">Support Worker Case Notes</label>
+                    <div style="height: 200px" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                        <quill-editor formControlName="support_worker_case_notes"></quill-editor>
+                    </div>
+                    <label  class="label-text">Support Coordinator Case Notes</label>
+                    <div style="height:200px" class="quill-spacer pt-2 quill-mb">
+                        <quill-editor formControlName="support_coordinator_case_notes"></quill-editor>
+                    </div>
+                    <label class="label-text">Service Facilitator Case Notes</label>
+                    <div style="height:200px" class="quill-spacer pt-2 quill-mb">
+                        <quill-editor formControlName="service_facilitator_case_notes"></quill-editor>
+                    </div>
+                </div>
+            </div>
+        </form>    
+    </div>
+</div>

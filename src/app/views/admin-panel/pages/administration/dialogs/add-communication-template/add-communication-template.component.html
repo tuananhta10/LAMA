@@ -1,0 +1,87 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+      <ng-template #showUpdate>Update</ng-template> Communication Template
+      <img src="/assets/images/icons/close-dialog.png" 
+      class="float-end mt-2" 
+      style="width: 13px; cursor: pointer;" 
+      (click)="dialogRef.close()"> 
+    </h5>
+		<hr>
+	</div>
+	<form [formGroup]="addTemplateForm">
+		<div mat-dialog-content>
+			<div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                   <h5 class="mat-subtitle">Communication Template Details</h5>
+                  <app-textfield 
+                      label="Name"
+                      [labelTop]="true"
+                      [required]="true"
+                      formControlName="name">
+                  </app-textfield>
+
+                  <app-dropdown 
+                      label="Type"
+                      [labelTop]="true"
+                      [required]="true"
+                      formControlName="type"
+                      [options]="type">
+                  </app-dropdown>
+
+                  <app-dropdown 
+                      label="Table Id"
+                      [labelTop]="true"
+                      [required]="true"
+                      formControlName="table_id"
+                      [options]="tableID">
+                  </app-dropdown>
+               </div>
+               <div class="col-12 col-md-6 mb-3">
+                  <h5 class="mat-subtitle">Merge Fields</h5>
+
+                  <app-dropdown 
+                      label="Columns"
+                      [labelTop]="true"
+                      formControlName="columns"
+                      [options]="columns">
+                  </app-dropdown>
+
+                  <button mat-button type="button"
+                  class="btn btn-primary btn-include mb-3 me-3 ms-4">Include</button>  
+
+                  <app-textarea 
+                      label="Tags"
+                      [labelTop]="true"
+                      formControlName="tags">
+                  </app-textarea>       
+               </div>         
+
+               <div class="col-12">
+                   <app-textarea 
+                       label="Template Text"
+                       [labelTop]="true"
+                       [required]="true"
+                       [rows]="5"
+                       formControlName="template_text">
+                   </app-textarea>     
+               </div>
+            </div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+          <span *ngIf="!data else showSave">Add</span>
+          <ng-template #showSave>Save</ng-template>   
+        </button>
+			</div>
+		</div>
+	</form>
+
+</div>

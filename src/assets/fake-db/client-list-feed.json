@@ -1,0 +1,33 @@
+{
+	"data": [
+		{
+			"feed": {
+				"name": "Watson",
+				"profile_image": "/assets/images/faces/face-5.jpg",
+				"details": "added a comment on 'Sales Tips' course Amet minim mollit non",
+				"date": "Mon, 27 April 12:02PM"
+			    
+			}
+		},
+
+		{
+			"feed": {
+				"name": "George",
+				"profile_image": "/assets/images/faces/face-3.jpg",
+				"details": "added a comment on 'Travel Tips' course Amet minim mollit non",
+				"date": "Mon, 27 April 10:55PM"
+			    
+			}
+		},
+
+		{
+			"feed": {
+				"name": "Watson",
+				"profile_image": "/assets/images/faces/face-4.jpg",
+				"details": "added a comment on 'Business' course Amet minim mollit non",
+				"date": "Mon, 27 April 9:33PM"
+			    
+			}
+		}
+	]
+}

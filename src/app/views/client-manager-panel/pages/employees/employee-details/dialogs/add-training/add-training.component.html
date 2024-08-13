@@ -1,0 +1,77 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Training</h5>
+		<hr>
+	</div>
+	<form [formGroup]="trainingForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-sm-12">
+					<app-textfield 
+					label="Employee Name" 
+					[labelTop]="true"
+					[required]="true"
+					formControlName="employeeName">
+					</app-textfield>
+
+					<app-dropdown 
+					label="Status" 
+					[labelTop]="true"
+					[required]="true"
+					formControlName="status" 
+					[options]="statusOption">
+					</app-dropdown>
+		
+					<app-dropdown 
+					label="Qualification" 
+					[labelTop]="true"
+					[required]="true"
+					formControlName="qualifications" 
+					[options]="qualifications">
+					</app-dropdown>
+
+					<app-date-picker 
+					label="Completion Date" 
+					[labelTop]="true"
+					formControlName="completionDate">
+					</app-date-picker>
+
+					<app-date-picker 
+					label="Expiry Date" 
+					[labelTop]="true"
+					formControlName="expiryDate">
+					</app-date-picker>
+					
+					<app-textarea
+					label="Description" 
+					[labelTop]="true"
+					[required]="true"
+					formControlName="description">
+					</app-textarea>
+
+					<app-textarea 
+					label="Remarks/ Notes" 
+					[labelTop]="true"
+					[required]="true"
+					formControlName="remarks">
+					</app-textarea>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="row text-center mb-3 w-100">
+				<div class="col-sm-12 text-center w-100">
+					<hr><br>
+
+					<button mat-button (click)="close()" 
+					class="btn btn-header-gray btn-header me-3">Close</button>
+
+					<button mat-button (click)="save()" 
+					cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>

@@ -1,0 +1,149 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Task Details
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form *ngIf="!loading && !loadingGoals && !loadingClient && !loadingShift" [formGroup]="addTaskForm">
+		<div mat-dialog-content>
+			<!-- <app-dropdown 
+			    label="Template"
+			    [labelTop]="true"
+			    formControlName="template"
+			    [options]="template">
+			</app-dropdown> -->
+
+            <app-textfield 
+                label="Task Name"
+                [labelTop]="true"
+                [required]="true"
+                [readonly]="true"
+                formControlName="task_name">
+            </app-textfield>
+
+            <app-textarea 
+                label="Description"
+                [labelTop]="true"
+                [readonly]="true"
+                formControlName="description">
+            </app-textarea>
+
+            <app-search-list 
+                label="Related Goal"
+                [labelTop]="true"
+                [readonly]="true"
+                formControlName="goal_id"
+                [options]="goalEnums">
+            </app-search-list>
+
+            <app-search-list 
+                label="Assigned To"
+                [labelTop]="true"
+                [readonly]="true"
+                [required]="true"
+                formControlName="assigned_to"
+                [options]="employeeEnums"
+                [newOption]="true"
+                [newOptionLabel]="'Employee'"
+                [newOptionRoute]="'/admin/employees'">
+            </app-search-list>
+
+            <app-search-list 
+                label="Associated Participant"
+                [labelTop]="true"
+                [readonly]="true"
+                formControlName="client_id"
+                [options]="clientEnums"
+                [newOption]="true"
+                [newOptionLabel]="'Participants'"
+                [newOptionRoute]="'/admin/clients'">
+            </app-search-list>
+            
+            <app-search-list 
+                label="Link to a shift"
+                [labelTop]="true"
+                [readonly]="true"
+                [isTextArea]="true"
+                formControlName="link_to_a_shift"
+                [options]="linkToShift"
+                [newOption]="true"
+                [newOptionLabel]="'Shift'"
+                [newOptionRoute]="'/admin/schedule'">
+            </app-search-list>
+
+            <app-date-picker 
+                label="Due Date"
+                [labelTop]="true"
+                [required]="true"
+                [readonly]="true"
+                formControlName="due_date">
+            </app-date-picker>
+
+            <app-time-analog 
+                label="Start time" 
+                [labelTop]="true"
+                [readonly]="true"
+                formControlName="start_time"
+                [required]="true">
+            </app-time-analog>
+
+            <app-time-analog 
+                label="End time" 
+                [labelTop]="true"
+                [readonly]="true"
+                formControlName="end_time"
+                [required]="true">
+            </app-time-analog>
+
+            <app-dropdown 
+                label="Status"
+                [required]="true"
+                [readonly]="true"
+                [labelTop]="true"
+                formControlName="status"
+                [options]="status">
+            </app-dropdown>
+
+            <h5 class="mat-subtitle ms-4 mb-3 truncate" 
+            *ngIf="data?.attachment_download_url || data?.attachment[0]?.download_url">
+                Task File: <br class="mb-4">
+
+                <a [href]="data?.attachment_download_url" class="mt-2" target="_blank">
+                    {{data?.attachment_filename || data?.attachment[0]?.filename}}
+                </a>
+            </h5>
+
+            <!-- <app-field-upload
+            label="Upload File"
+            [labelTop]="true"
+            #upload 
+            (upload)="onUpload($event)"
+            >
+            </app-field-upload> -->
+
+            <!-- <mat-checkbox class="ms-4" color="primary" formControlName="save_template">
+            	<span class="text-muted">Save as Template</span>
+            </mat-checkbox> -->
+		</div>
+		<div mat-dialog-actions>
+			<!-- <div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+			</div> -->
+		</div>
+	</form>
+
+    <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading || loadingGoals || loadingClient || loadingShift"
+        [formOnly]="true">
+    </global-admin-loader>
+
+</div>

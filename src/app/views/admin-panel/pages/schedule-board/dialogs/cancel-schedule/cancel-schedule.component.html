@@ -1,0 +1,176 @@
+
+<div class="assign-action-container px-1" *ngIf="!loading">
+	<!-- <img src="/assets/images/icons/danger.png" class="img-fluid" width="30px">
+ -->
+	<div class="px-1">
+		<h5 class="header-text-action mb-0">{{data?.title || 'You are about to cancel a shift schedule!'}}</h5>
+		<h5 class="header-text mt-1">Fill up the form and click continue to proceed</h5><hr>
+
+		<div class="">
+			<form class="row" [formGroup]="cancellationReason" >
+				<div class="col-12 col-md-6">
+					<div class="ms-4 mb-0">
+						<h5 class="mat-subtitle">Cancellation Policy</h5>
+						<p class="mat-subtitle-description mb-0">Select a cancellation policy to apply applicable charges to the selected shift/s</p>
+					</div>
+					<app-search-list 
+					    label=""
+					    [labelTop]="true"
+					    [isTextArea]="true"
+					    formControlName="cancellation_policy_id"
+					    [options]="cancellationPolicyOption">
+					</app-search-list>
+
+					<app-textfield 
+					    label="Reason of Cancellation"
+					    [labelTop]="true"
+					    [required]="true"
+					    formControlName="cancellation_reason">
+					</app-textfield>
+
+					<app-textfield 
+					    label="Charge Percentage"
+					    [labelTop]="true"
+					    [readonly]="true"
+					    [required]="true"
+					    [disabled]="true"
+					    formControlName="cancellation_percent">
+					</app-textfield>
+					
+
+					<app-textarea 
+					    label="Additional Comments"
+					    [labelTop]="true"
+					    formControlName="cancellation_comments">
+					</app-textarea>
+				</div>
+
+				<div class="col-12 col-md-6">
+					
+					<app-textfield 
+					    label="Cancelled By"
+					    [labelTop]="true"
+					    [required]="true"
+					    formControlName="cancelled_by">
+					</app-textfield>
+
+					<app-textfield 
+					    label="Cancellation Received Type"
+					    [labelTop]="true"
+					    formControlName="cancellation_received_type">
+					</app-textfield>
+
+					<app-search-list 
+					    label="Staff Allocated"
+					    [labelTop]="true"
+					    [info]="true"
+					    [infoTitle]="'Name of Staff allocated'"
+					    formControlName="name_of_staff_allocated"
+					    [options]="employeeEnums">
+					</app-search-list>
+
+					<div class="row">
+						<div class="col-12 col-md-6">
+							<app-radio-button 
+							    label="Charge to Participants"
+							    [labelTop]="true"
+							    [required]="true"
+							    formControlName="charge_to_client"
+							    [disabled]="false"
+							    [readonly]="true"
+							    [options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button 
+							    label="Inform Employees"
+							    [labelTop]="true"
+							    [required]="true"
+							    formControlName="inform_employees"
+							    [options]="radioOptions">
+							</app-radio-button>
+
+						</div>
+
+						<div class="col-12 col-md-6">
+							<div class="right-margin-button">
+								<app-radio-button 
+								    label="Pay Employees"
+								    [labelTop]="true"
+								    [required]="true"
+								    formControlName="pay_employees"
+								    [disabled]="true"
+								    [readonly]="true"
+								    [options]="radioOptions">
+								</app-radio-button>
+
+								<app-radio-button 
+								    label="Is This a once off cancellation"
+								    [labelTop]="true"
+								    [required]="true"
+								    formControlName="is_this_a_once_off_cancellation"
+								    [options]="radioOptions">
+								</app-radio-button>
+							</div>
+						</div>
+					</div>
+
+					
+				</div>
+
+				<div class="col-12 px-2 px-lg-4 mt-2">
+					<h5 class="mat-subtitle">List of Shift to be cancelled</h5>
+					<hr>
+					<div class="w-100">
+						<table class="table w-100">
+							<thead>
+								<tr>
+									<th>Participant</th>	
+									<th>Assigned Employee</th>	
+									<th>Date of Shift</th>
+									<th>Time of Shift</th>
+									<th>Branch</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr *ngFor="let item of data">
+									<td class="text-capitalize">{{item?.client?.name}}</td>
+									<td class="text-capitalize">{{item?.employee?.name}}</td>
+									<td>{{item?.start_date * 1000 | date: 'EEE, MMM dd, yyyy'}}</td>
+									<td>
+										{{convertTo12Hrs(item?.start_time)}} - {{convertTo12Hrs(item?.end_time)}}
+									</td>
+									<td>{{item?.branch?.name}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader>
+
+<div mat-dialog-actions>
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Cancel</button>
+
+			<button [disabled]="!cancellationReason.valid"
+			mat-button 
+			(click)="closeSaveDialog()" 
+			class="btn btn-danger">Continue</button>
+		</div>
+	</div>
+</div>

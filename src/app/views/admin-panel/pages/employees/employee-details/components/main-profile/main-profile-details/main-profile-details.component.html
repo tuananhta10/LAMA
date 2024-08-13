@@ -1,0 +1,237 @@
+<div class="row" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+	
+	<div class="col-12 col-md-12 col-lg-8">
+		<div class="row ">
+			<div class="col-12 col-md-6 col-lg-6">
+				<div class="mb-3 d-flex pe-5" id="employee-details" >
+					<div class="employee-img-icon-preference flex-wrap">
+						<img src="/assets/images/icons/client-preference.png">
+					</div>
+
+					<div class="employee-data flex-wrap">
+						<h5 class="card-title">Employee Details
+							<span class="float-end view-edit" (click)="navigateTo(1)">Edit</span>
+						</h5>
+						<hr>
+						<dl>
+							<dd class="text-truncate">
+								<strong class="me-3">Title</strong> 
+								<span>{{employeeData?.title || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Last Name</strong> 
+								<span>{{employeeData?.last_name || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Middle Name</strong>
+								<span>{{employeeDataMain?.middle_name || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">First Name</strong>
+								<span>{{employeeData?.first_name || '-'}}</span>
+							</dd>
+						
+							
+							<dd class="text-truncate">
+								<strong class="me-3">Main Branch</strong> 
+								<span>{{employeeDataMain?.branch_name || '-'}}</span>
+							</dd>
+						</dl>
+					</div>
+				</div>
+
+				<div class="mb-3 d-flex pe-5" id="employee-work-details" >
+					<div class="employee-img-icon-work-details flex-wrap">
+						<img src="/assets/images/icons/employee-work-details.png">
+					</div>
+
+					<div class="employee-data flex-wrap">
+						<h5 class="card-title">Work Details
+							<span class="float-end view-edit" (click)="navigateTo(4)">Edit</span>
+						</h5>
+						<hr>
+						<dl>
+							<dd class="text-truncate"><strong class="me-3">Payroll ID</strong> 
+								<span>{{employeeData?.payroll_id || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Employee Position</strong> 
+								<span>{{employeeDataMain?.employee_position_display_name || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Employment Type</strong>
+								<span>{{employeeData?.employment_type || '-'}}</span>
+							</dd>
+
+							<dd class="max-line-details"
+							[title]="employeeDataMain?.job_description || ''">
+								<strong class="me-3">Position Summary</strong> 
+								<span>{{employeeDataMain?.job_description || '-'}}</span>
+							</dd>
+							
+							<dd class="max-line-details"
+							[title]="employeeDataMain?.tasks_performed || ''">
+								<strong class="me-3">Key Responsibilities</strong> 
+								<span>{{employeeDataMain?.tasks_performed || '-'}}</span>
+							</dd>
+							
+						</dl>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="col-12 col-md-6 col-lg-6">
+				<div class="mb-3 d-flex pe-5" id="employee-demographics" >
+					<div class="employee-img-icon-demographics flex-wrap">
+						<img src="/assets/images/icons/client-demographics.png">
+					</div>
+
+					<div class="employee-data flex-wrap">
+						<h5 class="card-title">Demographics
+							<span class="float-end view-edit" (click)="navigateTo(1)">Edit</span>
+						</h5>
+						<hr>
+						<dl>
+							<dd class="text-truncate">
+								<strong class="me-3">Date of Birth</strong> 
+								<span>
+									{{
+										employeeData?.birthdate ? 
+										(employeeData?.birthdate * 1000 | date: 'dd-MM-y') 
+										: '-'
+									}}
+								</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Age</strong> 
+								<span>{{employeeData?.age || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Email</strong>
+								<span>{{employeeData?.email_address || '-'}}</span>
+							</dd>
+							
+							<dd class="text-truncate">
+								<strong class="me-3">Private Email</strong> 
+								<span>{{employeeData?.private_email || '-'}}</span>
+							</dd>				
+						</dl>
+					</div>
+				</div>
+				
+
+				<div class="mb-3 d-flex pe-5" id="employee-background" >
+					<div class="employee-img-icon-background flex-wrap">
+						<img src="/assets/images/icons/client-background.png">
+					</div>
+
+					<div class="employee-data flex-wrap">
+						<h5 class="card-title">Background
+							<span class="float-end view-edit" (click)="navigateTo(2)">Edit</span>
+						</h5>
+						<hr>
+						<dl>
+							<!-- <dd class="text-truncate">
+								<strong class="me-3">Interests</strong> 
+								<span>{{employeeData?.interests.join(', ') || '-'}}</span>
+							</dd> -->
+
+							<dd class="two-lines"><strong class="me-3">Skills</strong> 
+								<span>{{ parseArray(employeeData?.skills) || '-' }}</span>
+							</dd>
+			
+							<dd class="text-truncate">
+								<strong style="margin-right: 22px;">Smoker</strong> 
+								<mat-radio-group aria-label="Select an option" 
+									disabled="true"
+									[(ngModel)]="smoker" id="smoker">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Allergies</strong> 
+								<mat-radio-group aria-label="Select an option" 
+									disabled="true"
+									[(ngModel)]="allergies" id="allergies">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+							</dd>
+							
+							<!-- <dd class="text-truncate">
+								<strong class="me-3">Medication</strong> 
+								<span>{{employeeData?.medication || 'None'}}</span>
+							</dd> -->
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<!-- COMPLIANCE CHECK -->
+			<div class="col-12 col-lg-12">
+				<employee-main-profile-compliance-check
+				[employeeData]="employeeData">
+				</employee-main-profile-compliance-check>
+			</div>
+		</div>
+	</div>
+
+	<!-- ALERTS -->
+	<div class="col-12 col-md-12 col-lg-4">
+		<!--  -->
+
+		<div class="">
+			<div class="mb-3">
+				<employee-main-profile-documents
+					[id]="id"
+					[employeeData]="employeeData">
+				</employee-main-profile-documents>
+			</div>
+
+			<employee-main-profile-alerts
+				[employeeData]="employeeData">
+			</employee-main-profile-alerts>
+			
+			<!-- COMPLIANCE CHECK -->
+			<div class="mb-3" id="qualification-notes">
+				<h5 class="card-title">Other Information
+					<span class="float-end view-edit" (click)="navigateTo(2)">Edit</span>
+				</h5>
+
+				<div class="row">
+					<div class="col-12 col-md-12 mb-2 px-1 pb-0">
+						<div class="notes-container">
+							<button class="btn btn-view-more btn-active-employee training">
+							Other Remarks</button>
+
+							<p class="text-justify mt-2 text-capitalize">{{employeeData?.other_remarks || '-'}}</p>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-12 mb-2 px-1 pb-0">
+						<div class="notes-container">
+							<button class="btn btn-view-more btn-active-employee summary">
+							Medical Information</button>
+
+							<p class="text-justify mt-2 text-capitalize">{{employeeData?.medical_information || '-'}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+</div>

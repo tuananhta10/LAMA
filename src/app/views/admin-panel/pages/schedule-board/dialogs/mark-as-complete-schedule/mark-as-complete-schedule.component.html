@@ -1,0 +1,38 @@
+
+<div class="assign-action-container px-0">
+	<img src="/assets/images/icons/checked-success.png" class="img-fluid" width="30px">
+
+	<h5 class="header-text-action">{{data?.title || 'Set selected schedule/s to Complete'}}</h5>
+	<h5 class="header-text mt-2">Are you sure you want to set this schedule as completed? Click continue to proceed</h5>
+	<small class="text-danger mt-2" *ngIf="hasNotApprovedTimesheets">
+		<span class="fw-bold">Warning:</span>
+		Following schedule/s has timesheets that have not yet been approved.
+	</small>
+	<ul >
+		<li class="text-danger" *ngFor="let i of listOfNotApprovedTimesheetsSchedules">
+			<span class="fw-bold">{{i?.date}} - </span>
+			<span>{{i?.client}}</span>
+		</li>
+	</ul>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="closeSaveDialog()" 
+			class="btn btn-primary">
+				{{
+					hasNotApprovedTimesheets ? 'Continue anyway' :'Continue'
+				}}
+			</button>
+		</div>
+	</div>
+</div>

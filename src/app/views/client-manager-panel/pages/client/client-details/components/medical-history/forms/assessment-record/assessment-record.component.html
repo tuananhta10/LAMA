@@ -1,0 +1,124 @@
+<div>
+	<form class="row" [formGroup]="assessmentmentRecord">
+		<div class="col-12 col-md-6">
+		
+			<h5 class="ps-4">Admission Assesment</h5>
+			<app-textarea 
+				label="General Appearance" 
+				[labelTop]="true"
+				formControlName="general_appearance">
+			</app-textarea>
+
+			<app-textarea 
+				label="Skin / Hair Comments" 
+				[labelTop]="true"
+				formControlName="skin_hair_comments">
+			</app-textarea>
+
+			<app-textarea 
+				label="Oral Requirements" 
+				[labelTop]="true"
+				formControlName="oral_requirements">
+			</app-textarea>
+
+			<app-textfield 
+				label="Dentures" 
+				[labelTop]="true"
+				formControlName="dentures">
+			</app-textfield>
+
+			<app-textarea 
+				label="Eating / Nutrition Comments" 
+				[labelTop]="true"
+				formControlName="nutrition_comments">
+			</app-textarea>
+
+			<app-textarea 
+				label="Bladder Assessment" 
+				[labelTop]="true"
+				formControlName="bladder_assessment">
+			</app-textarea>
+
+			<app-textarea 
+				label="Bowel Assessment" 
+				[labelTop]="true"
+				formControlName="bowel_assessment">
+			</app-textarea>
+
+			<app-textarea 
+				label="General Condition" 
+				[labelTop]="true"
+				formControlName="general_condition">
+			</app-textarea>
+
+			<app-textarea 
+				label="General Assessment Comments" 
+				[labelTop]="true"
+				formControlName="general_assessment_comments">
+			</app-textarea>
+		</div>
+
+		<div class="col-12 col-md-6">
+			<h5 class="ps-4">Admission Statement</h5>
+			<app-textfield 
+				label="Temperature" 
+				[labelTop]="true"
+				formControlName="temperature">
+			</app-textfield>
+
+			<app-textfield 
+				label="Pulse" 
+				[labelTop]="true"
+				formControlName="pulse">
+			</app-textfield>
+
+			<app-textfield 
+				label="Urinalysis" 
+				[labelTop]="true"
+				formControlName="urinalysis">
+			</app-textfield>
+
+			<app-textfield 
+				label="Blood Pressure" 
+				[labelTop]="true"
+				formControlName="blood_pressure">
+			</app-textfield>
+
+			<app-textarea 
+				label="Respiratory Assessment" 
+				[labelTop]="true"
+				formControlName="respiratory_assessment">
+			</app-textarea>
+
+			<app-textarea 
+				label="Circulatory Assessment" 
+				[labelTop]="true"
+				formControlName="circulatory_assessment">
+			</app-textarea>
+
+			<app-textarea 
+				label="Cognitive Functioning" 
+				[labelTop]="true"
+				formControlName="cognitive_functioning">
+			</app-textarea>
+
+			<app-textarea 
+				label="Muscular Skeletal" 
+				[labelTop]="true"
+				formControlName="muscular_skeletal">
+			</app-textarea>
+
+			<app-textarea 
+				label="Gait / Mobility Assessment" 
+				[labelTop]="true"
+				formControlName="mobility_assessment">
+			</app-textarea>
+
+			<app-textarea 
+				label="Behavior Assessment" 
+				[labelTop]="true"
+				formControlName="behavior_assessment">
+			</app-textarea>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,65 @@
+<section class="p-3 text-center alternate-theme" id="edit-employee-list-dialog">
+	<h4 class="selection-title-outer pe-2">Choose which columns you see
+		<span class="selection-title-mode">
+			<mat-slide-toggle [(ngModel)]="drag" color="primary">Drag Columns</mat-slide-toggle>
+		</span>
+	</h4>
+	<hr>
+	<div class="ms-2" cdkDropListGroup>
+		<div class="selection-container">
+			<h5 class="selection-title-inner">Column Name</h5>
+			<hr>
+			<div cdkDropList *ngIf="drag"
+				[cdkDropListData]="columns"
+				class="selection-list text-truncate"
+				(cdkDropListDropped)="drop($event)">
+				<div class="selection-box selection-box-not-selected" 
+				*ngFor="let item of columns"
+				[hidden]="item?.col_name === 'profile_image' || item?.col_name === 'delete'" 
+				cdkDrag>
+					<span class="material-icons me-2">drag_indicator</span> {{item?.title.trim()}}
+				</div>
+			</div> 
+
+			<div class="selection-list" *ngIf="!drag">
+				<mat-checkbox  
+				*ngFor="let item of displayedColumns" 
+				[hidden]="item?.col_name === 'profile_image' || item?.col_name === 'delete'" 
+				class="selection-check"  
+				[checked]="item?.selected"
+				(change)="updateSelectedColumn(item)">
+		          	{{item?.title.trim()}}
+		        </mat-checkbox> 
+			</div> 
+		</div>
+
+		<div class="selection-container">
+			<h5 class="selection-title-inner">Selected Columns ({{selected?.length}}) </h5>
+			<hr>
+			<div cdkDropList
+			[cdkDropListData]="selected"
+			class="selection-list text-truncate"
+			(cdkDropListDropped)="drop($event)">
+				<div class="selection-box selection-box-selected" 
+				*ngFor="let item of selected" cdkDrag>
+					<span class="material-icons me-2">drag_indicator</span> {{item?.title.trim()}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="text-start ms-2">
+		<small class="text-muted">*Drag items to the left if you want to hide the column.</small>
+	</div> -->
+	<br>
+	<div class="text-center">
+		<button mat-button class="btn btn-header btn-header-gray me-3" (click)="closeDialog()">
+			Cancel
+		</button>
+
+		<button mat-button class="btn btn-header btn-primary" (click)="closeSaveDialog()"
+		[disabled]="selected?.length <= 0">
+			Save
+		</button>
+	</div>
+</section>

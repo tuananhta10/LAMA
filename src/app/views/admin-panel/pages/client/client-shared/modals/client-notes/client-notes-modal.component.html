@@ -1,0 +1,98 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Participant Notes
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end mt-2" 
+			style="width: 13px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	<form *ngIf="!loading" [formGroup]="clientNotesForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-md-6">
+					<app-search-list 
+						label="Participant" 
+						[required]="true" 
+						placeholder="Select" 
+						formControlName="client"
+						[options]="clientOption"
+						[readonly]="true"
+						[labelTop]="true"
+						[objectReturn]="true" 
+					></app-search-list>
+					<app-date-picker 
+						label="Note Date" 
+						[labelTop]="true"
+						formControlName="note_date">
+					</app-date-picker>
+					
+					<app-date-picker 
+						label="Entry Date" 
+						[labelTop]="true"
+						formControlName="entry_date">
+					</app-date-picker>
+				</div>
+				<div class="col-md-6 text-capitalized">
+					<app-textfield
+						label="Created By"
+						[disabled]="true"
+						[labelTop]="true"
+						formControlName="name">
+					</app-textfield>
+					
+					<app-textfield
+						label="Role"
+						[labelTop]="true"
+						formControlName="role">
+					</app-textfield>
+					<app-date-picker 
+						label="Created On" 
+						[disabled]="true"
+						[labelTop]="true"
+						formControlName="date_added">
+					</app-date-picker>
+					
+				</div>
+
+				<div class="col-12">
+					<div class="col-12 row">
+						<div class="col-12 col-lg-8 text-capitalized">
+							<app-textfield 
+								label="Title"
+								[labelTop]="true"
+								formControlName="title">
+							</app-textfield>
+						</div>
+					</div>
+
+					<app-textarea 
+						label="Content"
+						[labelTop]="true"
+						[rows]="5"
+						formControlName="content">
+					</app-textarea>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+	<global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading"
+        [formOnly]="true">
+    </global-admin-loader>
+
+</div>

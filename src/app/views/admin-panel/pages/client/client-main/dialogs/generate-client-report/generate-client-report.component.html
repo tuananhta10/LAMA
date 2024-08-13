@@ -1,0 +1,118 @@
+<section>
+	<div style="min-width: 80vw" *ngIf="loading">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+
+	<section *ngIf="generatedData?.length > 0 && !loading"
+		mat-dialog-content
+		style="min-height: 40vh; max-height: 92vh;">
+
+		<h5 class="header-text mb-3 pb-3"
+		style="border-bottom: dashed 2px #c9c9c9">Participants Report
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end" 
+			style="width: 15px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+
+			<br style="height: 3px;">
+			<!-- 
+			<label class="mt-2 select-employee hvr-grow" 
+			style="cursor: pointer;" (click)="filterEmployee(employees)">
+				<img src="/assets/images/icons/checklist.png" class="me-2" 
+				style="width: 14px; margin-top: -2px !important;">Select Employee 
+			</label> -->
+		</h5>
+
+		<div class="card card-body p-0" 
+		*ngIf="!loading"
+		id="participant-report-template"
+		style="overflow: auto !important; width: 100%; max-height: 520px;">
+			<table class="d-none">
+				<tr>
+					<td>
+						Participant Report
+					</td>
+				</tr>
+			</table>
+
+			<table class="table mt-2" *ngFor="let group of filteredGrouping">
+				<tr>
+					<td></td>
+				</tr>
+
+				<tr *ngIf="group">
+					<td class="header-text">
+						{{group}}
+					</td>
+				</tr>
+
+				<table class="w-100 table mt-2" title="Participant Report">
+					<thead>
+						<tr>
+							<th *ngFor="let title of generatedColumn" 
+							[ngClass]="title === 'Position' ? 'd-none' : ''"
+							style="vertical-align: top; background: #F4F3FB; color: #512C77; padding-top: 10px">
+								{{title}}
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr *ngFor="let data of generatedData"
+						[ngClass]="data['Position'] !== group ? 'd-none' : ''">
+							<td *ngFor="let title of generatedColumn" 
+							[ngClass]="title === 'Position' ? 'd-none' : ''">
+								{{data[title] || '-'}}
+							</td>
+						</tr>
+					</tbody>
+
+
+				</table>
+			</table>
+		</div>
+	</section>
+</section>
+
+
+<div class="assign-action-container px-0" *ngIf="generatedData?.length === 0">
+	<!-- <img src="/assets/images/icons/report.png" class="img-fluid" width="25px">
+ -->
+	<h5 class="header-text-action">{{data?.title || 'Generate Report'}}</h5>
+	<h5 class="header-text mt-2">You are about to generate a report data. Click Continue to proceed.</h5>
+</div>
+
+<div mat-dialog-actions *ngIf="generatedData?.length === 0">
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="generateReport()" 
+			class="btn btn-primary">Continue</button>
+		</div>
+	</div>
+</div>
+
+<div mat-dialog-actions *ngIf="generatedData?.length > 0">
+	<div class="w-100 text-center">
+		<button 
+		mat-button 
+		(click)="dialogRef.close()" 
+		class="btn  btn-header-gray">Close</button>
+
+		<button 
+		mat-button 
+		(click)="getCanvasElement('participant-report-template')" 
+		class="btn btn-primary">Download Report</button>
+	</div>
+</div>

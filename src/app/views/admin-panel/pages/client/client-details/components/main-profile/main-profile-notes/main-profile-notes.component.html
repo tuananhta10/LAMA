@@ -1,0 +1,119 @@
+<div class="row">
+	<div *ngIf="!scheduleLoading" class="col-12 col-md-12 ">
+		<client-details-navigation
+		[id]="id"
+		[activeLink]="'client-notes'">
+		</client-details-navigation>
+
+		<!-- STATISTICS DATA -->
+		<div class="card card-body pt-4 shadow-3">
+			<client-main-profile-stats></client-main-profile-stats>
+		</div>
+		
+		<div [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+			<div class="card pt-3">
+				<div class="admin-notes">
+					<h5 class="card-title">Case Notes</h5>
+					<!-- <div class="actions">
+						<span class="float-end">
+							<button (click)="openRecordCancellation()" class="add-new btn btn-danger me-2"> 
+								Record Cancellation
+							</button>
+	
+							<button (click)="openRecordSession()" class="add-new btn btn-success me-2"> 
+								Record Session
+							</button>
+
+							<button (click)="openRecordSession()" class="add-new btn btn-primary me-2"> 
+								Record Admin
+							</button>
+						</span>
+					</div> -->
+				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<select style="margin-top: -5px">
+							<option>Newest</option>
+							<option>Oldest</option>
+						</select>
+						<div class="date-picker-notes">
+							<mat-datepicker #picker1></mat-datepicker>
+							<input (click)="picker1.open()"
+							[matDatepicker]="picker1" 
+							type="text" 
+							[(ngModel)]="startDate"
+							(ngModelChange)="onChangeDate()"
+							placeholder="Start Date">
+						</div>
+						<div class="date-picker-notes">
+							<mat-datepicker #picker2></mat-datepicker>
+							<input (click)="picker2.open()"
+							[matDatepicker]="picker2" 
+							type="text" 
+							[(ngModel)]="endDate"
+							(ngModelChange)="onChangeDate()"
+							placeholder="End Date"
+							>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<span class="float-end">
+							<div class="calendar-selection">
+								<div *ngIf="activeTab === 0">
+									<button [class]="currentPage != 0 ? 'btn-clickable' : ''" (click)="back()">
+										<img src="/assets/images/icons/calendar-arrow-left.png" class="img-fluid">
+									</button>
+									<button [class]="isNextPossible() ? 'btn-clickable' : ''" class="ms-1" (click)="next()">
+										<img src="/assets/images/icons/calendar-arrow-left.png" class="img-fluid arrow-right">
+									</button>
+								</div>
+								<div *ngIf="activeTab === 1">
+									<button [class]="canCurrentPage != 0 ? 'btn-clickable' : ''" (click)="canBack()">
+										<img src="/assets/images/icons/calendar-arrow-left.png" class="img-fluid">
+									</button>
+									<button [class]="isNextPossibleCan() ? 'btn-clickable' : ''" class="ms-1" (click)="canNext()">
+										<img src="/assets/images/icons/calendar-arrow-left.png" class="img-fluid arrow-right">
+									</button>
+								</div>
+							</div>
+						</span>
+					</div>
+				</div>
+
+				<hr>
+
+				<mat-tab-group (selectedTabChange)="tabClick($event)">
+					<mat-tab label="All Notes">
+						<app-main-profile-notes-info 
+						*ngIf="scheduleArray.length > 0" 
+						[notesList]="paginate(scheduleArray, pageSize, currentPage)"
+						[activeTab]="activeTab">
+							
+						</app-main-profile-notes-info>
+
+						<p class="p-4 title-no-record" 
+						*ngIf="scheduleArray.length === 0  && !loadingAllNotes">
+						There's currently no recorded notes for this participant</p>
+					</mat-tab>
+					<mat-tab label="Cancelled">
+						<app-main-profile-notes-info 
+						*ngIf="cancelledScheduleArray.length > 0" 
+						[notesList]="paginate(cancelledScheduleArray, canPageSize, canCurrentPage)"
+						[activeTab]="activeTab">	
+						</app-main-profile-notes-info>
+
+						<p class="p-4 title-no-record" 
+						*ngIf="cancelledScheduleArray?.length === 0  && !loadingAllNotes">
+						There's currently no recorded notes for this participant</p>
+					</mat-tab>
+				</mat-tab-group>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="scheduleLoading">
+		<global-admin-loader 
+		[withSideBar]="true"
+		[loading]="scheduleLoading">
+	</global-admin-loader>
+	</div>
+</div>

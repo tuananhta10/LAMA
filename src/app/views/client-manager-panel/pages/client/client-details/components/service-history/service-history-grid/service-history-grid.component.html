@@ -1,0 +1,85 @@
+<!-- -->
+<div class="search-container">
+	<div class="search-div float-sm-end me-1">
+		<div class="input-group">
+		  <img src="/assets/images/icons/search.png">
+		  
+		  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+		  [(ngModel)]="searchBy" (ngModelChange)="searchDataSource()">
+		</div>
+	</div>
+
+	<h5 class="header-filter">
+		<div class="dropdown">
+		  <button class="btn btn-secondary-filter d-flex" type="button" id="filterButton" data-bs-toggle="dropdown">
+		    Filter <span class="ms-1 material-icons">arrow_drop_down</span>
+		  </button>
+		  <ul class="dropdown-menu" aria-labelledby="filterButton">
+		    <li><a class="dropdown-item" href="#">Action</a></li>
+		    <li><a class="dropdown-item" href="#">Another action</a></li>
+		    <li><a class="dropdown-item" href="#">Something else here</a></li>
+		  </ul>
+		</div>
+	</h5>
+</div>
+
+<!-- STATS -->
+<div class="table-statistics d-flex">
+	<div class="d-flex flex-wrap me-3 orange stat-container">
+		<div class="circle"></div>
+		<div>
+			<h5 class="stat-data">202</h5>
+			<p class="stat-title">Title</p>
+		</div>
+	</div>
+
+	<div class="d-flex flex-wrap me-3 purple stat-container">
+		<div class="circle"></div>
+		<div>
+			<h5 class="stat-data">100</h5>
+			<p class="stat-title">Title</p>
+		</div>
+	</div>
+
+	<div class="d-flex flex-wrap me-3 blue stat-container">
+		<div class="circle"></div>
+		<div>
+			<h5 class="stat-data">30</h5>
+			<p class="stat-title">Title</p>
+		</div>
+	</div>
+
+	<div class="d-flex flex-wrap me-3 pink stat-container">
+		<div class="circle"></div>
+		<div>
+			<h5 class="stat-data">150</h5>
+			<p class="stat-title">Title</p>
+		</div>
+	</div>
+</div> 
+
+<br>
+
+<div class="row px-2">
+	<div class="col-12 col-md-6 col-lg-3 mb-3 service-container"
+	*ngFor="let client of dataSource">
+		<div class="card card-body text-center">
+			<div class="service-header-container">
+				<p>{{client?.date}}</p>
+				<h3>{{client?.hours}}</h3>
+				<h5>
+					<img [src]="client?.profile_image">
+					{{client?.entry_by}}
+				</h5>
+			</div>
+
+			<div class="service-header-description">
+				<h4>{{client?.service}}</h4>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in lectus ut metus</p>
+
+				<button class="btn btn-primary btn-header">{{client?.job_description}}</button>
+			</div>
+		</div>
+		
+	</div>
+</div>

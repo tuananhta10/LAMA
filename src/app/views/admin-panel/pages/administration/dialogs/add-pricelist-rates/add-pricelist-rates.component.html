@@ -1,0 +1,50 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Select Service Types
+            
+        </h5>
+		<hr>
+	</div>
+     <div mat-dialog-content>
+        <!-- LOADING ANIMATION SCREEN -->
+        <global-admin-loader 
+            [withSideBar]="false"
+            [fromDetailTab]="true"
+            [loading]="loading">
+        </global-admin-loader>
+
+        <!-- LIST VIEW -->
+        <div class="mt-2"  *ngIf="listView && !loading"
+        style="min-height: 400px;">
+            <section [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+                <admin-reusable-list-view
+                    [loading]="loading"
+                    [displayedColumns]="displayedColumns"
+                    [selectedColumns]="selectedColumns"
+                    [selectedColumnsMobile]="selectedColumns"
+                    [searchSource]="searchSource"
+                    [maxRows]="25"
+                    [showStatData]="false"
+                    [listDataSource]="serviceTypeList"
+                    [multipleSelect]="true">
+                </admin-reusable-list-view>
+            </section>
+        </div>
+
+     </div>
+     <div mat-dialog-actions>
+        <div class="text-center mb-3 px-0 w-100">
+            <hr><br>
+
+            <button mat-button (click)="close()" 
+            class="btn  btn-header-gray me-3">Close</button>
+
+            <button mat-button (click)="save()"
+            class="btn btn-primary btn-header me-3">
+                <span *ngIf="!data else showSave">Add</span>
+                <ng-template #showSave>Save</ng-template>   
+            </button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,153 @@
+@import "src/scss/colors";
+
+/* :host ::ng-deep{
+	::-webkit-scrollbar {
+	  width: 0px !important;
+	  height: 0px !important;
+	  cursor: move; 
+	}
+} */
+
+
+.search-div{
+    vertical-align: center !important;
+    background: #F0F1F5;
+    padding: 10px 20px 10px 15px !important;
+    border-radius: 8px !important;
+    width: 340px !important;
+
+    //margin-right: 30px;
+    .input-group-text{
+        /* background: none;
+        border:none; */
+    }
+
+    .input-group{
+        padding: 0px !important;
+        outline: none !important;
+        img{
+            width: 15px !important;
+            height: 15px !important;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+    }
+
+    .form-control{
+        border-radius: 0px !important;
+        font-size: 14px !important;
+        margin-left: 10px;
+        padding: 0 !important;
+        border: none !important;
+        background: #F0F1F5 !important;
+        outline: none !important;
+        //border-color: #a8a8a8 !important;
+    }
+
+    input{
+    	outline: none !important;
+    }
+}
+
+
+.main-title{
+	font-size: 24px;
+	font-weight: 600;
+	color: $color-gray;
+
+}
+
+.help-icon{
+	width: 35px;
+	height: 35px;
+	background: #FFFBEB;
+	margin-right: 10px;
+	border-radius: 50%;
+
+	img{
+		//padding-top: 5px;
+		padding-left: 5px;
+		width: 30px;
+	}
+}
+
+.help-title{
+	font-weight: 600;
+	font-size: 14px;
+	color: $color-gray-dark;
+}
+
+.help-link{
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+
+.help-details{
+	background: white;
+	margin-bottom: 10px;
+	padding: 10px;
+	border-radius: 10px;
+	margin-top: 0;
+	box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.05);
+	position: relative;
+
+	&:hover{
+		background: #F1F1F1;
+		color: white !important;
+		font-weight: 500;
+		-webkit-transition: background 0.25s linear;
+		-moz-transition: background 0.25s linear;
+		transition: background 0.25s linear;
+	}
+
+	.help-icon{
+		width: 35px;
+		height: 35px;
+		background: #FFFBEB;
+		margin-right: 10px;
+		border-radius: 50%;
+
+		img{
+			padding-top: 5px;
+			padding-left: 5px;
+			width: 30px;
+		}
+	}
+
+	.help-title{
+		font-weight: 600;
+		font-size: 14px;
+		color: $color-gray-dark;
+	}
+
+	.help-description{
+		font-size: 11px;
+		color: $color-gray;
+		font-weight: 400;
+		margin-bottom: 0 !important;
+	}
+
+	.help-navigate{
+		position: absolute; 
+		right: 25px;
+		top: 25px;
+	}
+
+	.warning{
+		background: #FFFBEB;
+	}
+
+	.success{
+		background: #EFF6FF;
+	}
+
+	.danger{
+		background: #ECFDF5;
+	}
+
+	.info{
+		background: #FEF2F2;
+	} 
+}

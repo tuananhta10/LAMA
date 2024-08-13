@@ -1,0 +1,112 @@
+<div class="card-form">
+	<div *ngIf="!loading && !priceListLoading">
+		<div mat-dialog-title>
+			<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+				<ng-template #showUpdate>Update</ng-template> Participant Group
+				<img src="/assets/images/icons/close-dialog.png" 
+				class="float-end mt-2" 
+				style="width: 13px; cursor: pointer;" 
+				(click)="dialogRef.close()"> 
+			</h5>
+			<hr>
+		</div>
+		<div mat-dialog-content>
+			<form class="row" [formGroup]="clientGroupForm" >
+				<div class="col-12 col-lg-6" >
+					<app-textfield 
+						label="Group Name"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="name">
+					</app-textfield>
+				</div>
+	
+				<div class="col-12 col-lg-6">
+					<app-search-list 
+						label="Branch"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="branch_id"
+						[options]="branchEnums"
+						[newOption]="true"
+						[newOptionLabel]="'Branch'"
+						[newOptionRoute]="'/admin/setup/branch-list'">
+					</app-search-list>
+				</div>
+
+				<div class="col-12 col-lg-6">
+					<app-search-list 
+						label="Group Support Item"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="price_list_id"
+						[isTextArea]="true"
+						[rows]="2"
+						[options]="pricelistEnum">
+					</app-search-list>
+				</div>
+
+				<div class="col-12 col-lg-6">
+					<app-textfield 
+						label="No. of Employees"
+						[labelTop]="true"
+						[required]="true"
+						[inputType]="'number'"
+						[infoTitle]="'Maximum number of employees that can be assign to this group'"
+						[info]="true"
+						formControlName="no_max_employee">
+					</app-textfield>
+				</div>
+
+				<div class="col-12 col-lg-6" >
+					<app-radio-button 
+						label="Rate Type"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="rate_type"
+						[options]="radioOptions">
+					</app-radio-button>
+				</div>
+	
+				<div class="col-12 px-3">
+					<hr>
+					<div class="px-3 mt-4">
+						<app-form-table
+							label='Participants'
+							[columns]="clientColumns"
+							[data]="clientTableData"
+							(addEvent)="openClientModal($event)"
+							(deleteEvent)="deleteClientModal($event)"
+							[isAddEnabled]="true"
+							[isDeleteEnabled]="true"
+						></app-form-table>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+	
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+	
+				<button mat-button (click)="save()"
+				[disabled]="!clientGroupForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+					<span *ngIf="!data else showSave">Add</span>
+					<ng-template #showSave>Save</ng-template> 	
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading || priceListLoading">
+	</global-admin-loader>
+
+</div>

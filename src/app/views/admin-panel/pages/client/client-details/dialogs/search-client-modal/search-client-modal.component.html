@@ -1,0 +1,52 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Search Participants</h5>
+		<hr>
+	</div>
+	
+	<form *ngIf="!loading" [formGroup]="clientForm">
+		<div mat-dialog-content>
+			<div>
+				<h6 *ngIf="clientOptions?.length === 0">
+					There's currently no participants available using the selected group support item
+
+					<hr>
+				</h6>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<app-search-list  
+					label="Participants" 
+					[required]="true" 
+					placeholder="Select" 
+					formControlName="client"
+					[options]="clientOptions"
+					[labelTop]="true"
+					[objectReturn]="true" 
+					[isTextArea]="true"
+					[rows]="1"
+					></app-search-list>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+	<global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading"
+        [formOnly]="true">
+    </global-admin-loader>
+</div>

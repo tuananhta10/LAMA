@@ -1,0 +1,248 @@
+<div class="row mt-2" *ngIf="!loading" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="serviceDetailsForm">
+			<mat-card>
+				<!-- <mat-card-title *ngIf="isUpdate">
+					Service Details
+					<hr>
+				</mat-card-title> -->
+				<mat-card-content>
+					<div class="row  pt-3">
+						<div class="col-sm-12 col-md-5">
+							<app-dropdown id="funding_type"
+								label="Fund Type" 
+								formControlName="funding_type" 
+								[options]="fundTypeOptions">	
+							</app-dropdown>
+
+							<app-search-list id="program_id" 
+								label="Funding Source" 
+								formControlName="program_id"
+								[options]="programsEnum" 
+								[addOption]="true" 
+							></app-search-list>
+
+							<app-date-picker id="ndis_plan_start_date" 
+								label="Plan Start Date" 
+								[info]="true"
+								[infoTitle]="'NDIS Plan Start Date based on written documents'"
+								formControlName="ndis_plan_start_date">
+							</app-date-picker>
+
+							<app-date-picker id="ndis_plan_end_date" 
+								label="Plan End Date" 
+								[info]="true"
+								[infoTitle]="'NDIS Plan End Date based on written documents'"
+								formControlName="ndis_plan_end_date">
+							</app-date-picker>
+
+							<app-dropdown id="service_required" 
+								label="Service Required" 
+								formControlName="service_required" 
+								[options]="serviceRequiredOptions">
+							</app-dropdown>
+
+							<app-dropdown id="service_location" 
+								label="Service Location" 
+								formControlName="service_location" 
+								[options]="serviceLocationOptions">
+							</app-dropdown>
+
+							<!-- <app-search-list id="minimum_classification_id" 
+								label="Minimum Classification" 
+								formControlName="min_class"
+								[info]="true"
+								[infoTitle]="'Minimum Required staff classification required to service this client'"
+								[options]="classificationsEnums" 
+							></app-search-list> -->
+						</div>
+						
+						<div class="col-sm-12 col-md-5">
+							<app-date-picker id="entry_date" 
+								label="Entry Date" 
+								[info]="true"
+								[infoTitle]="'Date that the client started with the organization. For information purposes only.'"
+								formControlName="entry_date">
+							</app-date-picker>
+
+							<app-date-picker id="end_service_date" 
+								label="End of Service Date" 
+								[info]="true"
+								[infoTitle]="'Date entered here will prevent services being scheduled past this date.'"
+								formControlName="end_service_date">
+							</app-date-picker>
+
+							<app-date-picker id="last_service_date" 
+								label="Last Service Date" 
+								[info]="true"
+								[infoTitle]="'System Generated based on last completed service'"
+								formControlName="last_service_date">
+							</app-date-picker>
+
+							<app-date-picker id="exit_date" 
+								label="Exit Date" 
+								[info]="true"
+								[infoTitle]="'Date client terminated services with the organization. For information purposes only. Usually completed before client is deactivated.'"
+								formControlName="exit_date">
+							</app-date-picker>
+
+							<!-- [addOption]="true" 
+								(addMethod)="openAddMinimumClassification($event)" -->
+							
+
+							<app-textarea id="risk_notification" 
+								label="Risk Notification" 
+								[info]="true"
+								[infoTitle]="'Notification to display in header for client and when scheduling services.'"
+								formControlName="risk_notification">
+							</app-textarea>
+						</div>
+					</div>
+
+					<ng-container 
+					*ngIf="serviceDetailsForm?.controls['funding_type'].value === 'Plan managed'">
+						<div class="row col-12" 
+						[@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+							<div class="col-12 mb-3">
+								<h5 class="mt-4 ms-5">Plan Manager Details</h5>
+								<hr>
+							</div>
+
+							<div class="col-12 col-md-6">
+								<app-textfield id="plan_manager_full_name" 
+									label="Company Name" 
+									formControlName="plan_manager_full_name">
+								</app-textfield>
+
+								<app-textfield id="plan_manager_key_contact" 
+									label="Key Contact" 
+									formControlName="plan_manager_key_contact">
+								</app-textfield>
+							</div>
+
+							<div class="col-12 col-md-6">
+								<app-textfield id="plan_manager_work_phone" 
+									label="Work Phone" 
+									[inputType]="'tel'"
+									formControlName="plan_manager_work_phone">
+								</app-textfield>
+
+								<app-textfield id="plan_manager_email" 
+									label="Email" 
+									formControlName="plan_manager_email">
+								</app-textfield>
+							</div>
+						</div>
+					</ng-container>
+
+					<hr  *ngIf="isUpdate">
+					<div *ngIf="isUpdate" class="row mt-5">
+						<div class="col-md-12">
+							<app-form-table
+								label='Participant Funding'
+								[columns]="clientFundingColumns"
+								[data]="modifiedClientFundingData"
+								(addEvent)="openClientFundingModal($event)"
+								(deleteEvent)="deleteClientFundingRow($event)"
+								(editEvent)="editClientFundingModal($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+								[editable]="true"
+							></app-form-table>
+						</div>
+
+						<div class="col-md-12" id="participant-goals">
+							<app-form-table
+								label='Participant Goal'
+								[columns]="clientGoalColumns"
+								[data]="clientGoalData"
+								(addEvent)="openClientGoalModal($event)"
+								(deleteEvent)="deleteClientGoalRow($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+								[editable]="true"
+								(editEvent)="openClientGoalModal($event)"
+							></app-form-table>
+						</div>
+
+						<div class="col-12 col-md-12">
+							<app-form-table
+								label='Plan Review'
+								[columns]="planReviewColumns"
+								[data]="planReviewData"
+								(addEvent)="openPlanReviewModal($event)"
+								(deleteEvent)="deletePlanReviewRow($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+								[editable]="true"
+								(editEvent)="openPlanReviewModal($event)"
+							></app-form-table>
+						</div>
+
+						<div class="col-12 col-md-12">
+							<app-form-table
+								label='Service Template'
+								[columns]="serviceTemplateColumns"
+								[data]="serviceTemplateData"
+								(addEvent)="openServiceTemplateModal($event)"
+								(deleteEvent)="deleteServiceTemplateRow($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+								[editable]="true"
+								(editEvent)="openServiceTemplateModal($event)"
+							></app-form-table>
+						</div>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+					<div *ngIf="!isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button mat-button class="btn btn-header btn-header-gray" 
+							(click)="saveAsDraft()" 
+							style="padding-left: 14px !important; padding-right: 14px !important;" 
+							*ngIf="!isUpdate || currentStatus === 'draft'" >
+								Save as Draft
+							</button>
+
+							<button (click)="next()"
+							[disabled]="!serviceDetailsForm.valid" 
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+						</div>
+					</div>
+					<div *ngIf="isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+								Next
+							</button>
+							
+							<button (click)="submit()" 
+							[disabled]="!serviceDetailsForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Save
+							</button>
+						</div>
+					</div>
+				</mat-card-actions>
+			</mat-card>
+		</form>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>

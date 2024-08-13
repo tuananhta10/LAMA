@@ -1,0 +1,62 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Xero settings
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form *ngIf="!loading" [formGroup]="addXeroSettingForm">
+		<div mat-dialog-content>
+            <app-textfield 
+                label="Xero App Id"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="xero_app_id">
+            </app-textfield>
+
+            <app-textfield 
+                label="Client ID"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="client_id">
+            </app-textfield>
+
+            <app-textfield 
+                label="Client Secret"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="client_secret">
+            </app-textfield>
+
+            <app-textfield 
+                label="Redirect Uri"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="redirect_uri">
+            </app-textfield>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data; else showSave">Add</span>
+                    <ng-template #showSave>Save</ng-template>  
+                </button>
+			</div>
+		</div>
+	</form>
+    <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading">
+    </global-admin-loader>
+</div> 

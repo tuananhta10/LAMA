@@ -1,0 +1,118 @@
+<div class="row" mat-dialog-content>
+     <div class="col-12" >
+         <form [formGroup]="notificationForm">
+             <div class="row">
+                 <div class="col-12">
+                    <h5 class="mat-subtitle">Notified</h5>
+
+                     <div class="row notification">
+                         <div class="col-12 col-md-6">
+                             <app-radio-button 
+                                 label="Notified Management"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 formControlName="notified_management"
+                                 [options]="radioOptions">
+                             </app-radio-button>
+
+                             <app-radio-button 
+                                 label="Notified Staff"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 formControlName="notified_staff"
+                                 [options]="radioOptions">
+                             </app-radio-button>
+
+                             <app-radio-button 
+                                 label="Notified Guardian"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 formControlName="notified_guardian"
+                                 [options]="radioOptions">
+                             </app-radio-button>
+                         </div>
+
+                         <div class="col-12 col-md-6">
+
+
+                             <app-radio-button 
+                                 label="Notified Police"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 formControlName="notified_police"
+                                 [options]="radioOptions">
+                             </app-radio-button>
+
+                             <app-radio-button 
+                                 label="Notified Insurance"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 formControlName="notified_insurance"
+                                 [options]="radioOptions">
+                             </app-radio-button>
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-12 ">
+                             <app-textfield
+                                 label="Witnesses"
+                                 [labelTop]="true"
+                                 formControlName="witnesses">
+                             </app-textfield>
+                         </div>
+                         <div class="col-sm-12 col-md-6 ">
+                            <app-textfield
+                                label="Notified Email Address"
+                                [labelTop]="true"
+                                inputType="email"
+                                [info]="true"
+                                [infoTitle]="'Add the witness’s email address if any'" 
+                                formControlName="notified_email">
+                            </app-textfield>
+                        </div>
+                        <div class="col-sm-12 col-md-6 ">
+                            <app-textfield
+                                label="Notified Phone Number"
+                                [labelTop]="true"
+                                inputType="number"
+                                [info]="true"
+                                [min]="0"
+                                [infoTitle]="'Add the witness’s contact details if any'"
+                                formControlName="notified_phone">
+                            </app-textfield>
+                        </div>
+                     </div>
+
+                    
+
+                     <div class="row notification">
+                         <div class="col-12 col-md-6">
+                            <h5 class="mat-subtitle">Other</h5>
+                             <app-radio-button 
+                                 label="Examined By Doctor?"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 formControlName="examined_by_doctor"
+                                 [options]="radioOptions">
+                             </app-radio-button>
+                         </div>
+
+                         <div class="col-12 col-md-6">
+                             <h5 class="mat-subtitle">Hospitalised</h5>
+
+                             <app-radio-button 
+                                 label="Hospitalised?"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 formControlName="hospitalised"
+                                 [options]="radioOptions">
+                             </app-radio-button>
+                         </div>
+                     </div>
+                 </div>
+
+             </div>
+         </form>   
+     </div>
+</div>

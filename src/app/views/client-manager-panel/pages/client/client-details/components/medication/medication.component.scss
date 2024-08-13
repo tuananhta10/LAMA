@@ -1,0 +1,42 @@
+@import "src/scss/colors";
+
+.search-div{
+    vertical-align: center !important;
+    background: #F0F1F5;
+    padding: 10px 20px 10px 15px !important;
+    border-radius: 8px !important;
+    //width: 80% !important;
+    //margin-left: 50px;
+
+    //margin-right: 30px;
+    .input-group-text{
+        /* background: none;
+        border:none; */
+    }
+
+    .input-group{
+        padding: 0px !important;
+        outline: none !important;
+        img{
+            width: 15px !important;
+            height: 15px !important;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+    }
+
+    .form-control{
+        border-radius: 0px !important;
+        font-size: 14px !important;
+        margin-left: 10px;
+        padding: 0 !important;
+        border: none !important;
+        background: #F0F1F5 !important;
+        outline: none !important;
+        //border-color: #a8a8a8 !important;
+    }
+
+    input{
+    	outline: none !important;
+    }
+}

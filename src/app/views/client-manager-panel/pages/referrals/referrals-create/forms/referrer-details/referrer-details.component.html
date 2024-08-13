@@ -1,0 +1,81 @@
+<div class="card card-body mt-3 py-5 px-md-5">
+	<h5 class="mat-subtitle text-start mb-4">Referrer/Support Coordinator Details</h5>
+	<form *ngIf="!loading" [formGroup]="referralDetailsForm"
+	[@animate]="{value:'*', params:{ x:'-50px'}}">
+		<div class="row">
+			<div class="col-12 col-md-4 mb-3">
+				<app-textfield 
+					label="Full Name" 
+					[labelTop]="true"
+					formControlName="referrer_full_name"
+					>
+				</app-textfield>
+
+				<app-date-picker 
+					label="Referral Date" 
+					[labelTop]="true"
+					formControlName="referral_date"
+					>
+				</app-date-picker>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-textfield 
+					label="Contact Number" 
+					[labelTop]="true"
+					formControlName="referrer_contact_phone_no"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Email" 
+					[inputType]="'email'"
+					[labelTop]="true"
+					formControlName="referrer_email_address"
+					>
+				</app-textfield>
+
+				<app-dropdown 
+					label="Referral Source" 
+					[labelTop]="true"
+					formControlName="referral_source"
+					[options]="referralSourceOption"
+					>
+				</app-dropdown>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-textfield 
+					label="Organisation Name" 
+					[labelTop]="true"
+					formControlName="referrer_organization_name"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Organisation Address" 
+					[labelTop]="true"
+					formControlName="referrer_organization_address"
+					>
+				</app-textfield>
+
+				<app-dropdown 
+					label="Reason for Referral" 
+					[labelTop]="true"
+					formControlName="reason_for_referral"
+					[options]="reasonForReferralOption"
+					[multiple]="true"
+					>
+				</app-dropdown>
+			</div>
+		</div>
+	</form>
+	
+	<div class="px-5">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

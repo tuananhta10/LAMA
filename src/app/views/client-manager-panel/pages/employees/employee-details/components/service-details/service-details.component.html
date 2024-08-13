@@ -1,0 +1,156 @@
+<div id="employee-service-detail-container">
+	<!-- BUTTONS CONTROLLER -->
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'service-detail'">
+	</employee-details-navigation>
+
+	<!-- STATISTICS DATA -->
+	<div class="mb-3">
+		<employee-main-profile-stats></employee-main-profile-stats>
+	</div>
+
+	<!-- DOCUMENT FILE DATA -->
+	<div 
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="row">
+			<div class="col-12 col-md-6 col-lg-8">
+				<div class="mb-3 d-flex" id="employee-demographics">
+					<div class="employee-img-icon-demographics flex-wrap">
+						<img src="/assets/images/icons/service.png">
+					</div>
+
+					<div class="employee-data flex-wrap mb-3">
+						<h5 class="card-title">
+							Service Details
+							<!-- <span class="float-end view-edit">Edit</span> -->
+						</h5>
+						<hr>
+						<dl>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Main Branch</strong> 
+								<span>{{serviceDetail?.branch_name || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Date Started</strong> 
+								<span>{{ serviceDetail?.date_started ? (serviceDetail?.date_left * 1000 | date: 'MM-dd-yyyy') : "-" }}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Date Left</strong>
+								<span>{{ serviceDetail?.date_left ? (serviceDetail?.date_left * 1000 | date: 'MM-dd-yyyy') : "-" }}</span>
+							</dd>
+							
+							<dd class="text-truncate">
+								<strong class="me-3">Last Roster Date</strong> 
+								<span>{{ serviceDetail?.last_roster_date ? (serviceDetail?.date_left * 1000 | date: 'MM-dd-yyyy') : "-" }}</span>
+							</dd> 
+							
+							<dd class="text-truncate">
+								<strong class="me-3">Job Type</strong> 
+								<span>{{serviceDetail?.job_type || '-'}}</span>
+							</dd>
+
+							<dd><hr></dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Position</strong> 
+								<span>{{serviceDetail?.position }}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Manager</strong> 
+								<span>{{serviceDetail?.manager}}</span>
+							</dd>
+							
+						</dl>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 col-lg-4">
+				<div class="mb-3 d-flex" id="employee-details">
+					<div class="employee-img-icon-details flex-wrap">
+						<img src="/assets/images/icons/rates.png">
+					</div>
+
+					<div class="employee-data flex-wrap">
+						<h5 class="card-title">Pay Rates Details
+							<!-- <span class="float-end view-edit">Edit</span> -->
+						</h5>
+
+						<hr>
+
+						<dl>
+							<dd class="text-truncate capitalize d-flex">
+								<div style="width: 80px;">On Hold    </div> 
+								<div>
+									<mat-radio-group 
+									disabled="true"
+									[(ngModel)]="serviceDetail.on_hold" id="onHold">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+								</div>
+							</dd>
+
+							<dd class="text-truncate capitalize d-flex">
+								<div style="width: 80px;">Volunteer    </div>
+								<div>
+									<mat-radio-group 
+									disabled="true"
+									[(ngModel)]="serviceDetail.volunteer" id="onHold">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+								</div>
+							</dd>
+
+							<dd class="text-truncate capitalize d-flex">
+								<div style="width: 80px;">Member    </div>
+								<div>
+									<mat-radio-group 
+									disabled="true"
+									[(ngModel)]="serviceDetail.member" id="onHold">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+								</div>
+							</dd>
+						</dl>
+
+						<h5 class="card-title">Pay Rates
+							<!-- <span class="float-end view-edit">Edit</span> -->
+						</h5>
+
+						<hr>
+
+						<dl>
+							<dd class="text-truncate capitalize">
+								<strong>Employment Type    </strong> 
+								<span>{{serviceDetail?.employment_type || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate capitalize">
+								<strong>Hourly Rate    </strong>
+								<span>{{serviceDetail?.hourly_rate || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate capitalize">
+								<strong>Pricelist    </strong>
+								<span>{{serviceDetail?.price_list || '-'}}</span>
+							</dd>
+						</dl>
+
+						<br>
+					</div>
+				</div>
+			</div>
+
+
+			
+		</div>
+	</div>
+</div>

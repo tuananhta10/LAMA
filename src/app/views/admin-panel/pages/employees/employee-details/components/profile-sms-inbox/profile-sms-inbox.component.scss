@@ -1,0 +1,200 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+.text-truncate{
+    height: 40px;
+}
+
+.btn-sort{
+    font-size: 12px !important;
+    background: #fefefe !important;
+    border: solid 1px #c9c9c9 !important;
+    border-radius: 6px !important;
+    padding: 6px 8px !important;;
+}
+
+.dropdown-menu{
+    max-width: 70px;
+    li{
+        padding: 3px;
+        padding-left: 10px;
+        cursor: pointer;
+        font-weight: 500;
+
+        &:hover{
+            font-weight: 600;
+        }
+    }
+}
+
+.search-div{
+    vertical-align: center !important;
+    background: #F0F1F5;
+    padding: 10px 20px 10px 15px !important;
+    border-radius: 8px !important;
+    margin-top: -15px;
+    //width: 80% !important;
+    //margin-left: 50px;
+
+    //margin-right: 30px;
+    .input-group-text{
+        /* background: none;
+        border:none; */
+    }
+
+    .input-group{
+        padding: 0px !important;
+        outline: none !important;
+        img{
+            width: 15px !important;
+            height: 15px !important;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+    }
+
+    .form-control{
+        border-radius: 0px !important;
+        font-size: 14px !important;
+        margin-left: 10px;
+        padding: 0 !important;
+        border: none !important;
+        background: #F0F1F5 !important;
+        outline: none !important;
+        //border-color: #a8a8a8 !important;
+    }
+
+    input{
+    	outline: none !important;
+    }
+}
+
+
+.date-div{
+    vertical-align: center !important;
+    background: #F0F1F5;
+    padding: 10px 20px 10px 15px !important;
+    border-radius: 8px !important;
+    width: 140px !important;
+    //margin-left: 50px;
+
+    //margin-right: 30px;
+    .input-group-text{
+        /* background: none;
+        border:none; */
+    }
+
+    .input-group{
+        padding: 0px !important;
+        outline: none !important;
+        img{
+            width: 15px !important;
+            height: 15px !important;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+    }
+
+    .form-control{
+        border-radius: 0px !important;
+        font-size: 14px !important;
+        margin-left: 10px;
+        padding: 0 !important;
+        border: none !important;
+        background: #F0F1F5 !important;
+        outline: none !important;
+        //border-color: #a8a8a8 !important;
+    }
+
+    input{
+        outline: none !important;
+    }
+}
+
+
+.btn-header{
+	background: #D0D0D0;
+	color: $color-gray-dark;
+    border-radius: 5px !important;
+    padding: 10px 30px !important;
+
+    &:hover{
+    	background: #c6c6c6 !important;
+    	color: $color-gray-dark !important;
+    }
+}
+
+.email-attachment{
+    padding:4px 13px;
+    border-radius: 50px;
+    background: #f1f1f1;
+
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title-email{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    /* identical to box height */
+
+
+    color: #505050;
+}
+
+.title-description{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    /* identical to box height */
+
+
+    color: #7C7C7C;
+    transition: all 0.3s ease !important;
+}
+
+.col-animate{
+    transition: all 0.3s ease !important;
+}
+
+table{
+    tbody{
+        tr{
+            &:hover{
+                cursor: pointer;
+                border-radius: 8px;
+                background: rgba(#E7DEFF, 0.5);
+                transition: all 0.3s ease !important;
+                //border: 1px solid #DEDEDE;
+            }
+
+            td{
+                border-bottom: 1px dashed #c8c8c8;
+            }
+        }
+    }
+}
+
+.total-number{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 28px;
+    /* identical to box height, or 175% */
+
+    display: flex;
+    align-items: center;
+
+    color: #505050;
+}

@@ -1,0 +1,62 @@
+<div class="row mb-5">
+	<div class="col-sm-6">
+		<h5 class="table-label">{{label}}</h5>
+	</div>
+	<div class="col-sm-6 text-end">
+		<ng-container *ngIf="link">
+			<a *ngIf="isViewMore" class="view-more me-3"
+			[routerLink]="link"> View More </a>
+		</ng-container>
+
+		<a *ngIf="isAddEnabled" class="add-new" (click)="add()">
+			<img src="/assets/images/icons/plus-purple.png" class="img-fluid" width="13px">
+		</a>
+	</div>
+	<div class="col-sm-12 table-border form-table-main mt-2"  style="overflow-x: auto; ">
+		<table class="table">
+			<thead>
+			  	<tr>
+					<th *ngFor="let col of columns" scope="col">{{col.name}}</th>
+					<th *ngIf="isDeleteEnabled || editable" scope="col"></th>
+			  	</tr>
+			</thead>
+			<tbody *ngIf="data?.length > 0; else elseBlock">
+			  	<tr *ngFor="let row of data; let i = index">
+					<td *ngFor="let col of columns; let j = index"
+					[ngClass]="!col?.capitalize ? 'text-capitalize' : ''">
+						<div [ngClass]="col?.type === 'number' ? col?.number_class : ''"
+						*ngIf="!col.field.match('date') && col?.type !== 'favorite'">
+							<!-- {{ row[col.field] || '-' }} -->
+							<div [innerHTML]="(row[col.field] ? row[col.field] : col?.type === 'number' ? 0 : '-')| decimal "></div>
+              <!-- {{  }} -->
+						</div>
+
+						<div *ngIf="!col.field.match('date') && col?.type == 'favorite'">
+							<img src="/assets/images/icons/star.png" style="width: 20px;"
+							*ngIf="row[col?.field]" class="ms-3">
+
+							<span class="ms-4" *ngIf="!row[col?.field]">-</span>
+						</div>
+
+						<div *ngIf="col.field.match('date') || col?.type === 'date'">{{ row[col.field] * 1000 | date : 'dd-MM-yyyy' }}</div>
+					</td>
+					<td *ngIf="isDeleteEnabled || editable">
+						<ng-container *ngIf="editable" >
+							<mat-icon class="mat-icon me-3 hvr-grow" (click)="openDialog(row)">edit_note</mat-icon>
+						</ng-container>
+
+						<img src="/assets/images/icons/delete-circle-red.png" *ngIf="isDeleteEnabled"
+						class="hvr-grow delete-image" (click)="delete(i)" style="width: 30px !important; cursor: pointer;">
+					</td>
+			  	</tr>
+			</tbody>
+			<ng-template #elseBlock>
+				<tbody>
+					<tr>
+						<td [attr.colspan]="colSpan" class="text-center"><p>No {{label}} Available</p></td>
+					</tr>
+				</tbody>
+			</ng-template>
+		</table>
+	</div>
+</div>

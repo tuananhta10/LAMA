@@ -1,0 +1,89 @@
+@import "src/scss/colors";
+
+.container-title{
+    font-weight: 600;
+    color: $color-gray;
+    font-size: 16px;
+}
+
+.img-circle{
+    border-radius: 10px;
+    background: rgba(86, 103, 137, 0.2);
+    padding-top: 53px;
+    padding-left: 55px;
+    width: 170px;
+    height: 170px;
+    margin-bottom: 20px;
+    .image-placeholder {
+        width: 60px;
+        height: auto;
+    }
+}
+
+.image-placeholder-add{
+    border-radius: 10px;
+    width: 180px;
+    height: 170px;
+    object-fit: contain;
+    object-position: center;
+    background: rgba(86, 103, 137, 0.2);
+}
+
+p{
+    color: $color-gray;
+}
+
+:host ::ng-deep{
+    .asterisk-required {
+        color: $color-red !important;
+    }
+}
+
+
+.btn-primary{
+    padding: 10px 25px !important;
+    border-radius: 5px !important;
+}
+
+.btn-outline-primary{
+    border-radius: 5px;
+    padding: 10px 25px !important;
+    border-radius: 5px !important;
+    margin-right: 10px;
+    border: solid 1px $color-purple !important;
+    color: $color-purple;
+
+    &:hover{
+        background: $color-purple;
+        color: white;
+    }
+
+}
+
+:host ::ng-deep {
+    
+
+    .btn-uploader{
+        border-radius: 5px !important;
+        padding: 10px 30px !important;
+        width: 120px !important;
+        height: 30px !important;
+    }
+
+    .label-top{
+        span{
+            font-size: 14px !important;
+            color: $color-gray;
+            margin-bottom: 10px !important;
+        }
+    }
+
+    .container-input{
+        width: 75% !important;
+
+        input{
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+    }
+}

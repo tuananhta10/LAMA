@@ -1,0 +1,38 @@
+<div class="card" *ngIf="!loading"
+	[@animate]="{value:'*', params:{ y:'-100px', delay:'300ms' }}">
+	<div class="card-body px-4" id="employee-feed-body">
+
+		<!-- FROM INPUT -->
+		<div class="employee-feed d-flex hvr-sweep-to-bottom" *ngFor="let feeds of liveFeeds">
+			<div class="employee-feed-circle-tick active"></div>
+			<img class="me-4 flex-wrap img img-fluid" 
+			[defaultImage]="defaultImage" 
+			[lazyLoad]="feeds.feed?.profile_image">
+			<div class="flex-wrap">
+				<p class="employee-feed-text" 
+				[title]="feeds.feed?.name + ' ' + feeds.feed?.details">
+					<strong>{{feeds.feed?.name}}</strong> {{feeds.feed?.details}} 
+				</p>
+				<span class="employee-feed-text-muted">{{feeds.feed?.date}}</span>
+			</div>
+		</div>
+
+		<!-- FROM INPUT - SHOW TWICE TO CHECK IF SCROLL IS HIDDEN -->
+		<div class="employee-feed d-flex hvr-sweep-to-bottom" *ngFor="let feeds of liveFeeds">
+			<div class="employee-feed-circle-tick active"></div>
+			<img class="me-4 flex-wrap img img-fluid" 
+			[defaultImage]="defaultImage" 
+			[lazyLoad]="''">
+			<div class="flex-wrap">
+				<p class="employee-feed-text"
+				[title]="feeds.feed?.name + ' ' + feeds.feed?.details">
+					<strong>{{feeds.feed?.name}}</strong> {{feeds.feed?.details}} 
+				</p>
+				<span class="employee-feed-text-muted">{{feeds.feed?.date}}</span>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+

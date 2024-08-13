@@ -1,0 +1,120 @@
+@import "src/scss/colors";
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #BDBDBD;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #BDBDBD;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #BDBDBD;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #BDBDBD;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #BDBDBD;
+}
+::placeholder { /* Most modern browsers support this now. */
+   color:    #BDBDBD;
+}
+
+.text-input {
+    margin-bottom: 20px;
+
+    .label-top{
+        //margin-left: -20px !important;
+        font-weight: 500;
+        padding-left: 25px;
+        font-size: 13px !important;
+        //width: 160px;
+        text-align: left;
+    }
+
+    .sub-label{
+        font-size: 12px !important;
+    }
+
+    .asterisk-required {
+        margin-left: 4px;
+        color: #FF0000 !important;
+    }
+
+    p {
+        text-align: right;
+        margin-bottom: 0px;
+        font-weight: 500;
+        color: $color-gray;
+    }
+
+    .error-msg {
+        text-align: left !important;
+        color:#E01515;
+        font-size: 10px;
+    }
+
+    .error {
+        border: 1px solid #E01515;
+    }
+
+    .disabled{
+        background: #F3F3F3 !important;
+        //background: red !important;
+        color: #BDBDBD !important;
+    }
+
+    textarea {
+        border-radius: 5px;
+        border: 1px solid #BDBDBD;
+        box-sizing: border-box;
+        border-radius: 5px;
+        padding-left: 5px;
+        width: 100%;
+
+        &:focus {
+            outline: 1px solid $color-purple;
+        }
+    }
+
+    textarea:focus {
+        outline: 1px solid $color-purple;
+    }
+
+
+    .container{
+        &-label{
+            width: 150px;
+            font-size: 13px !important;
+            font-family: "Noto Sans" !important;
+
+        }
+
+        &-input{
+            width: 55%;
+        }
+    }
+
+    .container-info{
+        .img-info-container{
+            color: $color-purple !important;
+            img{
+                margin-left: 13px;
+                margin-top: 6px;
+                width: 16px;
+                cursor: pointer;
+            }
+        }
+
+        .img-info-container-2{
+            color: $color-purple !important;
+            img{
+                margin-left: 13px;
+                margin-top: 2px;
+                width: 16px;
+                cursor: pointer;
+            }
+        }
+    }
+}

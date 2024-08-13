@@ -1,0 +1,255 @@
+<div class="mb-3" id="before-using-lama">
+	<div class="card px-2">
+		<div class="card-body">
+			<h5 class="main-title">Before using LAMA</h5>
+
+			<!-- FROM INPUT -->
+			<div class="document d-flex bg-purple" (click)="downloadDocument('Manual')">
+				<!-- <div class="document-circle-tick active"></div> -->
+				<div class="flex-wrap img-container me-1 red">
+					<img [defaultImage]="defaultImage" 
+					[lazyLoad]="'/assets/images/icons/dashboard/manual.png'">
+				</div>
+
+				<div class="flex-wrap">
+					<p class="document-text">
+						Manual
+					</p>
+					<span class="document-text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium</span>
+				</div>
+			</div>
+
+			<!-- FROM INPUT -->
+			<div class="document d-flex ">
+				<!-- <div class="document-circle-tick active"></div> -->
+				<div class="flex-wrap img-container me-1 orange">
+					<img [defaultImage]="defaultImage" 
+					[lazyLoad]="'/assets/images/icons/dashboard/pricing.png'">
+				</div>
+				<div class="flex-wrap">
+					<p class="document-text">
+						Pricing Guide
+					</p>
+					<span class="document-text-muted">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit</span>
+				</div>
+			</div>
+
+			<!-- FROM INPUT -->
+			<div class="document d-flex ">
+				<!-- <div class="document-circle-tick active"></div> -->
+				<div class="flex-wrap img-container me-1 blue">
+					<img [defaultImage]="defaultImage" 
+					[lazyLoad]="'/assets/images/icons/dashboard/about.png'">
+				</div>
+				<div class="flex-wrap">
+					<p class="document-text">
+						About LAMA Platform
+					</p>
+					<span class="document-text-muted">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+
+<div class="card mt-4 my-3" id="news-activity" style="min-height: 855px;">
+	<div class="card-body">
+		<h5 class="main-title">News and Alerts
+			<a routerLink="/admin" class="btn btn-view-all float-end">View All</a>
+		</h5>
+
+		<!-- SEARCH CLIENT -->
+		<div class="search-div me-1 mb-3">
+			<div class="input-group">
+			  <img src="/assets/images/icons/search.png">
+			  
+			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+			  [(ngModel)]="searchBy" (ngModelChange)="searchNews()">
+			</div>
+		</div>
+
+		<!-- FROM INPUT -->
+		<div class="members d-flex bg-purple">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box-white me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="'/assets/images/icons/dashboard/employee-related.png'">
+			</div>
+
+			<div class="flex-wrap">
+				<p class="members-text">
+					New Employee Added
+				</p>
+				<span class="members-text-muted">Zachary Cruz</span>
+				<img src="/assets/images/icons/dashboard/arrow-white.png" 
+				class="navigator">
+			</div>
+		</div>
+
+		<!-- FROM INPUT -->
+		<div class="members d-flex ">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="'/assets/images/icons/dashboard/employee-related.png'">
+			</div>
+			<div class="flex-wrap">
+				<p class="members-text">
+					New Employee Added
+				</p>
+				<span class="members-text-muted">James Johnson</span>
+				<!-- <img src="/assets/images/icons/caret-right.png" class="navigator"> -->
+			</div>
+		</div>
+
+		<!-- FROM INPUT -->
+		<div class="members d-flex ">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="'/assets/images/icons/dashboard/date-related.png'">
+			</div>
+			<div class="flex-wrap">
+				<p class="members-text">
+					New Shift Created
+				</p>
+				<span class="members-text-muted">Date Added: Feb 20, 2021, 4:00 PM</span>
+				<!-- <img src="/assets/images/icons/caret-right.png" class="navigator"> -->
+			</div>
+		</div>
+
+		<!-- FROM INPUT -->
+		<div class="members d-flex ">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="'/assets/images/icons/dashboard/date-related.png'">
+			</div>
+			<div class="flex-wrap">
+				<p class="members-text">
+					New Task Created
+				</p>
+				<span class="members-text-muted">Date Added: Feb 20, 2021, 4:00 PM</span>
+				<!-- <img src="/assets/images/icons/caret-right.png" class="navigator"> -->
+			</div>
+		</div>
+
+		<!-- FROM INPUT -->
+		<div class="members d-flex ">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="'/assets/images/icons/dashboard/employee-related.png'">
+			</div>
+			<div class="flex-wrap">
+				<p class="members-text">
+					New Employee Added
+				</p>
+				<span class="members-text-muted">Zachary Cruz</span>
+				<!-- <img src="/assets/images/icons/caret-right.png" 
+				class="navigator"> -->
+			</div>
+		</div>
+
+		<!-- FROM INPUT -->
+		<div class="members d-flex ">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="'/assets/images/icons/dashboard/employee-related.png'">
+			</div>
+			<div class="flex-wrap">
+				<p class="members-text">
+					New Employee Added
+				</p>
+				<span class="members-text-muted">James Johnson</span>
+				<!-- <img src="/assets/images/icons/caret-right.png" 
+				class="navigator"> -->
+			</div>
+		</div>
+
+		<!-- FROM INPUT -->
+		<div class="members d-flex ">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="'/assets/images/icons/dashboard/date-related.png'">
+			</div>
+			<div class="flex-wrap">
+				<p class="members-text">
+					New Shift Created
+				</p>
+				<span class="members-text-muted">Date Added: Feb 20, 2021, 4:00 PM</span>
+				<!-- <img src="/assets/images/icons/caret-right.png" 
+				class="navigator"> -->
+			</div>
+		</div>
+
+		<!-- FROM INPUT -->
+		<div class="members d-flex ">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="'/assets/images/icons/dashboard/date-related.png'">
+			</div>
+			<div class="flex-wrap">
+				<p class="members-text">
+					New Task Created
+				</p>
+				<span class="members-text-muted">Date Added: Feb 20, 2021, 4:00 PM</span>
+				<!-- <img src="/assets/images/icons/caret-right.png" 
+				class="navigator"> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <div class="mb-3" id="activity-feed">
+	<div class="card px-3">
+		<div class="row card-body">
+			<div class="col-12">
+				<div class="card-container" id="feed-container">
+					<h5 class="main-title">Feeds</h5>
+
+					<div class="feed d-flex ps-3">
+						<div class="flex-wrap">
+							<p class="feed-text">
+								Zachary Cruz
+							</p>
+							<span class="feed-text-muted">Feb 20, 2021, 4:00 PM</span>
+						</div>
+					</div>
+
+					<div class="feed d-flex ps-3">
+						<div class="flex-wrap">
+							<p class="feed-text">
+								Marian Cruz
+							</p>
+							<span class="feed-text-muted">Feb 20, 2021, 4:00 PM</span>
+						</div>
+					</div>
+
+					<div class="feed d-flex ps-3">
+						<div class="flex-wrap">
+							<p class="feed-text">
+								Marian Cruz
+							</p>
+							<span class="feed-text-muted">Feb 20, 2021, 4:00 PM</span>
+						</div>
+					</div>
+				</div>
+
+				<a routerLink="/admin" class="btn btn-view-all mt-3 ms-3">View All</a>
+			</div>
+		</div>
+	</div>
+</div>  -->
+

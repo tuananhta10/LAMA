@@ -1,0 +1,12 @@
+{
+    "data": [
+        {
+            "id":"1", 
+            "name": "Junior Care Worker"
+        }, 
+        {
+            "id":"2", 
+            "name": "Senior Care Worker"
+        }
+    ]
+}

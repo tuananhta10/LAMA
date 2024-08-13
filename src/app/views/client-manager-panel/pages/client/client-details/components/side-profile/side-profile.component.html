@@ -1,0 +1,126 @@
+
+<div id="client-sidebar-profile-container" class="mb-3" 
+[@animate]="{value:'*', params:{ x:'-100px', delay:'200ms' }}">
+	<div class="side-profile" style="min-height: 600px; ">
+		<div *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }">
+			<img src="/assets/images/icons/lock.png" width="21px" class="hvr-grow password"
+			(click)="openUpdatePassword()">
+			
+		</div>
+
+		<div class="text-center profile-image">
+			<img (click)="openUpdatePhoto()"
+			[defaultImage]="defaultImage"
+			[lazyLoad]="clientData?.profile_pic_url_download_url || ''" alt="User Image"
+			class="card-img-top avatar img-fluid my-4">
+
+			<h5 class="text-capitalize" style="margin-left: -20px !important;">
+				<img *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }" src="/assets/images/icons/edit.png" class="hvr-grow edit-details me-1"
+				style="width: 22px !important; height: 22px !important " 
+				routerLink="/staff/clients/edit/{{clientData?.id}}">
+				{{clientData?.first_name}} {{clientData?.last_name}}
+			</h5>
+			<span class="text-capitalize">{{clientData?.preferred_name || '-'}}</span>
+		</div>
+
+		<!-- <div class="text-center pt-3">
+			<img src="/assets/images/icons/additional-menu.png" 
+			(click)="openClientMenu()"
+			class="img-fluid additional-menu hvr-grow" width="45px">
+		</div> -->
+
+		<br>
+		<div class="px-1 d-flex">
+			<div class="text-center active-data me-3 flex-wrap mb-2">
+				<small>Active Goals</small><br>
+				<h4 class="active-data-text">3</h4>
+			</div>
+			<div *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }" class="text-center active-data flex-wrap mb-2">
+				<small>Active Budget</small><br>
+				<h4 class="active-data-text">$1450</h4>
+			</div>
+
+			<div class="text-center active-data me-3 flex-wrap mb-2">
+				<small>Active Tasks</small><br>
+				<h4 class="active-data-text">5</h4>
+			</div>
+		</div>
+
+
+		<div class="d-block mt-3">
+			<button *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }" class="btn btn-primary-secondary mb-2 w-100" 
+			routerLink="/staff/schedule/details/client/{{id}}">
+			Assign a careworker</button>
+			<button class="btn btn-primary-secondary mb-3 w-100"
+			routerLink="/staff/clients/details/{{clientData?.id}}/goals">Goals</button>
+		</div>
+
+
+		<div class="px-1 d-flex">
+			<div class="client-details flex-wrap mb-2">
+				<dl>
+					<dd>
+						<strong class="me-2">Gender</strong> 
+						<span>{{clientData?.gender || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }"><strong class="me-2">NDIS No.</strong> 
+						<span>{{clientData?.registration_no || '-'}}</span>
+					</dd>
+					<dd *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }" class="text-center ps-2"><hr class="details-border"></dd>
+
+
+					<ng-container *ngIf="clientData?.type_of_service !== 'Administrator'">
+						<dd>
+							<strong class="me-2">Primary Diagnosis</strong>
+							<span>{{clientData?.disability_type || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+					</ng-container>
+
+					<dd>
+						<strong class="me-2">Address</strong> 
+						<span>{{clientData?.address_a || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd>
+						<strong class="me-2">Home Phone</strong> 
+						<span>{{clientData?.home_phone_no || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd>
+						<strong class="me-2">Mobile Phone</strong> 
+						<span>{{clientData?.mobile_phone_no || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd class="d-inline d-lg-flex w-100">
+						<strong class="me-2 flex-wrap" style="width:50% !important;">Type of Service</strong> 
+						<span class="flex-wrap" style="width:50% !important;">
+						{{clientData?.type_of_service || '-'}}</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
+
+		<div *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }" class="px-1 d-flex">
+			<div class="membership-details flex-wrap mb-2 hvr-grow">
+				<div>
+					<span>Get all access to</span><br>	
+					<span>this software</span>
+					<br>
+					<p>Upgrade to</p>
+					<h5>Premium!</h5>	
+				</div>		
+
+				<div>
+					<img class="img-fluid" src="/assets/images/placeholder/membership-rocket.png">
+				</div>
+			</div>
+		</div>
+	</div>
+  
+</div>

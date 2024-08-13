@@ -1,0 +1,26 @@
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader 
+	[withSideBar]="true"
+	[loading]="loading">
+</global-admin-loader>
+
+<div class="container-fluid p-0 mt-3 ms-1 pe-md-2">
+	<div class="row">
+		<!-- MAIN CONTAINER -->
+		<section class="d-lg-flex d-md-inline-block pb-3 mb-3 mt-lg-1" 
+		*ngIf="!loading" style="min-height: 400px; font-family: 'Noto Sans' !important;">
+
+			<div class="flex-wrap me-0 me-lg-4">
+				<employee-side-profile >
+				</employee-side-profile>
+			</div>
+
+			<div class="flex-wrap px-1 w-100">
+				<div id="employee-profile-container" [@animate]="{value:'*', params:{ y:'-100px', delay:'200ms' }}">
+					<router-outlet></router-outlet>
+				</div>
+			</div>
+		</section>
+	</div>	
+</div>
+

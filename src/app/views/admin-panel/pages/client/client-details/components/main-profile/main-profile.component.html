@@ -1,0 +1,98 @@
+<div class="position-relative" id="client-profile-container"  *ngIf="clientData && !loading">
+	<!-- <div class="close-button">
+		<a class="cursor-pointer d-flex align-items-center gap-2" routerLink="/admin/clients">
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end " 
+			style="width: 13px; height:13px; aspect-ratio:1; cursor: pointer;" 
+			> 
+			<span>Close</span>
+		</a>
+	</div> -->
+	<!-- BUTTONS CONTROLLER -->
+	<div class="mb-2" id="profile-header">
+		<span >
+			<button class="btn btn-header btn-primary" 
+			routerLink="/admin/clients/details/{{id}}"
+			title="Participant Details">Participant Details</button>
+		</span>
+
+		<span *ngFor="let item of childLinks">
+			<button class="btn btn-header btn-header-secondary" 
+			[routerLink]="item?.routerLink"
+			[title]="item?.title">{{item?.title}}</button>
+		</span>
+	</div>
+
+	<!-- STATISTICS DATA -->
+
+	<div class="card card-body pt-4 shadow-3">
+		<client-main-profile-stats
+			[id]="id"
+			[clientData]="clientData"
+		></client-main-profile-stats>
+	</div>
+
+	<div class="card-status mt-3 shadow-3" *ngIf="clientData?.status === 'inactive'">
+	    <div class="text-danger text-justify">
+	    	<div>
+	    		<strong>Last Day of Service</strong>: {{ setDate(clientData?.last_date * 1000) | date : 'EEE, MMM dd, yyyy'}}
+	    	</div>    
+	    	<hr>
+	    	<div>
+	    		<strong>Reason For Leaving</strong>: <br>{{clientData?.reason_for_leaving}} 	
+	    	</div>   	
+	    </div>
+	</div>
+
+	<div class="card card-body mb-3 mt-3 pt-4 shadow-3" *ngIf="clientData?.risk_notification">
+		<h5 class="document-title text-danger"><strong>Risk Notification: </strong>{{clientData?.risk_notification}}
+		</h5>
+	</div>
+
+	<!-- CLIENT DETAILS -->
+	<div class="mt-3" >
+		<client-main-profile-details 
+			[clientData]="clientData">
+		</client-main-profile-details>
+	</div>
+
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class="mb-3"
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="row px-2">
+			<!-- CLIENT FILES -->
+			<div class="col-12 col-lg-6 bg-white py-2">
+				<client-main-profile-onboarding
+					[clientData]="clientData"
+					[onboardingNotes]="clientData">
+				</client-main-profile-onboarding>
+
+				
+				
+			</div>
+
+			<!-- CHART DATA -->
+			<div class="col-12 col-lg-6 bg-white py-2">
+				<client-main-profile-documents></client-main-profile-documents>
+
+				<!-- <client-main-profile-graph></client-main-profile-graph> -->
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- CLIENT DETAILS -->
+	<!-- <div style="width: 100% !important">
+		<client-main-profile-onboarding
+			[clientData]="clientData">
+		</client-main-profile-onboarding>
+	</div> -->
+</div>
+
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader 
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader>

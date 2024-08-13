@@ -1,0 +1,58 @@
+<div class="row" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<mat-card>
+			<!-- <mat-card-title >
+				Medication and Client Notes
+				<hr>
+			</mat-card-title> -->
+			<mat-card-content>
+				<div class="row  pt-3">
+					<div class="col-md-6">
+						<app-form-table
+							label='Medications'
+							[columns]="medicationColumns"
+							[data]="medicationData"
+							(addEvent)="openMedicationModal($event)"
+							(deleteEvent)="deleteMedicationRow($event)"
+							[isAddEnabled]="true"
+							[isDeleteEnabled]="true"
+						></app-form-table>
+					</div>
+					<div class="col-md-6"></div>
+					<div class="col-sm-12">
+						<app-form-table
+							label='Client Notes'
+							[columns]="clientNotesColumns"
+							[data]="clientNotesData"
+							(addEvent)="openClientNotesModal($event)"
+							(deleteEvent)="deleteClientRow($event)"
+							[isAddEnabled]="true"
+							[isDeleteEnabled]="true"
+						></app-form-table>
+					</div>
+				</div>
+			</mat-card-content>
+
+			<mat-card-actions>
+				<hr>
+				<div class="row">
+					<div class="col-sm-6 justify-content-start d-flex">
+						<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+							Back
+						</button>
+					</div>
+					<div class="col-sm-6 justify-content-end d-flex">
+						<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+							Next
+						</button>
+
+						<button (click)="submit()" 
+						mat-button class="btn btn-header btn-primary">
+							Save
+						</button>
+					</div>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

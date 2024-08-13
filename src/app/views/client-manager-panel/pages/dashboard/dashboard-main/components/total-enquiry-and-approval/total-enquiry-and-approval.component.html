@@ -1,0 +1,178 @@
+<div class="row"  id="statistic-data">
+	<div class="mb-3 card px-3"  id="enquiry-data">
+
+		<!-- PENDING APPROVAL -->
+		<div class="mb-3">
+			<h5 class="main-title mt-4">
+				<!-- <img src="/assets/images/icons/dashboard/leaves.png" style="width: 30px;" class="me-2">
+				 -->Leave Periods
+
+				<a routerLink="/admin/employees/employee-leave" class="btn btn-view-all float-end">View All</a>
+			</h5>
+
+			<div class="row ">
+				<!-- <div class="col-12">
+					<div class="leaves d-flex mb-2">
+						<img class="me-3 flex-wrap img img-fluid" 
+						[defaultImage]="defaultImage" 
+						[lazyLoad]="'/assets/images/faces/face-1.jpg'">
+						<div class="flex-wrap">
+							<p class="leaves-text">
+								Zachary Cruz<br>
+								<span class="leaves-text-subtitle">1 Day • Undpaid Leave</span>
+							</p>
+							<img src="/assets/images/icons/caret-right.png" 
+							class="navigator">
+						</div>
+					</div>
+
+					<div class="leaves d-flex mb-2">
+						<img class="me-3 flex-wrap img img-fluid" 
+						[defaultImage]="defaultImage" 
+						[lazyLoad]="'/assets/images/faces/face-2.jpg'">
+						<div class="flex-wrap">
+							<p class="leaves-text">
+								Mark Martines<br>
+								<span class="leaves-text-subtitle">1 Day • Undpaid Leave</span>
+							</p>
+							<img src="/assets/images/icons/caret-right.png" 
+							class="navigator">
+						</div>
+					</div>
+
+					<div class="leaves d-flex">
+						<img class="me-3 flex-wrap img img-fluid" 
+						[defaultImage]="defaultImage" 
+						[lazyLoad]="'/assets/images/faces/face-2.jpg'">
+						<div class="flex-wrap">
+							<p class="leaves-text">
+								Mindy Forester<br>
+								<span class="leaves-text-subtitle">1 Day • Personal Leave</span>
+							</p>
+							<img src="/assets/images/icons/caret-right.png" 
+							class="navigator">
+						</div>
+					</div>
+				</div> -->
+				
+				<div class="ps-3">
+					<h5 class="leave-total">{{dashboardData?.employee_leave_status?.employee_leave_total}} Employee Leave</h5>
+					<p class="leave-subtitle">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium for total leaves</p>
+
+					<div class="d-flex">
+						<div class="me-3"  style="width: 100px;">
+							<div class="d-flex">
+								<h5 class="leave-sub-total">{{dashboardData?.employee_leave?.employee_leave_total_unpaid}}</h5>
+								<p class="leave-subtitle">Unpaid</p>
+							</div>
+							<div class="progress progress-leave">
+							  <div class="progress-bar bg-unpaid" role="progressbar" style="width: 16%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							
+						</div>
+
+						<div class="me-3"  style="width: 100px;">
+							<div class="d-flex">
+								<h5 class="leave-sub-total">{{dashboardData?.employee_leave?.employee_leave_total_annual}}</h5>
+								<p class="leave-subtitle">Annual</p>
+							</div>
+							<div class="progress progress-leave">
+							  <div class="progress-bar bg-annual" role="progressbar" style="width: 14%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+
+						<div class="me-3" style="width: 100px;">
+							<div class="d-flex">
+								<h5 class="leave-sub-total">{{dashboardData?.employee_leave?.employee_leave_total_personal}}</h5>
+								<p class="leave-subtitle">Personal</p>
+							</div>
+							<div class="progress progress-leave">
+							  <div class="progress-bar bg-personal" role="progressbar" style="width: 12%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="d-flex">
+						<div class="me-3" style="width: 100px;">
+							<div class="d-flex">
+								<h5 class="leave-sub-total">{{dashboardData?.employee_leave?.employee_leave_total_long_service}}</h5>
+								<p class="leave-subtitle" style="overflow: visible; white-space: nowrap;">Long Service</p>
+							</div>
+							<div class="progress progress-leave">
+							  <div class="progress-bar bg-long" role="progressbar" style="width: 59%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="chart-container mt-4">
+					<div style="position: relative;">
+					    <div class="chart-text d-flex">
+					        <h5 class="chart-total me-2">{{totalLeave}}</h5>
+					        <p class="text-start">Total <br>Leaves</p>
+					    </div>
+					    <canvas baseChart
+							[datasets]="doughnutChartData" 
+							[legend]="doughnutChartLegend"
+							[labels]="doughnutChartLabels" 
+							[options]="doughnutChartOptions"
+							[type]="doughnutChartType"> 
+						</canvas>
+					</div>
+
+					
+				</div>
+
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row"  id="statistic-data">
+	<div class="mb-3 card px-3"  id="enquiry-data">
+		<!-- ENQUIRIES -->
+		<div class="col-12 col-md-12">
+			<!-- <h5 class="main-title mt-4 main-title">
+				<img src="/assets/images/icons/dashboard/enquiry.png" 
+				style="width: 30px;" class="me-2">
+				Intake 
+				<span class="float-end">1 Month Period</span>
+			</h5> -->
+
+			<div class="ps-3 mt-4">
+				<h5 class="intake-total">0 Monthly Referrals</h5>
+				<p class="intake-subtitle">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium for total intake</p>
+			</div>
+
+			<div class="d-flex ps-3">
+				<div class="w-25 me-3">
+					<h5 class="intake-sub-total">0</h5>
+					<div class="progress">
+					  <div class="progress-bar bg-open" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<p class="intake-subtitle">Open</p>
+				</div>
+
+				<div class="w-25 me-2">
+					<h5 class="intake-sub-total">0</h5>
+					<div class="progress">
+					  <div class="progress-bar bg-approved" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<p class="intake-subtitle">Approved</p>
+				</div>
+			</div>
+
+			<div class="chart-container-2 my-2">
+				<canvas
+				baseChart 
+				[datasets]="lineChartData" 
+				[labels]="lineChartLabels" 
+				[options]="lineChartOptions"
+				[legend]="lineChartLegend" 
+				[type]="lineChartType"> 
+				</canvas>
+			</div>
+		</div>
+	</div>
+</div> 

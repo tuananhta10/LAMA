@@ -1,0 +1,67 @@
+<div id="employee-appraisal-container">
+	<!-- BUTTONS CONTROLLER 
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'appraisal-client'">
+	</employee-details-navigation>-->
+
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class=""
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<img src="/assets/images/icons/care-management-purple.svg" width="30px" class="me-2 img-fluid img-title">
+			<span class="main-title">Accidents /  Incidents </span>
+			<div class="float-end">
+				<button class="btn btn-menu me-3" (click)="listView ? listView = false : listView = true">
+					<img src="/assets/images/icons/menu-icon.png" 
+					[@animate]="{value:'*', params:{ scale:'0.7', delay:'200ms' }}"
+					*ngIf="listView" width="15px" class="img-fluid">
+
+					<img src="/assets/images/icons/list-icon.png" 
+					[@animate]="{value:'*', params:{ scale:'0.7', delay:'200ms' }}"
+					*ngIf="!listView" width="15px" class="img-fluid">
+				</button> 
+				<button class="btn btn-primary" (click)="openAddIncident()">Add Incidents</button>
+			</div>
+		</div>
+
+		<br>
+
+		<div *ngIf="listView && !loading"
+		style="width: 100% !important; min-height: 400px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+			<employee-reusable-list-view
+				[loading]="loading"
+				[componentTitle]="'Accidents / Incidents'"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[maxRows]="10"
+				[selectedColumnsMobile]="selectedColumns"
+				[listDataSource]="incidentsList"
+				[searchSource]="searchSource">
+			</employee-reusable-list-view> 
+		</div>
+
+		<!-- GRID VIEW -->
+		<div class="mt-2"  *ngIf="!listView && !loading"
+		style="width: 100% !important; min-height: 400px;">
+			<section [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+				<app-incident-grid-view
+					[loading]="loading"
+					[componentTitle]="'Incidents / Accidents / Complaint'"
+					[listDataSource]="incidentsList">
+				</app-incident-grid-view> 
+			</section>
+		</div>
+
+		<br>
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

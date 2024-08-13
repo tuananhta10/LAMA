@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-12 col-md-12">
+        <form [formGroup]="timeLoggedForm" >
+            <div>
+                <app-date-picker 
+                    label="Start Date"
+                    [labelTop]="true"
+                    [required]="true"
+                    (keyevents)="setEndDateFromHours($event, 'start_date')"
+                    formControlName="start_date">
+                </app-date-picker >
+        
+                <app-time-picker 
+                    label="Start Time"
+                    [labelTop]="true"
+                    [required]="true"
+                    (focus)="activeFocus($event, 'start_time')"
+                    formControlName="start_time">
+                </app-time-picker >
+        
+                <app-date-picker  
+                    label="End Date"
+                    [labelTop]="true"
+                    [required]="true"
+                    [minDate]="timeLoggedForm?.controls['start_date']?.value"
+                    (keyevents)="setEndDateFromHours($event, 'end_date')"
+                    formControlName="end_date">
+                </app-date-picker >
+
+                <app-time-picker  
+                    label="End Time"
+                    [labelTop]="true"
+                    [required]="true"
+                    (focus)="activeFocus($event, 'end_time')"
+                    formControlName="end_time">
+                </app-time-picker >
+        
+                <app-textfield 
+                    label="Total Hours"
+                    [labelTop]="true"
+                    [inputType]="'number'"
+                    (focus)="activeFocus($event, 'total_hours')"
+                    formControlName="total_hours">
+                </app-textfield>
+
+                <!-- <app-textfield 
+                    label="Break Hours"
+                    [labelTop]="true"
+                    formControlName="break_hours"
+                    [inputType]="'number'">
+                </app-textfield> -->
+
+                <app-textfield 
+                    label="Travel Time"
+                    [labelTop]="true"
+                    formControlName="travel_time"
+                    [inputType]="'number'">
+                </app-textfield>
+
+                <app-textfield 
+                    label="Travel Mileage"
+                    [labelTop]="true"
+                    formControlName="travel_mileage"
+                    [inputType]="'number'">
+                </app-textfield>
+
+                <app-textfield 
+                    label="Transport Mileage"
+                    [labelTop]="true"
+                    formControlName="transport_mileage"
+                    [inputType]="'number'">
+                </app-textfield>
+
+                <h5 class="mat-subtitle">Comments</h5>
+
+                <app-textarea 
+                    label="Comments"
+                    [labelTop]="true"
+                    formControlName="comment">
+                </app-textarea>
+            </div>
+        </form>    
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Employee Shift Details</h5>
+		<hr>
+	</div>
+	<div class="row">
+		<div class="col-12 col-md-3 py-0">
+			<lama-stepper 
+			[stepperList]="steps" 
+			[orientation]="'vertical'" 
+			[isVerticalClick]="true"
+			#stepper
+			[selectedIndex]="formStep - 1" 
+			(selectionChanged)="updateStepperClick($event.selectedIndex + 1)">
+			</lama-stepper>
+		</div>
+
+		<div class="col-12 col-md-9">
+			<app-service-schedule-details 
+			*ngIf="formStep === 1" 
+			[data]="data"
+			(group_service_schedule_client)="getGroupClients($event)"
+			[clientTotalForm]="clientTotalForm"
+			[serviceScheduleForm]="serviceScheduleForm">
+			</app-service-schedule-details>
+
+			<app-hours 
+			*ngIf="formStep === 2" 
+			[data]="data"
+			[hourForm]="hourForm"
+			[clientTotalForm]="clientTotalForm">
+			</app-hours>
+
+			<app-shift-location 
+			*ngIf="formStep === 3" 
+			[shiftLocationForm]="shiftLocationForm"
+			[serviceScheduleForm]="serviceScheduleForm"
+			[clientTotalForm]="clientTotalForm"
+			[hourForm]="hourForm">
+			</app-shift-location>
+
+			<app-client-totals 
+			*ngIf="formStep === 4" 
+			[hourForm]="hourForm"
+			[clientTotalForm]="clientTotalForm"
+			[serviceScheduleForm]="serviceScheduleForm">
+			</app-client-totals>
+
+			<app-shift-tasks 
+			*ngIf="formStep === 5" 
+			[taskForm]="taskForm">	
+			</app-shift-tasks>
+
+			<app-shift-client-details 
+			*ngIf="formStep === 6" 
+			[clientDetailForm]="clientDetailForm">
+			</app-shift-client-details>
+		</div>
+	</div>
+
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<!-- <button mat-button (click)="back()" 
+			[disabled]="formStep === 1"
+			class="btn btn-header-gray btn-header me-3">Close</button> -->
+		</div>
+	</div>
+</div>

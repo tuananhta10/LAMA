@@ -1,0 +1,168 @@
+<!-- LOADING ANIMATION SCREEN -->
+
+<div class="container-fluid p-0 ms-1 pe-md-2 mb-3">
+	
+	
+	<div class="row">
+		<!-- MAIN CONTAINER -->
+		<section >
+			<div class="d-flex">
+
+				<div class="d-flex d-flex-wrap w-100 h-100">
+
+					<!-- <div  class="stepper-container align-self-center"
+					[@animate]="{ value: '*', params: { x: '-100px', delay: '200ms' }}">
+						<lama-stepper [stepperList]="steps" [orientation]="'vertical'" [selectedIndex]="formStep - 1" #stepper (selectionChanged)="updateStepper($event.selectedIndex + 1)"></lama-stepper>
+					</div> -->
+
+					<div class=" d-flex-wrap side-stepper d-none d-lg-flex h-100 me-2 mt-3"
+					[@animate]="{ value: '*', params: { x: '-100px', delay: '200ms' }}">
+						<lama-stepper [stepperList]="steps" 
+						[isVerticalClick]="true"
+						[selectedIndex]="formStep - 1" 
+						(selectionChanged)="updateStepperClick($event.selectedIndex + 1)"
+						[orientation]="'vertical'" #stepper></lama-stepper>
+					</div>
+
+					<div *ngIf="loading" class="ms-3 d-flex-wrap w-100 h-100">
+						<global-admin-loader 
+							[withSideBar]="false"
+							[loading]="loading">
+						</global-admin-loader>
+					</div>
+
+					<div *ngIf="!loading" class=" d-flex-wrap w-100 h-100 px-2">
+						<div class="row">
+							<div class="col-12">
+								<app-employee-banner 
+								[employeeName]="employeeName"
+								[title]="'Update'"
+								[label]="formStep === 1 ? 'Employee Details'
+								: formStep === 2 ? 'Profile Details'
+								: formStep === 3 ? 'Assigned Participants'
+								: formStep === 4 ? 'Employment Details'
+								: formStep === 5 ? 'Availability'
+								: formStep === 6 ? 'Contact Details'
+								: formStep === 7 ? 'Employee Documents'
+								: formStep === 8 ? 'Employee Documents'
+								
+								: ''">
+								</app-employee-banner>
+
+								<div class="me-2 mb-4 pb-2 pe-3" [@animate]="{ value: '*', params: { x: '-100px', delay: '200ms' }}">
+									<div class="banner-container w-100 me-3" style="margin-top: -72px">
+										<!-- <button class="btn btn-deactivate ms-2" 
+											(click)="deactivateAccount()">Deactivate Account</button>
+ -->
+										<span class="float-end btn btn-view-more btn-active-employee" 
+										*ngIf="currentStatus !== 'draft' && !loading"
+										routerLink="/admin/employees/details/{{employeeId}}">
+											View Profile
+										</span>
+
+										<span class="float-end btn btn-view-more btn-active-employee me-2" 
+										*ngIf="currentStatus !== 'draft' && !loading"
+										(click)="openUpdatePassword()">
+											Manage Access
+										</span>
+										<span class="float-end btn btn-view-more btn-active-employee me-2" 
+										routerLink="/admin/employees">
+											Close
+										</span>
+									</div>
+								</div>
+
+								<app-employee-detail 
+								*ngIf="formStep === 1"
+								[employeeDetailData]="employeeForm.employeeDetail"
+								[navigation]="navigation"
+								[isUpdate]="isUpdate"
+								[currentStatus]="currentStatus"
+								(updateStepper)="updateStepper($event)"
+								(submitData)="updateEmployeeDetailData($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-employee-detail>
+								
+								<app-profile-detail
+								*ngIf="formStep === 2"
+								[profileDetailData]="employeeForm.profileDetail"
+								[navigation]="navigation"
+								[isUpdate]="isUpdate"
+								[currentStatus]="currentStatus"
+								(updateStepper)="updateStepper($event)"
+								(submitData)="updateProfileDetailData($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-profile-detail>
+
+								<app-careworker-clients
+								*ngIf="formStep === 3"
+								[careWorkersData]="employeeForm.careWorkersDetail"
+								[navigation]="navigation"
+								[isUpdate]="isUpdate"
+								[currentStatus]="currentStatus"
+								(updateStepper)="updateStepper($event)"
+								(submitData)="updateCareWorkersDetailData($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-careworker-clients>
+								
+								<div class="w-100">
+									<app-employee-service-detail
+									*ngIf="formStep === 4"
+									[serviceDetailData]="employeeForm.serviceDetail"
+									[navigation]="navigation"
+									[isUpdate]="isUpdate"
+									[currentStatus]="currentStatus"
+									(updateStepper)="updateStepper($event)"
+									(submitData)="updateServiceDetailData($event)"
+									(formStep)="getNavigation($event)"
+									(isValid)="checkFormValidity($event)">
+									</app-employee-service-detail>
+								</div>
+								
+								<app-work-days
+								*ngIf="formStep === 5"
+								[navigation]="navigation"
+								[isUpdate]="isUpdate"
+								[currentStatus]="currentStatus"
+								[workDaysData]="employeeForm.workDays"
+								(updateStepper)="updateStepper($event)"
+								(submitData)="updateWorkDaysData($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-work-days>
+								
+								<app-employee-contact-detail
+								*ngIf="formStep === 6"
+								[contactDetailData]="employeeForm.contactDetail"
+								[navigation]="navigation"
+								[isUpdate]="isUpdate"
+								[currentStatus]="currentStatus"
+								(updateStepper)="updateStepper($event)"
+								(submitData)="updateContactDetailData($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-employee-contact-detail>
+								
+								<app-employee-related-documents
+								*ngIf="formStep === 7"
+								[navigation]="navigation"
+								[documents]="employeeForm.employeeDocs"
+								[isUpdate]="isUpdate"
+								[currentStatus]="currentStatus"
+								(updateStepper)="updateStepper($event)"
+								(submitData)="updateEmployeeDocs($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-employee-related-documents>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	</div>	
+</div>

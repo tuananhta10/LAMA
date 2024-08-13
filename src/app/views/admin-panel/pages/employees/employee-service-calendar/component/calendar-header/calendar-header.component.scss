@@ -1,0 +1,28 @@
+@import "src/scss/colors";
+
+.date-grouping-container{
+	position: relative;
+	.container-date{
+		margin-top: 7px;
+		margin-right: 10px;
+		font-size: 14px;
+		font-weight: 600 !important;
+	}
+
+	.btn{
+		//background: red !important;
+		padding: 5px 10px !important;
+		vertical-align: top !important;
+		border-radius: 4px !important;
+	}
+
+	.this-week{
+		font-weight: 600 !important;
+		color: $color-purple;
+	}
+
+	.grouping-navigator{
+		position: absolute;
+		right: 5px;
+	}
+}

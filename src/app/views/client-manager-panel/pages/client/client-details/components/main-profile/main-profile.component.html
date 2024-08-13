@@ -1,0 +1,86 @@
+<div id="client-profile-container"  *ngIf="clientData && !loading">
+
+
+	<!-- BUTTONS CONTROLLER -->
+	<div class="mb-3 row" id="profile-header">
+		<div class="pe-1 col-6 col-lg-2 ">
+			<button class="btn btn-header btn-primary" 
+			routerLink="/admin/clients/details/{{id}}"
+			title="Participant Details">Participant Details</button>
+		</div>
+		<ng-container *ngFor="let item of childLinks">
+			<div class="px-lg-1 col-6 col-lg-2" *ngIf="checkAccess(item.access)">
+				<button class="btn btn-header btn-header-secondary" 
+				[routerLink]="item?.routerLink"
+				[title]="item?.title">{{item?.title}}</button>
+			</div>
+		</ng-container>
+	</div>
+
+	<!-- CLIENT DETAILS -->
+	<div style="width: 100% !important">
+		<div class="row">
+			<div class="col-12 col-lg-8">
+				<client-main-profile-details 
+					[id]="id"
+					[clientData]="clientData">
+				</client-main-profile-details>
+
+				<!-- DOCUMENT FILE DATA -->
+				<div style="width: 100% !important" 
+				[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+					<div class="row">
+						<!-- CHART DATA -->
+						<div class="col-12 col-lg-12">
+							<client-main-profile-onboarding
+								[clientData]="clientData"
+								[onboardingNotes]="clientData">
+							</client-main-profile-onboarding>
+							<!-- <client-main-profile-graph></client-main-profile-graph> -->
+						</div>
+						
+						<!-- CLIENT FILES -->
+						<div class="col-12 col-lg-12">
+
+							<client-main-profile-documents></client-main-profile-documents>
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-lg-4">
+				<!-- STATISTICS DATA -->
+				<div class="mb-3">
+					<client-main-profile-stats
+						[id]="id"
+						[clientData]="clientData"
+					></client-main-profile-stats>
+				</div>
+				
+				<client-main-profile-alerts
+					[clientData]="clientData">
+				</client-main-profile-alerts>
+			</div>
+		</div>
+
+		
+	</div>
+
+	
+
+	<!-- CLIENT DETAILS -->
+	<!-- <div style="width: 100% !important">
+		<client-main-profile-onboarding
+			[clientData]="clientData">
+		</client-main-profile-onboarding>
+	</div> -->
+</div>
+
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader 
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader>

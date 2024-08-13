@@ -1,0 +1,120 @@
+<div *ngIf="!loading" class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="onboardingNotesForm">
+			<mat-card>
+				<!-- <mat-card-title  *ngIf="isUpdate">
+					Client Notes
+					<hr>
+				</mat-card-title> -->
+				<mat-card-content>
+					<div class="row  pt-3">
+						<div class="col-sm-12 col-md-6">
+							<!-- <app-search-list 
+							label="Preferred Careworker" 
+							placeholder="Select" 
+							[rows]="5"
+							formControlName="preferred_employee_id"
+							[options]="employeeOptions"
+							></app-search-list> -->
+
+							<app-textarea id="general_notes" 
+							label="General Notes" 
+							[rows]="5"
+							formControlName="general_notes"></app-textarea>
+
+							<app-textarea id="scheduler_notes" 
+							label="Scheduler Notes" 
+							[rows]="5"
+							formControlName="scheduler_notes"></app-textarea>
+						</div>
+						<div class="col-sm-12 col-md-6">
+							<app-textarea label="Care Notes" 
+							id="care_notes"
+							[rows]="5"
+							formControlName="care_notes"></app-textarea>
+
+							<app-textarea  id="client_care_notes"
+							label="Participant Health needs" 
+							[rows]="5"
+							formControlName="client_care_notes"></app-textarea>
+						</div>
+
+						<div class="col-12 col-md-6 mt-3">
+							<div style="margin-left: 140px">
+								<app-field-upload 
+								id="notes_file"
+								label="Upload Note File"
+								#upload
+								formControlName="notes_file"
+								(upload)="onUpload($event)"
+								>
+								</app-field-upload>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6 mt-3">
+
+							<div class="text-start mb-4 p-3 ps-1" 
+							style="margin-left: 165px !important; border: solid 1px #c9c9c9; border-radius: 5px; max-width: 55%;" *ngIf="notesFile">
+								<h5 class="ms-3">Notes File</h5>
+
+								<div class="text-truncate ps-3">
+									Download the File: <br><a [href]="notesFile?.download_url" targe="_blank" >{{notesFile?.filename}}</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mat-card-content>
+				<mat-card-actions>
+					<hr>
+					<div *ngIf="!isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button mat-button class="btn btn-header btn-header-gray" 
+							(click)="saveAsDraft()" 
+							style="padding-left: 14px !important; padding-right: 14px !important;" 
+							*ngIf="!isUpdate || currentStatus === 'draft'" >
+								Save as Draft
+								
+							</button>
+							<button (click)="next()"
+							[disabled]="!onboardingNotesForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+
+							
+						</div>
+					</div>
+					<div *ngIf="isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+								Next
+							</button>
+							
+							<button (click)="submit()" 
+							[disabled]="!onboardingNotesForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Save
+							</button>
+						</div>
+					</div>
+				</mat-card-actions>
+			</mat-card>
+		</form>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>

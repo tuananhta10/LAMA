@@ -1,0 +1,135 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+.congrats-container{
+    .header-msg {
+        color: $color-purple;
+        font-size: 30px;
+        font-weight: 700 !important;
+        line-height: 40.86px;
+    }
+
+    .header-text{
+        font-size: 14px;
+        font-weight: 500;
+        color: $color-gray !important;
+    }
+
+    img{
+        width: 60%;
+    }
+}
+
+
+.congrats-action-container{
+    padding: 0 50px !important;
+
+    .header-text{
+        font-size: 15px;
+        font-weight: 500;
+        color: $color-gray !important;
+    }
+
+    .header-text-next{
+        font-size: 17px;
+        font-weight: 600;
+        color: $color-gray !important;
+    }
+
+    .header-text-action{
+        font-size: 13px;
+        font-weight: 600;
+        color: $color-gray !important;
+    }
+
+    .card-action{
+        height: 195px;
+        padding: 10px 30px;
+        padding-bottom: 5px;
+        border-radius: 20px;
+        box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+        -webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+        -moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+    }
+
+    .img-container-main{
+        border-radius: 50%;
+        padding: 25px 5px;
+        cursor: pointer;
+        img{
+            width: 80%;
+        }
+    }
+
+    .client-documents{
+        @extend .card-action;
+        background: #FCF3EE;
+
+        .img-container{
+            @extend .img-container-main;
+            background: #FDC5A6;
+        }
+    }
+
+    .client-profile{
+        @extend .card-action;
+        background: #D7F4F8;
+
+        .img-container{
+            @extend .img-container-main;
+            padding: 35px 0px;
+            background: #9EDDE7;
+
+            img{
+                width: 100%;
+            }
+        }
+    }
+
+    .client-goal{
+        @extend .card-action;
+        background: #FEF1FC;
+
+        .img-container{
+            @extend .img-container-main;
+            padding: 28px 0px;
+            background: #FDCBF5;
+
+            img{
+                width: 100%;
+            }
+        }
+    }
+}
+
+.btn-header-gray{
+  background: #D0D0D0;
+  color: $color-gray-dark;
+}
+
+.btn-header{
+  border-radius: 5px !important;
+  padding: 7px 50px !important;
+}
+
+
+.dialog-responsive .mat-dialog-container
+{
+  
+    //min-height: 80% !important;
+    min-width: 400px !important;
+    //max-height: 70%; 
+    //max-width: 800px !important;
+
+    @media (max-width: 768px){
+      min-height: 50%;
+      min-height: 500px;
+    }
+}

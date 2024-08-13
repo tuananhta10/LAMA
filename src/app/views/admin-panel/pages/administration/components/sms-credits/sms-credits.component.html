@@ -1,0 +1,128 @@
+<div class="p-3" id="qualification-container">
+	<!-- DOCUMENT FILE DATA -->
+	<div [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="banner-container w-100">
+			<h4>SMS Credits </h4>
+			<h5><span style="font-weight: 400 !important;">(780 Credits Remaining)</span></h5>
+			<!-- <img src="/assets/images/placeholder/organization-banner-image.png" class="img-fluid banner-main"> -->
+			<img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+			<img src="/assets/images/placeholder/banner-eclipse-left.png" class="img-fluid banner-eclipse-left">
+			<!-- <img src="/assets/images/placeholder/banner-dots-right.png" class="img-fluid banner-dots-right">
+			<img src="/assets/images/placeholder/banner-eclipse-right.png" class="img-fluid banner-eclipse-right"> -->
+		</div>
+		<br>
+
+		<div class="card card-body">
+			<div class="row">
+				<div class="col-12 col-md-8 offset-md-2 col-lg-8 offset-lg-2">
+					<div class="purple-container">
+						<div class="d-flex align-items-center justify-content-center" >
+							<div class="me-3 sms-block" *ngFor="let item of creditVal"
+							[ngClass]="creditValue === item?.credit ? 'bg-selected' : ''">
+								<h5>
+									{{item?.amount}} <sup>AUD</sup>
+								</h5>
+								<h6>{{item?.credit}} SMS</h6>
+							</div>
+						</div>
+
+
+						<div class="slider-container px-3 mt-2 d-flex align-items-center justify-content-center">
+						  	<input type="range" min="1000" max="7000" step="1000" 
+						  	[(ngModel)]="creditValue" (input)="onInputChange($event.target)">
+						  	<div class="slider-ticks">
+						    	<div *ngFor="let tick of ticks" class="slider-tick" [style.left.%]="tick"></div>
+						  	</div>
+						  	<!-- <div class="slider-value">{{ creditValue }}</div> -->
+						</div>
+
+						<div class="text-center w-100 my-3">
+							<button class="btn btn-outline-payment ms-3" (click)="purchaseSMSCredit(creditValue / 1000)">
+								<img src="/assets/images/icons/cart.png" style="width: 15px; margin-top: -3px" class="me-2"> 
+								Purchase More SMS Credits
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- LIST VIEW -->
+		<div class="mt-2" *ngIf="!loading"
+		style="min-height: 400px;">
+			
+			<div class="card card-body mt-4 text-start" style="max-height: 440px !important; overflow-y: auto;">
+				<div class="px-4 py-3">
+					<h5 class="ms-2 mt-3 mb-4 title-subscription">SMS Credit Purchase History
+						<div class="float-end"  style="margin-top: -20px;">
+							<div class="d-flex">
+								<div class="search-div me-1">
+									<div class="input-group">
+									  <img src="/assets/images/icons/search.png">
+									  
+									  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+									  [(ngModel)]="searchBy" (ngModelChange)="searchDataSource()">
+									</div>
+
+									
+								</div>
+
+								
+							</div>
+						</div>
+					</h5>
+
+					<table class="table w-100 mt-3" *ngIf="filteredInvoice?.length > 0; else showEmptyTable">
+						<thead>
+							<tr>
+								<th>Customer</th>
+								<th>Description</th>
+								
+								<th>Currency</th>
+								<th>Paid</th>
+								<th>Item Price</th>
+								<th>Quantity</th>
+								<th>Total</th>
+								<th>Due Date</th>
+								<th>Status</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of filteredInvoice">
+								<td>{{item?.customer_name}}</td>
+								<td>{{item?.description || item?.lines?.data[0]?.description }}</td>
+								
+								<td class="text-uppercase">{{item?.currency}}</td>
+								<td>{{item?.paid ? "Yes" : "No"}}</td>
+								
+								<td>{{(item?.lines?.data[0]?.price?.unit_amount !== 0 ? updateNegativeInvoice(item?.lines?.data[0]?.price?.unit_amount/100) : 0)}}</td>
+
+								<td>{{item?.lines?.data[0]?.quantity}}</td>
+
+								<td>{{(item?.total !== 0 ? updateNegativeInvoice(item?.total/100) : 0)}}</td>
+								<td>{{ (item?.due_date * 1000) | date: 'dd MMM, yyyy'}}</td>
+								<td class="text-capitalize">{{item?.status}}</td>
+								<td> <button class="btn btn-outline-primary" (click)="generatePaymentLink(item)">View Invoice</button> </td>
+							</tr>
+						</tbody>
+					</table>
+
+					<ng-template #showEmptyTable>
+						<hr>
+						<p class="ms-2">There's currently no SMS credit purchase history to your account. You can add more credit by clicking the purchase button.</p>
+					</ng-template>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

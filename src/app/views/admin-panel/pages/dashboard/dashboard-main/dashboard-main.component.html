@@ -1,0 +1,148 @@
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader [loading]="loading"></global-admin-loader>
+
+<div class="container-fluid mt-3 p-0 mb-3 ms-1 pe-2">
+	<ng-container *ngIf="!orgLoading">
+		<div class="row" *ngIf="organizationSubscriptionStatus === 'Trial'">
+			<div class="col-12">
+				<div id="admin-title-container" [ngStyle]="{'padding-left': '0', 'padding-inline': '7px'}">
+					<div class="mb-4 mt-2 card card-body  main-banner"
+					style="overflow: hidden;"
+					*ngIf="!loading" [@animate]="{value:'*', params:{ y:'-100px', delay:'100ms' }}">
+						<img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+						<img src="/assets/images/placeholder/banner-eclipse-left.png" class="img-fluid banner-eclipse-left">
+		
+						<div class="w-100 d-flex justify-content-between align-items-center">
+							<div class="text-container" style="z-index:500;">
+		
+									<ng-container *ngIf="subscriptionStatus.status === 'expiring'">
+										<h4 class=" text-capitalize " >
+											Trial Period Expiring Soon!
+										</h4>
+										<h5 class="banner-text mb-2">
+											Your access will end in <strong class="text-danger">{{subscriptionStatus.daysLeft}} {{subscriptionStatus.daysLeft <=1 ? 'day' :'days'}}</strong>. Upgrade now to continue enjoying premium features without interruption!
+										</h5>
+									</ng-container>
+									<ng-container *ngIf="subscriptionStatus.status === 'expired'">
+										<h4 class=" text-capitalize text-danger" >
+											Trial Period Expired!
+										</h4>
+										<h5 class="banner-text mb-2">
+											Thank you for trying our <strong>Lama Care</strong>.  Upgrade now to regain full access.
+										</h5>
+									</ng-container>
+									<ng-container *ngIf="subscriptionStatus.status === 'active'">
+										<h4 class=" text-capitalize" >
+											Trial Subscription
+										</h4>
+										<h5 class="banner-text mb-2">
+											You have <strong>{{subscriptionStatus.daysLeft}}</strong> Days Left in Your Trial! Unlock the full potential with a paid subscription.
+										</h5>
+									</ng-container>
+							</div>
+							<span class="float-end btn btn-view-more btn-active-employee me-2"
+											(click)="upgradePlan()">
+												Upgrade plan
+											</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+	<div class="row">
+
+		<!-- BANNER -->
+		<section class="col-sm-12 col-lg-9 mb-3 pb-0 bg-white" id="admin-title-container">
+			<div class="mb-4 mt-2 card card-body px-5 main-banner" 
+			*ngIf="!loading" [@animate]="{value:'*', params:{ y:'-100px', delay:'100ms' }}">
+				<img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+				<img src="/assets/images/placeholder/banner-eclipse-left.png" class="img-fluid banner-eclipse-left">
+				
+				<h4 class="mt-4 text-capitalize">Welcome <ng-container *ngIf="loggedUser?.new_organization !== 'Newly Registered'">Back, </ng-container>
+					<span class="admin-title">{{loggedUser?.first_name}}!</span></h4>
+				<h5>{{dateToday | date: 'fullDate'}}</h5>
+
+				<!-- <img src="/assets/images/placeholder/llama.png" class="banner-eclipse-right"> -->
+			</div>
+
+			<section class="mt-2">
+				<admin-dashboard-statistic-data
+				[dashboardData]="dashboardData[0]"
+				[supportWorkerMetrics]="supportWorkerMetrics"
+				[IncidentMetrics]="IncidentMetrics"
+				[fundingMetrics]="fundingMetrics"
+				[screenWidth]="screenWidth"
+				[loading]="loading">
+				</admin-dashboard-statistic-data>
+			</section>
+
+			<div class="row mt-2">
+				<!-- STATISTIC DATA -->
+				<div class="col-sm-12 col-lg-4 px-lg-4"
+				*ngIf="!loading" [@animate]="{value:'*', params:{ y:'-50px', delay:'550ms' }}">
+					<!-- EMPLOYEE SHIFTS -->
+					<section>
+						<admin-dashboard-employee-shifts 
+						[dashboardData]="dashboardData[0]"></admin-dashboard-employee-shifts>
+					</section>
+					
+					<!-- TOTAL STATISTIC, ENQUIRY AND APPROVAL -->
+					<section>
+						<admin-dashboard-total-enquiry-and-approval 
+						[dashboardData]="dashboardData[0]"
+						[leaveData]="leaveData"
+						[referralsData]="referralsData">
+						</admin-dashboard-total-enquiry-and-approval>
+					</section> 
+				</div>
+
+				<!-- RIGHT -->
+				<section class="col-sm-12 col-lg-8 px-lg-4 px-1" 
+				style="padding-right: 30px;" *ngIf="!loading" 
+				[@animate]="{value:'*', params:{ y:'-50px', delay:'550ms' }}">
+					<!-- TASK, ACTIVITY, AND FEEDS -->
+					<admin-dashboard-tasks-and-activity 
+					[referralsData]="referralsData"
+					[taskGraphData]="taskData" 
+					[incidentGraphData]="incidentGraphData"></admin-dashboard-tasks-and-activity>
+				</section>
+			</div>
+		</section>
+
+		<!-- NEW MEMBERS -->
+		<section class="col-sm-12 col-lg-3 mb-3 pe-lg-4"
+		*ngIf="!loading" [@animate]="{value:'*', params:{ x:'50px', delay:'550ms' }}" >
+			<div style="position: relative;">
+				<admin-dashboard-new-members
+				[screenWidth]="screenWidth"></admin-dashboard-new-members>
+				<!-- <img src="/assets/images/icons/dashboard/note.png" class="news-image"> -->
+			</div>
+		</section>
+
+		<!-- INCIDENTS -->
+		<div class="col-sm-12 col-lg-6 mb-3 pe-lg-4" *ngIf="!loading" 
+			[@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+		</div>
+		
+		<div class="col-sm-12 col-lg-6 mb-3 pe-lg-4 ps-lg-1" *ngIf="!loading" 
+			[@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+			
+
+			<!-- EMPLOYEE LEAVES -->
+			<!-- <section>
+				<admin-dashboard-employee-leaves  
+				[dashboardData]="dashboardData[0]">
+				</admin-dashboard-employee-leaves>
+			</section> -->
+		</div>
+
+		<!-- CLIENT FUNDING 
+		<section class="col-sm-12 col-lg-12 mb-3 pe-lg-4" *ngIf="!loading" 
+			[@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+			<admin-dashboard-client-funding></admin-dashboard-client-funding>
+		</section>-->
+
+	</div>	
+</div>
+

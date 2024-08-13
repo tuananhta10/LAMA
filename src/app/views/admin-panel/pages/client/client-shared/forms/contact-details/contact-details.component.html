@@ -1,0 +1,181 @@
+<div class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="contactDetailsForm">
+			<mat-card>
+				<!-- <mat-card-title  *ngIf="isUpdate">
+					Contact Details
+					<hr>
+				</mat-card-title> -->
+				
+				<mat-card-content>
+					<p class="ms-3 ps-2"><strong>Address Details</strong></p>
+					<hr>
+					<div class="row pt-3">
+						<div class="col-sm-12 col-md-6">
+							<app-google-places-input
+								label="Address 1" 
+								formControlName="address_a"
+								[required]="true"
+								(addressChange)="onAddressChange($event)">
+							</app-google-places-input>
+
+
+							<app-textfield id="address_b" 
+								label="Address 2" 
+								formControlName="address_b">
+							</app-textfield>
+
+							<app-textfield id="suburb" 
+								label="Suburb" 
+								[required]="true"  
+								formControlName="suburb">
+							</app-textfield>
+
+							<app-dropdown 
+								label="State" 
+								[required]="true"
+								[options]="stateOption"
+								formControlName="state"
+								>
+							</app-dropdown>
+
+							<app-textfield id="post_code" 
+								label="Post Code" 
+								[required]="true"  
+								formControlName="post_code">
+							</app-textfield>
+
+							
+						</div>
+
+						<div class="col-sm-12 col-md-6">
+							<app-textfield id="email_address" 
+								label="Email" 
+								[inputType]="'email'"
+								[required]="true" 
+								[errorMessage]="errorMessage"
+								formControlName="email_address">
+							</app-textfield>
+
+							<app-textfield id="mobile_phone_no" 
+								label="Mobile Phone" 
+								[inputType]="'tel'"
+								[required]="true" 
+								formControlName="mobile_phone_no">
+							</app-textfield>
+
+							<app-textfield id="home_phone_no" 
+								label="Home Phone" 
+								[inputType]="'tel'"
+								formControlName="home_phone_no">
+							</app-textfield>
+
+							<app-textfield id="work_phone_no" 
+								label="Work Phone" 
+								[inputType]="'tel'"
+								formControlName="work_phone_no">
+							</app-textfield>
+						</div>
+
+						<div class="col-12 mt-2">
+							<hr>
+						</div>
+
+						<div class="col-12 mt-2">
+							<app-form-table *ngIf="isUpdate; else showCreateRecord"
+								label='Emergency Contacts'
+								[columns]="emergencyContactListColumn"
+								[data]="emergencyContactListData"
+								(addEvent)="openEmergencyContactModal($event)"
+								(deleteEvent)="deleteEmergencyContactRow($event)"
+								[isAddEnabled]="true"
+								(editEvent)="openEmergencyContactModal($event)"
+								[editable]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+
+							<ng-template #showCreateRecord>
+								<p class="ms-3 ps-2"><strong>Emergency Contacts</strong></p>
+								<p class="ms-3 ps-2">Create participant record first before adding multiple emergency contacts</p>
+							</ng-template>
+						</div>
+
+						<!-- <div class="col-12 mt-2">
+							<p class="ms-3 ps-2"><strong>Emergency Contact Details</strong></p>
+							<hr>
+						</div>
+
+						<div class="col-sm-12 col-md-6">
+							<div>
+								<app-textfield id="emergency_contact_name" 
+									label="Contact Name " 
+									[required]="true"
+									formControlName="emergency_contact_name">
+								</app-textfield>
+
+								<app-textfield id="emergency_contact_nor" 
+									label="Contact Number " 
+									[required]="true"
+									[inputType]="'tel'"
+									formControlName="emergency_contact_no">
+								</app-textfield>
+
+								<app-textfield id="emergency_contact_relationship" 
+									label="Contact Relationship " 
+									[required]="true"
+									formControlName="emergency_contact_relationship">
+								</app-textfield>
+							</div>
+						</div> -->
+					</div>
+				</mat-card-content>
+				
+				<mat-card-actions>
+					<hr>
+					<div *ngIf="!isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button mat-button class="btn btn-header btn-primary" 
+							(click)="saveAsDraft()" 
+							style="padding-left: 14px !important; padding-right: 14px !important;" 
+							*ngIf="!isUpdate || currentStatus === 'draft'" >
+								Save as Draft
+							</button>
+							
+							<button (click)="next()" 
+							[disabled]="!contactDetailsForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+
+							
+						</div>
+					</div>
+					<div *ngIf="isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+								Next
+							</button>
+							
+							<button (click)="submit()" 
+							[disabled]="!contactDetailsForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Save
+							</button>
+						</div>
+					</div>
+				</mat-card-actions>
+			</mat-card>
+		</form>
+	</div>
+</div>

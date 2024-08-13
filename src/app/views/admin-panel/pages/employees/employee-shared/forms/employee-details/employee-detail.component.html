@@ -1,0 +1,211 @@
+
+
+<div *ngIf="!loading" class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="employeeDetailForm">
+			<mat-card>
+				<!-- <mat-card-title *ngIf="isUpdate">
+					Employee Detail
+					<hr>
+				</mat-card-title> -->
+
+				<mat-card-content>
+					<div class="row">
+						<div class="col-12 col-md-1" style="position: relative;">
+							<div class="profile-container align-self-start">
+								<div class="img-circle"*ngIf="!imgSrc">
+								    <img class="image-placeholder" src="/assets/images/placeholder/avatar-gray.png">
+								</div>
+
+								<img *ngIf="imgSrc" [src]="imgSrc" class="image-placeholder-add mb-3">
+
+								<!-- formControlName="logo" -->
+
+								<div class="uploader mt-2">
+									<app-field-upload
+									    label=""
+									    #upload
+									    [acceptType]="'image/png, image/gif, image/jpeg'"
+									    [labelTop]="true"
+									    [chips]="false"
+									    [subtitle]="'Upload'"
+									    (upload)="onUpload($event)"
+									    >
+									</app-field-upload>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row col-12 col-md-11">
+							<div class="col-12 col-md-6">
+								<app-textfield 
+									label="ID" 
+									formControlName="id" 
+									[disabled]="true"
+								>
+								</app-textfield>
+
+								<app-textfield id="preferred_name"  
+									label="Preferred Name" 
+									[info]="true"
+									[infoTitle]="'If employee would like to be referred to by anything other than their first name, enter their preferred name here'"
+									formControlName="preferred_name">
+								</app-textfield>
+
+								<app-dropdown id="title"  
+									label="Title" 
+									formControlName="title" 
+									[options]="titleOptions" 
+									[required]="true">
+								</app-dropdown>
+							
+								<app-textfield id="first_name"  
+									label="First Name" 
+									formControlName="first_name" 
+									[required]="true">
+								</app-textfield>
+
+								<app-textfield id="last_name"  
+									label="Last Name"
+									formControlName="last_name" 
+									[required]="true">
+								</app-textfield>
+
+								<app-textfield 
+									label="Middle Name" 
+									formControlName="middle_name">
+								</app-textfield>
+
+								<app-dropdown id="status"
+									*ngIf="employeeDetailData?.id"
+									label="Status" 
+									formControlName="status" 
+									[options]="statusOption">
+								</app-dropdown>
+							</div>
+
+							<div class="col-12 col-md-6">
+								<app-textfield id="payroll_id" 
+									label="Payroll ID" 
+									[info]="true"
+									[infoTitle]="'To be completed by the Accounts Department'"
+									formControlName="payroll_id">
+								</app-textfield>
+
+								<app-dropdown id="type"  
+									label="Type" 
+									formControlName="type" 
+									[required]="true"
+									[options]="typeOptions">
+								</app-dropdown>
+								
+								<app-dropdown id="gender"  
+									label="Gender" 
+									formControlName="gender" 
+									[required]="true" 
+									[options]="genderOptions">
+								</app-dropdown>
+
+								<app-date-picker id="birthdate"  
+									label="Date of Birth" 
+									formControlName="birthdate"
+									[required]="false" 
+									(keyevents)="computeAge($event)"
+									[maxDate]="dateNow">
+								</app-date-picker>
+
+								<app-textfield id="age"  
+									label="Age" 
+									*ngIf="employeeDetailForm?.controls['birthdate'].value"
+									[disabled]="true" 
+									[info]="true"
+									[infoTitle]="'System Generated based on Date of Birth'"
+									formControlName="age">
+								</app-textfield>
+
+								<app-textfield id="email_address"  
+									label="Email"
+									[required]="true"
+									[info]="true"
+									[errorMessage]="errorMessage"
+									[infoTitle]="'All emails sent from the system will be sent to this email address.'" 
+									formControlName="email_address">
+								</app-textfield>
+
+								<app-textfield id="private_email"  
+									label="Private Email"
+									[info]="true"
+									[infoTitle]="'Your Private Email'" 
+									formControlName="private_email">
+								</app-textfield>
+
+								<ng-container *ngIf="employeeDetailForm.controls['status'].value === 'inactive'">
+									<app-date-picker 
+										label="Last Day of Service" 
+										[labelTop]="false"
+										formControlName="last_date">
+									</app-date-picker>
+
+									<app-textarea 
+										label="Reason for Leaving" 
+										[labelTop]="false"
+										class="text-capitalize"
+										formControlName="reason_for_leaving">
+									</app-textarea>
+								</ng-container>
+							</div>
+						</div>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+					<div *ngIf="!isUpdate" class="row">
+						<div class="col-sm-12 justify-content-end d-flex">
+							<button mat-button class="btn btn-header btn-header-gray" 
+							(click)="saveAsDraft()" 
+							style="padding-left: 14px !important; padding-right: 14px !important;" 
+							*ngIf="!isUpdate || currentStatus === 'draft'" >
+								Save as Draft
+							</button>
+
+							<button (click)="next()" 
+							[disabled]="!employeeDetailForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+						</div>
+					</div>
+					<div  *ngIf="isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" 
+							*ngIf="storageStep"
+							mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button (click)="skip()" mat-button class="btn btn-header-gray">
+								Next
+							</button>
+							
+							<button (click)="submit()" 
+							[disabled]="!employeeDetailForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Save
+							</button>
+
+
+						</div>
+					</div>
+				</mat-card-actions>
+
+			</mat-card>
+		</form>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>

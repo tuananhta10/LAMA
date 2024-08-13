@@ -1,0 +1,113 @@
+<div class="card-form" >
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title" style="margin-bottom: 10px !important; line-height: 23px !important;">
+				<ng-container *ngIf="data?.schedule?.type === 'Group'">Group </ng-container>
+				Service Schedule ID: {{data?.schedule?.id}} -
+				
+				{{data?.schedule?.client?.name}} - 
+				<span style="font-weight: 400 !important;">{{ useAdmin.dateGmt(data?.schedule?.calendar_start_date) | date: 'EEEE, MMM d, y'}}, {{data?.schedule?.start_time | convert24hr}} - {{data?.schedule?.end_time | convert24hr}}</span>
+
+				<img src="/assets/images/icons/close-dialog.png" 
+				class="float-end" 
+				style="width: 13px; cursor: pointer;" 
+				(click)="dialogRef.close()"> 
+			<!-- <span class="float-end">
+				<select class="form-select" [(ngModel)]="stepperSelector" 
+				(ngModelChange)="updateStepper($event)">
+				  	<option *ngFor="let step of steps; let i = index" [value]="i + 1">
+				  		{{step?.stepLabel}}
+				  	</option>
+				</select>
+			</span> -->
+		</h5>
+		<hr style="margin-top: 5px !important;">
+	</div>
+	<div class="d-flex">
+		<div style="width: 200px;" class="py-0 me-3">
+			<lama-stepper 
+			[stepperList]="steps" 
+			[orientation]="'vertical'" 
+			[isVerticalClick]="true"
+			#stepper
+			[selectedIndex]="formStep - 1" 
+			(selectionChanged)="updateStepperClick($event.selectedIndex + 1)">
+			</lama-stepper>
+		</div>
+
+		<div class="w-100 mt-2">
+			<app-service-schedule-details 
+			*ngIf="formStep === 1" 
+			[data]="data"
+			[isDisabled]="isdisabled"
+			(group_service_schedule_client)="getGroupClients($event)"
+			(group_service_schedule_employee)="getGroupEmployee($event)"
+			[clientTotalForm]="clientTotalForm"
+			[serviceScheduleForm]="serviceScheduleForm">
+			</app-service-schedule-details>
+
+			<app-hours 
+			*ngIf="formStep === 2" 
+			[data]="data"
+			[hourForm]="hourForm"
+			[isDisabled]="isdisabled"
+			[clientTotalForm]="clientTotalForm"
+			[serviceScheduleForm]="serviceScheduleForm">
+			</app-hours>
+
+			<app-shift-location 
+			*ngIf="formStep === 3" 
+			[shiftLocationForm]="shiftLocationForm"
+			[isDisabled]="isdisabled"
+			[serviceScheduleForm]="serviceScheduleForm"
+			[clientTotalForm]="clientTotalForm"
+			[data]="data">
+			</app-shift-location>
+			
+			<app-client-totals 
+			*ngIf="formStep === 4" 
+			[hourForm]="hourForm"
+			[isDisabled]="isdisabled"
+			[data]="data"
+			[clientTotalForm]="clientTotalForm"
+			[serviceScheduleForm]="serviceScheduleForm">
+			</app-client-totals>
+
+			<app-shift-tasks 
+			*ngIf="formStep === 5" 
+			[isDisabled]="isdisabled"
+			[taskForm]="taskForm">	
+			</app-shift-tasks>
+
+			<app-shift-client-details 
+			*ngIf="formStep === 6" 
+			[clientDetailForm]="clientDetailForm">
+			</app-shift-client-details>
+		</div>
+	</div>
+
+	<div mat-dialog-actions >
+		<div class="position-relative w-100">
+			<div *ngIf="!isdisabled" class="text-center mb-3 px-0 w-100">
+				<hr><br>
+				<button mat-button (click)="dialogRef.close()"
+				*ngIf="hourForm.controls['status'].value !== 'cancelled'"
+				class="btn btn-header-gray btn-header me-3">Close</button>
+				<!-- <button mat-button
+				*ngIf="(
+					data?.schedule?.type === 'Group'
+					&& (data.grouping === 'Client' || data?.grouping === 'Employee')
+				)"
+				(click)="next()"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button> -->
+				<button mat-button *ngIf="hourForm.controls['status'].value !== 'cancelled'"
+				(click)="save()"
+				[disabled]="!shiftLocationForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+			<div class="btn-group" [ngClass]="{'pb-3': isdisabled}">
+				<button mat-button [disabled]="this.formStep === 1" (click)="updateStepperClick(this.formStep - 1)" cdkFocusInitial class="btn me-3"><img src="/assets/images/icons/caret-left.png" class="img-fluid hvr-grow" width="7px"></button>
+				<button mat-button [disabled]="this.formStep === steps.length" (click)="updateStepperClick(this.formStep + 1)" cdkFocusInitial class="btn me-3"><img src="/assets/images/icons/caret-right.png" class="img-fluid hvr-grow" width="7px"></button>
+			</div>
+		</div>
+	</div>
+</div>

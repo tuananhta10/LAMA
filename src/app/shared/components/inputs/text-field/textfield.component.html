@@ -1,0 +1,156 @@
+<ng-container *ngIf="!labelTop">
+    <div class="text-input">
+        <div class="d-flex" [ngClass]="labelTop ? 'text-center': ''">
+            <div class="container-label flex-wrap  d-flex align-items-center"
+            [ngClass]="!labelTop ? 'justify-content-end me-3': 'justify-content-end mx-2'"
+            [ngStyle]="{
+                'width': labelTop ? 'auto': ''
+            }">
+                <div class="d-flex">
+                    <p [innerHtml]="label"></p>
+                    <div *ngIf="required" class="asterisk-required">*</div>
+                </div>
+            </div>
+
+            <div class="container-input flex-wrap"
+            [ngStyle]="{
+                'width': labelTop ? '62%': '',
+                'margin-left': labelTop ? '0px': ''
+            }">
+                <div class="d-flex">
+                    <mat-icon matSuffix *ngIf="icon">{{icon}}</mat-icon>
+
+                    <span class="img-container" *ngIf="img_icon">
+                        <img [src]="img_icon" class="img-fluid">
+                    </span>
+                    <input [type]="inputType !== 'tel' ? inputType : 'tel'" 
+                        [ngClass]="[
+                            icon || img_icon ? 'remove-border-left-radius': '',
+                            disabled ? 'disabled': '',
+                            isTouched || errorMessage ? 'error' : '',
+                            inputType === 'tel' ? 'tel-class' : '',
+                            classType ? classType : ''
+
+                        ]"
+                        (keyup)="replaceText()"
+                        [max]="max"
+                        [min]="min"
+                        [step]="step"
+                        (blur)="onTouch($event)"
+                        [required]="required" 
+                        [readonly]="readonly"  
+                        [placeholder]="placeholder" 
+                        [disabled]="disabled"
+                        [(ngModel)]="initialVal" 
+                        (input)="onValueChanged($event)" 
+                        (focus)="onFocus($event)"
+                        (ngModelChange)="onValueChanged($event)">
+                </div>
+                <p *ngIf="isTouched" class="error-msg">*Empty Field</p>
+                <p *ngIf="errorMessage" class="error-msg">{{errorMessage}}</p>
+            </div>
+
+            <div class="container-info">
+                <span class="img-info-container" *ngIf="info">
+                    <img src="/assets/images/icons/info-input-icon.png" 
+                    [matTooltip]="infoTitle"
+                    matTooltipPosition="above"
+                    class="img-fluid">
+                </span>
+            </div>
+        </div>
+    </div> 
+</ng-container>
+
+<ng-container *ngIf="labelTop">
+    <div class="text-input">
+        <div class="align-content-start text-start">
+            <p class="label-top text-truncate">
+                <span [innerHtml]="label"></span>
+                <span *ngIf="required" class="asterisk-required">*</span>
+            </p> 
+            <p *ngIf="subLabel" class="label-top sub-label text-start">
+                <span [innerHtml]="subLabel"></span>
+            </p>
+        </div>
+
+        <div class="container-input pt-2 px-md-4"
+        [ngStyle]="{
+            'width': labelTop ? '100%': '',
+            'margin-left': labelTop ? '0px': ''
+        }">
+            <div class="d-flex">
+                <mat-icon matSuffix *ngIf="icon">{{icon}}</mat-icon>
+
+                <span class="img-container" *ngIf="img_icon">
+                    <img [src]="img_icon" class="img-fluid">
+                </span>
+
+                <input *ngIf="inputType !== 'password'"
+                    [type]="inputType !== 'tel' ? inputType : 'tel'" 
+                    [ngClass]="[
+                        icon || img_icon ? 'remove-border-left-radius': '',
+                        disabled ? 'disabled': '',
+                        isTouched || errorMessage ? 'error' : '',
+                        inputType === 'tel' ? 'tel-class' : '',
+                        classType ? classType : ''
+                    ]"
+                    (keyup)="replaceText()"
+                    [max]="max"
+                    [min]="min"
+                    [step]="step"
+                    (blur)="onTouch($event)"
+                    [required]="required" 
+                    [readonly]="readonly"  
+                    [placeholder]="placeholder" 
+                    [disabled]="disabled"
+                    [(ngModel)]="initialVal" 
+                    (input)="onValueChanged($event)" 
+                    (focus)="onFocus($event)"
+                    (ngModelChange)="onValueChanged($event)">
+
+                    <div class="d-flex w-100" *ngIf="inputType === 'password'">
+                        <div style="width: 90% !Important;">
+                            <input [type]="inputType_temp"
+                              [ngClass]="[
+                                  icon || img_icon ? 'remove-border-left-radius': '',
+                                  disabled ? 'disabled': '',
+                                  isTouched ? 'error' : ''
+                              ]"
+                              [max]="max"
+                              [min]="min"
+                              [step]="step"
+                              class="password-form" 
+                              (blur)="onTouch($event)"
+                              [required]="required" 
+                              [readonly]="readonly"  
+                              [placeholder]="placeholder" 
+                              [disabled]="disabled"
+                              [(ngModel)]="initialVal" 
+                              (input)="onValueChanged($event)" 
+                              ngModelChanged="onValueChanged($event)">
+                        </div>
+                        <div style="padding-top: 0px; cursor: pointer; width: 40px;">
+                            <span class="show-password material-icons" [id]="initialVal"
+                            (click)="inputType_temp==='password' ? inputType_temp = 'text' : inputType_temp='password'">
+                                visibility
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="container-info">
+                        <span class="img-info-container" *ngIf="info">
+                            <img src="/assets/images/icons/info-input-icon.png" 
+                            [matTooltip]="infoTitle"
+                            matTooltipPosition="above"
+                            class="img-fluid">
+                        </span>
+                    </div>
+            </div>
+            <p *ngIf="isTouched" class="error-msg">*Empty Field</p>
+            <p *ngIf="errorMessage" class="error-msg">{{errorMessage}}</p>
+        </div>
+
+        
+    </div> 
+</ng-container>

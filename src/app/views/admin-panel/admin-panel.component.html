@@ -1,0 +1,45 @@
+<ngx-spinner
+  [fullScreen]="true"
+  [zIndex]="9999999999"
+  [type]="'pacman'"
+  [size]="'large'"
+  [bdColor]="'rgba(255, 255, 255, 0.75)'"
+  [color]="'#red'"
+></ngx-spinner> 
+
+<section id="body-main-container" style="background: #f8f8f8 !important; min-height: 700px; overflow-x: hidden;">
+	<!-- ADMIN  HEADER -->
+	<app-header-option-two></app-header-option-two>
+
+	<div class="d-flex p-0" id="body-row">
+		<div class="ms-0 me-0" id="main-admin-component"
+		[ngClass]="[
+				(
+					location.match('/admin/clients/details')
+					|| location.match('/admin/employees/details')
+					|| location.match('/admin/profile') 
+					|| location.match('/admin/jobs') 
+					|| location.match('/admin/payroll') 
+					|| location.match('/admin/documents') 
+					|| location.match('/admin/dependents') 
+					|| location.match('/signin')
+					|| location.match('/signup') 
+					|| location.match('/update-password') 
+					|| location.match('/referral') 
+				) ? 'pull-to-left' : 'ms-0 ms-md-3',
+
+				(
+					location.match('/signin')
+					|| location.match('/signup') 
+					|| location.match('/update-password') 
+					|| location.match('/forgot-password') 
+					|| location.match('/terms-and-condition') 
+				) ? 'remove-padding' : 'add-margin-top'
+
+			]">
+			<div id="sub-admin-component">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div>
+</section>

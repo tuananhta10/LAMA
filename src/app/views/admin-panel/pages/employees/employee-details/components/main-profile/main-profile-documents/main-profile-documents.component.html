@@ -1,0 +1,86 @@
+<section>
+	<div class="mb-3 pt-4"  id="document-data">
+		<h5 class="document-title">Employee Documents
+			<button type="button" class="btn add-new ms-1 text-white" 
+			style="color: white !important; z-index: 9999 !important;" 
+			(click)="openCustomDocumentModal()"> 
+				<span class="material-icons text-white">add</span>Add
+			</button>
+			<a routerLink="related-documents" class="float-end">View All</a>
+		</h5>
+
+		<table  class="table mt-2" *ngIf="employeeDocs?.length > 0 && !loading; else showEmptyDocs">
+			<tr *ngFor="let document of employeeDocs">
+				<td style="width: 20px;" 
+					(click)="openCustomDocumentModal(document)">
+					<img src="/assets/images/icons/folder-file.png" width="32px">
+				</td>
+				<td class="file-title text-capitalize truncate" (click)="openCustomDocumentModal(document)">{{document?.title}}</td>
+
+				<td class="file-title-date text-end" >
+					<span (click)="openCustomDocumentModal(document)">
+						{{ (document?.date_added * 1000 | date : 'MM-dd-yyyy') || '-'}}
+					</span>
+					<img src="/assets/images/icons/delete-red.png"  (click)="deleteDataDialog(document)" class="img-fluid delete" width="30px"> 
+				</td>
+			</tr>
+		</table>
+
+		<ng-template #showEmptyDocs>
+			<div *ngIf="!loading" class="mt-2">List of Employee Documents is currently empty.</div>
+		</ng-template>
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+
+	<!-- CERTIFICATES-->
+	<div class="mb-3 mb-lg-0" id="certificates">
+		<h5 class="card-title">Certificates
+			<button type="button" class="btn add-new ms-1 text-white" 
+			style="color: white !important; z-index: 9999 !important;" 
+			(click)="openAddCertificateDialog()"> 
+				<span class="material-icons text-white">add</span>Add
+			</button>
+			<span class="float-end" (click)="openViewAllCertificate()">View All</span>
+		</h5>
+
+		<table class="table mt-0" *ngIf="!loading && certificateData?.length > 0; else showEmptyCert">
+			<tr *ngFor="let certificate of certificateData"
+			[title]="certificate?.description">
+				<td style="width: 20px;" (click)="openAddCertificateDialog(certificate)">
+					<img src="/assets/images/icons/degree-file.png" 
+					*ngIf="certificate?.type === 'Education'" width="32px">
+
+					<img src="/assets/images/icons/certificate-file.png" 
+					*ngIf="certificate?.type === 'Certifications' 
+					|| certificate?.type === 'Experience'" width="30px">
+
+					<img src="/assets/images/icons/folder-file.png" 
+					*ngIf="certificate?.type !== 'Education' 
+					&& certificate?.type !== 'Certifications'
+					&& certificate?.type !== 'Experience'" 
+					width="30px"> 
+				</td>
+				<td (click)="openAddCertificateDialog(certificate)">
+					<div  class="file-title truncate text-capitalize">{{certificate?.qualification_code || '-'}}</div>
+				</td>
+
+				<td class="file-title-date text-end">
+					<span (click)="openAddCertificateDialog(certificate)">
+						{{ (certificate?.date_added * 1000 | date : 'MM-dd-yyyy') || '-'}}
+					</span>
+					<img src="/assets/images/icons/delete-red.png" class="img-fluid delete ms-2" width="30px"
+					(click)="deleteCertificateDialog(certificate)"> 
+				</td>
+			</tr>
+		</table>
+
+		<ng-template #showEmptyCert>
+			<div *ngIf="!loading">List of Certificates is currently empty.</div>
+		</ng-template>
+		
+	</div>
+</section>

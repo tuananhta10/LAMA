@@ -1,0 +1,139 @@
+@import "src/scss/colors";
+
+.btn-active-client{
+	padding: 5px 10px !important;
+}
+
+
+.btn-status{
+	margin-top: -5px !important;
+	padding: 5px 10px !important;
+	color: white;
+}
+
+
+.completed{
+	color: #4D4D4D;
+	background: #E1E4E8;
+	font-weight: 600 !important;
+}
+
+.in-progress{
+	background: #F0E7F6;
+	color: #BB54FF;
+	font-weight: 600 !important;
+}
+
+.expired{
+	background: rgba(252, 132, 39, 0.3);
+	color: #FC8427;
+	font-weight: 600 !important;
+}
+
+.planned{
+	background: rgba(86, 179, 144, 0.3);
+	color: #56B390;
+	font-weight: 600 !important;
+}
+
+.active{
+	background: $color-purple;
+	font-weight: 600 !important;
+}
+
+.inactive{
+	background: $color-red;
+	font-weight: 600 !important;
+}
+
+.truncate {
+  max-width: 220px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-item{
+	margin-top: -10px !important;
+}
+
+.main-title{
+	font-size: 14px;
+	font-weight: 600;
+	color: $color-gray;
+}
+
+.main-description{
+	font-weight: 400 !important;
+	color: #5D5D5D !important;
+
+	ul > li:before {  
+	    background-color: #E1E4E8;
+	    border-radius: 4px !important;
+	    margin-right: 5px;
+	    padding: 0px 5px;
+	    content: '•';
+	    font-size: 13px;
+	}
+	li:first-child {
+	    counter-reset:index;
+	}
+	
+	ul{
+		margin-left: 5px !important;
+		padding-left: 5px !important;
+		padding: 0;
+		list-style-type: none;
+		-webkit-padding-start: 0;
+		margin-bottom: 0 !important;
+	}
+
+	ul li {
+	    list-style: none;
+	}
+
+	li:not(:last-child){
+		margin-bottom: 7px !important;
+	}
+}
+
+.date-details{
+	.date-style{
+		color: white;
+		width: 80px;
+		padding: 5px 10px;
+		border-radius: 4px;
+
+		img{
+			margin-top: -3px;
+		}
+	}
+
+	.success{
+		@extend .date-style;
+		background: #56B390;
+	}
+
+	.warning{
+		@extend .date-style;
+		background: #FC8427;
+	}
+
+	.danger{
+		@extend .date-style;
+		background: #FC3E3F;
+	}
+}
+
+
+
+.profile{
+	border-radius: 50%;
+	margin-right: 3px;
+	border: solid 1px $color-purple;
+	margin-top: -7px;
+}
+
+img{
+	cursor: pointer;
+}

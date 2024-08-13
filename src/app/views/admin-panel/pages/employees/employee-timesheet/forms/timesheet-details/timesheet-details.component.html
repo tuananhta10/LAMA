@@ -1,0 +1,162 @@
+<div  mat-dialog-content>
+    <div class="row" >
+        <form class="col-12 col-md-6" [formGroup]="timesheetDetailsForm" *ngIf="!serviceTypeLoading">
+        	<h5 class="mat-subtitle">Timesheet Details</h5>
+
+            <app-search-list 
+                label="Employee"
+                [disabled]="isReadOnly"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="employee_id"
+                [options]="employee">
+            </app-search-list>
+    
+            <app-search-list 
+                label="Service Schedule"
+                [disabled]="isReadOnly"
+                [labelTop]="true"
+                [isTextArea]="true"
+                [required]="true"
+                [objectReturn]="true" 
+                (keyevents)="setSelectedServiceType($event)"
+                formControlName="service_schedule"
+                [options]="serviceSchedule">
+            </app-search-list>
+    
+            <h5 class="mat-subtitle">Approval</h5>
+
+            <app-radio-button 
+                label="Approved"
+                [required]="true"
+                [disabled]="isReadOnly"
+                [labelTop]="true"
+                formControlName="approved"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            <app-radio-button 
+                label="Paid"
+                [required]="true"
+                [labelTop]="true"
+                [disabled]="isReadOnly"
+                formControlName="paid"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            <app-textfield 
+                label="Batch Number"
+                [labelTop]="true"
+                [disabled]="isReadOnly"
+                formControlName="batch_number">
+            </app-textfield>
+        </form>
+
+        <form class="col-12 col-md-6" [formGroup]="serviceDetailsForm">
+            <h5 class="mat-subtitle">Service Schedule Details</h5>
+
+            <!-- <app-textfield  *ngIf="selectedServiceType"
+                label="Status"
+                [labelTop]="true"
+                [disabled]="true"
+                [readonly]="true"
+                formControlName="status">
+            </app-textfield> -->
+
+            <app-textarea
+                label="Support Item"
+                [labelTop]="true"
+                [disabled]="true"
+                [readonly]="true"
+                formControlName="service_type">
+            </app-textarea>
+
+            <div class="schedule-details mb-3 ms-4" *ngIf="selectedServiceType">
+                <hr>
+
+                <h5>Calendar Schedule: </h5>
+                <div>
+                    <div class="d-flex">
+                        <p class="mb-0" style="width: 100px; font-weight: 500;">
+                            Start Date:
+                        </p> 
+
+                        <p class="w-100 mb-0">
+                            {{ convertToDate(selectedServiceType?.start_date) | date: 'MMM d, y'}}, 
+                            {{ convertTo12Hrs(selectedServiceType?.start_time) }}
+                        </p>
+                    </div>
+
+                    <div class="d-flex">
+                        <p class="mb-0" style="width: 100px; font-weight: 500;">
+                            End Date:
+                        </p> 
+
+                        <p class="w-100 mb-0">
+                            {{ convertToDate(selectedServiceType?.end_date) | date: 'MMM d, y'}}, 
+                            {{ convertTo12Hrs(selectedServiceType?.end_time) }}
+                        </p>
+                    </div>
+
+                    <hr>
+                </div>
+
+                <div class="ms-1 mt-2 pe-3">
+                    <p class="mb-3">
+                        <img src="/assets/images/icons/schedule.png" width="15px;" class="me-2">
+                        Total Hours: {{selectedServiceType?.total_hours}} hr/s
+                    </p>
+                    <p>
+                        <img src="/assets/images/icons/activity.png" width="20px;" class="me-2">
+                        Activity: {{selectedServiceType?.activity}}<br>
+                    </p>
+                    
+                    <p>
+                        <img src="/assets/images/icons/travel.png" width="20px;" class="me-2">
+                        Total Travel KM: {{selectedServiceType?.total_travel_km}}<br>
+                    </p>
+
+                    <p *ngIf="selectedServiceType?.total_transport !== 0">
+                        <img src="/assets/images/icons/transport.png" width="20px;" class="me-2">
+                        Total Transport: {{selectedServiceType?.total_transport}}<br>
+                    </p>
+                </div>
+            </div> 
+        </form>
+
+        <form class="col-12 row" [formGroup]="serviceDetailsForm" *ngIf="selectedServiceType
+        && (serviceDetailsForm?.controls['support_worker_case_notes'].value || serviceDetailsForm?.controls['support_coordinator_case_notes'].value ||
+        serviceDetailsForm?.controls['service_facilitator_case_notes'].value)">
+            <hr>
+            <h5 class="mat-subtitle ms-md-2">Case Notes</h5>
+
+            <div class="col-12 col-md-12">
+
+                <label *ngIf="serviceDetailsForm?.controls['support_worker_case_notes'].value" class="label-text mt-10">Support Worker Case Notes</label>
+                <div *ngIf="serviceDetailsForm?.controls['support_worker_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                    <quill-editor formControlName="support_worker_case_notes"></quill-editor>
+                </div>
+
+                <label *ngIf="serviceDetailsForm?.controls['support_coordinator_case_notes'].value" class="label-text">Support Coordinator Case Notes</label>
+                <div *ngIf="serviceDetailsForm?.controls['support_coordinator_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                    <quill-editor formControlName="support_coordinator_case_notes"></quill-editor>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-12">
+                <label *ngIf="serviceDetailsForm?.controls['service_facilitator_case_notes'].value" class="label-text">Service Facilitator Case Notes</label>
+                <div *ngIf="serviceDetailsForm?.controls['service_facilitator_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                    <quill-editor formControlName="service_facilitator_case_notes"></quill-editor>
+                </div>
+            </div>
+        </form>
+    </div>    
+
+     <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="serviceTypeLoading"
+        [formOnly]="true">
+    </global-admin-loader>
+</div>

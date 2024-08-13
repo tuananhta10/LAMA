@@ -1,0 +1,298 @@
+<div [@animate]="{value:'*', params:{ y:'-100px', delay:'300ms' }}" style="position: relative;">
+	<!-- <header class="ghost-header w-100" style="height:50px;" *ngIf="navbarScrolled"></header> -->
+	<header [ngClass]="'header'">
+		<h5 class="client-list mb-0">Participant List 
+			<span id="status-filter">
+				<button type="button"
+				data-bs-toggle="dropdown" 
+				aria-expanded="false" 
+				class="ms-3 dropdown btn btn-warning btn-active-client px-0 "
+				>{{selectedStatus?.title}}
+					<span class="material-icons">expand_more</span>
+				</button>
+	
+				<ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="status-filter">
+					<li *ngFor="let item of status" 
+					(click)="filterByStatus(item)">
+						{{item.title}}
+					</li>
+				</ul>
+			</span>
+	
+			<span class="float-end text-muted d-none d-md-block">
+				<img src="/assets/images/icons/home.png" width="17px" class="img-fluid me-1">
+				<span>Home / Participant List</span>
+			</span>
+		</h5>
+	</header>
+
+	<!-- LOADING ANIMATION SCREEN -->
+	<div class="justify-content-start mt-3" *ngIf="loading">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+
+	<div class="card mt-3" [hidden]="loading">
+		<div class="card-body">
+			<!-- TABLE CONTROLLERS -->
+			<div class="table-controls mb-lg-3 d-inline d-lg-block" >
+				<div class="float-lg-start table-controls">
+					<div class="d-flex">
+						<a routerLink="/admin/clients/create" class="ms-0 ms-lg-3 btn btn-primary btn-active-client px-0">
+							<span class="material-icons text-white me-1">add</span>New
+						</a>
+
+						<a routerLink="/admin/clients/edit/{{selectedRows[0]?.id}}" 
+							class="btn btn-warning btn-active-client px-0"
+							*ngIf="selectedRows?.length === 1"
+							[@animate]="{value:'*', params:{ y:'10px', delay:'100ms' }}">
+						<img src="/assets/images/icons/edit-pencil.png">Edit</a>
+
+						<h6 class="status-description" *ngIf="selectedStatus?.title !== 'All Participant'">{{statusCounter()}} {{selectedStatus?.title}}</h6>
+
+						<h6 class="status-description" *ngIf="selectedStatus?.title === 'All Participant'">{{clientList?.length}} Participants</h6>
+					</div>
+				</div>
+
+				<hr class="d-block d-lg-none" style="color: #a9a9a9">
+
+				<!-- CONTROLLER ICONS -->
+				<div class="float-md-end table-controls pt-lg-2 mt-lg-0">
+					<button class="px-0" *ngFor="let action of tableController"
+					[ngClass]="action?.class === 'delete' && selectedRows?.length === 0 ? 'd-none' : 'd-inline'"
+					[disabled]="action?.class === 'delete' && selectedRows?.length === 0"
+					(click)="action?.action_event(openDialog(action?.class))">
+						<img [src]="action?.icon" [ngClass]="action?.class">{{action?.name}}
+					</button>
+
+					<span id="export-table">
+						<button
+							type="button"
+							data-bs-toggle="dropdown" 
+							aria-expanded="false" 
+							class="dropdown px-0 ">
+							<img src="/assets/images/icons/export.png" class="export">Export
+						</button>
+
+						<ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="status-filter">
+							<li (click)="exportAsXLSX('template')">Export Template</li>
+							<li (click)="exportAsXLSX('all')">Export All</li>
+							<li (click)="exportAsXLSX('selected')">Export Selected</li>
+							<li (click)="exportAsXLSX()">Export View Table</li>
+						</ul>
+					</span>
+				</div>
+			</div>
+
+			<br class="d-none d-md-block d-lg-none">
+			<br class="d-none d-md-block d-lg-none">
+			<br class="d-none d-lg-block">
+			<hr style="color: #a9a9a9">
+
+			<!-- TABLE FILTER -->
+			<div class="search-div me-1 float-start" 
+			*ngIf="!loading && clientList?.length !== 0 && dataSource?.data">
+				<div class="input-group" style="width: 200px">
+				  <img src="/assets/images/icons/search.png">
+
+				  <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+				  [(ngModel)]="search" (ngModelChange)="searchDataSource()">
+				</div>
+			</div>
+
+			<div *ngIf="clientList?.length > 0">
+				<div class="flex-wrap float-sm-end pt-1 pt-sm-2 pt-md-1">
+					<button class="btn btn-outline-secondary btn-active-client px-0 dropdown dropdown-toggle" 
+					type="button" id="lengthFilter" data-bs-toggle="dropdown" aria-expanded="false">
+					Show {{maxRows}}
+						<span class="material-icons">expand_more</span>
+					</button>
+
+					<ul class="dropdown-menu" aria-labelledby="lengthFilter" 
+					style="width: 110px !important;">
+						<li><a class="dropdown-item" (click)="adjustNumberOfItems(25)">Show 25</a></li>
+					    <li><a class="dropdown-item" (click)="adjustNumberOfItems(50)">Show 50</a></li>
+					    <li><a class="dropdown-item" (click)="adjustNumberOfItems(150)">Show 150</a></li>
+					    <li><a class="dropdown-item" (click)="adjustNumberOfItems(250)">Show 250</a></li>
+					    <li><a class="dropdown-item" (click)="adjustNumberOfItems(clientList?.length)">Show All</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- EMPTY TABLE -->
+			<div class="img-info justify-content-start ps-0 pt-5 mt-3 d-flex bg-gray container" 
+			[@animate]="{value:'*', params:{ y:'100px', delay:'300ms' }}"
+			style="position: relative;" 
+			*ngIf="!loading && clientList?.length === 0 && dataSource?.data">
+				<div class="flex-wrap" style="margin-left: 50px;" >
+					<h4>List of participants is currently empty. Create new participants now.</h4>
+					<img src="/assets/images/placeholder/visit-profile-congrats.png" class="img-fluid">
+					<br>
+					<div class="create-client">
+						<a routerLink="/admin/clients/create" 
+						class="btn create-client-button btn-primary px-0 mt-4">
+							<span class="material-icons text-white me-1"></span>Create Participants
+						</a>
+					</div>
+				</div>
+
+				<div class="flex-wrap mt-4 d-none d-md-block"
+				[@animate]="{value:'*', params:{ scale:'0.5', delay:'500ms' }}">
+					<img src="/assets/images/placeholder/client-hug.png" style="z-index: 9;" class="img-fluid empty-table-img">
+				</div>
+			</div>
+
+			<ng-container>
+				<div class="d-none d-sm-block"><br><br></div>
+				<hr style="color: #9e9e9e !important;">
+			</ng-container>
+
+			<!-- TABLE DATA DESKTOP -->
+			<div class="position-relative" style="overflow-y: scroll;
+			height: calc(100vh - 463px)">
+				<div id="table-container" class="d-none"
+				[ngClass]="!loading && clientList?.length === 0 && dataSource?.data
+				? 'd-none d-md-none' : 'd-md-block'">
+					<table class="table mt-0 pt-0" mat-table matSort
+					[dataSource]="dataSource">
+						<ng-container *ngFor="let header of displayedColumns; index as cindex"
+						[matColumnDef]="header?.col_name">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header
+				
+							[@animate]="{value:'*', params:{ x:'-10px', delay:'100ms' }}">
+								{{header?.title}}
+							</th>
+							<td mat-cell *matCellDef="let data"
+							[@animate]="{value:'*', params:{ x:'-10px', delay:'100ms' }}">
+								<span class="text-capitalize" *ngIf="header?.col_name === 'first_name' && header?.col_name !== 'profile_pic_url'; else showDefault">
+									{{data.last_name}}, {{ data.first_name }} 
+								</span>
+								<span *ngIf="header?.col_name == 'profile_pic_url'"
+								[ngClass]="data?.profile_pic_url ? 'padding-profile' : 'padding-profile-2'">
+									<img [defaultImage]="'/assets/images/placeholder/default-avatar.png'"
+									[lazyLoad]="data?.profile_pic_url"
+									[matTooltip]="data?.risk_notification"
+									matTooltipPosition="above"
+									[ngClass]="data?.risk_notification ? 'border-danger' : ''">
+								</span>
+								<ng-template #showDefault>
+									<span class="two-lines"
+									*ngIf="header?.col_name !== 'profile_pic_url'
+									 && header?.col_name !== 'status'
+									 && header?.col_name !== 'entry_date'
+									 && header?.col_name !== 'birthdate'">
+										{{ data[header?.col_name] || '-' }}
+									</span>
+									<span *ngIf="header?.col_name === 'entry_date'
+									|| header?.col_name === 'birthdate'">
+										{{ data[header?.col_name]  ? (data[header?.col_name] * 1000 | date: 'dd-MM-y') : '-'}}
+									</span>
+									<span *ngIf="header?.col_name !== 'profile_pic_url'
+									 && header?.col_name === 'status'">
+										<button class="btn btn-status text-capitalize"
+										[ngClass]="'status_' + data[header?.col_name]?.toLowerCase()">
+											{{ data[header?.col_name] }}
+										</button>
+									</span>
+								</ng-template>
+							</td>
+						</ng-container>
+						<tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
+						<tr mat-row *matRowDef="let row; let i = index; columns: selectedColumns;"
+						(click)="selectRows(row)"
+						(dblclick)="viewDetailDialog(row); dbClickActive = true"
+						[ngClass]="selectedRows.indexOf(row) > -1 ? 'bg-selected': ''"></tr>
+					</table>
+				</div>
+			</div>
+
+			<!-- TABLE DATA MOBILE -->
+			<div id="table-container-mobile" class="d-block d-md-none">
+				<table class="table mt-0 pt-0" mat-table matSort 
+				[dataSource]="dataSource" *ngIf="!loading">
+					<ng-container *ngFor="let header of displayedColumns; index as cindex" 
+					[matColumnDef]="header?.col_name">
+						<tr class="d-flex" *matCellDef="let data"> 
+							<span class="flex-wrap title">
+								{{header?.title}}
+							</span>
+
+							<span class="flex-wrap ms-2" *ngIf="header?.col_name === 'first_name' 
+							&& header?.col_name !== 'profile_pic_url'; else showDefault">
+								{{ data.first_name }} {{data.last_name}} 
+							</span>
+
+							<span *ngIf="header?.col_name == 'profile_pic_url'" class="table_img">
+								<img [defaultImage]="'/assets/images/placeholder/default-avatar.png'" 
+								[lazyLoad]="data?.profile_pic_url">
+							</span>
+
+							<ng-template #showDefault>
+								<span *ngIf="header?.col_name !== 'profile_pic_url'
+								 && header?.col_name !== 'status'
+								 && header?.col_name !== 'date_added'
+								 && header?.col_name !== 'birthdate'">
+									{{ data[header?.col_name] || '-' }} 
+								</span>
+
+								<span *ngIf="header?.col_name === 'date_added'
+								|| header?.col_name === 'birthdate'">
+									{{ data[header?.col_name] | date: 'dd-MM-y' || '-'}}
+								</span>
+
+								<span *ngIf="header?.col_name !== 'profile_pic_url'
+								 && header?.col_name === 'status'">
+									<button class="btn btn-status active">
+									{{ data[header?.col_name] ? 'Active' : 'Inactive' }} </button>
+								</span>
+							</ng-template>
+						</tr>
+					</ng-container>
+
+				  	<!-- <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr> -->
+				  	<tr mat-row *matRowDef="let row; let i = index; columns: selectedColumnsMobile;"
+				  	(click)="selectRows(row)"
+				  	(dblclick)="viewDetailDialog(row); dbClickActive = true"
+				  	[ngClass]="selectedRows.indexOf(row) > -1 ? 'bg-selected': ''"></tr>
+				</table>
+			</div>
+
+			<!-- NAVIGATOR DETAILS -->
+			<div class="flex-wrap px-2 pt-3" *ngIf="clientList?.length > 0">
+				<p class="float-start">Showing 1 to {{dataSource?.data?.length}} of {{maxRows}} entries
+					<span class="ms-5">
+						<strong style="color: #8C7FF9">{{selectedRows?.length}}</strong>
+						Clients selected
+					</span>
+				</p>
+
+				<!-- PAGINATOR -->
+				<p class="float-end paginator" *ngIf="paginate.length > 1">
+					<span class="text-black" 
+					(click)="page !== 1 ? changePage(page-1): ''"> 
+						<img src="/assets/images/icons/caret-left.png" class="img-fluid" width="7px">
+					</span>
+
+					<span 
+					*ngFor="let i of paginate.slice(
+						this.pageRange(this.page, this.paginate.length)['start'], 
+						this.pageRange(this.page, this.paginate.length)['end']
+					)"
+					(click)="changePage(i)">
+						<span [ngClass]="i === page ? 'text-purple': 'text-black'">{{i}}</span>
+					</span>
+					
+					<span class="text-black" 
+					(click)="page !== paginate.length ? changePage(page+1): ''"> 
+						<img src="/assets/images/icons/caret-right.png" class="img-fluid" width="7px">
+					</span>
+				</p>
+			</div>	
+
+
+		</div>
+	</div>
+</div>

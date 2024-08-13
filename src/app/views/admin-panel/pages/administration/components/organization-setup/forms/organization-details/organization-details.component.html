@@ -1,0 +1,416 @@
+<div class="mt-3 pt-5"
+ [@animate]="{value:'*', params:{ x:'-50px'}}">
+	
+	<form class="card card-body" [formGroup]="organizationDetailsForm">
+		<div class="row">
+			<div class="col-12 col-md-4 mb-3">
+				<div class="card card-body py-4" style="height: 250px;">
+					<h5 class="text-center mb-4">Organisation Details</h5>
+
+					<!-- <app-textfield 
+						label="Organisation ID" 
+						[labelTop]="true"
+						[readonly]="true"
+						[disabled]="true"
+						formControlName="organization_id">
+					</app-textfield> -->
+
+					<app-textfield 
+						label="Organisation Name" 
+						[labelTop]="true"
+						[classType]="'text-capitalize'"
+						formControlName="organization_register"
+						[required]="true">
+					</app-textfield>
+
+					<app-textfield 
+						label="Account Email" 
+						[labelTop]="true"
+						[classType]="'text-lowercase'"
+						formControlName="email_address"
+						[disabled]="true"
+						>
+					</app-textfield>
+
+					<!-- <app-textfield 
+						label="ABN" 
+						[labelTop]="true"
+						formControlName="abn"
+						[required]="true">
+					</app-textfield> -->
+
+					<!-- <app-radio-button 
+						label="Two Factor Authentication" 
+						[labelTop]="true"
+						formControlName="two_factor_authentication"
+						[required]="true"
+						[options]="radioOptions">
+					</app-radio-button> -->
+				</div>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<div class="card card-body py-4" style="height: 250px;">
+					<h5 class="text-center mb-4">Date and Time Format</h5>
+
+					<app-dropdown 
+						label="Date Format" 
+						[labelTop]="true"
+						formControlName="date_format"
+						[classType]="'text-lowercase'"
+						[info]="true"
+						[infoTitle]="'Report Date Format'" 
+						[options]="dateFormat">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Time Format" 
+						[labelTop]="true"
+						formControlName="time_format"
+						[info]="true"
+						[infoTitle]="'Report Time Format'" 
+						[options]="timeFormat">
+					</app-dropdown>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<div class="card card-body py-4 align-self-center" style="height: 250px;">
+					<h5 class="text-center mb-4">Mobile Settings</h5>
+
+					<app-radio-button 
+						label="Combine Shifts" 
+						[labelTop]="true"
+						formControlName="combine_shifts"
+						[options]="radioOptions">
+					</app-radio-button>
+
+					<app-radio-button 
+						label="Show Odometer Fields On Mobile" 
+						[labelTop]="true"
+						formControlName="show_odometer"
+						[options]="radioOptions">
+					</app-radio-button>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 mb-3">
+				<div class="card card-body py-4">
+					<h5 class="text-center mb-4">System Settings</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="Login Timeout" 
+								[labelTop]="true"
+								formControlName="login_timeout"
+								[info]="true"
+								[readonly]="true"
+								[infoTitle]="'Elapsed hours before users need to log back into the system'">
+							</app-textfield>
+
+
+							<div class="text-start align-self-start ps-4 d-flex">
+								<mat-slide-toggle 
+								class="mb-3"
+								formControlName="enable_branch_scheduling" 
+								color="primary">
+								Enable Branch Scheduling</mat-slide-toggle>
+
+								<div class="container-info">
+								    <span class="img-info-container">
+								        <img src="/assets/images/icons/info-input-icon.png" 
+								        [matTooltip]="'Whether to restrict employees being scheduled to only their branch'"
+								        matTooltipPosition="above"
+								        class="img-fluid">
+								    </span>
+								</div>
+							</div>
+
+							<div class="text-start align-self-start ps-4 d-flex">
+								<mat-slide-toggle 
+								class="mb-3"
+								formControlName="auth_publish_shifts" 
+								color="primary">
+								Auto Publish Shifts</mat-slide-toggle>
+
+								<div class="container-info">
+								    <span class="img-info-container">
+								        <img src="/assets/images/icons/info-input-icon.png" 
+								        [matTooltip]="'Whether to restrict employees being scheduled to only their branch'"
+								        matTooltipPosition="above"
+								        class="img-fluid">
+								    </span>
+								</div>
+							</div>
+
+
+							<div class="text-start align-self-start ps-4 d-flex">
+								<mat-slide-toggle 
+								class="mb-3"
+								formControlName="approve_invoice_cancellation" 
+								color="primary">
+								Approve Cancellation to Invoice</mat-slide-toggle>
+
+								<div class="container-info">
+								    <span class="img-info-container">
+								        <img src="/assets/images/icons/info-input-icon.png" 
+								        [matTooltip]="'Whether to Approve Cancelled shift before invoicing them'"
+								        matTooltipPosition="above"
+								        class="img-fluid">
+								    </span>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<!-- <br><br><br><br> -->
+
+							<div class="text-start align-self-start ps-4 d-flex">
+								<mat-slide-toggle 
+								class="mb-3"
+								[disabled]="true"
+								formControlName="hide_client_group_shifts" 
+								color="primary">
+								Hide Participants Group Shifts</mat-slide-toggle>
+							</div>
+
+							<div class="text-start align-self-start ps-4 d-flex">
+								<mat-slide-toggle 
+								class="mb-3"
+								formControlName="auto_approve_timesheets" 
+								color="primary">
+								Auto Approve Timesheets</mat-slide-toggle>
+							</div>
+
+							<div class="text-start align-self-start ps-4 d-flex">
+								<mat-slide-toggle 
+								class="mb-3"
+								formControlName="apportion_group_travel" 
+								color="primary">
+								Apportion Group Travel</mat-slide-toggle>
+
+								<div class="container-info">
+								    <span class="img-info-container">
+								        <img src="/assets/images/icons/info-input-icon.png" 
+								        [matTooltip]="'Whether or not to apportion travel amount between group participants or not'"
+								        matTooltipPosition="above"
+								        class="img-fluid">
+								    </span>
+								</div>
+							</div>
+
+							<div class="text-start align-self-start ps-4 d-flex">
+								<mat-slide-toggle 
+								class="mb-3"
+								formControlName="always_use_qss" 
+								color="primary">
+								Always Use Quick Staff Search</mat-slide-toggle>
+
+								<div class="container-info">
+								    <span class="img-info-container">
+								        <img src="/assets/images/icons/info-input-icon.png" 
+								        [matTooltip]="'Always Use Quick Staff Search on Schedule Board'"
+								        matTooltipPosition="above"
+								        class="img-fluid">
+								    </span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 mb-3">
+				<div class="card card-body py-4" *ngIf="false">
+					<h5 class="text-center mb-4">Custom Mail Server Configuration</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="SMTP Server" 
+								[labelTop]="true"
+								[info]="true"
+								[infoTitle]="'Enter SMTP server details if you would like to use your own server for sending emails from the system'" 
+								formControlName="smtp_server">
+							</app-textfield>
+
+							<app-textfield 
+								label="SMTP Port" 
+								[labelTop]="true"
+								formControlName="smtp_port">
+							</app-textfield>
+
+							<app-radio-button 
+								label="SMTP Enable SSL" 
+								[labelTop]="true"
+								formControlName="smtp_enable_ssl"
+								[options]="radioOptions">
+							</app-radio-button>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="SMTP Username" 
+								[labelTop]="true"
+								[info]="true"
+								[infoTitle]="'Enter SMTP username for authentication. Leave blank if your SMTP server does not require authentication.'" 
+								formControlName="smtp_username">
+							</app-textfield>
+
+							<app-textfield 
+								label="SMTP Password" 
+								[labelTop]="true"
+								[info]="true"
+								[infoTitle]="'Enter SMTP password if your SMTP server requires authentication.'"formControlName="smtp_password">
+							</app-textfield>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="card card-body py-4">
+					<h5 class="text-center mb-4">Organisation Setup</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 ">
+							<app-dropdown 
+                                label="Invoice Tax Type"
+                                [labelTop]="true"
+                                [required]="true"
+								[info]="true"
+								[infoTitle]="'Setup Invoice Tax Type'" 
+                                formControlName="invoice_tax_type"
+                                [options]="invoiceTaxRateOptions">
+                            </app-dropdown>
+
+							<app-dropdown 
+                                label="A/H Calculation"
+                                [labelTop]="true"
+                                [required]="true"
+                                formControlName="a_h_calculator"
+                                [options]="ahCalculation">
+                            </app-dropdown>
+
+							
+							
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-dropdown 
+                                label="Payroll Calendar"
+                                [labelTop]="true"
+                                [required]="true"
+								[info]="true"
+								[disabled]="!payroll_options"
+								[customErrorMessage]="payroll_options ? '' : '*Please setup your Xero account'"
+								[showError]="true"
+								[infoTitle]="'Setup Payroll Calendar'"
+                                formControlName="payroll_calendar_id"
+                                [options]="payroll_options">
+                            </app-dropdown>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<header>
+								<h5 class="text-center">Travel</h5>
+							</header>
+							<app-textfield 
+								label="Pay Rate" 
+								[labelTop]="true"
+								[inputType]="'number'"
+								[info]="false"
+								[max]="1"
+								[infoTitle]="'Enter pay rate'" 
+								formControlName="travel_pay_rate">
+							</app-textfield>
+
+							<app-textfield 
+								label="Claim Rate" 
+								[labelTop]="true"
+								[inputType]="'number'"
+								[info]="false"
+								[max]="1"
+								[infoTitle]="'Enter claim rate'" 
+								formControlName="travel_claim_rate">
+							</app-textfield>
+						</div>
+
+						<div class="col-12 col-md-6 ">
+							<header>
+								<h5 class="text-center">Transport</h5>
+							</header>
+							<app-textfield 
+								label="Payrate" 
+								[labelTop]="true"
+								[inputType]="'number'"
+								[info]="false"
+								[max]="1"
+								[infoTitle]="'Enter transport rate to be reflected on shift location'" 
+								formControlName="transport_pay_rate">
+							</app-textfield>
+
+							<app-textfield 
+								label="Claim Rate" 
+								[labelTop]="true"
+								[inputType]="'number'"
+								[info]="false"
+								[max]="1"
+								[infoTitle]="'Enter travel rate to be reflected on shift location'" 
+								formControlName="transport_claim_rate">
+							</app-textfield>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-12 col-md-12 mb-3" *ngIf="id">
+				<div class="card card-body py-4">
+					<h5 class="text-start ps-3">Branches
+						<span class="float-end add-record" 
+						routerLink="/admin/setup/branch-setup">
+							<mat-icon class="mat-icon me-2">add</mat-icon>
+							<span class="add-record-text">Add new Record</span>
+						</span>
+					</h5>
+
+					<admin-reusable-org-table
+						[loading]="loading"
+						(updateSelectedRowDialog)="editBranch($event)"
+						(deleteSelectedRow)="deleteDataDialog($event)"
+						[displayedColumns]="displayedColumns"
+						[selectedColumns]="selectedColumns"
+						[selectedColumnsMobile]="selectedColumns"
+						[searchSource]="searchSource"
+						[maxRows]="8"
+						[listDataSource]="branchList">
+					</admin-reusable-org-table>
+				</div>
+			</div>
+
+			<!-- <div class="col-12 col-md-12 mb-3">
+				<div class="card card-body py-4">
+					<h5 class="text-start ps-3">Whitelist IP Addresses
+						<span class="float-end add-record">
+							<mat-icon class="mat-icon me-2">add</mat-icon>
+							<span class="add-record-text">Add new Record</span>
+						</span>
+					</h5>
+
+					<admin-reusable-org-table
+						[loading]="loading"
+						[displayedColumns]="displayedIPColumns"
+						[selectedColumns]="selectedIPColumns"
+						[selectedColumnsMobile]="selectedIPColumns"
+						[searchSource]="searchSource"
+						[maxRows]="8"
+						[listDataSource]="whiteList">
+					</admin-reusable-org-table>
+				</div>
+			</div> -->
+		</div>
+	</form>
+</div>

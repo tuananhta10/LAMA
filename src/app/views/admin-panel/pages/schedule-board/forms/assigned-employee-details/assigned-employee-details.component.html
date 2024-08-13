@@ -1,0 +1,142 @@
+<div class="card-form">
+	<div>
+		<h5 class="mat-dialog-title">Assigned Employee Details</h5>
+	</div>
+
+	<form [formGroup]="assignEmployeeForm" >
+		<!-- <app-search-list 
+		    label="Employee"
+		    [labelTop]="true"
+		    [required]="true"
+		    formControlName="employee"
+		    [options]="employeeEnumFiltered">
+		</app-search-list> -->
+
+		<div class="row px-0">
+			<div class="col-12 col-lg-6">
+				<app-textfield
+				    label="Employee"
+				    [labelTop]="true"
+				    [readonly]="true"
+				    formControlName="employee">
+				</app-textfield>
+			</div>
+
+			<div class="col-12 col-lg-6">
+				<app-textfield
+				    label="Email"
+				    [labelTop]="true"
+				    [readonly]="true"
+				    formControlName="employee_email">
+				</app-textfield>
+			</div>
+
+			<div class="col-12 col-lg-6">
+				<app-textfield
+				    label="Phone"
+				    [labelTop]="true"
+				    [readonly]="true"
+				    formControlName="employee_phone_number">
+				</app-textfield>
+			</div>
+
+			<div class="col-12 col-lg-6">
+				<app-textfield
+				    label="Address"
+				    [labelTop]="true"
+				    [readonly]="true"
+				    formControlName="employee_address">
+				</app-textfield>
+			</div>
+
+			<div class="col-12 col-lg-6">
+				<app-textfield
+				    label="State"
+				    [labelTop]="true"
+				    [readonly]="true"
+				    formControlName="employee_state">
+				</app-textfield>
+			</div>
+
+			<div class="col-12 col-lg-6">
+				<app-textfield
+				    label="Suburb"
+				    [labelTop]="true"
+				    [readonly]="true"
+				    formControlName="employee_suburb">
+				</app-textfield>
+			</div>
+		</div>
+
+
+	</form>
+	<!--  *ngIf="!loading" -->
+	<div>
+		<div >
+
+			
+
+            <div  *ngIf="showFilter">
+            	<hr>
+            	<h5 class="ms-3 ps-2">Employee Filter</h5>
+            	<form [formGroup]="employeeLookupFilter">
+            		<app-radio-button id="smoker"  
+            			label="Smoker" 
+            			[labelTop]="true"
+            			formControlName="smoker" 
+            			[options]="radioOptions">
+            		</app-radio-button>
+
+            		<app-dropdown id="job_type"  
+            			label="Job Type"
+            			placeholder="Select" 
+            			formControlName="job_type" 
+            			[labelTop]="true"
+            			[options]="jobTypeEnum">
+            		</app-dropdown>
+
+            		<app-dropdown id="employment_type"  
+            			label="Employment Type" 
+            			formControlName="employment_type"
+            			[options]="employementTypeOption" 
+            			[info]="true"
+            			[labelTop]="true"
+            			[infoTitle]="'Penalty rates for employee will be calculated based on the employment type selected here.'"
+            		></app-dropdown>
+
+            		<app-dropdown id="gender"  
+            			label="Gender" 
+            			formControlName="gender"
+            			[options]="genderOptions" 
+            			[labelTop]="true"
+            		></app-dropdown>
+
+            		<app-search-list id="language"  
+            			label="Language" 
+            			formControlName="language"
+            			[options]="languageEnum" 
+            			[labelTop]="true"
+            		></app-search-list>
+
+            		<div class="ms-3 ps-2 mb-3">
+            			<button class="btn btn-primary btn-header" (click)="applyFilter()"> Apply Filter</button>
+            		</div>
+
+            		<!-- <hr> -->
+            	</form>
+            </div>
+
+            
+            
+            <!-- <div class="ms-3 ps-2 mb-3" *ngIf="!showFilter">
+            	<button class="btn btn-primary btn-header" (click)="applyFilter()">Add Filter</button>
+            </div>     -->   
+		</div>
+
+	</div>
+    <!-- <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading">
+    </global-admin-loader>  -->
+</div> 

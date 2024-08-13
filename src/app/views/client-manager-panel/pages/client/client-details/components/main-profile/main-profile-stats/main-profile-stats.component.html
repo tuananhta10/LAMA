@@ -1,0 +1,19 @@
+<section id="stat-data-2">
+	<ng-container *ngFor="let stat_container of statData">
+		<div [ngClass]="stat_container?.class" *ngIf="checkAccess(stat_container.access)" 
+		style="position: relative;">
+			<div class="stat-image">
+				<img [src]="stat_container?.img" class="img img-fluid" width="35.05">
+			</div>
+
+			<div class="stat-details mt-2" >
+				<span class="stat-value">{{stat_container?.stat_val}}</span><br>
+				<span class="stat-title text-truncate">{{stat_container?.title}}</span><br>
+				
+			</div>
+
+			<button class="btn btn-view-more btn-active-client" (click)="stat_container?.view_more()">View More</button>
+		</div>
+	</ng-container>
+</section>
+

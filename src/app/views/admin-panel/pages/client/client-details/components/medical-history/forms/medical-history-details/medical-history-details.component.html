@@ -1,0 +1,77 @@
+<div>
+	<form class="row" [formGroup]="medicalInfoForm">
+		<div class="col-12 col-md-6">
+			<h5 class="ps-4">Medical History Details</h5>
+			<app-dropdown 
+				label="Client Id" 
+				[labelTop]="true"
+				formControlName="clientid"
+				[required]="true"
+				[options]="clientId">
+			</app-dropdown>
+
+			<app-radio-button 
+				label="Cancer Diagnosed" 
+				formControlName="cancer_diagnosed" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-date-picker 
+				label="Cancer Diagnosed Date" 
+				[labelTop]="true"
+				formControlName="cancer_diagnosed_date">
+			</app-date-picker>
+
+			<app-radio-button 
+				label="Stroke" 
+				formControlName="stroke" 
+				[required]="true"
+				[labelTop]="true"
+				[options]="radioOptions">
+			</app-radio-button>
+
+			<app-date-picker 
+				label="Stroke Diagnosed Date" 
+				[labelTop]="true"
+				formControlName="stroke_date">
+			</app-date-picker>
+
+			<app-textarea 
+				label="Stroke Comments" 
+				[labelTop]="true"
+				formControlName="stroke_comments">
+			</app-textarea>
+
+
+			<app-dropdown 
+				label="Physical" 
+				[labelTop]="true"
+				formControlName="physical"
+				[required]="true"
+				[options]="physical"
+				[multiple]="true">
+			</app-dropdown>
+
+			<app-dropdown 
+				label="Mental" 
+				[labelTop]="true"
+				formControlName="mental"
+				[required]="true"
+				[options]="mental"
+				[multiple]="true">
+			</app-dropdown>
+		</div>
+
+		<div class="col-12 col-md-6">
+			<h5 class="ps-4">Medical Summary</h5>
+			<app-textarea 
+				label="Medical Summary" 
+				[labelTop]="true"
+				formControlName="medical_summary">
+			</app-textarea>
+
+		</div>
+	</form>
+</div>

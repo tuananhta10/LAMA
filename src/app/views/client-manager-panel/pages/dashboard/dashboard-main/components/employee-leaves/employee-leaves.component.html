@@ -1,0 +1,34 @@
+<div class="card mb-3 px-3">
+	<div class="card-body">
+		<h5 class="main-title">
+		<!-- <img src="/assets/images/icons/dashboard/leaves-2.png" 
+		style="width: 30px;" class="me-2"> -->
+		Employee Leave Status</h5>
+		
+		<div class="d-flex">
+			<div class="flex-wrap text-center me-3">
+				<div class="total-leave">
+					<h5 class="total-leave-text">{{dashboardData?.employee_leave_status?.employee_leave_total}}</h5>
+					<p class="total-leave-label">Total Leave</p>
+				</div>
+			</div>
+
+			<div class="flex-wrap w-100 row pt-5 leave-detail ps-3">
+				<div class="col-4">
+					<div>
+						<h5><strong>{{dashboardData?.employee_leave_status?.employee_leave_total_approved}}</strong> Approved</h5>
+					</div>
+				</div>
+
+				<div class="col-4">
+					<h5><strong>{{dashboardData?.employee_leave_status?.employee_leave_total_rejected}}</strong> Rejected</h5>
+				</div>
+
+				<div class="col-4">
+					<h5><strong>{{dashboardData?.employee_leave_status?.employee_leave_total_pending}}</strong> Pending</h5>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

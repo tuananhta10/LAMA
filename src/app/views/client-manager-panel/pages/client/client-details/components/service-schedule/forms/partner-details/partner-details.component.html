@@ -1,0 +1,152 @@
+<div class="row">
+  <div class="col-12 col-md-12">
+    <form *ngIf="!loading" [formGroup]="partnerDetailsForm">
+      <app-dropdown
+        label="Type"
+        [labelTop]="true"
+        formControlName="type"
+        [required]="true"
+        [options]="type"
+      >
+      </app-dropdown>
+
+      <!-- <app-dropdown
+        label="Client"
+        [labelTop]="true"
+        formControlName="client"
+        [options]="clients"
+      >
+      </app-dropdown>
+
+      <app-dropdown
+        label="Client Funding"
+        [labelTop]="true"
+        formControlName="client_funding"
+        [options]="clientFunding"
+      >
+      </app-dropdown>
+
+      <app-dropdown
+        label="Pricelist"
+        [labelTop]="true"
+        formControlName="pricelist"
+        [options]="priceList"
+      >
+      </app-dropdown>
+
+      <app-dropdown
+        label="Service Type"
+        [labelTop]="true"
+        formControlName="service_type"
+        [options]="serviceTypes"
+      >
+      </app-dropdown> -->
+
+      <app-search-list
+        label="Client"
+        [labelTop]="true"
+        formControlName="client"
+        [options]="clientEnums"
+      >
+      </app-search-list>
+
+      <app-search-list
+        label="Client Funding"
+        [labelTop]="true"
+        formControlName="client_funding"
+        [options]="clientFundingEnums"
+      >
+      </app-search-list>
+
+      <app-search-list
+        label="Pricelist"
+        [labelTop]="true"
+        formControlName="pricelist"
+        [options]="priceListEnums"
+      >
+      </app-search-list>
+
+      <app-search-list
+        label="Service Type"
+        [isTextArea]="true"
+        [labelTop]="true"
+        formControlName="service_type"
+        [options]="serviceTypeEnums"
+      >
+      </app-search-list>
+
+      <app-textfield
+        label="Activity"
+        [labelTop]="true"
+        formControlName="activity"
+      >
+      </app-textfield>
+
+      <app-textarea
+        label="Additional Roster Comments"
+        [labelTop]="true"
+        formControlName="additional_roster_comments"
+      >
+      </app-textarea>
+
+      <app-dropdown
+        label="A/H Calculation"
+        [required]="true"
+        [labelTop]="true"
+        formControlName="ah_calculation"
+        [options]="ahCalculation"
+      >
+      </app-dropdown>
+
+      <app-dropdown
+        label="Status"
+        [required]="true"
+        [labelTop]="true"
+        formControlName="status"
+        [options]="statusOptions"
+      >
+      </app-dropdown>
+
+      <app-radio-button
+        label="Billable"
+        formControlName="billable"
+        [required]="true"
+        [labelTop]="true"
+        [options]="radioOptions"
+      >
+      </app-radio-button>
+
+      <app-radio-button
+        label="Override Availability"
+        formControlName="override_availability"
+        [required]="true"
+        [labelTop]="true"
+        [options]="radioOptions"
+      >
+      </app-radio-button>
+
+      <app-radio-button
+        label="Override Qualifications"
+        formControlName="override_qualifications"
+        [labelTop]="true"
+        [options]="radioOptions"
+      >
+      </app-radio-button>
+
+      <app-textarea
+        label="Override Qualification Reason"
+        [labelTop]="true"
+        formControlName="override_qualification_reason"
+      >
+      </app-textarea>
+
+      <p class="ps-4 text-muted">End of Service Date</p>
+    </form>
+    <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading"
+        [formOnly]="true">
+    </global-admin-loader>
+  </div>
+</div>

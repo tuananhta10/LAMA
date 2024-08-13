@@ -1,0 +1,77 @@
+<div class="row">
+	<div class="col-12 mb-3" id="my-tasks-container">
+		<div class="card px-3">
+			<div *ngIf="!loading" class="card-body p-0 py-3">
+				<div class="w-100 px-2">
+					<!--  style="border-bottom: 1px dashed rgba(196, 196, 196, 0.6);" -->
+					<div class="row">
+						<div class="col-12 col-md-12 col-lg-12">
+							<h5 class="main-title">Employee Tasks
+								<button type="button" class="btn add-new ms-1 text-white" 
+								style="color: white !important; z-index: 9999 !important;" 
+								(click)="openAddTask()"> 
+									<span class="material-icons text-white">add</span>Add
+								</button>
+								
+								<a routerLink="/admin/employees/employee-task" class="btn btn-view-all float-end">View All</a>
+							</h5>
+						</div>
+					</div>
+
+					<div class="employee-task-table" *ngIf="employeeTaskList?.length > 0; else showEmptyTask;" style="max-height: 400px !important; min-height: 130px; overflow-y: auto">
+						<table class="table">
+							<!-- <thead>
+								<tr>
+									<th (click)="sortTask('task_name')">Task</th>
+									<th (click)="sortTask('employee')">Assigned to</th>
+									<th (click)="sortTask('due_date')">Due Date</th>
+									<th (click)="sortTask('status')">Status</th>
+								</tr>
+							</thead> -->
+
+							<tbody>
+								<tr *ngFor="let task of employeeTaskList" (click)="openAddTask(task)">
+									<td class="text-capitalize">
+										<h5 class="my-0">
+											{{task?.task_name}} <i class="ms-2"
+											style="font-size: 12px; font-weight: 400;">
+											( {{task?.due_date * 1000 | date: 'MMM dd, yyyy'}} )</i>
+										</h5>
+
+										<div class="my-2" *ngIf="task?.description">
+											{{task?.description}}
+										</div>
+										
+										<div [ngClass]="task?.description ? 'my-2' : 'mt-3 mb-2'">
+											<button class="btn btn-status text-capitalize" [ngClass]="task?.status?.split(' ').join('-').toLowerCase()">
+												{{task?.status}}
+											</button>
+										</div>
+										
+										
+									</td>
+									<!-- <td>{{task?.employee_name || '--'}}</td> --><!-- 
+									<td></td>
+									<td>
+										
+									</td> -->
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<ng-template #showEmptyTask>
+						<div *ngIf="!loading" style="max-height: 400px !important; min-height: 200px; overflow-y: auto">List of Employee Task is currently empty.</div>
+					</ng-template>
+				</div>
+			</div>
+			<global-admin-loader 
+		        [withSideBar]="false"
+		        [fromDetailTab]="true"
+		        [loading]="loading">
+		    </global-admin-loader>	
+		</div>
+	</div>
+</div>	
+
+

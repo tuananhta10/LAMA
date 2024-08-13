@@ -1,0 +1,92 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Invoice
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form *ngIf="!loading" [formGroup]="addInvoiceForm">
+		<div mat-dialog-content>
+            <div class="row">
+                <div class="col-12 col-md-6 pe-0">
+                    <app-search-list 
+                        label="Invoice Type" 
+                        [labelTop]="true"
+                        formControlName="Type"
+                        [required]="true"
+                        [options]="invoiceTypeOptions">
+                    </app-search-list>
+    
+                    <app-search-list 
+                        label="Contact" 
+                        [labelTop]="true"
+                        formControlName="Contact"
+                        [required]="true"
+                        [options]="contactList">
+                    </app-search-list>
+                    <app-textfield 
+                        label="Reference"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="Reference">
+                    </app-textfield>
+                </div>
+                <div class="col-12 col-md-6 pe-0">
+                    <app-date-picker 
+                        label="Date"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="Date">
+                    </app-date-picker>
+                    <app-date-picker 
+                        label="DueDate"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="DueDate">
+                    </app-date-picker>
+                    <app-dropdown 
+                        label="Status" 
+                        [labelTop]="true"
+                        formControlName="Status" 
+                        [required]="true"
+                        [options]="statusOptions">
+                    </app-dropdown>
+                </div>
+                <div class="col-12">
+                    <app-form-table
+                        label='Line Items'
+                        [columns]="lineItemColumn"
+                        [data]="lineItemData"
+                        (addEvent)="openAddLineItem($event)"
+                        (deleteEvent)="deleteLineItem($event)"
+                        [isAddEnabled]="true"
+                        [isDeleteEnabled]="true"
+                    ></app-form-table>
+                </div>
+            </div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data; else showSave">Add</span>
+                    <ng-template #showSave>Save</ng-template>  
+                </button>
+			</div>
+		</div>
+	</form>
+    <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading">
+    </global-admin-loader>
+</div> 

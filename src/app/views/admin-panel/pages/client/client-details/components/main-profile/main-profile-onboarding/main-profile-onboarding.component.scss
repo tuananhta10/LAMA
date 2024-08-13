@@ -1,0 +1,167 @@
+@import "src/scss/colors";
+
+.add-new{
+    cursor: pointer;
+    background: $color-purple;
+    vertical-align: center !important;
+    color: white;
+    padding: 5px 13px !important;
+
+    .material-icons{
+        font-size: 11px;
+    }
+}
+
+.btn-active-client{
+	padding: 8px 15px !important;
+	font-size: 13px;
+}
+
+h5{
+	color: #595959;
+	font-size: 13px;
+}
+
+.card-title{
+	line-height: 20px !important;
+	border: none !important;
+}
+
+.shadow{
+	/* box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+	-webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+	-moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25); */
+	border-color: white !important;
+	background: white;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+.two-lines {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+}
+
+.view-edit{
+    background: rgba(140, 127, 249, 0.1) !important;
+    color: $color-purple !important;
+    padding: 3px 15px !important;
+    cursor: pointer;
+    border-radius: 7px;
+    font-weight: 500 !important;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.shadow-2{
+	/* box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206);
+	-webkit-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206);
+	-moz-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206); */
+	border-color: white !important;
+	background: white;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+.shadow-3{
+    background: white;
+    box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.15);
+    -webkit-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.15);
+    -moz-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.15);
+}
+
+/* ONBOARDING NOTES */
+#onboarding-notes{
+	@extend .shadow-3;
+	padding: 20px 20px 10px 20px;
+	//border-radius: 20px;
+	border-radius: 6px;
+	background: white;
+	color: #595959;
+	//min-height: 200px;
+
+
+	.card-title{
+		.float-end{
+			@extend .view-edit;
+		}
+	}
+
+	.notes-container{
+		cursor: pointer;
+		background: #F1F1F1;
+		border-radius: 5px;
+		padding: 5px 5px 5px 15px;
+
+		.btn-view-more{
+			@extend .shadow;
+			padding: 4px 10px !important;
+			margin-top: 5px;
+			margin-left: -4px;
+			background: white;
+			font-size: 11px !important;
+			border-radius: 6px !important;
+			border: none !important;
+		}
+
+		p{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 1; /* number of lines to show */
+			-webkit-box-orient: vertical;
+			margin-bottom: 5px;
+		}
+
+		.admin{
+			background: $color-purple;
+			color: white;
+		}
+
+		.co-worker{
+			background: $color-yellow;
+			color: white;
+
+			&:hover{
+				background: $color-yellow !important;
+			}
+		}
+
+		.current-worker{
+			background: $color-pink;
+			color: white;
+
+			&:hover{
+				background: $color-pink !important;
+			}
+		}
+
+		.client{
+			background: $color-blue;
+			color: white;
+
+			&:hover{
+				background: $color-blue !important;
+			}
+		}
+
+		.scheduler{
+			background: rgba(64, 187, 234, 1);
+			color:white;
+
+			&:hover{
+				background: rgba(64, 187, 234, 1) !important;
+			}
+		}
+	}
+
+}

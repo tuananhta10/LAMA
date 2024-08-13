@@ -1,0 +1,29 @@
+<div class="assign-action-container px-0" style="width: 400px !important;">
+	<img src="/assets/images/icons/checked-success.png" class="img-fluid" width="30px">
+
+	<h5 class="header-text-action">Successfully added!</h5>
+	<h5 class="header-text">You have successfully added client 
+		<strong>{{data?.client?.first_name}} {{data?.client?.last_name}} </strong> to careworker 
+		<strong>{{data?.employeeData?.first_name}} {{data?.employeeData?.last_name}}</strong>
+	</h5>
+	<p class="header-info">Ask the team owner for permissions</p>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-header-gray btn-header ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-primary btn-header">Got It</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+@import "src/scss/colors";
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+.mat-subtitle{
+    padding-left: 23px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-gray;
+}

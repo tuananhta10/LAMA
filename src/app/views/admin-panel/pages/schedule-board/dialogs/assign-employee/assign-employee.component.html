@@ -1,0 +1,108 @@
+<div class="card-form">
+	<div class="assign-action-container"  
+	[ngStyle]="{ 'min-height': showFilter ? '73vh' : '' }"
+	mat-dialog-content>
+		<img src="/assets/images/icons/replacement.png" class="img-fluid" width="30px">
+
+		<h5 class="header-text-action mb-0">{{data?.title || 'Asssign Employee'}}</h5>
+		<h5 class="header-text mt-1">Fill up the form and click continue to proceed</h5><hr>
+
+		<div class="ms-4 mt-3">
+			<p class="mat-subtitle-description">The assigned employee will change to all selected schedules. Proceed carefully. </p>
+		</div>		
+
+        <form [formGroup]="assignEmployeeForm" >
+        	<div>
+        		<app-dropdown
+        		label="Select Availability"
+        		[labelTop]="true"
+        		[options]="available"
+        		formControlName="availability">
+        		</app-dropdown>
+        	</div>
+
+        	<app-search-list 
+        	    label="Employee"
+        	    [labelTop]="true"
+        	    [required]="true"
+        	    formControlName="employee"
+        	    [options]="employeeEnumFiltered">
+        	</app-search-list>
+        </form>
+
+        <div *ngIf="showFilter">
+        	<hr>
+        	<h5 class="ms-3 ps-2">Employee Filter</h5>
+        	<form [formGroup]="employeeLookupFilter">
+        		<app-dropdown id="qualifications"  
+        			label="Qualifications" 
+        			formControlName="qualifications"
+        			[options]="qualificationList" 
+        			[labelTop]="true"
+        		></app-dropdown>
+
+        		<app-radio-button id="smoker"  
+        			label="Smoker" 
+        			[labelTop]="true"
+        			formControlName="smoker" 
+        			[options]="radioOptions">
+        		</app-radio-button>
+
+        		<app-dropdown id="job_type"  
+        			label="Job Type"
+        			placeholder="Select" 
+        			formControlName="job_type" 
+        			[labelTop]="true"
+        			[options]="jobTypeEnum">
+        		</app-dropdown>
+
+        		<app-dropdown id="employment_type"  
+        			label="Employment Type" 
+        			formControlName="employment_type"
+        			[options]="employementTypeOption" 
+        			[info]="true"
+        			[labelTop]="true"
+        			[infoTitle]="'Penalty rates for employee will be calculated based on the employment type selected here.'"
+        		></app-dropdown>
+
+        		<app-dropdown id="gender"  
+        			label="Gender" 
+        			formControlName="gender"
+        			[options]="genderOptions" 
+        			[labelTop]="true"
+        		></app-dropdown>
+
+        		<app-search-list id="language"  
+        			label="Language" 
+        			formControlName="language"
+        			[options]="languageEnum" 
+        			[labelTop]="true"
+        		></app-search-list>
+
+        		<div class="ms-3 ps-2 mb-3">
+        			<button class="btn btn-primary btn-header" (click)="applyFilter()"> Apply Filter</button>
+        		</div>
+
+        		<hr>
+        	</form>
+        </div>
+        
+        <div class="ms-3 ps-2 mb-3" *ngIf="!showFilter">
+        	<button class="btn btn-primary btn-header" (click)="applyFilter()">Add Filter</button>
+        </div>       
+	</div>
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="close()" 
+			class="btn btn-header-gray btn-header me-3">Close</button>
+
+			<button mat-button (click)="save()" [disabled]="!assignEmployeeForm.valid"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">
+                <span *ngIf="!data; else showSave">Add</span>
+                <ng-template #showSave>Assign</ng-template>  
+            </button>
+		</div>
+	</div>
+</div> 

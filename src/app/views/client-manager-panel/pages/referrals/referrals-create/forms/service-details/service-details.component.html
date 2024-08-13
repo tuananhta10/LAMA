@@ -1,0 +1,113 @@
+<div class="card card-body mt-3 py-5 px-md-5">
+	<form *ngIf="!loading" [formGroup]="serviceDetailsForm"
+	[@animate]="{value:'*', params:{ x:'-50px'}}">
+		<div class="row">
+			<div class="col-12 col-md-4 mb-3">
+				<h5 class="mat-subtitle mb-4 text-start">Service Details</h5>
+
+				<!-- IS THIS EQUIVALENT TO REGISTRATION NUMBER -->
+				<app-textfield 
+					label="NDIS Number" 
+					[labelTop]="true"
+					formControlName="ndis_participant_number"
+					>
+				</app-textfield>
+
+				<app-date-picker 
+					label="NDIS Plan Start Date" 
+					[labelTop]="true"
+					formControlName="ndis_plan_start_date"
+					>
+				</app-date-picker>
+
+				<app-date-picker 
+					label="NDIS Plan End Date" 
+					[labelTop]="true"
+					formControlName="ndis_plan_end_date"
+					>
+				</app-date-picker>
+
+				<app-dropdown 
+					label="Funding Type" 
+					[labelTop]="true"
+					formControlName="ndis_funding"
+					[options]="ndisFundingOption"
+					>
+				</app-dropdown>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<br><br>
+				<app-dropdown 
+					label="Primary Diagnosis/Disability" 
+					[labelTop]="true"
+					formControlName="disability_type"
+					[options]="conditionOptions"
+					[required]="true"
+					(keyevents)="showOthers($event)"
+					>
+				</app-dropdown>
+				
+				<app-textarea *ngIf="showOther"
+					label="Input the Primary Diagnosis/Disability" 
+					[labelTop]="true"
+					formControlName="disability_type_other"
+				>
+				</app-textarea>
+
+				<app-textarea 
+					label="Other Medical and Social History" 
+					[labelTop]="true"
+					formControlName="other_medical_social_history"
+					>
+				</app-textarea>
+
+				<app-textarea 
+					label="Identified Risk" 
+					[labelTop]="true"
+					formControlName="identified_risk"
+					>
+				</app-textarea>
+			</div>
+
+			<div class="col-12 col-md-4">
+				<br><br>
+				<app-textfield 
+					label="Doctor's Name" 
+					[labelTop]="true"
+					formControlName="doctor_name"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Clinic Name" 
+					[labelTop]="true"
+					formControlName="clinic_name"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Doctor Phone Number" 
+					[labelTop]="true"
+					formControlName="doctor_phone_no"
+					>
+				</app-textfield>
+
+				<app-textarea 
+					label="Services Referred" 
+					[labelTop]="true"
+					formControlName="services_referred"
+					>
+				</app-textarea>
+			</div>
+		</div>
+	</form>
+	
+	<div class="px-5">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

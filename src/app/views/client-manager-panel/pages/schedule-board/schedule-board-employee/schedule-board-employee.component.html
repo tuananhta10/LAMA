@@ -1,0 +1,329 @@
+
+<div class="mt-3 w-100" id="schedule-board-container">
+	<img src="/assets/images/icons/schedule-board-purple.svg" width="25px" class="me-2 img-fluid img-title">
+	<span class="main-title">Employee Schedule Board
+		
+	</span>
+	<br><br>
+	<div class="d-lg-flex" *ngIf="!loading">
+		<div class="me-3 flex-wrap">
+			<div id="employee-sidebar-profile-container" class="mb-3" 
+			[@animate]="{value:'*', params:{ x:'-100px', delay:'200ms' }}">
+				<div class="side-profile" style="min-height: 600px;">
+					<div class="text-center profile-image">
+						<img 
+						[defaultImage]="defaultImage"
+						[lazyLoad]="employeeData?.profile_pic_url_download_url || ''" alt="User Image"
+						class="card-img-top img-fluid my-4">
+
+						<h5 class="text-capitalize">{{employeeData?.first_name}} {{employeeData?.last_name}}</h5>
+						<span class="text-capitalize">{{employeeData?.preferred_name || '-'}}</span>
+					</div>
+
+					<!-- <div class="text-center pt-3">
+						<img src="/assets/images/icons/additional-menu.png" 
+						(click)="openEmployeeMenu()"
+						class="img-fluid additional-menu hvr-grow" width="45px">
+					</div> -->
+
+					<br>
+
+					<div class="d-flex">
+						<div class="employee-details flex-wrap mb-2">
+							<dl>
+								<dd>
+									<strong class="me-2">Total Hours</strong> 
+									<span>{{filteredBoardListEmployee[0]?.employee?.total_hours || '-'}} hr/s</span>
+								</dd>
+
+								<dd>
+									<strong class="me-2">Gender</strong> 
+									<span>{{employeeData?.gender || '-'}}</span>
+								</dd>
+								<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+								<dd>
+									<strong class="me-2">Position</strong> 
+									<span>{{employeeData?.employee_position_name || '-'}}</span>
+								</dd>
+			
+								<dd>
+									<strong class="me-2">Job Type</strong>
+									<span>{{employeeData?.job_type || '-'}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-2" >Hourly Rate</strong> 
+									<span>${{employeeData?.hourly_rate || '-'}}/hr</span>
+								</dd> 
+								<dd class="text-center ps-2"><hr class="details-border"></dd>
+								
+								<dd class="d-inline d-lg-flex">
+									<strong class="me-2 flex-wrap">Email</strong>
+									<span class="flex-wrap">{{employeeData?.email_address || '-'}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-2">Home Phone</strong> 
+									<span>{{employeeData?.home_phone_no || '-'}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-2">Mobile Phone</strong> 
+									<span>{{employeeData?.mobile_phone_no || '-'}}</span>
+								</dd>
+								<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+								<dd>
+									<strong class="me-2">Addess</strong>
+									<span>{{employeeData?.address_a || '-'}}</span>
+								</dd>
+								<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+								<dd class="d-inline d-lg-flex">
+									<strong class="me-2 flex-wrap">Suburb</strong>
+									<span class="flex-wrap">{{employeeData?.suburb || '-'}}</span>
+								</dd>
+	
+								<dd class="d-inline d-lg-flex">
+									<strong class="me-2 flex-wrap">State</strong>
+									<span class="flex-wrap">{{employeeData?.state || '-'}}</span>
+								</dd>
+								
+							</dl>
+						</div>
+					</div>
+				</div>
+			  
+			</div>
+
+		</div>
+
+
+		<div class="flex-wrap" style="width: 100%; overflow: auto;">
+			<global-admin-loader 
+				[withSideBar]="false"
+				[fromDetailTab]="true"
+				[loading]="loadingChild">
+			</global-admin-loader>
+
+			<span *ngIf="!loading" class="date-grouping-status float-start me-3"
+			[@animate]="{value:'*', params:{ x:'50px', delay:'200ms' }}">
+				<!-- <button class="btn btn-menu me-3 ">
+					<img src="/assets/images/icons/menu-icon.png" width="15px" class="img-fluid">
+				</button> (click)="openServiceSchedule()" -->
+				<button class="btn btn-minimize hvr-grow" *ngIf="showStatus && !loadingChild" 
+				(click)="[showStatus = false, filterByShiftStatus(null)]">
+					<mat-icon class="mat-icon close">close</mat-icon>
+				</button> 
+
+				<span class="show-status ms-3 hvr-grow" 
+				(click)="showStatus = true" *ngIf="!showStatus && !loadingChild">Show Status</span>
+				<button class="btn btn-maximize hvr-grow"
+				*ngIf="!showStatus && !loadingChild" (click)="showStatus = true">
+					<mat-icon class="mat-icon add">add</mat-icon> 
+				</button>
+			
+				<ng-container *ngIf="showStatus">
+					<span [@animate]="{value:'*', params:{ x:'50px', delay:'200ms' }}">
+						<button class="btn btn-cancelled mt-2"
+						[ngClass]="filterBy === 'cancelled' ? 'active-cancelled' : ''"
+						(click)="filterByShiftStatus('cancelled')">
+							<span class="badge-cancelled mx-2">2</span>
+							<span class="me-2">Cancelled</span>
+						</button>
+
+						<button class="btn btn-completed mt-2 ms-2"
+						[ngClass]="filterBy === 'completed' ? 'active-completed' : ''"
+						(click)="filterByShiftStatus('completed')">
+							<span class="badge-completed mx-2">2</span>
+							<span class="me-2">Completed</span>
+						</button>
+						<button class="btn btn-scheduled mt-2 ms-2"
+						[ngClass]="filterBy === 'scheduled' ? 'active-scheduled' : ''"
+						(click)="filterByShiftStatus('scheduled')">
+							<span class="badge-scheduled mx-2">0</span>
+							<span class="me-2">Scheduled</span>
+						</button>
+						<button class="btn btn-created mt-2 ms-2"
+						[ngClass]="filterBy === 'created' ? 'active-created' : ''"
+						(click)="filterByShiftStatus('created')">
+							<span class="badge-created mx-2">0</span>
+							<span class="me-2">Created</span>
+						</button>
+						<button class="btn btn-pending mt-2 ms-2"
+						[ngClass]="filterBy === 'pending' ? 'active-pending' : ''"
+						(click)="filterByShiftStatus('pending')">
+							<span class="badge-pending mx-2">2</span>
+							<span class="me-2">Pending</span>
+						</button>
+					</span>
+				</ng-container>
+				<!-- <button class="btn btn-primary-outline ms-3">Templates</button> -->
+			</span>
+
+			 <div class="float-end  mb-3">
+				<!-- <button class="btn btn-primary" (click)="openServiceSchedule()">Add Service Schedule</button> --><br> 
+			</div> 
+			<br><br><br>
+			<div class="card card-body" *ngIf="!loadingChild" style="width: 99%">
+				<div class="date-grouping-container" 
+				[@animate]="{value:'*', params:{ y:'-50px', delay:'500ms' }}">
+					<div class="row">
+						<div class="col-4">
+							<span class="ms-3" >
+								<h5 class="container-date mt-0">
+									<span class="mx-2 btn  hvr-grow"
+									[ngClass]="thisWeekActive ? 'this-week-return-active' : 'this-week-return'"
+									(click)="setToThisWeek()">This Week</span>
+								</h5>
+							</span>
+						</div>
+
+						<div class="col-4 text-end mt-3"></div>
+
+						<div class="col-4 text-end">
+							<span class="ms-3" >
+								<h5 class="container-date">
+									<span class="ms-3">
+										<img src="/assets/images/icons/caret-left.png" 
+										class="img-fluid hvr-grow" width="7px"
+										(click)="subtractWeek()">
+
+										<span class="mx-4 this-week hvr-grow">
+											{{ dateRange?.start_date | date : 'MMM dd'}} - 
+											{{ dateRange?.end_date | date : 'MMM dd'}}
+										</span>
+
+										<img src="/assets/images/icons/caret-right.png" 
+										class="img-fluid hvr-grow" width="7px"
+										(click)="addWeek()">
+									</span>
+								</h5>
+							</span>
+						</div>
+					</div>
+				</div>
+				
+				<!-- SCHEDULE DATA EMPLOYEE-->
+				<ng-container *ngIf="groupBy === 'Employee' && employeeProfileSchedule?.length !== 0">
+					<div class="mt-3 parent" 
+					cdkScrollable #elemt
+					(mousedown)="startDragging($event, false, elemt)" 
+					(mouseup)="stopDragging($event, false)"
+					(mouseleave)="stopDragging($event, false)" 
+					(mousemove)="moveEvent($event, elemt)" 
+					(mousedown)="$event.preventDefault(); $event.stopPropagation()" 
+					style="width: 99% !important; min-height: 400px;" 
+					*ngIf="!loading" id="schedule-board-table"
+					[@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+						<table class="table">
+						  <thead>
+						    <tr>
+						      <th scope="col" *ngFor="let day of displayedColumns; let i = index">
+						      	<ng-container *ngIf="day?.col_name !== 'client'">
+						      		{{day?.title}}<br>
+						      		<span class="title-date">
+						      			{{addDays(dateRange?.start_date, i) | date : 'MMM dd'}}
+						      		</span>
+						      	</ng-container>
+						      </th>
+						    </tr>
+						  </thead>
+
+						  <tbody>
+						  	<tr>
+						  		<td *ngFor="let day of displayedColumns; let i = index" 
+						  		style="padding: 6px !important;">	
+						  		</td>
+						  	</tr>
+						    <tr *ngFor="let data of filteredBoardListEmployee" 
+						    [@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+						      <td *ngFor="let schedule of data?.schedule?.slice(0,7)"
+		      				      style="min-width: 200px !important;">
+		      				      	<ng-container *ngIf="schedule[0]?.status 
+		      				      	&& !schedule?.employee_leave">
+		      				      		<div *ngFor="let item of schedule" class="mb-2" 
+		      				      		[ngClass]="item?.status?.toLowerCase()"
+		      				      		(dblclick)="openServiceSchedule(item, 'Client')">
+		      				      			<p class="total-hour text-truncate mt-0">
+		      				      				{{item?.total_hours}} Hour/s
+		      				      				<span class="float-end">
+		      				      					<span class="text-truncate ms-2" *ngIf="item?.type"
+		      				      					[ngClass]="item?.type?.toLowerCase()">
+		      				      						{{item?.type}} 
+		      				      						
+		      				      					</span>
+
+		      				      					<img src="/assets/images/icons/dollar.png" 
+		      				      					*ngIf="item?.billable" class="ms-1" 
+		      				      					width="25px">
+		      				      				</span> 
+		      				      			</p>
+		      				      			
+		      				      			<div class="pb-2 mt-2" 
+		      				      			style="border-bottom: dashed 1px #d9d9d9 !important;">
+		      				      				<span class="date-range text-truncate me-1" >
+		      				      					{{ convertTo12Hrs(item?.start_time) }} - 
+		      				      					{{ convertTo12Hrs(item?.end_time) }}
+		      				      				</span> 
+		      				      			</div>
+
+		      				      			<div style="height: 8px;"></div>
+		      				      			<div class="text-truncate text-start funding-source" *ngIf="item?.client_funding">
+		      				      			{{item?.client_funding}}</div>
+
+
+		      				      			<h5 class="activity-title text-capitalize px-2 pt-2" 
+		      				      			style="border-top: dashed 1px #d9d9d9 !important;">{{item?.activity}}</h5>
+
+		      				      			<div class="text-truncate pt-2" style="border-top: 1px dashed #d9d9d9">
+		      				      				<span class="assign-employee-2">
+		      				      					<img src="/assets/images/icons/scheduled-employee.png" class="me-2" 
+		      				      					style="width: 18px;">{{item?.client_name}}
+		      				      				</span>
+		      				      			</div>
+		      				      		</div>
+		      				      	</ng-container>
+
+		      				      	<ng-container *ngIf="schedule?.employee_leave">
+		      				      		<div class="p-2">
+		      				      			Not Working
+		      				      		</div>
+		      				      	</ng-container>
+
+		      				      	<ng-container *ngIf="!schedule.status 
+		      				      	&& !schedule[0]?.status 
+		      				      	&& !schedule?.employee_leave">
+		      				      		<div class="h-100 v-100">
+		      				      			-
+		      				      		</div>
+		      				      	</ng-container>
+		      				    </td>
+						    </tr>
+						  </tbody>
+						</table>
+					</div>
+				</ng-container>
+
+				<ng-container *ngIf="groupBy === 'Employee' && employeeProfileSchedule?.length === 0">
+					<div class="text-center p-5" *ngIf="!loading">
+						<h5>List of schedule is currently empty. Create schedule now</h5>
+						<img src="/assets/images/placeholder/empty.gif" width="500px">
+					</div>
+				</ng-container>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<!-- LOADING ANIMATION SCREEN -->
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>
+
+<!-- LOADING ANIMATION SCREEN 
+<global-admin-loader [loading]="loading"></global-admin-loader>-->

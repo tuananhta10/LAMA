@@ -1,0 +1,130 @@
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader 
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader>
+
+<div *ngIf="!loading" 
+[@animate]="{value:'*', params:{ x:'-50px', delay:'300ms' }}" >
+	<div class="card mt-3 px-2">
+		<div class="card-body" #tableContainer>
+			<!-- TABLE CONTROLLERS -->
+			<div class="mb-lg-3 d-inline d-lg-block">
+				<div class="float-lg-start table-controls">
+					<span class="client-list">Participant List</span>
+
+					<!-- <a routerLink="/admin/clients/create" class="ms-0 ms-lg-3 btn btn-primary btn-active-client px-0">
+						<span class="material-icons text-white me-1">add</span>Add Client
+					</a> -->
+
+<!-- 					<a routerLink="/admin/clients/edit/{{selectedRows[0]?.id}}" 
+						class="btn btn-warning btn-active-client px-0"
+						*ngIf="selectedRows?.length === 1"
+						[@animate]="{value:'*', params:{ y:'10px', delay:'100ms' }}">
+					<img src="/assets/images/icons/edit-pencil.png">Edit</a> -->
+				</div>
+
+				<hr class="d-block d-lg-none">
+
+				<!-- CONTROLLER ICONS -->
+				<div class="float-md-end table-controls pt-lg-3 mt-lg-0">
+					<button class="px-0" *ngFor="let action of tableController"
+					[disabled]="action?.class === 'delete' && selectedRows?.length === 0"
+					(click)="action?.action_event(openDialog(action?.class))">
+						<img [src]="action?.icon" [ngClass]="action?.class">{{action?.name}}
+					</button>
+
+					<span id="export-table">
+						<button
+							type="button"
+							data-bs-toggle="dropdown" 
+							aria-expanded="false" 
+							class="dropdown px-0 ">
+							<img src="/assets/images/icons/export.png" class="export">Export
+						</button>
+
+						<ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="status-filter">
+							<li (click)="exportAsXLSX()">Export All</li>
+							<li (click)="exportAsXLSX('new')">Export New Clients</li>
+							<li (click)="exportAsXLSX('past')">Export Past Clients</li>
+							<li (click)="exportAsXLSX('active')">Export Active Clients</li>
+						</ul>
+					</span>
+				</div>
+			</div>
+
+			<br class="d-none d-md-block d-lg-none">
+			<br class="d-none d-md-block d-lg-none">
+			<br class="d-none d-lg-block">
+			<br class="d-none d-lg-block">
+
+			<section style="overflow: auto;"
+			[ngStyle]="{
+				'max-width': screenWidth + 'px'
+			}">
+				<!-- <employee-clients-table-reusable 
+				(updateSelectedRows)="updateSelectedRows($event)"
+				(deleteSingleRow)="deleteSingleRowData($event)"
+				[tableNumber]="1"
+				[loading]="loading"
+				[clientList]="careWorkerList"
+				[withHeader]="true"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[selectedColumnsMobile]="selectedColumnsMobile">
+				</employee-clients-table-reusable>  -->
+			</section>
+
+
+		</div>
+	</div>
+
+	<!-- PAST CLIENTS 
+	<div class="card mt-3 px-2">
+		<div class="card-body">
+			<h5 class="client-list mb-3">Past Clients</h5>
+
+			<section style="overflow: auto;"
+			[ngStyle]="{
+				'max-width': screenWidth + 'px'
+			}">
+				<employee-clients-table-reusable 
+				(updateSelectedRows)="updateSelectedRows($event)"
+				(deleteSingleRow)="deleteSingleRowData($event)"
+				[tableNumber]="2"
+				[loading]="loading"
+				[clientList]="pastClients"
+				[withHeader]="false"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[selectedColumnsMobile]="selectedColumnsMobile">
+				</employee-clients-table-reusable>
+			</section>
+		</div>
+	</div>
+
+
+	<div class="card mt-3 px-2">
+		<div class="card-body">
+			<h5 class="client-list mb-3">New Added Clients</h5>
+
+ 			<section style="overflow: auto;"
+ 			[ngStyle]="{
+ 				'max-width': screenWidth + 'px'
+ 			}">
+ 				<employee-clients-table-reusable 
+ 				(updateSelectedRows)="updateSelectedRows($event)"
+ 				(deleteSingleRow)="deleteSingleRowData($event)"
+ 				[tableNumber]="3"
+				[loading]="loading"
+				[clientList]="newClients"
+				[withHeader]="false"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[selectedColumnsMobile]="selectedColumnsMobile">
+				</employee-clients-table-reusable>
+ 			</section>
+		</div>
+	</div>-->
+</div>

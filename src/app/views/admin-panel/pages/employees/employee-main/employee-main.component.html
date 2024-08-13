@@ -1,0 +1,51 @@
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader [loading]="loading"></global-admin-loader>
+
+<div class="container-fluid mt-3 p-0 ms-1 pe-md-2">
+	<div class="row">
+		<section class="col-12 text-end" *ngIf="locations?.length > 0">
+			<button (click)="hideBanner ? hideBanner = false : hideBanner = true; initMap()"
+			class="btn hide-banner" [ngClass]="hideBanner ? 'radius-none mb-3' : 'radius-top'">
+				<mat-icon class="mat-icon minimize" *ngIf="!hideBanner">expand_more</mat-icon>
+				<span class="show-feeds" *ngIf="hideBanner">
+					<span class="me-2">Employees Location</span>
+					<mat-icon class="mat-icon" >unfold_more</mat-icon>
+				</span>
+			</button>
+		</section>
+
+		<section [hidden]="hideBanner">
+			<div class="col-12 card card-body mb-3">
+				<div #mapContainer style="height: 500px"></div>
+			</div>
+		</section>
+
+		<!-- LEFT CONTAINER - BANNER 
+		<section class="col-12 col-lg-7 pb-3 mb-1 mb-lg-0" id="employee-banner-container">
+			<admin-employee-list-banner 
+			*ngIf="liveFeeds?.length !== 0 && !hideBanner"
+			[loading]="loading">				
+			</admin-employee-list-banner>
+		</section>-->
+
+		<!-- RIGHT CONTAINER - FEED 
+		<section class="col-12 col-lg-5 mb-4 mb-lg-0" id="employee-feed-container">
+			<admin-employee-list-feed
+			*ngIf="liveFeeds?.length !== 0 && !hideBanner"
+			[liveFeeds]="liveFeeds"
+			[loading]="loading">
+			</admin-employee-list-feed>  
+		</section>-->
+
+		<!-- TABLE CONTAINER -->
+		<section class="col-12 pb-3 mb-3" 
+		[ngClass]="hideBanner ? 'mt-lg-0' : 'mt-lg-3'"
+		id="employee-list-container">
+			<admin-employee-list-table *ngIf="!loading">
+			</admin-employee-list-table> 
+		</section>
+
+
+		
+	</div>	
+</div>

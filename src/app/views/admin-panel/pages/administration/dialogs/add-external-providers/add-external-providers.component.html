@@ -1,0 +1,239 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+            <span *ngIf="!data; else showUpdate">New</span>
+            <ng-template #showUpdate>Update
+                <!-- <span class="float-end sync-employee"
+                (click)="openSyncDialog(data)">
+                <img src="/assets/images/icons/shift-logged.png" style="height: 12px" class="me-2">Sync to all Employee</span> -->
+            </ng-template> External Providers
+
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+
+	<form *ngIf="!loading" [formGroup]="newExternalProvidersForm">
+		<div mat-dialog-content>
+            <div>
+                <div class="w-100">
+                    <button class="btn" (click)="stepper = 1"
+                    [ngClass]="stepper === 1 ? 'btn-active-tab' : 'btn-active-next'">Partner Details</button>
+
+                    <button class="btn" (click)="stepper = 2"
+                    [ngClass]="stepper === 2 ? 'btn-active-tab' : 'btn-active-next'">Contact Details</button>
+                </div>
+
+                <!-- DETAILS -->
+                <div class="card card-body pt-4" *ngIf="stepper === 1"
+                [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}"
+                style="max-width: 700px;">
+                   
+                    <div class="row">
+                        <div  class="col-12 col-md-6">
+                        	<h5 class="mat-subtitle mt-1">Partner Details</h5>
+                            <app-textfield 
+                                label="Full Name"
+                                [labelTop]="true"
+                                [required]="true"
+                                formControlName="full_name">
+                            </app-textfield>
+
+                            <app-textfield 
+                                label="ABN"
+                                [labelTop]="true"
+                                formControlName="abn">
+                            </app-textfield>
+
+                            <h5 class="mat-subtitle mt-1">Primary Contact Details</h5>
+
+                            <app-textfield 
+                                label="Contact Name"
+                                [labelTop]="true"
+                                formControlName="primary_contact_name">
+                            </app-textfield>
+
+                            <app-textfield 
+                                label="Contact Position"
+                                [labelTop]="true"
+                                formControlName="primary_contact_position">
+                            </app-textfield>
+                        </div>
+
+                        <div  class="col-12 col-md-6">
+                        	<h5 class="mat-subtitle mt-1">Services Provided</h5>
+                            <app-dropdown 
+                                label="Type"
+                                [labelTop]="true"
+                                [required]="true"
+                                [options]="type"
+                                formControlName="type">
+                            </app-dropdown>
+
+                            <app-textarea 
+                                label="Services Provided"
+                                [labelTop]="true"
+                                [required]="true"
+                                formControlName="services_provided">
+                            </app-textarea>
+
+                            <app-dropdown 
+                                label="Rate Type"
+                                [labelTop]="true"
+                                [required]="true"
+                                [options]="rateType"
+                                formControlName="rate_type">
+                            </app-dropdown>
+
+                            <app-textfield 
+                                label="Rate"
+                                [labelTop]="true"
+                                [inputType]="'number'"
+                                formControlName="rate">
+                            </app-textfield>
+                        </div>
+
+                        <div  class="col-12 col-md-12">
+                        	<h5 class="mat-subtitle mt-1">Bank Account Details</h5>
+                        </div>
+
+                        <div  class="col-12 col-md-6">
+                            <app-textfield 
+                                label="BSB"
+                                [labelTop]="true"
+                                formControlName="bsb">
+                            </app-textfield>
+                        </div>
+
+                        <div  class="col-12 col-md-6">
+                            <app-textfield 
+                                label="Account Number"
+                                [labelTop]="true"
+                                formControlName="account_number">
+                            </app-textfield>
+                        </div>
+                    </div> 
+                </div>
+
+
+                <div class="card card-body pt-4" *ngIf="stepper === 2"
+                [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}"
+                style="max-width: 700px;">
+                   
+                    <div class="row">
+                        <div  class="col-12 col-md-6">
+                        	<h5 class="mat-subtitle mt-1">Address Details</h5>
+
+                            <app-google-places-input
+                            	label="Address a" 
+                            	[labelTop]="true"
+                            	formControlName="address_a"
+                            	[required]="true"
+                            	(addressChange)="onAddressChange($event)">
+                            </app-google-places-input>
+
+                            <app-textfield 
+                                label="Address b"
+                                [labelTop]="true"
+                                formControlName="address_b">
+                            </app-textfield>
+
+                            <app-dropdown 
+                            	label="State" 
+                            	[labelTop]="true"
+                            	formControlName="state" 
+                            	[required]="true"
+                            	[options]="stateOptions">
+                            </app-dropdown>
+
+                            <app-textfield 
+                            	label="Suburb" 
+                            	[labelTop]="true"
+                            	formControlName="suburb" 
+                            	[required]="true">
+                            </app-textfield>
+
+                            <app-textfield 
+                            	label="Post Code" 
+                            	[labelTop]="true"
+                            	formControlName="post_code" 
+                            	[required]="true">
+                            </app-textfield>
+                        </div>
+
+                        <div  class="col-12 col-md-6">
+                        	<h5 class="mat-subtitle mt-1">Contact Details</h5>
+                            <app-textfield 
+                            	label="Phone" 
+                            	[labelTop]="true"
+                            	[inputType]="'tel'"
+                            	formControlName="phone" >
+                            </app-textfield>
+
+                            <app-textfield 
+                            	label="After Hours Phone" 
+                            	[labelTop]="true"
+                            	[inputType]="'tel'"
+                            	formControlName="after_hours_phone" >
+                            </app-textfield>
+
+                            <app-textfield 
+                            	label="Email Address" 
+                            	[labelTop]="true"
+                            	[inputType]="'email'"
+                            	formControlName="email" >
+                            </app-textfield>
+
+                            <app-textfield 
+                            	label="Mobile" 
+                            	[labelTop]="true"
+                            	[inputType]="'tel'"
+                            	formControlName="mobile" >
+                            </app-textfield>
+
+                            <app-textfield 
+                            	label="Website" 
+                            	[labelTop]="true"
+                            	formControlName="website" >
+                            </app-textfield>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+		</div>
+
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				*ngIf="stepper === 1"
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="stepper = 1" 
+				*ngIf="stepper === 2"
+				class="btn  btn-header-gray me-3">Back</button>
+
+				<button mat-button *ngIf="stepper === 1"
+                [disabled]="checkStepOneValidity()"
+                (click)="stepper = 2"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    Next
+                </button>
+
+				<button mat-button (click)="save()"  *ngIf="stepper === 2"
+                [disabled]="!newExternalProvidersForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+    <global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+
+</div>

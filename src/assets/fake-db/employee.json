@@ -1,0 +1,73 @@
+{
+    "data": {
+        "employeeDetail": {
+            "age": null,
+            "dateOfBirth": null,
+            "email": "james@test.com",
+            "firstName": "James",
+            "gender": "Male",
+            "id": null,
+            "lastName": "Vlademir",
+            "middleName": "Ian",
+            "payrollId": "11234434344",
+            "preferredName": "James",
+            "privateEmail": "james.vlademir@test.com",
+            "title": "Care worker",
+            "type": "Employee"
+        },
+        "profileDetail": {
+            "allergies": {"id": "2", "value": "No"},
+            "generalTrainingNotes": "Hard worker",
+            "interest": {"id": "1", "name": "Interest 1"},
+            "jobDescription": {"id": "1", "name": "Job 2"},
+            "medicalInformation": "none",
+            "otherRemarks": "this is a test",
+            "qualificationSummary": "qualified",
+            "qualifications": null,
+            "rosterInfo": {"id": "1", "name": "Roster 1"},
+            "skills": {"id": "1", "name": "Skill 1"},
+            "smoker": {"id": "2", "value": "No"},
+            "taskPerformed": {"id": "1", "name": "Task 1"}
+        },
+        "serviceDetail": {
+            "dateLeft": "",
+            "dateStarted": "",
+            "employment": "",
+            "employmentType": {"id": "1", "value": "Employment 1"},
+            "hourlyRate": "23",
+            "jobType": {"id": "1", "name": "Type 1"},
+            "lastRosterDate": "",
+            "mainBranch": {"id": "1", "value": "Branch 1"},
+            "manager": {"id": "2", "value": "Manager 2"},
+            "member": {"id": "2", "value": "No"},
+            "onHold": {"id": "2", "value": "No"},
+            "payTravelMileage": {"id": "2", "value": "No"},
+            "payTravelTime": {"id": "1", "value": "Yes"},
+            "position": {"id": "2", "value": "Position 2"},
+            "pricelist": {"id": "1", "value": "Price List 1"},
+            "volunteer": {"id": "1", "value": "Yes"}
+        },
+        "workday": {
+
+        },
+        "contactDetail": {
+            "address1": "109 Green St. Maria Clara Subdivision",
+            "address2": "",
+            "emergencyContactEmail": "janice@test.com",
+            "emergencyContactHomePhone": "433-123",
+            "emergencyContactMobile": "09333212",
+            "emergencyContactName": "Janice Vlademir",
+            "emergencyContactRelationship": "Mother",
+            "emergencyContactWorkPhone": "0932123",
+            "homePhone": "433-231",
+            "mobilePhone": "0932123",
+            "postCode": "14 KM",
+            "state": "Manila",
+            "suburb": "Pandacan",
+            "travelDistance": "",
+            "travelTime": {"id": "2", "value": "Afternoon"},
+            "workPhone": "0932123"
+        }
+
+    }
+}

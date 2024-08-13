@@ -1,0 +1,56 @@
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader 
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader>
+
+<div *ngIf="!loading" 
+[@animate]="{value:'*', params:{ x:'-50px', delay:'300ms' }}" >
+	<section style="overflow: auto;"
+	[ngStyle]="{
+		'max-width': screenWidth + 'px'
+	}">
+		<app-client-service-details-table 
+		[componentTitle]="'Support Workers'"
+		[loading]="loading"
+		[showSearch]="false"
+		[listDataSource]="employeeList"
+		[displayedColumns]="displayedColumns"
+		[selectedColumns]="selectedColumns"
+		[selectedColumnsMobile]="selectedColumnsMobile">
+		</app-client-service-details-table> 
+	</section>
+
+	<section style="overflow: auto;"
+	class="mt-3" 
+	[ngStyle]="{
+		'max-width': screenWidth + 'px'
+	}">
+		<app-client-service-details-table 
+		[componentTitle]="'Support Workers Not to Use'"
+		[loading]="loading"
+		[showSearch]="false"
+		[listDataSource]="employeeNotUse"
+		[displayedColumns]="displayedColumns"
+		[selectedColumns]="selectedColumns"
+		[selectedColumnsMobile]="selectedColumnsMobile">
+		</app-client-service-details-table> 
+	</section>
+
+	<section style="overflow: auto;"
+	class="mt-3" 
+	[ngStyle]="{
+		'max-width': screenWidth + 'px'
+	}">
+		<app-client-service-details-table 
+		[componentTitle]="'Brokerage'"
+		[loading]="loading"
+		[showSearch]="false"
+		[listDataSource]="brokerage"
+		[displayedColumns]="brokerageColumns"
+		[selectedColumns]="brokerageSelected"
+		[selectedColumnsMobile]="brokerageSelected">
+		</app-client-service-details-table> 
+	</section>
+</div>

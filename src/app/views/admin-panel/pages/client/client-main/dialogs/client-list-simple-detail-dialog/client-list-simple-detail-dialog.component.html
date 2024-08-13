@@ -1,0 +1,154 @@
+<!-- <img class="img-fluid client-hug d-none d-md-block" src="/assets/images/placeholder/client-hug.png" 
+[@animate]="{value:'*', params:{ y:'20px', delay:'100ms' }}" *ngIf="bannerImg">
+ -->
+<section class="p-3" id="client-detail-simple-dialog" 
+	style="position: relative; z-index: 9999 !important;">
+	<div class="selection-title-outer">
+		<div class="float-md-end">
+			<button class="btn btn-warning btn-header-warning me-3" (click)="editDetails()">Edit Details</button> <button class="btn btn-primary btn-header" (click)="visitProfile()">Visit Profile</button>
+
+			<hr class="d-block d-md-none">
+		</div>
+
+		<div class="d-flex">
+			<img [defaultImage]="'/assets/images/placeholder/default-avatar.png'" 
+			[lazyLoad]="clientDetail?.profile_pic_url" class="flex-wrap img-fluid">
+
+			<h5 class="text-capitalize ms-2">{{clientDetail?.last_name}}, {{clientDetail?.first_name}} 
+				<br><small>NDIS No. {{clientDetail?.registration_no || '-'}}</small>
+			</h5>
+		</div>
+	</div>
+
+
+	<hr  *ngIf="clientDetail?.risk_notification">
+
+	<div *ngIf="clientDetail?.risk_notification" class="ps-3 mb-0" style="max-width: 630px">
+	    <div class="text-danger text-justify ">
+	    	<strong>Risk Notification</strong>: {{clientDetail?.risk_notification}}
+	    </div>   
+	</div>
+
+	<div *ngIf="clientDetail?.status === 'inactive' && clientDetail?.last_date" class="ps-3" style="max-width: 630px">
+		<hr>
+	    <div class="text-danger text-justify ">
+	    	<strong>Last Day of Service</strong>: {{ setDate(clientDetail?.last_date) | date : 'EEE, MMM dd, yyyy'}}
+	    	<span class="mx-3">|</span>
+	    	<strong>Reason For Leaving</strong>: {{clientDetail?.reason_for_leaving}}
+	    </div>
+	</div>
+
+	<div class="selection-container mt-3">
+		<div class="row px-2">
+			<div class="col-12 col-md-6 px-1">
+				<div class="d-flex" id="client-details">
+					<!-- <div class="client-img-icon-details flex-wrap">
+						<img src="/assets/images/icons/client-preference.png">
+					</div> -->
+
+					<div class="client-data flex-wrap">
+						<h5 class="detail-title">Participant Details</h5>
+						<hr>
+						<dl class="ps-3 mb-0">
+							<dd>
+								<strong class="me-3">Title</strong> 
+								<span>{{clientDetail?.title || '-'}}</span>
+							</dd>
+
+							<dd>
+								<strong class="me-3">Gender</strong> 
+								<span>{{clientDetail?.gender || '-'}}</span>
+							</dd>
+
+							<dd><strong class="me-3">Email</strong> 
+								<span>{{clientDetail?.email_address || '-'}}</span>
+							</dd>
+
+							<dd>
+								<strong class="me-3">Mobile No.</strong>
+								<span>{{clientDetail?.mobile_phone_no || '-'}}</span>
+							</dd>
+							
+							<dd>
+								<strong class="me-3">Preferred Name</strong> 
+								<span>{{clientDetail?.preferred_name || '-'}}</span>
+							</dd>
+						</dl>
+
+						
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-12 col-md-6 px-1">
+				<div class="d-flex" id="client-background">
+					<!-- <div class="client-img-icon-background flex-wrap">
+						<img src="/assets/images/icons/client-background.png">
+					</div> -->
+
+					<div class="client-data flex-wrap">
+						<h5 class="detail-title" style="margin-left: -15px">Background</h5>
+						<hr style="margin-left: -20px">
+						<dl class="ps-0 mb-0">
+							<dd class="d-flex">
+								<div class="me-3">
+									<strong class="me-2">ID </strong>
+								<span>{{clientDetail?.id || '-'}}</span>
+								</div>
+
+								<div class="me-3">
+									<strong class="me-2">| Age</strong> 
+									<span>{{clientDetail?.age || '-'}}</span>
+								</div>
+							</dd>
+
+							<dd>
+								<strong class="me-3">Birthday</strong> 
+								<span *ngIf='clientDetail?.birthdate'>
+									{{clientDetail?.birthdate * 1000 | date: 'dd-MM-y' || '-'}}
+								</span>
+							</dd>
+
+							<dd>
+								<span><strong class="me-3">Address</strong> </span>
+								<span>{{clientDetail?.address_a || '-'}}</span>
+							</dd>
+
+							<dd>
+								<strong class="me-3">Suburb</strong>
+								<span>{{clientDetail?.suburb || '-'}}</span>
+							</dd>
+							
+							<dd>
+								<strong class="me-3">Nationality</strong>
+								<span>{{clientDetail?.citizenship || '-'}}</span>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 px-5 py-0">
+				<hr>
+			</div>
+
+			<div class="col-12 col-md-6 mb-3" style="padding: 0px 38px;">
+				<dl class="ps-3 mb-0">
+					<dd style="color: #5d5d5d !important;">
+						<strong class="me-3">Team Leader</strong> 
+						<span>{{clientDetail?.team_leader_name || '-'}}</span>
+					</dd>
+				</dl>
+			</div>
+			<div class="col-12 col-md-6 mb-3" style="padding: 0px 35px;">
+				<dl class="ps-0 mb-0">
+					<dd style="color: #5d5d5d !important;">
+						<strong class="me-3">Coordinator</strong> 
+						<span>{{clientDetail?.coordinator_name || '-'}}</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+</section>

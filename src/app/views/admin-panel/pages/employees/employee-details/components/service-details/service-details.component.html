@@ -1,0 +1,173 @@
+<div id="employee-service-detail-container">
+	<!-- BUTTONS CONTROLLER -->
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'service-detail'">
+	</employee-details-navigation>
+
+	<!-- STATISTICS DATA -->
+	<div class="card card-body pt-4 shadow-3">
+		<employee-main-profile-stats></employee-main-profile-stats>
+	</div>
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class="mt-3" 
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="row">
+			<div class="col-12 col-md-6 col-lg-8">
+				<div class="mb-3 d-flex shadow-2" id="employee-demographics">
+					<div class="employee-img-icon-demographics flex-wrap">
+						<img src="/assets/images/icons/service.png">
+					</div>
+
+					<div class="employee-data flex-wrap mb-3">
+						<h5 class="card-title">
+							Employment Details
+							<span class="float-end view-edit" (click)="editEmployee()">Edit</span>
+						</h5>
+						<hr>
+						
+						<div class="row">
+							<div class="col-12 col-lg-4">
+								<dl>
+									<dd class="text-truncate">
+										<strong class="me-3">Main Branch</strong> 
+										<span>{{serviceDetail?.branch_name || '-'}}</span>
+									</dd>
+
+									<dd class="text-truncate"><strong class="me-3">Date Started</strong> 
+										<span>{{ serviceDetail?.date_started ? (serviceDetail?.date_left * 1000 | date: 'MM-dd-yyyy') : "-" }}</span>
+									</dd>
+
+									<dd class="text-truncate">
+										<strong class="me-3">Date Left</strong>
+										<span>{{ serviceDetail?.date_left ? (serviceDetail?.date_left * 1000 | date: 'MM-dd-yyyy') : "-" }}</span>
+									</dd>
+									
+									<dd class="text-truncate">
+										<strong class="me-3">Last Roster Date</strong> 
+										<span>{{ serviceDetail?.last_roster_date ? (serviceDetail?.date_left * 1000 | date: 'MM-dd-yyyy') : "-" }}</span>
+									</dd> 
+								</dl>
+							</div>
+
+							<div class="col-12 col-lg-8">
+								<dl>
+									<dd class="text-truncate">
+										<strong class="me-3">Job Type</strong> 
+										<span>{{serviceDetail?.job_type || '-'}}</span>
+									</dd>
+
+									<dd class="text-limit">
+										<strong class="me-3">Position Summary</strong> 
+										<span>{{selectedPosition?.position_summary || '-'}}</span>
+									</dd>
+
+									<dd class="text-limit">
+										<strong class="me-3">Key Responsibilities</strong> 
+										<span>{{selectedPosition?.key_responsibilities || '-' }}</span>
+									</dd>
+
+									
+								</dl>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 col-lg-4">
+				<div class="mb-3 d-flex shadow-2" id="employee-details">
+					
+					<div class="employee-data pt-2  flex-wrap">
+						<!-- <h5 class="card-title">Pay Rates Details
+							<span class="float-end view-edit" (click)="editEmployee()">Edit</span>
+						</h5>
+
+						<hr> -->
+
+						<dl>
+							<dd class="text-truncate capitalize d-flex">
+								<div style="width: 80px;">On Hold    </div> 
+								<div>
+									<mat-radio-group 
+									disabled="true"
+									[(ngModel)]="onHold" id="onHold">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+								</div>
+							</dd>
+
+							<dd class="text-truncate capitalize d-flex">
+								<div style="width: 80px;">Volunteer    </div>
+								<div>
+									<mat-radio-group 
+									disabled="true"
+									[(ngModel)]="volunteer" id="onHold">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+								</div>
+							</dd>
+
+							<dd class="text-truncate capitalize d-flex">
+								<div style="width: 80px;">Member    </div>
+								<div>
+									<mat-radio-group 
+									disabled="true"
+									[(ngModel)]="member" id="onHold">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+								</div>
+							</dd>
+						</dl>
+
+						<hr>
+
+						<dl>
+							<dd class="text-truncate">
+								<strong class="me-3">Position</strong> 
+								<span>{{selectedPosition?.display_name }}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Manager</strong> 
+								<span>{{serviceDetail?.manager || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate capitalize">
+								<strong>Employment Type    </strong> 
+								<span>{{serviceDetail?.employment_type || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate capitalize" 
+							*ngIf="serviceDetail?.employment_type === 'Contractor'">
+								<strong>Hourly Rate    </strong>
+								<span>{{serviceDetail?.hourly_rate || '-'}}</span>
+							</dd>
+						</dl>
+
+						<br>
+					</div>
+				</div>
+			</div>
+ 
+			<div class="col-12 mt-3">
+				<div class="card card-body pt-4 px-4 shadow-3" >
+					<app-editable-form-table 
+						(addEvent)="editEmployee()"
+						[isAddEnabled]="true"
+						[fromProfile]="true"
+					    [columns]="employeePayrateColumn"
+					    [data]="employeePayrateData"
+					    label="Employee Pay Rates"
+					></app-editable-form-table>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>

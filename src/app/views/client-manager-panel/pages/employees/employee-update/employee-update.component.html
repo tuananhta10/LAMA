@@ -1,0 +1,121 @@
+<!-- LOADING ANIMATION SCREEN -->
+
+<div class="container-fluid p-0 ms-1 pe-md-2 mb-3">
+	<div  [@animate]="{ value: '*', params: { x: '-100px', delay: '200ms' }}">
+		<div class="banner-container w-100">
+			<h5>Update Employee Record
+				<span class="float-end btn btn-view-more btn-active-employee" 
+				routerLink="/staff/employees/details/{{employeeId}}">
+					View Profile
+				</span>
+			</h5>
+
+			<!-- <img src="/assets/images/placeholder/client-sit.png" class="img-fluid banner-main">
+			<img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+			<img src="/assets/images/placeholder/office.png" class="img-fluid banner-eclipse-left"> 
+			<img src="/assets/images/placeholder/banner-dots-right.png" class="img-fluid banner-dots-right">
+			<img src="/assets/images/placeholder/banner-eclipse-right.png" class="img-fluid banner-eclipse-right"> -->
+		</div>
+	</div>
+	
+	<div class="row">
+		<!-- MAIN CONTAINER -->
+		<section >
+			<div class="d-flex">
+
+				<div class=" d-flex-wrap w-100 h-100">
+
+					<div  class="stepper-container align-self-center"
+					[@animate]="{ value: '*', params: { x: '-100px', delay: '200ms' }}">
+						<lama-stepper [stepperList]="steps" [orientation]="'horizontal'" [selectedIndex]="formStep - 1" #stepper (selectionChanged)="updateStepper($event.selectedIndex + 1)"></lama-stepper>
+					</div>
+
+					<global-admin-loader 
+						[withSideBar]="true"
+						[loading]="loading">
+					</global-admin-loader>
+					
+					<div *ngIf="!loading" class=" d-flex-wrap w-100 h-100">
+						<app-employee-detail 
+						*ngIf="formStep === 1"
+						[employeeDetailData]="employeeForm.employeeDetail"
+						[navigation]="navigation"
+						[isUpdate]="isUpdate"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateEmployeeDetailData($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-employee-detail>
+	
+						<app-profile-detail
+						*ngIf="formStep === 2"
+						[profileDetailData]="employeeForm.profileDetail"
+						[navigation]="navigation"
+						[isUpdate]="isUpdate"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateProfileDetailData($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-profile-detail>
+
+						<app-careworker-clients
+						*ngIf="formStep === 3"
+						[careWorkersData]="employeeForm.careWorkersDetail"
+						[navigation]="navigation"
+						[isUpdate]="isUpdate"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateCareWorkersDetailData($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-careworker-clients>
+	
+						<app-employee-service-detail
+						*ngIf="formStep === 4"
+						[serviceDetailData]="employeeForm.serviceDetail"
+						[navigation]="navigation"
+						[isUpdate]="isUpdate"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateServiceDetailData($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-employee-service-detail>
+	
+						<app-work-days
+						*ngIf="formStep === 5"
+						[navigation]="navigation"
+						[isUpdate]="isUpdate"
+						[workDaysData]="employeeForm.workDays"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateWorkDaysData($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-work-days>
+	
+						<app-employee-contact-detail
+						*ngIf="formStep === 6"
+						[contactDetailData]="employeeForm.contactDetail"
+						[navigation]="navigation"
+						[isUpdate]="isUpdate"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateContactDetailData($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-employee-contact-detail>
+	
+						<app-employee-related-documents
+						*ngIf="formStep === 7"
+						[navigation]="navigation"
+						[documents]="employeeForm.employeeDocs"
+						[isUpdate]="isUpdate"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateEmployeeDocs($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-employee-related-documents>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	</div>	
+</div>

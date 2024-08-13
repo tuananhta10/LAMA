@@ -1,0 +1,206 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Update Pricelist Rates
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end mt-2" 
+			style="width: 13px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	<form [formGroup]="updatePriceListForm">
+		<div mat-dialog-content>
+            <div class="row">
+            	<div class="col-12 col-md-6">
+            		
+            		<!-- <app-dropdown 
+            		    label="Type"
+            		    [labelTop]="true"
+            		    [readonly]="true"
+            		    [options]="type"
+            		    formControlName="service_type">
+            		</app-dropdown> -->
+
+            		<app-textfield 
+            		    label="Base Code"
+            		    [labelTop]="true"
+            		    [readonly]="true"
+            		    formControlName="service_type_support_item_number">
+            		</app-textfield>
+            		
+            		<app-textarea 
+            		    label="Support Name"
+            		    [labelTop]="true"
+            		    [readonly]="true"
+            		    formControlName="service_type_support_item_name">
+            		</app-textarea>
+
+            		<app-textarea 
+            		    label="Support Category"
+            		    [labelTop]="true"
+            		    [readonly]="true"
+            		    formControlName="service_type_support_category_name">
+            		</app-textarea>
+
+            		<app-textfield 
+            		    label="Branch State"
+            		    [labelTop]="true"
+            		    [readonly]="true"
+            		    [classType]="'text-uppercase'"
+            		    formControlName="branch_state">
+            		</app-textfield>
+
+            		<!-- <app-dropdown 
+            		    label="Rate Type"
+            		    [labelTop]="true"
+            		    [options]="rateType"
+            		    formControlName="rate_type">
+            		</app-dropdown>
+
+            		<app-textfield 
+            		    label="Max Number of Employee"
+            		    [labelTop]="true"
+            		    [required]="true"
+            		    [inputType]="'number'"
+            		    formControlName="max_employee">
+            		</app-textfield> -->
+
+            		
+            	</div>
+
+            	<div class="col-12 col-md-6" *ngIf="!data?.isTTP">
+            		<app-textfield 
+            		    label="Standard Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="standard_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Afternoon Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="afternoon_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Evening Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="evening_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Night Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="night_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Saturday Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="saturday_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Sunday Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="sunday_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Public Holiday Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="public_holiday_rate">
+            		</app-textfield>
+
+            		<!-- <app-textfield 
+            		    label="Max Number of Client"
+            		    [labelTop]="true"
+            		    [required]="true"
+            		    [inputType]="'number'"
+            		    formControlName="max_client">
+            		</app-textfield> -->
+            	</div>
+
+            	<div class="col-12 col-md-6" *ngIf="data?.isTTP">
+            		<app-textfield 
+            		    label="Standard Rate TTP"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="standard_rate_ttp">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Afternoon Rate TTP"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="afternoon_rate_ttp">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Evening Rate TTP"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="evening_rate_ttp">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Night Rate TTP"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="night_rate_ttp">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Saturday Rate TTP"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="saturday_rate_ttp">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Sunday Rate TTP"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="sunday_rate_ttp">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Public Holiday Rate TTP"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    formControlName="public_holiday_rate_ttp">
+            		</app-textfield>
+
+            		<!-- <app-textfield 
+            		    label="Max Number of Client"
+            		    [labelTop]="true"
+            		    [required]="true"
+            		    [inputType]="'number'"
+            		    formControlName="max_client">
+            		</app-textfield> -->
+            	</div>
+            </div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!updatePriceListForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+					<span>Save</span>
+				</button>
+			</div>
+		</div>
+	</form>
+
+</div>

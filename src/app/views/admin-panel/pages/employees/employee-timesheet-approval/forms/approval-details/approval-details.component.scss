@@ -1,0 +1,30 @@
+@import "src/scss/colors";
+
+.mat-subtitle{
+    padding-left: 23px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-gray;
+}
+
+strong{
+    color: $color-gray !important;
+}
+
+.schedule-details{
+    margin-left: 0px !important;
+}
+
+.view-edit{
+    background: rgba(140, 127, 249, 0.1) !important;
+    color: $color-purple !important;
+    padding: 3px 15px !important;
+    cursor: pointer;
+    border-radius: 7px;
+    font-weight: 500 !important;
+    margin-top: -5px;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}

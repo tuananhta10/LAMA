@@ -1,0 +1,194 @@
+<div class="card card-body mt-3 px-md-5" [ngClass]="stepper === 1 ? 'pt-5' : 'pt-5'">
+	
+	<form *ngIf="!loading && stepper === 1" [formGroup]="referralDetailsForm"
+	[@animate]="{value:'*', params:{ x:'-50px'}}">
+		<div class="row">
+			<div class="col-12">
+				<h5 class="mat-subtitle text-start mb-4">Referrer/Support Coordinator Details</h5>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-textfield 
+					label="First Name" 
+					[labelTop]="true"
+					formControlName="referrer_first_name"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Last Name" 
+					[labelTop]="true"
+					formControlName="referrer_last_name"
+					>
+				</app-textfield>
+
+				<!-- <app-date-picker 
+					label="Referral Date" 
+					[labelTop]="true"
+					formControlName="referral_date"
+					>
+				</app-date-picker> -->
+
+				<app-textarea 
+					label="Relevant Medical Information" 
+					[labelTop]="true"
+					formControlName="other_medical_social_history"
+					>
+				</app-textarea>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-textfield 
+					label="Contact Number" 
+					[labelTop]="true"
+					formControlName="referrer_contact_phone_no"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Email" 
+					[inputType]="'email'"
+					[labelTop]="true"
+					formControlName="referrer_email_address"
+					>
+				</app-textfield>
+
+				<!-- <app-dropdown 
+					label="Referral Source" 
+					[labelTop]="true"
+					formControlName="referral_source"
+					[options]="referralSourceOption"
+					>
+				</app-dropdown> -->
+
+				<app-dropdown 
+					label="Referred For" 
+					[labelTop]="true"
+					formControlName="reason_for_referral"
+					[options]="reasonForReferralOption"
+					[isMultiple]="true"
+					[maxSelection]="20"
+					[showChip]="false"
+					>
+				</app-dropdown>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-textfield 
+					label="Organisation Name" 
+					[labelTop]="true"
+					formControlName="referrer_organization_name"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Organisation Address" 
+					[labelTop]="true"
+					formControlName="referrer_organization_address"
+					>
+				</app-textfield>
+
+				<!-- <app-dropdown 
+					label="Referred For" 
+					[labelTop]="true"
+					formControlName="reason_for_referral"
+					[options]="reasonForReferralOption"
+					[isMultiple]="true"
+					[showChip]="false"
+					>
+				</app-dropdown> -->
+			</div>
+
+			<!-- <div class="col-12">
+				<h5 class="mat-subtitle text-start">Staff Allocation</h5>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-radio-button 
+					[labelTop]="true"
+					label="Allocate to a staff member to followup?" 
+					formControlName="allocate_staff"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3" 
+			*ngIf="!!referralDetailsForm.controls['allocate_staff'].value">
+				<app-search-list 
+					[labelTop]="true"
+					label="Full Name" 
+					formControlName="assigned_to"
+					[options]="employeeOptions"
+					[newOption]="true"
+					[newOptionLabel]="'Staff'"
+					[newOptionRoute]="'/admin/employees'"
+					>
+				</app-search-list>
+			</div> -->
+		</div>
+	</form>
+
+	<form *ngIf="!loading && stepper === 2" [formGroup]="referralDetailsForm" 
+	[@animate]="{value:'*', params:{ x:'-50px'}}">
+		<div class="row">
+			
+
+			<div class="col-12">
+				<h5 class="mat-subtitle text-start">Staff Allocation</h5>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-radio-button 
+					[labelTop]="true"
+					label="Allocate to a staff member to followup?" 
+					formControlName="allocate_staff"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3" 
+			*ngIf="!!referralDetailsForm.controls['allocate_staff'].value">
+				<app-search-list 
+					[labelTop]="true"
+					label="Full Name" 
+					formControlName="assigned_to"
+					[options]="employeeOptions"
+					[newOption]="true"
+					[newOptionLabel]="'Staff'"
+					[newOptionRoute]="'/admin/employees'"
+					>
+				</app-search-list>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-date-picker 
+					label="Referral Date" 
+					[labelTop]="true"
+					formControlName="referral_date"
+					>
+				</app-date-picker>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+
+				<app-dropdown 
+					label="Referral Source" 
+					[labelTop]="true"
+					formControlName="referral_source"
+					[options]="referralSourceOption"
+					>
+				</app-dropdown>
+			</div>
+		</div>
+	</form>
+	
+	<div class="px-3">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

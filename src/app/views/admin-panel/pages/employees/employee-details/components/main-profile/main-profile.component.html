@@ -1,0 +1,74 @@
+<div id="employee-profile-container" *ngIf="employeeData && !loading">
+	<!-- BUTTONS CONTROLLER -->
+	<div class="mb-2" id="profile-header">
+		<span >
+			<button class="btn btn-header btn-primary" 
+			routerLink="/admin/employees/details/{{id}}"
+			title="Employee Details">Employee Details</button>
+		</span>
+
+		<span *ngFor="let item of childLinks">
+			<button class="btn btn-header btn-header-secondary" 
+			[routerLink]="item?.routerLink"
+			[title]="item?.title">{{item?.title}}</button>
+		</span>
+	</div>
+	
+	<div class="card card-body pt-4 shadow-3">
+		<!-- STATISTICS DATA -->
+		<div *ngIf="id">
+			<employee-main-profile-stats
+			[employeeData]="employeeData"
+			[id]="id"></employee-main-profile-stats> 
+		</div>
+	</div>
+
+	<div class="card-status mt-3 shadow-3" *ngIf="employeeData?.status === 'inactive'">
+	    <div class="text-danger text-justify">
+	    	<div>
+	    		<strong>Last Day of Work</strong>: {{ setDate(employeeData?.last_date * 1000) | date : 'EEE, MMM dd, yyyy'}}
+	    	</div>    
+	    	<hr>
+	    	<div>
+	    		<strong>Reason For Leaving</strong>: <br>{{employeeData?.reason_for_leaving}} 	
+	    	</div>   	
+	    </div>
+	</div>
+
+	<!-- EMPLOYEE DETAILS -->
+	<div class="mt-3" style="width: 100% !important">
+		<employee-main-profile-details 
+			[id]="id"
+			[employeeDataMain]="employeeDataMain"
+			[employeeData]="employeeData">
+		</employee-main-profile-details> 
+	</div>
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class="mb-3" style="width: 100% !important" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="row px-2">
+		
+			<!-- EMPLOYEE FILES -->
+			<div class="col-12 col-lg-6">
+				<!-- <employee-main-profile-documents
+				[id]="id"
+				[employeeData]="employeeData"></employee-main-profile-documents> -->
+			</div>
+
+			<!-- COMPLIANCE CHECK 
+			<div class="col-12 col-lg-6 bg-white py-2">
+				<employee-main-profile-compliance-check
+				[employeeData]="employeeData">
+				</employee-main-profile-compliance-check>
+			</div>-->
+		</div>
+	</div>
+</div>
+
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader 
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader>

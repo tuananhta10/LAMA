@@ -1,0 +1,238 @@
+<div class="mt-3 pt-5" 
+ [@animate]="{value:'*', params:{ x:'-50px'}}">
+	
+	<form class="card card-body" [formGroup]="addressForm">
+		<div class="row">
+			<div class="col-12 col-md-6 mb-3">
+				<div class="card card-body py-4" style="height: 305px;">
+					<h5 class="text-center mb-4">Address</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<app-google-places-input
+								label="Address 1" 
+								[labelTop]="true"
+								formControlName="primary_address"
+								[required]="true"
+								(addressChange)="onAddressChange($event)">
+							</app-google-places-input>
+
+							<app-textfield 
+								label="Address 2" 
+								[labelTop]="true"
+								formControlName="address_b">
+							</app-textfield>
+
+							<app-textfield 
+								label="Suburb" 
+								[labelTop]="true"
+								formControlName="suburb"
+								[required]="true">
+							</app-textfield>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="State" 
+								[labelTop]="true"
+								formControlName="state"
+								[required]="true">
+							</app-textfield>
+
+							<app-textfield 
+								label="Post Code" 
+								[labelTop]="true"
+								formControlName="post_code"
+								[required]="true">
+							</app-textfield>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 mb-3">
+				<div class="card card-body py-4" style="height: 305px;">
+					<h5 class="text-center mb-4">Key Contact Details</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="Phone" 
+								[inputType]="'tel'"
+								[labelTop]="true"
+								formControlName="emergency_contact_phone"
+								[required]="true">
+							</app-textfield>
+
+							<app-textfield 
+								label="After Hours Phone" 
+								[labelTop]="true"
+								[inputType]="'tel'"
+								formControlName="after_hrs_phone"
+								[required]="true">
+							</app-textfield>
+
+							<app-textfield 
+								label="Email" 
+								[labelTop]="true"
+								formControlName="emergency_contact_email"
+								[required]="true">
+							</app-textfield>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="Fax" 
+								[labelTop]="true"
+								formControlName="fax">
+							</app-textfield>
+
+							<app-textfield 
+								label="Website" 
+								[labelTop]="true"
+								formControlName="website">
+							</app-textfield>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+	</form>
+
+	<form class="card card-body" [formGroup]="planManagementForm">
+		<div class="row">
+			<div class="col-12 col-md-6 mb-3">
+				<div class="card card-body py-4" style="height: 305px;">
+					<h5 class="text-center mb-4">Bank Account Details</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="Bank" 
+								[labelTop]="true"
+								formControlName="bank">
+							</app-textfield>
+
+							<app-textfield 
+								label="BSB" 
+								[labelTop]="true"
+								formControlName="bsb">
+							</app-textfield>
+
+							<app-textfield 
+								label="Account Number" 
+								[labelTop]="true"
+								formControlName="acct_number">
+							</app-textfield>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="Account Name" 
+								[labelTop]="true"
+								formControlName="acct_name">
+							</app-textfield>
+
+							<app-textfield 
+								label="APCA User Id" 
+								[labelTop]="true"
+								formControlName="apca_user_id">
+							</app-textfield>
+
+							<app-textfield 
+								label="Name of Remitter" 
+								[labelTop]="true"
+								formControlName="remitter_name">
+							</app-textfield>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 mb-3">
+				<div class="card card-body py-4" style="height: 305px;" *ngIf="false">
+					<h5 class="text-center mb-4">IMAP Email Mailbox</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3 text-start">
+							<app-textfield 
+								label="IMAP Username" 
+								[labelTop]="true"
+								formControlName="imap_username">
+							</app-textfield>
+
+							<app-textfield 
+								label="IMAP Password" 
+								[labelTop]="true"
+								formControlName="imap_password">
+							</app-textfield>
+
+							<button class="btn btn-outline-primary align-self-start ms-4">Test Connection</button>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<app-textfield 
+								label="IMAP Server" 
+								[labelTop]="true"
+								formControlName="imap_server">
+							</app-textfield>
+
+							<app-textfield 
+								label="IMAP Port" 
+								[labelTop]="true"
+								formControlName="imap_port">
+							</app-textfield>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- <div class="col-12 col-md-12 mb-3">
+				<div class="py-4" style="height: 150px;">
+					
+					<div class="row">
+						<div class="col-12 col-md-6  mb-3">
+							<div class="card card-body">
+								<h5 class="text-center mb-4">Invoice Settlement Rounding</h5>
+
+								<app-textfield 
+									label="Plan Management Rounding " 
+									[labelTop]="true"
+									[info]="true"
+									[infoTitle]="'Number of cents to round up if plan management invoice is short paid by NDIS e.g. if 0.05 short then pay the full invoice amount rather than reduced amount'" 
+									formControlName="plan_management_rounding">
+								</app-textfield>
+							</div>
+
+						</div>
+
+						<div class="col-12 col-md-6  mb-3">
+							<div class="card card-body">
+								<h5 class="text-center mb-4">Remittance Email Address</h5>
+
+								<app-textfield 
+									label="Remittance Email " 
+									[labelTop]="true"
+									[info]="true"
+									[infoTitle]="'Email Address to send remittances from from plan management module'" 
+									formControlName="remittenance_email">
+								</app-textfield>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div> -->
+
+
+
+		</div>
+	</form>
+</div>

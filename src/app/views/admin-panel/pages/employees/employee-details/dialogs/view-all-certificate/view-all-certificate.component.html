@@ -1,0 +1,58 @@
+<section id="document-data">
+	<!-- CERTIFICATES-->
+	<div class="mb-3 mb-lg-0" id="certificates">
+		<h5 class="card-title">Certificates
+			<button type="button" class="btn add-new ms-1 text-white" 
+			style="color: white !important; z-index: 9999 !important;" 
+			(click)="openAddCertificateDialog()"> 
+				<span class="material-icons text-white">add</span>Add
+			</button>
+
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end" 
+			style="width: 13px; cursor: pointer; margin-top: -3px;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+
+		<table class="table mt-3" *ngIf="!loading && certificateData?.length > 0; else showEmptyCert">
+			<tr *ngFor="let certificate of certificateData"
+			[title]="certificate?.description">
+				<td style="width: 20px;" (click)="openAddCertificateDialog(certificate)">
+					<img src="/assets/images/icons/degree-file.png" 
+					*ngIf="certificate?.type === 'Education'" width="32px">
+
+					<img src="/assets/images/icons/certificate-file.png" 
+					*ngIf="certificate?.type === 'Certifications' 
+					|| certificate?.type === 'Experience'" width="30px">
+
+					<img src="/assets/images/icons/folder-file.png" 
+					*ngIf="certificate?.type !== 'Education' 
+					&& certificate?.type !== 'Certifications'
+					&& certificate?.type !== 'Experience'" 
+					width="30px"> 
+				</td>
+				<td (click)="openAddCertificateDialog(certificate)" style="width: 300px">
+					<div  class="file-title truncate">{{certificate?.qualification_code || '-'}}</div>
+				</td>
+
+				<td class="file-title-date" (click)="openAddCertificateDialog(certificate)" 
+				style="width: 200px">
+					<div class="text-truncate">{{certificate?.description || '-'}}</div>
+				</td>
+
+				<td class="file-title-date text-end"  (click)="openAddCertificateDialog(certificate)">
+					{{ (certificate?.date_added * 1000 | date : 'MM-dd-yyyy') || '-'}}
+				</td>
+
+				<td class="file-title-date text-end" (click)="deleteDataDialog(certificate)">
+					<img src="/assets/images/icons/delete-red.png" class="img-fluid delete" width="30px"> 
+				</td>
+			</tr>
+		</table>
+
+		<ng-template #showEmptyCert>
+			<div *ngIf="!loading">List of Certificates is currently empty.</div>
+		</ng-template>
+		
+	</div>	
+</section>

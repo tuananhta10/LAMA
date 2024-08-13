@@ -1,0 +1,37 @@
+@import "src/scss/colors";
+
+.hide-banner{
+	background: white !important;
+	padding: 5px 10px !important;
+	margin-right: 10px;
+	.minimize{
+
+	}
+}
+
+.radius-top{
+	border-top-right-radius: 10px !important;
+	border-top-left-radius: 10px !important;
+	border-bottom-right-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+}
+
+
+.radius-none{
+	border-radius: 7px !important;
+}
+
+.show-feeds{
+	display: flex;
+    align-items: center;
+
+	/* .mat-icon{
+		vertical-align: top;
+	} */
+}
+
+.container-fluid{
+	position: relative;
+	
+}
+

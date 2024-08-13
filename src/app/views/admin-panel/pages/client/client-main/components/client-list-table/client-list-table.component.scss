@@ -1,0 +1,713 @@
+@import "src/scss/colors";
+
+.btn-active-client{
+	border-radius: 7px !important;
+	padding: 5px 20px !important;
+}
+.header{
+	width: 100%;
+	&.fixed{
+		transition: .2s all ease;
+		position: fixed;
+		top: 73px;
+		width: 100%;
+		left: 0;
+		padding: 17px 32px;
+		background-color: white;
+		z-index: 500;	
+	}
+}
+
+.table-controls{
+	
+	&.fixed{
+		transition: .2s all ease;
+		position: fixed;
+		top: 137px;
+		width: 100%;
+		left: 0;
+		padding-inline: 32px;
+		padding-bottom: 10px;
+		background-color: white;
+		z-index: 400;
+		box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+	}
+}
+
+.status-description{
+	font-family: 'Noto Sans';
+	font-size: 14px;
+	margin-top: 7px;
+}
+
+.border-danger{
+	border: solid 1px $color-red-light;
+	margin-left: -1px !important;
+}
+
+
+/* Mat tooltip */
+.mat-tooltip {
+  padding: 10px 15px 10px 10px !important;
+  color: whitesmoke !important;
+  margin-bottom: 20px !important;
+  margin-left: 15px !important;
+  white-space: pre-line;
+  width: 300px;
+  height: auto;
+  font-size: 10px;
+  font-weight: 300 !important;
+  //background: red !important;
+  overflow: visible !important; 
+  bottom: -20px !important;
+  border: none;
+  border-radius: 8px !important;
+  position: relative !important;
+  right: -60px;
+  top: 10px;
+  z-index: 9999999 !important;
+  box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+
+  &:after {
+    content: " ";
+    position:absolute;
+    bottom:-7px; 
+    left: 5%;
+    z-index: 99999999 !important;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 7px 0 7px;
+    border-color: $color-purple transparent transparent transparent;
+  }
+}
+
+ .btn-warning{
+	//margin-top: -5px !important;
+	padding: 5px 15px !important;
+	color: white;
+	//border-radius: 5px !important;
+	//background: $color-yellow !important;
+	//font-size: 10px !important;
+	//font-weight: 600 !important;
+	&:hover{
+		background: $color-yellow !important;
+	}
+
+}
+
+.btn-status{
+	margin-top: -5px !important;
+	padding: 3px 11px !important;
+	color: white;
+	border-radius: 5px !important;
+	//background: $color-yellow !important;
+	font-size: 10px !important;
+	font-weight: 600 !important;
+	min-width: 80px;
+	/*&:hover{
+		background: $color-yellow !important;
+	}*/
+
+}
+
+.btn-primary{
+	&:hover{
+		background: $color-purple-hover !important;
+	}
+}
+
+.status_active{
+	background: rgba(86, 179, 144, 0.3);
+	color: #56B390;
+}
+
+.status_inactive{
+	background: rgba($color-red, 0.8);
+}
+
+.status_pending{
+	color: #4D4D4D;
+	background: #E1E4E8;
+	font-weight: 600 !important;
+
+}
+
+.status_draft{
+	color: #4D4D4D;
+	background: #E1E4E8;
+	font-weight: 600 !important;
+}
+
+.two-lines {
+   overflow: hidden !important;
+   text-overflow: ellipsis !important;
+   display: -webkit-box !important;
+   -webkit-line-clamp: 1 !important; /* number of lines to show */
+           line-clamp: 1 !important;
+   -webkit-box-orient: vertical !important;
+}
+
+.client-list{
+	font-size: 18px !important;
+	font-weight: 600 !important;
+	color: $color-gray-dark;
+
+	.float-end{
+		color: $color-gray-dark;
+		font-size: 13px !important;
+		font-weight: 500 !important;
+		margin-right: 25px;
+		margin-top: 5px;
+
+		img{
+			vertical-align: bottom !important;
+		}
+	}
+}
+
+.img-info{
+	h4{
+		margin-left: 80px;
+		font-size: 20px;
+		color: $color-gray;
+		font-weight: 600;
+	}
+
+	.btn{
+		margin-left: 80px;
+	}
+}
+
+.bg-gray{
+	background: #F5F5F5;
+	border-radius: 20px;
+	padding: 20px;
+
+}
+
+.empty-table-img{
+	width: 500px;
+	position: absolute;
+	right: 3%;
+	bottom: -2%;
+	z-index: 9 !important
+}
+
+.create-client{
+	position: absolute;
+	top: 51%;
+	right:13.9%;
+	z-index: 99 !important;
+
+	&-button{
+		font-size: 15px !important;
+		padding: 20px 20px !important;
+		box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+    -webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+    -moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+	}
+}
+
+.material-icons{
+	vertical-align: top !important;
+	padding-top: 2px;
+	margin-right: 5px;
+	font-size: 13px;
+}
+
+
+#status-filter{
+	.dropdown{
+		min-width: 150px !important;
+	}
+
+	.dropdown-menu{
+		padding-left: 10px;
+		padding-right: 10px;
+
+		li{
+			padding: 10px;
+			cursor: pointer;
+			font-weight: 500;
+
+			&:hover{
+				font-weight: 600;
+			}
+		}
+	}
+}
+
+#export-table{
+	.dropdown-menu{
+		padding-left: 0px;
+		padding-right: 0px;
+
+		li{
+			padding: 5px 10px;
+			cursor: pointer;
+			font-weight: 500;
+
+			&:hover{
+				background: #f6f6f6;
+				//font-weight: 600;
+			}
+		}
+	}
+
+}
+
+.table-controls{
+	button{
+		border: none;
+		margin-right: 15px;
+		background: none;
+	}
+
+	a{
+		color: $color-gray-dark;
+		text-decoration: none;
+		margin-right: 15px;
+		cursor: pointer;
+
+		&:hover{
+			// /color: $color-gray;
+			font-weight: 600;
+			-webkit-transition: width 0.5s linear;
+			-moz-transition: width 0.5s linear;
+			transition: animate all 0.5s;
+		}
+	}
+
+	img{
+		padding-top: 3px;
+		vertical-align: top;
+		width: 12px;
+		margin-right: 5px;
+	}
+
+	.mail-merge{
+		padding-top: 4px;
+		width: 13px;
+	}
+
+	.edit-column{
+		padding-top: 4px;
+		width: 13px;
+	}
+
+	.delete{
+		padding-top: 2px;
+	}
+
+	.export{
+		width: 14px;
+	}
+}
+
+.hvr-underline-from-left{
+	&::before{
+		background: $color-gray-dark;
+		margin-bottom: 0px;
+		height: 2px;
+	}
+}
+
+
+.search-div{
+	vertical-align: center !important;
+	background: #F0F1F5;
+	padding: 10px 20px 10px 15px !important;
+	border-radius: 8px !important;
+	
+	img{
+		width: 22px !important;
+		height: 22px !important;
+		margin-right: 10px;
+		margin-top: 8px;
+	}
+
+	.input-group-text{
+		/* background: none;
+		border:none; */
+	}
+
+	.input-group{
+	    padding: 0px !important;
+	    outline: none !important;
+	    img{
+	        width: 15px !important;
+	        height: 15px !important;
+	        margin-right: 10px;
+	        margin-top: 3px;
+	    }
+	}
+
+	.form-control{
+	    border-radius: 0px !important;
+	    font-size: 14px !important;
+	    margin-left: 10px;
+	    padding: 0 !important;
+	    border: none !important;
+	    background: #F0F1F5 !important;
+	    outline: none !important;
+	    //border-color: #a8a8a8 !important;
+	}
+
+	input{
+		outline: none !important;
+	}
+}
+
+.paginator{
+	margin-top: 10px;
+	@extend .noselect;
+
+	span{
+		margin-left: 5px;
+		text-decoration: none;
+		font-size: 12px;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.text-black{
+		color: rgba(139, 144, 160, 1);
+		font-weight: bold;
+		font-size: 13px;
+		padding: 8px 12px;
+		transition: background-color 0.5s ease-out;
+
+		&:hover{
+			background: #DFDBFF;
+			color: $color-purple;
+		}
+	}
+
+	.text-purple{
+		background: $color-purple;
+		font-weight: 600 !important;
+		border-radius: 2px;
+		padding: 8px 12px;
+		color: white;
+		font-size: 13px;
+		transition: background-color 0.5s ease-out;
+	}
+}
+
+.btn-outline-secondary{
+	border-radius: 5px !important;
+	padding: 10px 13px !important;
+	font-weight: 600;
+	font-size: 13px !important;
+}
+
+
+// remove text highlighting
+.noselect {
+  -webkit-touch-callout: none !important; /* iOS Safari */
+    -webkit-user-select: none !important; /* Safari */
+     -khtml-user-select: none !important; /* Konqueror HTML */
+       -moz-user-select: none !important; /* Old versions of Firefox */
+        -ms-user-select: none !important; /* Internet Explorer/Edge */
+            user-select: none !important; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.padding-profile-2{
+	//text-align: center;
+	margin-left: -3px;
+
+	img{
+		border-radius: 50%;
+		width: 38.5px !important;
+		height: 38.5px !important;
+		//border: solid 1px $color-purple;
+		object-position: center;
+		object-fit: cover;
+		vertical-align: center;
+	}
+}
+
+
+.padding-profile{
+	//text-align: center;
+	//padding-left: 20px;
+
+	img{
+		border-radius: 50%;
+		width: 34px !important;
+		height: 34px !important;
+		border: solid 1px $color-purple;
+		object-position: center;
+		object-fit: cover;
+		vertical-align: center;
+	}
+}
+
+#table-container{
+	min-width: 99% !important;
+	overflow: auto;
+	min-height: 420px;
+
+	.table_img{
+		text-align: center;
+		padding-left: 10px;
+		//background: red;
+		img{
+			height: 40px;
+			width: 40px;
+			border-radius: 50%;
+			vertical-align: center;
+		}
+	}
+
+	/* TABLE CONTAINER */
+	.table, .mat-table{
+		//border-top: solid 1px #e0e0e0 !important;
+		width: 100% !important;
+		
+		th{
+			color: $color-gray-dark;
+		}
+
+		td{
+			color: #767676;
+		}
+	}
+
+	.mat-header-row {
+		@extend .noselect; // remove text highligting
+	  min-height: 70px;
+	  border-radius: 1px;
+	  padding: 0 !important;
+	  padding-bottom: 20px !important;
+	}
+
+	.mat-header-cell{
+	  color: $color-purple !important;
+	  background: rgb(244,243,251) !important;
+	  vertical-align: middle !important;
+	  padding-bottom: 13px !important;
+ 		padding-top: 15px !important;
+	  font-size: 13px;
+	  font-weight: 600 !important;
+	  position: sticky;
+	  top: 0;
+	  z-index: 500;
+	  translate: 0 -1px;
+	}
+
+	.mat-header-cell, .mat-cell{
+	  padding-right: 10px;
+	  padding-left: 10px;
+	  border-bottom: 1px dashed #e0e0e0 !important;
+	  font-family: "Noto Sans", sans-serif !important;
+	}
+
+	.mat-cell{
+		font-size: 14px;
+		vertical-align: center !important;
+		padding-top: 20px !important;
+		img{
+			margin-top: -5px !important;
+		}
+	}
+
+	.mat-header-cell:first-child{
+	  padding-left: 15px !important;
+	  z-index: 999 !important;
+	}
+
+	.mat-cell:first-child{
+	  padding-left: 15px !important;
+	  z-index: 999 !important;
+	}
+
+	.mat-cell:first-child,
+	.mat-header-cell:first-child{
+	  width: 40px !important;
+	}
+
+	.mat-header-cell:nth-last-child(1){
+	  padding-right: 15px !important;
+	}
+
+	.mat-cell:nth-last-child(1){
+	  padding-right: 15px !important;
+	}
+
+	.bg-selected{
+		background: #E9E9E9;
+
+		&:hover{
+			background: #E6E6E6 !important;
+		}
+	}
+
+	.bg-selected-text{
+		// /font-weight: 600;
+	}
+
+	.mat-row{
+		@extend .noselect; // remove text highligting
+	  border: none !important;
+
+	  &:hover {
+	    background-color:#f5f5f5;
+	    cursor: pointer;
+	  }
+
+	  .mat-cell {
+	    padding-left: 10px;
+	    padding-top: 15px;
+	    height: 68px !important;
+	  }
+	} 
+}
+
+#table-container-mobile{
+	/* TABLE CONTAINER */
+	.table, .mat-table{
+		width: 100% !important;
+		border: none !important;
+		min-height: 400px;
+
+		tr{
+			border: none;
+			color: $color-gray-dark;
+			font-size: 14px;
+
+			.title{
+				padding-left: 30px;
+				font-weight: 600;
+			}
+
+			span{
+				width: 30%;
+			}
+		}
+
+		th{
+			color: $color-gray-dark;
+		}
+
+		td{
+			color: $color-gray-dark;
+		}
+	}
+
+	.mat-cell{
+	  padding: 15px;
+	  border-bottom: 1px dashed #e0e0e0 !important;
+	  font-family: "Noto Sans", sans-serif !important;
+	}
+
+	.bg-selected{
+		background: #e4e1fc;
+
+		&:hover{
+			background: #d6d1ff !important;
+		}
+	}
+
+	.bg-selected-text{
+		// /font-weight: 600;
+	}
+
+	.mat-row{
+		@extend .noselect; // remove text highligting
+	  border: none;
+	  border-bottom: solid 1px $color-gray-dark !important;
+
+
+	  tr:first-child{
+	  	background: $color-purple;
+	  	color: white !important;
+
+	  	title{
+	  		font-weight: 500 !important;
+	  	}
+	  }
+
+	  &:hover {
+	    background-color:#f5f5f5;
+	    cursor: pointer;
+	  }
+
+	  .mat-cell {
+	    padding-left: 10px;
+	    padding-top: 15px;
+	  }
+	} 
+
+	.math-row:nth-child(odd) {
+	  background: red;
+	}
+}
+
+/* HEADER ARROW SORTER */
+::ng-deep .mat-sort-header-arrow[style] {
+
+  // Hide default arrow stem
+  .mat-sort-header-stem {
+    display: none;
+  }
+  .mat-sort-header-indicator {
+    opacity: 1;
+    color: black;
+    font-weight: bold;
+
+    // Hide default arrow as its composed of left, right and middle
+    .mat-sort-header-pointer-left, .mat-sort-header-pointer-right, .mat-sort-header-pointer-middle  {
+      display: none;
+    }
+  }
+}
+
+// My custom ascending arrow
+[aria-sort="ascending"] {
+  ::ng-deep .mat-sort-header-arrow {
+    .mat-sort-header-indicator {
+      &::before {
+        font-family: "Material Icons";;
+        content: "\e5cf";
+        top: -4px;
+        position: absolute;
+      }
+    }
+  }
+}
+
+// My custom descending arrow
+[aria-sort="descending"] {
+  ::ng-deep .mat-sort-header-arrow {
+    .mat-sort-header-indicator {
+      &::before {
+      	font-family: "Material Icons";;
+        content: "\e5ce";
+        top: -14px;
+        position: absolute;
+      }
+    }
+  }
+}
+
+
+.dropdown-toggle::after { 
+	border: none; 
+}
+
+.dropdown-menu{
+	font-size: 13px;
+	min-width: 100px;
+
+	.dropdown-item{
+		//max-width: 110px !important;
+		padding: 8px 13px;
+		border-bottom: solid 1px $color-lightgray;
+		line-height: 15px;
+		cursor: pointer;
+	}
+}
+

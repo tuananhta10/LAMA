@@ -1,0 +1,40 @@
+<div class="p-3" id="qualification-container">
+	<!-- DOCUMENT FILE DATA -->
+	<div [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<!-- <img src="/assets/images/icons/guard-admin-purple.png" width="30px" class="me-2 img-fluid img-title"> -->
+			<span class="ms-2 main-title">Cancellation Policy List</span>
+			<div class="float-end">
+				<button class="btn btn-primary" (click)="openAddCancellation()">New Cancellation Policy</button>
+			</div>
+		</div>
+		<br>
+
+		<!-- LIST VIEW -->
+		<div class="mt-2"  *ngIf="listView && !loading"
+		style="min-height: 400px;">
+			<section [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+				<admin-reusable-list-view
+					[loading]="loading"
+					[componentTitle]="'Cancellation Policy'"
+					(viewDetails)="editDataDialog($event)"
+					(updateSelectedRowDialog)="editDataDialog($event)"
+					(deleteSelectedRow)="deleteDataDialog($event)"
+					[displayedColumns]="displayedColumns"
+					[selectedColumns]="selectedColumns"
+					[selectedColumnsMobile]="selectedColumns"
+					[searchSource]="searchSource"
+					[maxRows]="25"
+					[listDataSource]="cancellationList">
+				</admin-reusable-list-view>
+			</section>
+		</div>
+
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

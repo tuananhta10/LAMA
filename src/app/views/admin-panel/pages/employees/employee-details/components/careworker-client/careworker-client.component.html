@@ -1,0 +1,87 @@
+<div id="employee-careworker-container">
+	<!-- BUTTONS CONTROLLER -->
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'careworker-client'">
+	</employee-details-navigation>
+
+	<!-- STATISTICS DATA -->
+	<div class="card card-body pt-4 mb-3 shadow-3">
+		<employee-main-profile-stats></employee-main-profile-stats>	
+	</div>
+
+	<div class="mt-2">
+		<div class="row">
+			<div class="col-12 col-md-3">
+				<div class="search-div me-1">
+					<div class="input-group">
+					  <img src="/assets/images/icons/search.png">
+					  
+					  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+					  [(ngModel)]="searchBy" (ngModelChange)="multipleSearch()">
+					</div>
+				</div>
+			</div>
+			<div class="col-8 col-md-9"></div>
+			
+		</div>
+		<hr style="margin-bottom: 10px;">
+
+		<!-- DOCUMENT FILE DATA -->
+		<div class="py-2 px-2" 
+		style="width: 100% !important; min-height: 200px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+			
+			<employee-clients-table-reusable *ngIf="!loading"
+				[loading]="loading"
+				[showSearch]="false"
+				[componentTitle]="'Assigned Participants'"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[selectedColumnsMobile]="selectedColumns"
+				[searchSource]="{}"
+				[maxRows]="25"
+				[isAddEnabled]="true"
+				(addEvent)="navigateToEmployeeEdit()"
+				[listDataSource]="filteredCareworkerList">
+			</employee-clients-table-reusable> 
+			
+			
+			<!-- LOADING ANIMATION SCREEN -->
+			<global-admin-loader 
+				[withSideBar]="false"
+				[fromDetailTab]="true"
+				[loading]="loading">
+			</global-admin-loader>
+		</div>
+	</div>
+
+	<div class="">
+		
+
+		<!-- DOCUMENT FILE DATA -->
+		<div class="py-2 px-2" 
+		style="width: 100% !important; min-height: 200px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+
+			<employee-clients-table-reusable *ngIf="!loading"
+				[loading]="loading"
+				[showSearch]="false"
+				[componentTitle]="'Past Participants'"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[selectedColumnsMobile]="selectedColumns"
+				[searchSource]="{}"
+				[maxRows]="25"
+				[listDataSource]="[]">
+			</employee-clients-table-reusable> 
+
+			<!-- LOADING ANIMATION SCREEN -->
+			<global-admin-loader 
+				[withSideBar]="false"
+				[fromDetailTab]="true"
+				[loading]="loading">
+			</global-admin-loader>
+		</div>
+	</div>
+</div>

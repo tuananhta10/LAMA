@@ -1,0 +1,137 @@
+<div class="mb-3" id="before-using-lama">
+	<div class="card px-2">
+		<div class="card-body">
+			<!-- FROM INPUT -->
+			<a class="document d-flex bg-purple" href="https://lamacarehelp.zendesk.com/hc/en-au" target="_blank">
+				<!-- <div class="document-circle-tick active"></div> -->
+				<div class="flex-wrap img-container me-2 red" *ngIf="screenWidth > 1270">
+					<img [defaultImage]="defaultImage"
+					[lazyLoad]="'/assets/images/icons/dashboard/manual.png'">
+				</div>
+
+				<div class="flex-wrap">
+					<p class="document-text">
+						LAMA Platform Manual
+					</p>
+					<div class="document-text-muted">This guide is a valuable asset for new and experienced users of the LAMA platform, with helpful tips and resources for optimizing your workflow.</div>
+				</div>
+			</a>
+
+			<!-- FROM INPUT -->
+			<a class="document d-flex" href="https://www.ndis.gov.au/providers/pricing-arrangements" target="_blank">
+				<!-- <div class="document-circle-tick active"></div> -->
+				<div class="flex-wrap img-container me-2 orange" *ngIf="screenWidth > 1270">
+					<img [defaultImage]="defaultImage" 
+					style="width: 33px !important" 
+					[lazyLoad]="'/assets/images/icons/dashboard/pricing.png'">
+				</div>
+				<div class="flex-wrap">
+					<p class="document-text">
+						NDIS Pricing Arrangements
+					</p>
+					<div class="document-text-muted">NDIS price controls are put in place to ensure that the cost of supports and services provided through the NDIS are reasonable and fair.</div>
+				</div>
+			</a>
+
+			<!-- FROM INPUT -->
+			<a class="document d-flex " href="https://www.lamacare.com.au/about-1" target="_blank">
+				<!-- <div class="document-circle-tick active"></div> -->
+				<div class="flex-wrap img-container me-2 blue" *ngIf="screenWidth > 1270">
+					<img [defaultImage]="defaultImage" 
+					[lazyLoad]="'/assets/images/icons/dashboard/about.png'">
+				</div>
+				<div class="flex-wrap">
+					<p class="document-text">
+						About LAMA Platform
+					</p>
+					<div class="document-text-muted">The LAMA platform is a cloud-based system for NDIS providers in Australia, offering tools to manage participants, employees, and services, and track communication and documents.</div>
+				</div>
+			</a>
+			<!-- <div class="w-100 d-flex justify-content-center">
+				<a href="https://www.lamacare.com.au/support-items" target="_blank" class="btn btn-view-all float-end">FAQ</a>
+			</div> -->
+		</div>
+	</div>
+</div> 
+
+<div class="card mt-4 my-3" id="news-activity" style="min-height: 555px; max-height: 1200px;">
+	<div *ngIf="!loading" class="card-body">
+		<h5 class="main-title">News and Alerts
+			<!-- <a routerLink="/admin" class="btn btn-view-all float-end">View All</a> -->
+		</h5>
+
+		<!-- SEARCH CLIENT -->
+		<div class="search-div me-1 mb-3">
+			<div class="input-group">
+			  <img src="/assets/images/icons/search.png">
+			  
+			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+			  [(ngModel)]="searchBy" (ngModelChange)="searchNews()">
+			</div>
+		</div>
+		
+
+		<!-- FROM INPUT -->
+		<div *ngFor="let notif of notificationList?.slice(0, 9)" class="members d-flex">
+			<!-- <div class="members-circle-tick active"></div> -->
+			<div class="members-icon-box-white me-3 ">
+				<img class="flex-wrap img img-fluid" 
+				[defaultImage]="defaultImage" 
+				[lazyLoad]="getNotifIcon(notif.type)">
+			</div>
+			<!-- [routerLink]="'/' + notif?.redirect_url" -->
+			<div class="flex-wrap" [routerLink]="'/' + notif?.redirect_url">
+				<p class="members-text">
+					New {{notif.type}}
+				</p>
+				<span class="members-text-muted">Date added {{formatDate(notif.date_updated)}}</span>
+				<img src="/assets/images/icons/dashboard/arrow-white.png" 
+				class="navigator">
+			</div>
+		</div>
+
+	</div>
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>
+
+<!-- <div class="mb-3" id="activity-feed">
+	<div class="card px-3">
+		<div class="row card-body">
+			<div class="col-12">
+				<div class="card-container" id="feed-container">
+					<h5 class="main-title">Feeds</h5>
+
+					<div class="feed d-flex ps-3">
+						<div class="flex-wrap">
+							<p class="feed-text">
+								Zachary Cruz
+							</p>
+							<span class="feed-text-muted">Feb 20, 2021, 4:00 PM</span>
+						</div>
+					</div>
+
+					<div class="feed d-flex ps-3">
+						<div class="flex-wrap">
+							<p class="feed-text">
+								Marian Cruz
+							</p>
+							<span class="feed-text-muted">Feb 20, 2021, 4:00 PM</span>
+						</div>
+					</div>
+
+					<div class="feed d-flex ps-3">
+						<div class="flex-wrap">
+							<p class="feed-text">
+								Marian Cruz
+							</p>
+							<span class="feed-text-muted">Feb 20, 2021, 4:00 PM</span>
+						</div>
+					</div>
+				</div>
+
+				<a routerLink="/admin" class="btn btn-view-all mt-3 ms-3">View All</a>
+			</div>
+		</div>
+	</div>
+</div>  -->
+

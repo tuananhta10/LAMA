@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="row">
+    <h5 class="mb-3">Add Payment Method
+      <img src="/assets/images/placeholder/powered-by-stripe.png" style="width: 130px">
+      
+      <img src="/assets/images/icons/close-dialog.png" 
+      class="float-end mt-2" 
+      style="width: 13px; cursor: pointer;" 
+      (click)="dialogRef.close()">
+    </h5>
+    <hr>
+    
+    <form class="col-12" [formGroup]="stripeDataForm" (submit)="submitPaymentForm()">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div class="form-group mt-3 w-100">
+            <label>First Name</label>
+            <input type="text" formControlName="first_name" class="form-control">
+          </div>
+
+          <div class="form-group mt-3 w-100">
+            <label>Last Name</label>
+            <input type="text" formControlName="last_name" class="form-control">
+          </div>
+
+          <div class="form-group mt-3 w-100">
+            <label>Email</label>
+            <input type="email" formControlName="email" class="form-control">
+          </div>
+
+          <div class="form-group mt-3 w-100">
+            <label>Phone Number</label>
+            <input type="tel" formControlName="phone" class="form-control">
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+
+          <div class="form-group mt-3 w-100">
+            <label>Card Number</label>
+            <input type="text" formControlName="number" class="form-control">
+          </div>
+
+          <div class="form-group mt-3 w-100">
+            <label>Expiry Month</label>
+            <select class="form-select" formControlName="exp_month">
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+
+          <div class="form-group mt-3 w-100">
+            <label>Expiry Year</label>
+            <input type="text"  formControlName="exp_year" class="form-control">
+          </div>
+
+          <div class="form-group mt-3 w-100">
+            <label>CVC</label>
+            <input type="text"  formControlName="cvc" class="form-control">
+          </div>
+        </div>
+      </div>
+      
+      <hr>
+
+      <div mat-dialog-actions>
+        <div class="row container">
+
+          <div class="col-md-12 text-center">
+            <button 
+            mat-button 
+            (click)="dialogRef.close()" 
+            class="btn  btn-header-gray ms-3">Cancel</button>
+
+            <button 
+            mat-button 
+            [disabled]="!stripeDataForm.valid"
+            (click)="submitPaymentForm()" 
+            class="btn btn-primary">Submit Payment Method</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

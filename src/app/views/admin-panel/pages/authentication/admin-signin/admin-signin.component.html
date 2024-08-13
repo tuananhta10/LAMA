@@ -1,0 +1,200 @@
+<!-- HEADER -->
+<!-- <app-header></app-header>
+ -->		
+<div class="container-fluid py-5" id="main-container"
+[@animate]="{value:'*', params:{ scale:'.9', delay:'400ms' }}">
+	<div class="container">
+		<div class="row card-body p-0 px-lg-3 pe-lg-5">
+			<!-- <div class="col-md-1 text-center bg-gray"></div> -->
+
+			<div class="col-12 col-md-6 text-start py-5 img-container" style="position: relative !important;">
+				<!-- <img src="/assets/images/icons/shake-hand-border.png" class="img-fluid login-shake-hands"> -->
+				<!-- <img src="/assets/images/placeholder/login-circle.png" class="img-fluid signup-circle"> -->
+				<!-- <img src="/assets/images/icons/heart-border.png" class="img-fluid login-heart">
+				<img src="/assets/images/placeholder/login-ellipse.png" class="img-fluid login-ellipse">
+				<img src="/assets/images/placeholder/login-ellipse-2.png" class="img-fluid login-ellipse-2">
+				<img src="/assets/images/placeholder/login-rectangle.png" class="img-fluid login-rectangle">
+ -->
+ 				<img src="/assets/images/placeholder/lama-logo-white.png" class="img-fluid login-logo mb-3">
+
+				<div class="img-banner" style="z-index: 999999 !important;">
+					<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-indicators">
+							<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+							<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+							<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+						</div>
+						<div class="carousel-inner">
+							<div class="carousel-item active text-center">
+								<img src="/assets/images/placeholder/vector-login-2.png" class="w-75 align-self-center mt-4 mb-3">
+								<div class="text-white text-center" style="margin-top: -50px;">
+									<h4 class="">Welcome aboard my friend</h4>
+									<p>Just a couple of clicks away to start</p>
+								</div>
+							</div>
+							<div class="carousel-item text-center">
+								<img src="/assets/images/placeholder/vector-login-3.png" class="w-75 align-self-center mt-4 mb-2">
+								<div class="text-white text-center" style="margin-top: -50px;">
+									<h4 class="">Welcome aboard my friend</h4>
+									<p>Just a couple of clicks away to start</p>
+								</div>
+							</div>
+
+							<div class="carousel-item text-center">
+								<img src="/assets/images/placeholder/vector-login-1.png" class="d-block w-100">
+								<div class="text-white text-center" style="margin-top: -50px;">
+									<h4 class="">Welcome aboard my friend</h4>
+									<p>Just a couple of clicks away to start</p>
+								</div>
+							</div>
+							
+						</div>
+						<!-- <div class="mt-3 pt-5 px-5">
+							<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div> -->
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 login-container px-3 px-md-5 py-5"
+			*ngIf="!loading"
+			[ngClass]="!error ? 'pt-lg-5': ''">
+				<!-- Error Message -->
+				<form class="px-3 px-md-5 pt-5" (submit)="loginAdmin()" [formGroup]="adminLoginForm" *ngIf="isLogin" [@animate]="{value:'*', params:{ scale:'.9', delay:'100ms' }}">
+					<!-- <img src="/assets/images/placeholder/lama-logo-black.png" class="img-fluid logo-placeholder"> -->
+
+					<h4 class="login-title m-0">Welcome to LAMA Care!</h4>
+					<p class="text-justify login-description mt-2">
+						 Enter your username and password to access your account and start using our software. If you need help, our support team is here for you.
+					</p> 
+					<div class="form-group" [ngClass]="error ? 'mt-2' : 'mt-4'">
+						<div class="alert alert-danger alert-dismissible fade show error-message" [@animate]="{value:'*', params:{ y:'50px', delay:'600ms' }}" *ngIf="error" role="alert">
+						  	<button type="button" class="btn-close hvr-buzz-out" data-bs-dismiss="alert" aria-label="Close" (click)="onAlertClose()"></button>
+						  	<span [innerHtml]="error"></span>
+						</div>  
+
+						<div class="alert alert-success alert-dismissible fade show error-message" [@animate]="{value:'*', params:{ y:'50px', delay:'600ms' }}" *ngIf="message" role="alert">
+						  	<button type="button" class="btn-close hvr-buzz-out" data-bs-dismiss="alert" aria-label="Close" (click)="onAlertClose()"></button>
+						  	<span [innerHtml]="message"></span>
+						</div>  
+
+						<input type="email" class="form-control" 
+						formControlName="email" id="email"
+						autocomplete="password"
+						placeholder="Email" required>
+						<label for="email" class="d-flex" *ngIf="adminLoginForm.controls['email'].value"
+						[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+						[ngClass]="adminLoginForm.controls['email'].value ? 'form-val' : ''">
+							<div>
+								<img src="/assets/images/icons/mail-white.png" width="23px" class="img-fluid me-2 img-plc" style="margin-top: -2px;">
+							</div>
+
+							<div>Email</div>
+						</label>
+					</div> 
+					<div class="form-group mt-4">
+						<img src="/assets/images/placeholder/show-password.png" 
+						style="width: 22px;height: 23px; cursor: pointer; margin-left: -35px; 
+						margin-top: 7px; position: absolute; right: 105px; z-index: 999999 !important;" 
+						(click)="adjustType()">
+
+						<input [type]="inputType" class="form-control" id="password" 
+						autocomplete="password"
+						placeholder="Password" formControlName="password" style="z-index: 9999 !important;">
+
+						<label for="password" class="d-flex" style="z-index: 99999 !important;"
+						[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+						*ngIf="adminLoginForm.controls['password'].value"
+						[ngClass]="adminLoginForm.controls['password'].value ? 'form-val' : ''">
+							<div>
+								<img src="/assets/images/icons/password-white.png" width="23px"  class="img-fluid me-2 img-plc" style="margin-top: -2px;">
+							</div>
+
+							<div>Password</div>
+						</label>
+					</div>
+					<div class="mt-4 px-2">
+						<mat-checkbox class="example-margin" color="primary">
+							<span class="text-white">Remember me</span>
+						</mat-checkbox>
+
+						<span class="float-end forgot-password text-white cursor-pointer" (click)="togglePage()">Forgot Password?</span>
+					</div>
+
+					<br>
+
+					<button type="submit" class="btn btn-login w-100 mt-3"
+					[disabled]="submitting || !adminLoginForm.valid">Log In
+						<img src="/assets/images/placeholder/loading-login.gif" width="20px" class="img-fluid float-end" *ngIf="submitting">
+					</button>
+
+
+					<br>
+
+					<div class="text-center mt-4">
+						<p class="w-100 text-white">
+							<img src="/assets/images/placeholder/line.png" class="img-fluid line me-2">
+							Or
+							<img src="/assets/images/placeholder/line.png" class="img-fluid line ms-2">
+						</p>
+					</div>
+
+
+					<div class="text-center mt-4">
+					  	<p class="dont-have-account">Have no account yet?
+					</div>
+
+					<button type="button" class="btn btn-register w-100 mb-3"
+					[disabled]="submitting" routerLink="/signup/admin">Create your account
+					</button>
+
+
+					<img src="/assets/images/placeholder/login-dots.png" class="img-fluid login-dots">
+				</form> 
+				<form class="px-3 px-md-5 pt-5" (submit)="resetPassword()" [formGroup]="adminPasswordResetForm" *ngIf="!isLogin && sendPasswordState$ | async as value" [@animate]="{value:'*', params:{ scale:'.9', delay:'100ms' }}">
+					<!-- <img src="/assets/images/placeholder/lama-logo-black.png" class="img-fluid logo-placeholder"> -->
+
+					<h4 class="login-title m-0">Password reset</h4>
+					<p class="text-justify login-description mt-2">
+						To reset your password, enter your email then we'll send you an email to set a new password.
+					</p> 
+					<div class="form-group" [ngClass]="error ? 'mt-2' : 'mt-4'">
+						<input type="email" class="form-control" 
+						formControlName="email" id="email"
+						autocomplete="password"
+						placeholder="Email" required>
+						<label for="email" class="d-flex" *ngIf="adminPasswordResetForm.controls['email'].value"
+						[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+						[ngClass]="adminPasswordResetForm.controls['email'].value ? 'form-val' : ''">
+							<div>
+								<img src="/assets/images/icons/mail-white.png" width="23px" class="img-fluid me-2 img-plc" style="margin-top: -2px;">
+							</div>
+
+							<div>Email</div>
+						</label>
+					</div> 
+					<br>
+					<button type="submit" class="btn btn-login w-100 mt-3"
+					[disabled]="value.pending || !adminPasswordResetForm.valid">Reset Password
+						<img src="/assets/images/placeholder/loading-login.gif" width="20px" class="img-fluid float-end" *ngIf="value.pending">
+					</button>
+					<br>
+					<div class="my-4 text-center">
+						<a class="text-white cursor-pointer" (click)="togglePage()">Login here</a>
+					</div>
+
+					<img src="/assets/images/placeholder/login-dots.png" class="img-fluid login-dots">
+				</form> 
+			</div>
+
+			
+		</div>
+	</div>
+</div>

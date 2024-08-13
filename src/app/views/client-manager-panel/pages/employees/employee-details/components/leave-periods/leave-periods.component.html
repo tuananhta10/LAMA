@@ -1,0 +1,58 @@
+<div class="mt-3" id="employee-shift-container">
+	<!-- BUTTONS CONTROLLER 
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'appraisal-client'">
+	</employee-details-navigation>-->
+
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class=""
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<img src="/assets/images/icons/employees-purple.svg" width="25px" class="me-2 img-fluid img-title">
+			<span class="main-title">Leave Periods</span>
+			<div class="float-end">
+				<!-- <button class="btn btn-menu me-3"
+				(click)="listView ? listView = false : listView = true">
+					<img src="/assets/images/icons/menu-icon.png" 
+					[@animate]="{value:'*', params:{ scale:'0.7', delay:'200ms' }}"
+					*ngIf="listView" width="15px" class="img-fluid">
+
+					<img src="/assets/images/icons/list-icon.png" 
+					[@animate]="{value:'*', params:{ scale:'0.7', delay:'200ms' }}"
+					*ngIf="!listView" width="15px" class="img-fluid">
+				</button> -->
+				<button class="btn btn-primary" (click)="openAddEmployeeLeave()">Add Leave</button>
+			</div>
+		</div>
+		<br>
+		
+		<!-- DOCUMENT FILE DATA -->
+		<div *ngIf="listView && !loading"
+		style="width: 100% !important; min-height: 400px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+			<section [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+				<employee-reusable-list-view
+					[loading]="loading"
+					[componentTitle]="'Employee Leaves'"
+					[displayedColumns]="displayedColumns"
+					[selectedColumns]="selectedColumns"
+					[maxRows]="10"
+					[selectedColumnsMobile]="selectedColumns"
+					[listDataSource]="employeeLeaveList"
+					[searchSource]="searchSource">
+				</employee-reusable-list-view>
+			</section>
+		</div>
+
+		<br>
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

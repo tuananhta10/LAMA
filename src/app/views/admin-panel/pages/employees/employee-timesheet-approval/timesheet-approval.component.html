@@ -1,0 +1,100 @@
+<div class="mt-3" id="employee-shift-container">
+	<!-- BUTTONS CONTROLLER 
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'appraisal-client'">
+	</employee-details-navigation>-->
+
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class=""
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<!-- <img src="/assets/images/icons/employees-purple.svg" width="25px" class="me-2 img-fluid img-title"> -->
+			<span class="ms-2 main-title">Timesheet Approvals</span>
+			<div class="float-end d-flex align-items-center">
+				<!-- <button class="btn btn-menu me-3 ">
+					<img src="/assets/images/icons/menu-icon.png" width="15px" class="img-fluid">
+				</button> -->
+				<!-- <button class="btn btn-primary" (click)="openAddShift()">Add Shift</button> -->
+				
+				<button (click)="back()" mat-button class="btn btn-header btn-header-gray me-2" *ngIf="id">
+					Back
+				</button>
+				<span  class="date-grouping-status float-end me-3"
+				[@animate]="{value:'*', params:{ x:'50px', delay:'200ms' }}"
+				style="translate: 0px -0.2px;">
+					<button class="btn btn-minimize hvr-grow" *ngIf="showRoles" 
+					(click)="toggleRoleFilter()">
+						<mat-icon class="mat-icon close">close</mat-icon>
+					</button> 
+		
+					<span class="show-status ms-3 hvr-grow" 
+					(click)="showRoles = true" *ngIf="!showRoles">Show Roles</span>
+		
+					<button class="btn btn-maximize hvr-grow"
+					*ngIf="!showRoles" (click)="showRoles = true">
+						<mat-icon class="mat-icon add">add</mat-icon> 
+					</button>
+		
+					<ng-container *ngIf="showRoles">
+						<span [@animate]="{value:'*', params:{ x:'50px', delay:'200ms' }}">
+							<button [disabled]="loading" *ngFor="let role of filterRoleList; let i = index" class="btn btn-role"
+								[class.active]="filterRole == role.role " [ngClass]="i !== filterRoleList.length-1 ? 'me-2' : ''"
+								style="margin-top: 2px;padding-left: 10px !important;"
+								(click)="filterByRole(filterRole != role.role ? role.role :null)">
+								<span class="me-2">{{role.title}}</span>
+							</button>
+						</span>
+					</ng-container>
+				</span>
+
+				<div class="float-end me-2">
+					<button class="btn btn-primary" (click)="syncToXeroDialog()">Sync Data</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- DOCUMENT FILE DATA -->
+		<div *ngIf="listView && !loading" class="mt-4" 
+		style="width: 100% !important; min-height: 400px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+			<app-employee-timesheet-approval-table
+				[recordCount]="timesheetData?.total_records"
+				[loading]="loading"
+				[tableState]="tableState"
+				[componentTitle]="'Timesheet Approvals'"
+				(updateSelectedRowDialog)="openAddTimesheetApproval($event)"
+				(viewDetails)="openAddTimesheetApproval($event)"
+				(approveDeclineTimesheet)="approveDeclineTimesheet($event)"
+				(report)="generateReport()"
+				(setReportDate)="setReportDate($event)"
+				(dateFilterAction)="updateDateFilter($event)"
+				(changePageAction)="changePage($event)"
+				(statusFilterAction)="searchByStatus($event)"
+				(clearFilterAction)="clearFilter($event)"
+				(pageNumberAction)="adjustNumberOfItems($event)"
+				(searchAction)="searchBySource($event)"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[multipleSelect]="true"
+				[showApproval]="true"
+				[showTableControls]="true"
+				[selectedColumnsMobile]="selectedColumns"
+				[listDataSource]="timesheetApprovalList"
+				[searchSource]="searchSource"
+				[showDateFilter]="true"
+				[dateSource]="'client_service_schedule_start_date'">
+			</app-employee-timesheet-approval-table>
+		</div>
+
+		<br>
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

@@ -1,0 +1,129 @@
+@import "src/scss/colors";
+
+.mat-subtitle{
+    padding-left: 23px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-gray;
+}
+
+ 
+.selection-title{
+  &-inner{
+    color: $color-gray;
+    font-size: 13px;
+    text-align: left !important;
+  }
+
+  &-outer{
+    color: $color-gray;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left !important;
+  }
+
+  &-mode{
+    color: $color-gray;
+    font-size: 13px !important;
+    float: right;
+    font-weight: 500 !important;
+  }
+}
+
+*.unselectable {
+   -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   /*
+     Introduced in Internet Explorer 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+
+.selection-container {
+  @extend .unselectable;
+  width: 100%;
+  max-width: 100%;
+  min-width: 550px;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px 10px;
+  padding-left: 0 !important;
+  border: solid 1px #ccc;
+  border-radius: 8px;
+  min-height: 200px;
+  position: relative !important;
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+
+
+.selection-box {
+  color: $color-gray-dark;
+  align-items: left;
+  font-size: 13px;
+  padding: 10px 20px;
+  background: #F3F3F3;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  margin-left: -20px !important;
+
+  .close{
+    float: right !important;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+
+}
+
+.btn-header-gray{
+  background: #D0D0D0;
+  color: $color-gray-dark;
+}
+
+.btn-header{
+  border-radius: 5px !important;
+  padding: 7px 20px !important;
+}
+
+.btn-primary{
+  border-radius: 5px !important;
+  padding: 7px 20px !important;
+}
+
+.img-avatar{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.comment-card{
+  padding: 10px;
+  border: solid 1px #c9c9c9;
+  border-radius: 7px;
+}
+
+.comment-details{
+  h5, p{
+    margin-bottom: 5px;
+  }
+
+  p{
+    padding-left: 10px !important;
+    //padding-right: 20px !important;
+  }
+
+  h5{
+    padding-right: 10px !important;
+  }
+  min-width: 90%;
+  max-width: 90%;
+}

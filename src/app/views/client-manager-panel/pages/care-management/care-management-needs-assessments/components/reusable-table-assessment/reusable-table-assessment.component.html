@@ -1,0 +1,274 @@
+<br>
+<!-- -->
+<div class="search-container ps-2">
+	<div class="search-div float-sm-end me-1">
+		<div class="input-group">
+		  <img src="/assets/images/icons/search.png">
+		  
+		  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+		  [(ngModel)]="searchBy" (ngModelChange)="searchDataSource()">
+		</div>
+	</div>
+
+	<h5 class="header-filter d-flex">
+		<div class="dropdown">
+		  <button class="btn btn-secondary-filter d-flex" type="button" id="searchFilter" data-bs-toggle="dropdown">
+		    Filter <span class="ms-1 material-icons">arrow_drop_down</span>
+		  </button>
+		  <ul class="dropdown-menu" aria-labelledby="searchFilter">
+		    <li><a class="dropdown-item" href="#">Action</a></li>
+		    <li><a class="dropdown-item" href="#">Another action</a></li>
+		    <li><a class="dropdown-item" href="#">Something else here</a></li>
+		  </ul>
+		</div>
+	</h5>
+</div>
+
+<!-- STATS -->
+<div class="table-statistics d-flex my-4">
+	<div class="d-flex flex-wrap me-3 light-orange stat-container">
+		<div class="circle ps-2" style="padding-top: 12px;">
+			<!-- <img src="/assets/images/icons/shift-schedule.png" class=""> -->
+		</div>
+		<div>
+			<h5 class="stat-data">20h</h5>
+			<p class="stat-title">Title</p>
+		</div>
+	</div>
+
+	<div class="d-flex flex-wrap me-3 purple stat-container">
+		<div class="circle ps-2" style="padding-top: 7px;">
+			<!-- <img src="/assets/images/icons/shift-logged.png" class=""> -->
+		</div>
+		<div>
+			<h5 class="stat-data">8h 1m</h5>
+			<p class="stat-title">Title</p>
+		</div>
+	</div>
+
+	<div class="d-flex flex-wrap me-3 blue stat-container">
+		<div class="circle" style="padding-left: 12px; padding-top: 5px;">
+			<!-- <img src="/assets/images/icons/shift-paid.png" 
+			style="width: 25px !important;"> -->
+		</div>
+		<div>
+			<h5 class="stat-data">8h 1m</h5>
+			<p class="stat-title">Title</p>
+		</div>
+	</div>
+
+	<div class="d-flex flex-wrap me-3 pink stat-container">
+		<div class="circle ps-2" style="padding-top: 7px;">
+			<!-- <img src="/assets/images/icons/shift-deficit.png" class=""> -->
+		</div>
+		<div>
+			<h5 class="stat-data">12h 59m</h5>
+			<p class="stat-title">Title</p>
+		</div>
+	</div>
+</div> 
+
+
+<section class="card card-body">
+	
+	<!-- EMPTY TABLE -->
+	<div class="img-info justify-content-start ps-0 pt-5 d-flex bg-gray container" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'300ms' }}"
+	style="position: relative;" 
+	*ngIf="listDataSource?.length === 0">
+		<div class="flex-wrap" style="margin-left: 20px;" >
+			<h4>List of {{componentTitle}} is currently empty. Add new {{componentTitle}} now.</h4>
+			<img src="/assets/images/placeholder/visit-profile-congrats.png" class="img-fluid">
+			<br>
+			<div class="create-client">
+				<!-- <a routerLink="/admin/clients/create" 
+				class="btn create-client-button btn-primary px-0 mt-4">
+					<span class="material-icons text-white me-1"></span>Create New Client
+				</a> -->
+			</div>
+		</div>
+
+		<div class="flex-wrap mt-4 d-none d-md-block"
+		[@animate]="{value:'*', params:{ scale:'0.5', delay:'500ms' }}">
+			<img src="/assets/images/placeholder/client-hug.png" style="z-index: 9;" class="img-fluid empty-table-img">
+		</div>
+	</div>
+
+	<ng-container *ngIf="listDataSource?.length === 0">
+		<div class="d-none d-sm-block"><br><br><br></div>
+		<!-- <hr> -->
+	</ng-container>
+
+	<!-- TABLE DATA DESKTOP  [hidden]="!withHeader"-->
+	<div id="table-container" class="d-none d-md-block" *ngIf="listDataSource?.length > 0">
+		<table class="table mt-0 pt-0" mat-table matSort 
+		[dataSource]="dataSource" *ngIf="!loading">
+			<ng-container *ngFor="let header of displayedColumns; index as cindex" 
+			[matColumnDef]="header?.col_name">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header 
+				[@animate]="{value:'*', params:{ x:'-10px', delay:'100ms' }}"
+				[ngStyle]="{
+					'width': header?.col_name == 'profile_image' 
+					|| header?.col_name == 'icon' 
+					|| header?.col_name == 'delete' ? '50px'
+					: header?.col_name == 'action' ? '144px' 
+					: ''
+				}"
+				>
+					<span *ngIf="header?.col_name !== 'profile_image' && header?.col_name !== 'delete'" 
+					class="table_img align-self-start justify-content-start text-start" 
+					[innerHtml]="header?.title"></span>
+				</th>
+
+				<td mat-cell *matCellDef="let data"
+				[@animate]="{value:'*', params:{ x:'-10px', delay:'100ms' }}"> 
+					<span class="flex-wrap ms-2" 
+					*ngIf="header?.col_name === 'first_name' 
+					&& header?.col_name !== 'icon'
+					&& header?.col_name !== 'action'
+					&& header?.col_name !== 'profile_image'; else showDefault">
+						{{ data.first_name }} {{data.last_name}} 
+					</span>
+
+					<span *ngIf="header?.col_name == 'profile_image' 
+					|| header?.col_name == 'icon'
+					|| header?.col_name == 'action'" class="table_img">
+						<img class="flex-wrap ms-2"  
+						*ngIf="header?.col_name == 'profile_image'"
+						[src]="data?.profile_image">
+
+						<img class="flex-wrap ms-2 icon"  
+						*ngIf="header?.col_name == 'icon'"
+						[src]="data?.icon">
+
+						<span *ngIf="header?.col_name == 'action'">
+							<mat-icon class="mat-icon me-3 hvr-grow" (click)="openDialog('edit', data)">edit_note</mat-icon>
+							<img src="/assets/images/icons/delete-circle-red.png" class="hvr-grow delete-image" 
+							(click)="openDialog('delete', data)">
+						</span>
+					</span>
+
+					<ng-template #showDefault>
+						<span *ngIf="header?.col_name !== 'profile_image'
+						 && header?.col_name !== 'icon'
+						 && header?.col_name !== 'action'
+						 && header?.col_name !== 'status'">
+							{{ data[header?.col_name] || '-' }} 
+						</span>
+
+						<span *ngIf="header?.col_name !== 'profile_image'
+						 && header?.col_name !== 'icon'
+						 && header?.col_name === 'status'">
+							<button class="btn btn-status" 
+							[ngClass]="data[header?.col_name].split(' ').join('-').toLowerCase()">
+							{{ data[header?.col_name] }} </button>
+						</span>
+					</ng-template>
+				</td>
+
+			</ng-container>
+
+		  	<tr mat-header-row *matHeaderRowDef="selectedColumns;"></tr>
+		  	<tr mat-row *matRowDef="let row; let i = index; columns: selectedColumns;"
+		  	(click)="selectRows(row)"
+
+		  	[ngClass]="selectedRows.indexOf(row) > -1 ? 'bg-selected': ''"></tr>
+		</table>
+	</div>
+
+	<!-- TABLE DATA MOBILE -->
+	<div id="table-container-mobile" class="d-block d-md-none">
+		<table class="table mt-0 pt-0" mat-table matSort 
+		[dataSource]="dataSource" *ngIf="!loading">
+			<ng-container *ngFor="let header of displayedColumns; index as cindex" 
+			[matColumnDef]="header?.col_name">
+				<tr class="d-flex" *matCellDef="let data"> 
+					<span class="flex-wrap title">
+						{{header?.title}}
+					</span>
+
+					<span class="flex-wrap ms-2" 
+					*ngIf="header?.col_name === 'first_name' 
+					&& header?.col_name !== 'icon'
+					&& header?.col_name !== 'action'
+					&& header?.col_name !== 'profile_image'; else showDefault">
+						{{ data.first_name }} {{data.last_name}} 
+					</span>
+
+					<span *ngIf="header?.col_name == 'profile_image' 
+					|| header?.col_name == 'icon'
+					|| header?.col_name == 'action'" class="table_img">
+						<img class="flex-wrap ms-2"  
+						*ngIf="header?.col_name == 'profile_image'"
+						[src]="data?.profile_image">
+
+						<img class="flex-wrap ms-2 icon"  
+						*ngIf="header?.col_name == 'icon'"
+						[src]="data?.icon">
+
+						<span *ngIf="header?.col_name == 'action'">
+							<mat-icon class="mat-icon me-3 hvr-grow" (click)="openDialog('edit', data)">edit_note</mat-icon>
+							<img src="/assets/images/icons/delete-circle-red.png" class="hvr-grow delete-image" 
+							(click)="openDialog('delete', data)">
+						</span>
+					</span>
+
+					<ng-template #showDefault>
+						<span *ngIf="header?.col_name !== 'profile_image'
+						 && header?.col_name !== 'icon'
+						 && header?.col_name !== 'action'
+						 && header?.col_name !== 'status'">
+							{{ data[header?.col_name] || '-' }} 
+						</span>
+
+						<span *ngIf="header?.col_name !== 'profile_image'
+						 && header?.col_name !== 'icon'
+						 && header?.col_name === 'status'">
+							<button class="btn btn-status" 
+							[ngClass]="data[header?.col_name].split(' ').join('-').toLowerCase()">
+							{{ data[header?.col_name] }} </button>
+						</span>
+					</ng-template>
+				</tr>
+			</ng-container>
+
+		  	<!-- <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr> -->
+		  	<tr mat-row *matRowDef="let row; let i = index; columns: selectedColumnsMobile;"
+		  	(click)="selectRows(row)"
+		  	
+		  	[ngClass]="selectedRows.indexOf(row) > -1 ? 'bg-selected': ''"></tr>
+		</table>
+	</div>
+
+	<!-- NAVIGATOR DETAILS -->
+	<div class="flex-wrap px-2" *ngIf="listDataSource?.length > 0">
+		<!-- <p class="float-start">Showing 1 to {{maxRows}} of {{listDataSource?.length}} entries
+			<span class="ms-5">
+				<strong style="color: #8C7FF9">{{selectedRows?.length}}</strong>
+				Clients selected
+			</span>
+		</p> -->
+
+		<!-- PAGINATOR -->
+		<p class="float-end paginator" *ngIf="paginate.length > 1">
+			<span class="text-black" 
+			(click)="page !== 1 ? changePage(page-1): ''"> 
+				<img src="/assets/images/icons/caret-left.png" class="img-fluid" width="7px">
+			</span>
+
+			<span 
+			*ngFor="let i of paginate.slice(
+				this.pageRange(this.page, this.paginate.length)['start'], 
+				this.pageRange(this.page, this.paginate.length)['end']
+			)"
+			(click)="changePage(i)">
+				<span [ngClass]="i === page ? 'text-purple': 'text-black'">{{i}}</span>
+			</span>
+			
+			<span class="text-black" 
+			(click)="page !== paginate.length ? changePage(page+1): ''"> 
+				<img src="/assets/images/icons/caret-right.png" class="img-fluid" width="7px">
+			</span>
+		</p>
+	</div>
+</section>

@@ -1,0 +1,47 @@
+<div id="client-careworker-container">
+	<!-- BUTTONS CONTROLLER -->
+	<client-details-navigation
+		[id]="id"
+		[activeLink]="'careworker'">
+	</client-details-navigation>
+
+	<!-- STATISTICS DATA -->
+	<!-- <div class="mb-3">
+		<client-main-profile-stats></client-main-profile-stats>
+	</div> -->
+
+	<div class="row">
+		<div class="col-12 col-md-3">
+			<div class="search-div me-1">
+				<div class="input-group">
+				  <img src="/assets/images/icons/search.png">
+				  
+				  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				  [(ngModel)]="searchBy" (ngModelChange)="multipleSearch()">
+				</div>
+			</div>
+		</div>
+		<div class="col-8 col-md-9"></div>
+		
+	</div>
+	<hr>
+	
+	<!-- DOCUMENT FILE DATA -->
+	<div style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		
+		<app-employee-careworker-table
+		*ngIf="!loading"
+		[employeeList]="filteredEmployee"
+		[employeeNotUse]="filteredEmployeeNotUse"
+		[brokerage]="filteredBrokerage"
+		[loading]="loading"></app-employee-careworker-table>
+
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

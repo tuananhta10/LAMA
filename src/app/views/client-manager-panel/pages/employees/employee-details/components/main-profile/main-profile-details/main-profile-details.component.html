@@ -1,0 +1,237 @@
+<div class="row" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+	<div class="col-12 col-md-6 col-lg-4">
+		<div class="mb-3 d-flex pe-5" id="employee-details" >
+			<div class="employee-img-icon-preference flex-wrap">
+				<img src="/assets/images/icons/client-preference.png">
+			</div>
+
+			<div class="employee-data flex-wrap">
+				<h5 class="card-title">Employee Details
+					<!-- <span class="float-end">Edit</span> -->
+				</h5>
+				<hr>
+				<dl>
+					<dd class="text-truncate">
+						<strong class="me-3">Title</strong> 
+						<span>{{employeeData?.title || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate"><strong class="me-3">Last Name</strong> 
+						<span>{{employeeData?.last_name || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate">
+						<strong class="me-3">Middle Name</strong>
+						<span>{{employeeDataMain?.middle_name || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate">
+						<strong class="me-3">First Name</strong>
+						<span>{{employeeData?.first_name || '-'}}</span>
+					</dd>
+				
+					
+					<dd class="text-truncate">
+						<strong class="me-3">Main Branch</strong> 
+						<span>{{employeeDataMain?.branch_name || '-'}}</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
+
+		<div class="mb-3 d-flex pe-5" id="employee-demographics" >
+			<div class="employee-img-icon-demographics flex-wrap">
+				<img src="/assets/images/icons/client-demographics.png">
+			</div>
+
+			<div class="employee-data flex-wrap">
+				<h5 class="card-title">Demographics
+					<!-- <span class="float-end">Edit</span> -->
+				</h5>
+				<hr>
+				<dl>
+					<dd class="text-truncate">
+						<strong class="me-3">Date of Birth</strong> 
+						<span>{{employeeData?.birthdate * 1000 | date: 'dd-MM-y' || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate"><strong class="me-3">Age</strong> 
+						<span>{{employeeData?.age || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate">
+						<strong class="me-3">Email</strong>
+						<span>{{employeeData?.email_address || '-'}}</span>
+					</dd>
+					
+					<dd class="text-truncate">
+						<strong class="me-3">Private Email</strong> 
+						<span>{{employeeData?.private_email || '-'}}</span>
+					</dd>				
+				</dl>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-12 col-md-6 col-lg-4">
+		<div class="mb-3 d-flex pe-5" id="employee-work-details" >
+			<div class="employee-img-icon-work-details flex-wrap">
+				<img src="/assets/images/icons/employee-work-details.png">
+			</div>
+
+			<div class="employee-data flex-wrap">
+				<h5 class="card-title">Work Details
+					<!-- <span class="float-end">Edit</span> -->
+				</h5>
+				<hr>
+				<dl>
+					<dd class="text-truncate">
+						<strong class="me-3">ID</strong> 
+						<span>{{employeeData?.id || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate"><strong class="me-3">Payroll ID</strong> 
+						<span>{{employeeData?.payroll_id || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate">
+						<strong class="me-3">Type</strong>
+						<span>{{employeeData?.type || '-'}}</span>
+					</dd>
+					
+					<dd >
+						<strong class="me-3">Job Description</strong> 
+						<span>{{employeeDataMain?.job_description || '-'}}</span>
+					</dd>
+					
+					<dd>
+						<strong class="me-3">Tasks Performed</strong> 
+						<span>{{employeeDataMain?.tasks_performed || '-'}}</span>
+					</dd>
+					
+				</dl>
+			</div>
+		</div>
+
+		<div class="mb-3 d-flex pe-5" id="employee-background" >
+			<div class="employee-img-icon-background flex-wrap">
+				<img src="/assets/images/icons/client-background.png">
+			</div>
+
+			<div class="employee-data flex-wrap">
+				<h5 class="card-title">Background
+					<!-- <span class="float-end">Edit</span> -->
+				</h5>
+				<hr>
+				<dl>
+					<!-- <dd class="text-truncate">
+						<strong class="me-3">Interests</strong> 
+						<span>{{employeeData?.interests.join(', ') || '-'}}</span>
+					</dd> -->
+
+					<dd ><strong class="me-3">Skills</strong> 
+						<span>{{ parseArray(employeeDataMain?.skills) }}</span>
+					</dd>
+	
+					<dd class="text-truncate">
+						<strong style="margin-right: 22px;">Smoker</strong> 
+						<mat-radio-group aria-label="Select an option" 
+							disabled="true"
+							[(ngModel)]="smoker" id="smoker">
+								<mat-radio-button [value]="true">Yes</mat-radio-button>
+								<mat-radio-button [value]="false">No</mat-radio-button>
+							</mat-radio-group>
+					</dd>
+
+					<dd class="text-truncate">
+						<strong class="me-3">Allergies</strong> 
+						<mat-radio-group aria-label="Select an option" 
+							disabled="true"
+							[(ngModel)]="allergies" id="allergies">
+								<mat-radio-button [value]="true">Yes</mat-radio-button>
+								<mat-radio-button [value]="false">No</mat-radio-button>
+							</mat-radio-group>
+					</dd>
+					
+					<!-- <dd class="text-truncate">
+						<strong class="me-3">Medication</strong> 
+						<span>{{employeeData?.medication || 'None'}}</span>
+					</dd> -->
+				</dl>
+			</div>
+		</div>
+	</div>
+
+	<!-- ALERTS -->
+	<div class="col-12 col-md-12 col-lg-4">
+		<employee-main-profile-alerts
+			[employeeData]="employeeData">
+		</employee-main-profile-alerts>
+	</div>
+
+	<!-- QUALIFICATION NOTES -->
+	<div class="col-12 col-md-12 col-lg-8">
+		<div class="row">
+			<!-- <div class="mb-3 col-12 col-md-6" >
+				<div id="certificates">
+					<h5 class="card-title">Certificates 
+						<a type="button" class="add-new btn ms-1 text-white" 
+						style="color: white !important; z-index: 9999 !important;" 
+						(click)="openAddCertificateDialog()"> 
+							<span class="material-icons text-white">add</span>Add
+						</a>
+						<span class="float-end">View All</span>
+					</h5>
+
+					<table class="table mt-3">
+						<tr *ngFor="let certificate of certificateData"
+						[title]="certificate?.description">
+							<td style="width: 20px;">
+								<img src="/assets/images/icons/degree-file.png" 
+								*ngIf="certificate?.type === 'Education'" width="32px">
+
+								<img src="/assets/images/icons/certificate-file.png" 
+								*ngIf="certificate?.type === 'Certifications' 
+								|| certificate?.type === 'Experience'" width="30px">
+							</td>
+							<td class="file-title">{{certificate?.qualification || '-'}}</td>
+							<td class="file-title-date text-end" style="width: 150px;">{{certificate?.dateAdded || '-'}}
+								<img src="/assets/images/icons/delete-red.png" class="img-fluid delete" width="30px"> 
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div> -->
+
+			<div class="mb-3 col-12 col-md-12">
+				<div id="qualification-notes">
+					<h5 class="card-title">Qualification Notes
+						<!-- <span class="float-end">View All</span> -->
+					</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-2 px-1 pb-0">
+							<div class="notes-container">
+								<button class="btn btn-view-more btn-active-employee training">
+								General Training</button>
+
+								<p class="text-justify mt-2 text-capitalize">{{employeeData?.general_training_notes}}</p>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6 mb-2 px-1 pb-0">
+							<div class="notes-container">
+								<button class="btn btn-view-more btn-active-employee summary">
+								Qualification Summary</button>
+
+								<p class="text-justify mt-2 text-capitalize">{{employeeData?.qualification_summary}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

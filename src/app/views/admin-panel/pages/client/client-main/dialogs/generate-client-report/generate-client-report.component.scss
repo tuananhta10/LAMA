@@ -1,0 +1,128 @@
+@import "src/scss/colors";
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+.table-header{
+    vertical-align: top; 
+    background: #F4F3FB; 
+    color: #512C77; 
+    padding-top: 10px; 
+    font-weight: bold;
+}
+
+.table{
+    th{
+        vertical-align: top; 
+        background: #F4F3FB; 
+        color: #512C77; 
+        padding-top: 10px; 
+        font-weight: bold;
+    }
+
+    th,td{
+        min-width: 110px;
+    }
+}
+
+.header-text{
+    font-size: 15px;
+    font-weight: 600;
+    color: $color-gray !important;
+}
+
+
+.assign-container{
+    .header-msg {
+        color: $color-purple;
+        font-size: 30px;
+        font-weight: 700 !important;
+        line-height: 40.86px;
+    }
+
+    .header-text{
+        font-size: 15px;
+        font-weight: 600;
+        color: $color-gray !important;
+    }
+
+    img{
+        width: 40px;
+    }
+}
+
+
+.assign-action-container{
+    padding: 0 10px;
+    width: 350px !important;
+
+    @media (max-width: 768px){
+        padding: 0 !important;
+    }
+
+    .set-focus{
+        padding: 40px 55px 60px 55px !important; 
+        transition: all 0.35s ease-out !important;
+    }
+
+    .header-text{
+        font-size: 15px;
+        font-weight: 500;
+        color: $color-gray !important;
+    }
+
+    .header-text-action{
+        margin-top: 21px !important;
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: 600;
+        color: $color-gray !important;
+    }
+
+    .header-info{
+        margin-top: 21px !important;
+        color:rgba(21, 25, 32, 0.7);
+        font-size: 15px;
+    }
+}
+
+.btn-header-gray{
+  background: #D0D0D0;
+  color: $color-gray-dark;
+}
+
+
+
+.btn-header{
+  border-radius: 5px !important;
+  padding: 7px 20px !important;
+}
+
+.btn-primary{
+    background: $color-purple !important;
+    border-radius: 5px !important;
+    padding: 7px 20px !important;
+    
+    &:hover{
+        background: $color-purple-dark !important;
+    }
+}
+
+
+
+.dialog-responsive .mat-dialog-container
+{
+    //min-height: 70% !important;
+    //min-width: 300px !important;
+    //max-height: 70% !important;
+    z-index: 99999999 !important;
+
+    @media (max-width: 768px){
+      min-height: 50%;
+      min-height: 500px;
+    }
+}

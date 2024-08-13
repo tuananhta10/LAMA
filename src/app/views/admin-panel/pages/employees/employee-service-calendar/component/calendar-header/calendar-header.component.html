@@ -1,0 +1,70 @@
+<!-- <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+</mwl-demo-utils-calendar-header>
+ -->
+ <div class="d-flex date-grouping-container">
+ 	<div *ngIf="view !== 'month'">
+ 		<h5 class="container-date">{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h5>
+ 	</div>
+
+  	<div>
+	    <div class="btn-group">
+	      	<div class="btn"
+		        mwlCalendarPreviousView
+		        [view]="view"
+		        [(viewDate)]="viewDate"
+		        (viewDateChange)="viewDateChange.next(viewDate)">
+		        <img src="/assets/images/icons/caret-left.png" class="img-fluid" width="7px">
+	      	</div>
+
+	      	<div *ngIf="view !== 'month'"
+		        class="btn this-week"
+		        mwlCalendarToday
+		        [(viewDate)]="viewDate"
+		        (viewDateChange)="viewDateChange.next(viewDate)">
+		        {{ view === CalendarView?.Week ? 'This Week' : 'Today' }}
+	      	</div>
+
+	      	<div *ngIf="view === 'month'"
+		        class="btn this-week"
+		        mwlCalendarToday
+		        [(viewDate)]="viewDate"
+		        (viewDateChange)="viewDateChange.next(viewDate)">
+		        {{ viewDate | calendarDate: view + 'ViewTitle':locale }}
+	      	</div>
+
+	      	<div
+		        class="btn me-1"
+		        mwlCalendarNextView
+		        [view]="view"
+		        [(viewDate)]="viewDate"
+		        (viewDateChange)="viewDateChange.next(viewDate)">
+		        <img src="/assets/images/icons/caret-right.png" class="img-fluid" width="7px">
+	      	</div>
+	    </div>
+  	</div>
+  
+  	<div class="grouping-navigator">
+	    <div class="btn-group">
+	      	<div
+		        class="btn me-1"
+		        (click)="viewChange.emit(CalendarView.Month)"
+		        [ngClass]="view === CalendarView?.Month ? 'btn-primary' : 'btn-secondary-outline'">
+		        Month 
+		    </div>
+		    <div
+		        class="btn me-1"
+		        (click)="viewChange.emit(CalendarView.Week)"
+		        [ngClass]="view === CalendarView?.Week ? 'btn-primary' : 'btn-secondary-outline'">
+		        Week
+		    </div>
+		    <div
+		        class="btn me-1"
+		        (click)="viewChange.emit(CalendarView.Day)"
+		        [ngClass]="view === CalendarView?.Day ? 'btn-primary' : 'btn-secondary-outline'">
+		        Day
+		    </div>
+    	</div>
+  	</div>
+</div>
+<br />
+  

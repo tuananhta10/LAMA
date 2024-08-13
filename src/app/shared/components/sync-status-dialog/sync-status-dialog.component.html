@@ -1,0 +1,75 @@
+
+<div class="assign-action-container px-0 w-100">
+    <div class="d-flex justify-content-between w-full align-items-center">
+        <h5 class="header-text-action">Successfully synced to Xero</h5>
+        <img src="/assets/images/icons/report.png" class="img-fluid" width="25px">
+    </div>
+
+    <div class="alert alert-danger" role="alert">
+        Note: Please be informed that there were certain records that could not be successfully synchronized with Xero. We recommend reviewing and verifying the affected timesheets in the Xero dashboard.
+      </div>
+	<!-- <h5 class="header-text mt-2">Hehe</h5> -->
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table" *ngIf="data.type === 'timesheet'">
+                <thead>
+                  <tr>
+                    <th scope="col">Schedule ID</th>
+                    <th scope="col">Participant Name</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Calendar Schedule</th>
+                    <th scope="col">Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let employee of data.list">
+                    <th scope="row" >{{employee.employee_timesheet_client_service_schedule_id}}</th>
+                    <td>{{employee.client_name}}</td>
+                    <td>{{employee.employee_name }}</td>
+                    <td>{{employee.calendar_schedule}}</td>
+                    <td>{{employee.client_funding_funding_type}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="table" *ngIf="data.type === 'invoice'">
+                <thead>
+                  <tr>
+                    <th scope="col">Invoice Reference</th>
+                    <th scope="col">Invoice Batch</th>
+                    <th scope="col">Participant</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of data.list">
+                    <th scope="row" >{{data.invoice_batch_claim_reference}}</th>
+                    <td>{{data.invoice_name}}</td>
+                    <td>{{data.client_name}}</td>
+                    <td>{{data.invoice_date_added * 1000 | date: 'MM-dd-yyyy'}}</td>
+                    <td>{{data.invoice_batch_status}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Close</button>
+
+			<button 
+			mat-button 
+			(click)="syncNow()" 
+			class="btn btn-primary">Continue</button>
+		</div>
+	</div>
+</div>

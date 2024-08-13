@@ -1,0 +1,339 @@
+@import "src/scss/colors";
+
+.card{
+    border-radius: 8px !important;
+    border-color: white !important;
+    //box-shadow: none !important
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    padding-right: 1px !important;
+    padding-left: 1px !important;
+}
+
+.main-title{
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $color-gray-dark;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed rgba(196, 196, 196, 0.6);
+}
+
+.bg-whitesmoke{
+    background: whitesmoke !important;
+}
+
+.bg-gray{
+    background: #f8f8f8;
+}
+
+.btn-view-all{
+    color: $color-purple;
+    font-size: 13px;
+    background: #f2f3fe;
+    padding: 5px 10px !important;
+    border-radius: 6px !important;
+    font-weight: 500;
+    margin-top: -5px;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.total-shift{
+    background: #EFF6FF;
+    border-radius: 20px;
+    padding: 20px 30px;
+    padding-top: 30px;
+    min-width: 150px;
+
+    &:hover{
+        background: #d4e5fa;
+        cursor: pointer;
+        transition: background-color 0.5s ease;
+    }
+
+    @media (max-width: 1300px){
+        min-width: 120px;
+    }
+
+    &-text{
+        font-size: 25px;
+        font-weight: bold !important;
+        color: #2563EB;
+    }
+
+    &-label{
+        font-size: 13px;
+        color: #2563EB;
+    }
+}
+
+
+.shift-detail{
+    h5{
+        font-size: 15px;
+        font-weight: 500;
+        color: $color-gray;
+    }
+}
+
+.shift-total{
+    margin-top: 7px;
+    margin-bottom: 0px;
+    font-weight: 600 !important;
+    color: $color-gray-dark;
+    font-size: 17px;
+    margin-right: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgba(196, 196, 196, 0.6);
+}
+
+#shift-graph{
+    .card{
+        min-height: 130px;
+        padding: 0 !important;
+    }
+
+    
+
+    .shift-sub-total{
+        margin-top: 7px;
+        margin-bottom: 0px;
+        font-weight: 600 !important;
+        color: $color-gray;
+        font-size: 20px;
+        margin-right: 5px !important;
+    }
+
+    .shift-subtitle{
+        color: #a9a9a9 !important;
+        margin-left: 0;
+        margin-bottom: 5px;
+        margin-top: 12px;
+    }
+
+    .intake-total{
+        margin-top: 7px;
+        margin-bottom: 0px;
+        font-weight: 600 !important;
+        color: $color-gray-dark;
+        font-size: 25px;
+        margin-right: 15px;
+    }
+
+    .intake-sub-total{
+        margin-top: 7px;
+        margin-bottom: 0px;
+        font-weight: 600 !important;
+        color: $color-gray;
+        font-size: 20px;
+        margin-right: 15px;
+    }
+
+    .intake-subtitle{
+        color: #a9a9a9 !important;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .progress-shift{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border-radius: 0 !important;
+        height: 7px !important;
+        max-width: 95px;
+
+        .progress-bar{
+            height: 7px !important;
+        }
+
+        .bg-completed{
+            background: #B3ABD5;
+        }
+
+        .bg-cancelled{
+            background: #DEE1F9;
+        }
+
+        .bg-setup{
+            background: #5E4EA0;
+        }
+
+        .bg-scheduled{
+            background: #755CA7;
+        }
+
+        .bg-available{
+            background: $color-purple;
+        }
+    }
+
+    .progress{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border-radius: 0 !important;
+        height: 10px !important;
+
+        .progress-bar{
+            height: 10px !important;
+        }
+
+        .bg-open{
+            background: #503795;
+        }
+
+        .bg-approved{
+            background: #FECE85;
+        }
+    }
+
+    .enquiry, .shifts, .timesheet{
+        position: relative;
+        cursor: pointer; 
+        //background: #F5F5F5;
+        border-radius: 7px !important;
+        padding: 10px 10px 10px 10px !important;
+        margin-bottom: 5px;
+
+        &:hover{
+           background: rgba($color-purple, 0.2);
+           border-radius: 7px !important;
+           transition: all 0.4s ease !important;
+        }
+
+
+        img{
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+
+        .navigator{
+            position: absolute;
+            right: 20px;
+            top: 40% !important;
+            width: auto !important;
+            height: 15px !important;
+        }
+
+        p{
+            padding: 0 !important;
+            line-height: 17.17px;
+            margin-bottom: 5px !important;
+        }
+
+        &-text{
+            color: $color-gray;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        &-text-subtitle{
+            color: #8B8B8B !important;
+            font-size: 10px;
+            font-weight: 400 !important;
+        }
+
+        &-text-muted{
+            color: #8B8B8B !important;
+            font-size: 11px;
+            font-weight: 400 !important;
+        }
+
+        &-circle-tick{
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: solid 1px #f8f8f8;
+            position: absolute;
+        }
+
+        .active{
+            background: $color-purple;
+        }
+
+        .inactive{
+            background: $color-green-light;
+        }
+    }
+
+
+    .chart-container{
+        //background: red;
+        //padding: 10px 200px;
+        //margin-top: -30px !important;
+
+        @media (min-width: 1200px){
+           // padding-right: 100px;
+        }
+
+
+        @media (min-width: 768px) and (max-width: 1199px){
+            padding-right: 40px;
+        }
+
+
+        @media (max-width: 767px){
+            padding-right: 10px;
+        }
+
+        canvas{
+            height: 200px;
+            width: 100%;
+            //min-width: 300px;
+            background: #F7F9FE;
+            padding: 10px 15px;
+            border-radius: 7px !important;
+            z-index: 9999
+
+        }
+
+
+        .chart-text{
+            max-width: 329px;
+            width: 100%; 
+            height: 40px; 
+            position: absolute; 
+            top: 35%; 
+            left: 0; 
+            right: 0; 
+            margin-left: auto; 
+            margin-right: auto; 
+            margin-top: -20px; 
+            line-height:19px; 
+            text-align: center; 
+            //background: white;
+            border-radius: 50%;
+            height: 100px;
+            width: 100px;
+            //z-index: 99;
+
+            .chart-total{
+                margin-top: 30px;
+                margin-left: 10px;
+                font-weight: 600;
+                font-size: 28px;
+                color: $color-gray-dark;
+            }
+
+            p{
+                margin-top: 30px;
+            }
+        }
+    }
+
+}
+
+:host ::ng-deep{
+    .chartjs-tooltip {
+        z-index: 1;
+    }
+}

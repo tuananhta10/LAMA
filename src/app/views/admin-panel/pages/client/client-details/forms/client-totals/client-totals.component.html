@@ -1,0 +1,78 @@
+<div mat-dialog-content> 
+    <form class="row" [formGroup]="clientTotalForm">
+        <div class="col-12 col-md-6">
+             <app-textfield 
+                label="Support Item Price"
+                [labelTop]="true"
+                formControlName="editable_rate_value"
+                [inputType]="'number'"
+                [info]="true"
+                [readonly]="true"
+                [disabled]="true"
+                [infoTitle]="'Price of the selected support item'">
+            </app-textfield> 
+
+            <app-textfield 
+                label="Rate Type"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="rate_type"
+                [readonly]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Total Hours"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="total_hours"
+                [readonly]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Calculated Cost"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="calculated_cost"
+                [readonly]="true">
+            </app-textfield>
+            <hr>
+            <app-textfield 
+                label="Main Total"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="client_total"
+                [readonly]="true">
+            </app-textfield>
+        </div>
+
+        <div class="col-12 col-md-6">
+        
+            <app-textfield 
+                label="Expenses Total"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="expenses_total"
+                [readonly]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Service Fees"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="service_fee"
+                [readonly]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Travel Total"
+                [inputType]="'number'"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="travel_total"
+                [info]="true"
+                [infoTitle]="'Total travel charge for this service'">
+            </app-textfield>
+        
+        </div>
+    </form>  
+</div>

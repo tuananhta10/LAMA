@@ -1,0 +1,92 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+            Add New SMS
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form [formGroup]="newSMSForm">
+		<div mat-dialog-content>
+            <div class="card card-body">
+                <div class="row">
+                	<div class="col-12 col-md-6 col-lg-4">
+                		<app-textfield 
+                			class="text-capitalize"
+	                	    label="From"
+	                	    [labelTop]="true"
+	                	    [required]="true"
+	                	    formControlName="sms_from">
+                		</app-textfield>
+
+                		<!-- <app-textfield 
+	                	    label="Sender Phone Number"
+	                	    [labelTop]="true"
+	                	    [required]="true"
+	                	    formControlName="sms_from_phone_number">
+                		</app-textfield> -->
+
+                		<app-textarea
+                		[labelTop]="true"
+                		formControlName="sms_subject"
+                		[rows]="3" 
+                		label="Subject"></app-textarea>
+
+                		
+                	</div>
+
+                	<div class="col-12 col-md-6 col-lg-8">
+                		<div class="row">
+                			<div class="col-12 col-md-12 col-lg-5">
+                				<app-textfield 
+			                	    label="To"
+			                	    [labelTop]="true"
+			                	    [required]="true"
+			                	    [readonly]="true"
+			                	    formControlName="sms_to">
+		                		</app-textfield>
+
+
+                			</div>
+
+                			<div class="col-12 col-md-12 col-lg-5">
+                				<app-textfield 
+			                	    label="Phone Number"
+			                	    [labelTop]="true"
+			                	    [required]="true"
+			                	    formControlName="sms_to_phone_number">
+		                		</app-textfield>
+
+                			</div>
+                		</div>
+                		<div>
+	                		<app-textarea
+	                		[labelTop]="true"
+	                		formControlName="sms_content"
+	                		[rows]="6" 
+	                		label="SMS Content"></app-textarea>
+                		</div>
+                	</div>
+                </div>
+            </div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!newSMSForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    Send SMS
+                </button>
+			</div>
+		</div>
+	</form>
+
+</div>

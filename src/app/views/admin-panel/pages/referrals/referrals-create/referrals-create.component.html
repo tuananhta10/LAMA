@@ -1,0 +1,129 @@
+<div class="mt-3">
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading || branchesLoading">
+	</global-admin-loader>
+</div>
+
+<section class="mb-5" *ngIf="!loading && !branchesLoading"
+ [@animate]="{value:'*', params:{ x:'-50px'}}">
+	<!-- BRANCH DETAILS -->
+	<ng-container >
+		<div class="container-fluid" id="referral-details">
+			<div class="ps-5">
+				<div class="referral-container w-100 d-flex justify-content-between align-items-center">
+					<div class="content">
+						<h4>Referrals</h4>
+						<h5>Referral Details</h5>
+						<img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+						<img src="/assets/images/placeholder/banner-eclipse-left.png" class="img-fluid banner-eclipse-left">
+					</div>
+					<span class="float-end btn btn-view-more btn-active-employee me-2" 
+					routerLink="/admin/referrals">
+						Close
+					</span>
+					
+				</div> 
+			</div>
+
+			<div class="container text-center mt-4">
+				<!-- <div class="stepper-container align-self-center">
+					<lama-stepper [stepperList]="steps" 
+					[orientation]="'horizontal'" 
+					[selectedIndex]="formStep - 1" #stepper 
+					(selectionChanged)="updateStepper($event.selectedIndex + 1)"></lama-stepper>
+				</div> 
+				<br><br><br>-->
+
+				<div class="w-100 text-start">
+				    <button class="btn" (click)="stepper = 1"
+				    [ngClass]="stepper === 1 ? 'btn-active-tab' : 'btn-active-next'">Referral Details</button>
+
+				    <button class="btn" (click)="stepper = 2"
+				    [ngClass]="stepper === 2 ? 'btn-active-tab' : 'btn-active-next'">Other Details</button>
+
+				</div>
+
+				<div>
+					<ng-container>
+						<app-participant-details
+						[id]="id"
+						[stepper]="stepper"
+						[participantDetailsForm]="participantDetailsForm"
+						[isUpdate]="referralData?.id ? true : false"
+						(isValid)="checkFormValidity($event)">
+						</app-participant-details>
+					</ng-container>
+
+					<ng-container>
+						<app-service-details
+						[id]="id"
+						[isUpdate]="isEdit"
+						[stepper]="stepper"
+						[referralData]="referralData"
+						[serviceDetailsForm]="serviceDetailsForm"
+						[additionalReportsForm]="additionalReportsForm"
+						[isUpdate]="referralData?.id ? true : false"
+						(isValid)="checkFormValidity($event)">
+						</app-service-details>
+					</ng-container>
+
+					<ng-container>
+						<app-referrer-details
+						[stepper]="stepper"
+						[referralDetailsForm]="referralDetailsForm"
+						[isUpdate]="referralData?.id ? true : false"
+						(isValid)="checkFormValidity($event)">
+						</app-referrer-details>
+					</ng-container>
+
+					<ng-container *ngIf="stepper === 2">
+						<app-additional-reports
+						*ngIf="stepper === 2" 
+						[stepper]="stepper"
+						[referralData]="referralData"
+						[additionalReportsForm]="additionalReportsForm"
+						[isUpdate]="referralData?.id ? true : false"
+						(submitData)="save()"
+						(isValid)="checkFormValidity($event)">
+						</app-additional-reports>
+					</ng-container>
+				</div>
+
+				<div class="mt-3">
+					<button mat-button *ngIf="stepper !== 1"
+					(click)="stepper = 1"
+					class="btn btn-header-gray btn-header float-start">Back</button>
+
+					<!-- <button mat-button *ngIf="formStep === 4 || isEdit" 
+					(click)="save()"
+					cdkFocusInitial class="btn btn-primary btn-header float-end me-2">Save Record</button>
+
+					<button mat-button (click)="next()" *ngIf="formStep < 4"
+					[ngClass]="isEdit ? 'btn-header-gray' : 'btn-primary'"
+					cdkFocusInitial class="btn btn-header float-end me-2">Next</button> -->
+
+					<button mat-button *ngIf="formStep === 1 || isEdit" 
+					(click)="save()"
+					cdkFocusInitial class="btn btn-primary btn-header float-end me-2">Save Record</button>
+
+					<button mat-button *ngIf="!isEdit && formStep !== 4"
+					(click)="saveDraft()"
+					cdkFocusInitial class="btn btn-header-gray btn-header float-end me-2">Save as Draft</button>
+
+					
+
+					<!-- 
+					[disabled]="!participantDetailsForm.valid 
+						|| !serviceDetailsForm.valid 
+						|| !referralDetailsForm.valid 
+						|| !additionalReportsForm.valid" -->
+					
+				</div>
+			</div>
+			<br>
+		</div>
+	</ng-container>
+
+</section>

@@ -1,0 +1,162 @@
+<div *ngIf="!loading" class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="profileDetailForm">
+			<mat-card>
+				<!-- <mat-card-title *ngIf="isUpdate">
+					Profile Details
+					<hr>
+				</mat-card-title> -->
+
+				<mat-card-content>
+					<div class="row">
+						<div class="col-12 col-md-6"></div>
+
+						<div class="col-12 mb-3">
+							<h5 class="table-label">Other Details</h5>
+							<hr style="width: 95%">
+						</div>
+
+
+						<div class="col-12 col-md-6">
+							<app-dropdown 
+								id="skills"  
+								label="Skills" 
+								formControlName="skills" 
+								[options]="skillsOptions"
+								[isMultiple]="true">
+							</app-dropdown>
+							
+							<app-textarea id="other_remarks"  
+								label="Other Remarks" 
+								formControlName="other_remarks">
+							</app-textarea>
+
+							<app-radio-button id="smoker"  
+								label="Smoker" 
+								formControlName="smoker" 
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button id="allergies"  
+								label="Allergies" 
+								formControlName="allergies" 
+								[options]="radioOptions">
+							</app-radio-button>
+
+							
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-dropdown 
+								id="interest"  
+								label="Interest" 
+								formControlName="interests" 
+								[options]="interestOptions"
+								[isMultiple]="true"
+								[newOption]="true"
+								[newOptionLabel]="'Interest'"
+								[newOptionRoute]="'/admin/setup/interests'">
+							</app-dropdown>
+							
+
+							<app-textarea id="medicalInformation"  
+								label="Medical Information" 
+								formControlName="medical_information">
+							</app-textarea>
+
+
+
+							<!-- <h5 class="table-label">Qualification Notes</h5>
+							<hr style="width: 95%">
+
+							<app-textarea id="general_training_notes"  
+								label="General Training Notes" 
+								formControlName="general_training_notes">
+							</app-textarea>
+
+							<app-textarea id="qualification_summary"  
+								label="Qualification Summary" 
+								formControlName="qualification_summary">
+							</app-textarea> -->
+						</div>
+
+						<div class="col-12 mb-3">
+							<hr style="width: 95%">
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-textarea id="job_description"  
+								label="Position summary" 
+								formControlName="job_description">
+							</app-textarea>
+
+							<app-textarea id="task_performed"  
+								label="Key Responsibilities" 
+								formControlName="task_performed">
+							</app-textarea>
+						</div> 
+
+						<div class="col-12 col-md-6">
+
+							<app-textarea id="roster_info"  
+								label="Roster Info" 
+								formControlName="roster_info" >
+							</app-textarea>
+						</div> 
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+					<div>
+						<div class="row">
+							<div *ngIf="!isUpdate" class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header-gray">
+									Back
+								</button>
+							</div>
+
+							<div *ngIf="!isUpdate" class="col-sm-6 justify-content-end d-flex">
+								<button mat-button class="btn btn-header btn-header-gray" 
+								(click)="saveAsDraft()" 
+								style="padding-left: 14px !important; padding-right: 14px !important;" 
+								*ngIf="!isUpdate || currentStatus === 'draft'" >
+									Save as Draft
+								</button>
+
+								<button (click)="next()" 
+								[disabled]="!profileDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Next
+								</button>
+							</div>
+						</div>
+						<div *ngIf="isUpdate" class="row">
+							<div class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+									Back
+								</button>
+							</div>
+							<div class="col-sm-6 justify-content-end d-flex">
+								<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+									Next
+								</button>
+								
+								<button (click)="submit()" 
+								[disabled]="!profileDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card-actions>
+
+			</mat-card>
+		</form>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>

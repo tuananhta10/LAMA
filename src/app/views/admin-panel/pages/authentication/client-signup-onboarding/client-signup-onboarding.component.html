@@ -1,0 +1,118 @@
+
+
+<div class="main-container " style="position: relative !important;">
+	<img src="/assets/images/placeholder/login-ellipse.png" class="img-fluid login-ellipse">
+	<img src="/assets/images/placeholder/login-ellipse-2.png" class="img-fluid login-ellipse-2">
+	
+	<div class="pt-lg-5 w-100 vh-100">
+		<div>
+			<div class="text-center img-container py-4" 
+			[@animate]="{value:'*', params:{ y:'-100px', delay:'500ms' }}">
+
+
+				<div class="row" >
+					<div class="col-12 main-body col-md-6 offset-md-3  mb-3" style="position: relative;">
+						<img src="/assets/images/icons/shake-hand-border.png" class="img-fluid login-shake-hands">
+						<img src="/assets/images/icons/heart-border.png" class="img-fluid login-heart">
+
+
+						
+						<div class="card card-body text-center p-5" style="min-height: 200px;">
+							<ng-container *ngIf="step === 1">
+								<h2 class="container-title-main">Step 1</h2>
+								<h4 class="container-title mb-4">What type of support are you seeking?</h4>
+
+								<div class="px-lg-5 w-75 align-self-center">
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.type === 'Disability Report' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.type = 'Disability Report'">Disability Report</button>
+
+									<button class="btn d-block w-100 mb-3"
+									[ngClass]="choices.type === 'Aged Care' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.type = 'Aged Care'">Aged Care</button>
+
+									<button class="btn d-block w-100 mb-3"
+									[ngClass]="choices.type === 'Mental Health' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.type = 'Mental Health'">Mental Health</button>
+
+									<button class="btn d-block w-100 mb-3"
+									[ngClass]="choices.type === 'Post Surgery' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.type = 'Post Surgery'">Post Surgery</button>
+
+									<button class="btn d-block w-100 mb-3"
+									[ngClass]="choices.type === 'Other' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.type = 'Other'">Other</button>
+								</div>
+							</ng-container>
+
+							<ng-container *ngIf="step === 2">
+								<h2 class="container-title-main">Step 2</h2>
+								<h4 class="container-title mb-4">How will you be paying for support?</h4>
+
+								<div class="px-lg-5 w-75 align-self-center">
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.payment === 'NDIS Funding' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.payment = 'NDIS Funding'">NDIS Funding</button>
+
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.payment === 'Pay Privately' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.payment = 'Pay Privately'">Pay Privately</button>
+
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.payment === 'Other or not sure' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.payment = 'Other or not sure'">Other or not sure</button>
+
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.payment === 'Waiting for Funding' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.payment = 'Waiting for Funding'">Waiting for Funding</button>
+								</div>
+							</ng-container>
+
+							<ng-container *ngIf="step === 3">
+								<h2 class="container-title-main">Step 3</h2>
+								<h4 class="container-title mb-4">How is your NDIS funding managed?</h4>
+
+								<div class="px-lg-5 w-75 align-self-center">
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.fund_management === 'Self Managed' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.fund_management = 'Self Managed'">Self Managed</button>
+
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.fund_management === 'Plan Managed' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.fund_management = 'Plan Managed'">Plan Managed</button>
+
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.fund_management === 'Agency Managed' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.fund_management = 'Agency Managed'">Agency Managed</button>
+
+									<button class="btn d-block w-100 my-3"
+									[ngClass]="choices.fund_management === 'Other or not sure' ? 'btn-primary' : 'btn-primary-secondary'"
+									(click)="choices.fund_management = 'Other or not sure'">Other or not sure</button>
+								</div>
+							</ng-container>
+
+							<div class="w-75 align-self-center mt-1 px-5">
+								<button class="btn btn-primary-secondary float-start mb-3" 
+								*ngIf="step !== 1" (click)="step = step - 1">Back</button>
+
+								<button class="btn btn-primary float-end mb-3" *ngIf="step !== 3"
+								[disabled]="
+									step === 1 && !choices.type 
+									|| step === 2 && !choices.payment
+								"
+								(click)="step = step + 1">Next</button>
+
+								<button class="btn btn-primary float-end mb-3" 
+								[disabled]="step === 3 && !choices.fund_management"
+								*ngIf="step === 3"
+								(click)="openSuccessModal()">Submit</button>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

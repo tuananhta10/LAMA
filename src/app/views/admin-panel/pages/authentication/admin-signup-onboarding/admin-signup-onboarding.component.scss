@@ -1,0 +1,389 @@
+@import "src/scss/colors";
+
+.navbar-brand{
+  font-size: 15px;
+  font-family: "Noto Sans";
+  //padding: 10px 30px !important;
+  //border: solid 1px #D0D0D0 !important;
+  //border-radius: 50px;
+  width: 120px;
+  margin-left: 10px;
+  margin-top: -10px;
+}
+
+.navbar-collapse{ 
+  /* a{
+    padding-left: 20px !important;
+    padding-right: 20px !important; 
+  } */
+}
+
+.navbar-loggedin{
+  z-index: 9 !important;
+  height: 70px;
+  border-radius: 8px !important;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+  padding: 10px 20px 0px 20px !important;
+  margin-bottom: 0 !important;
+  font-size: 13px;
+
+  @media (max-width: 999px){
+    left: 0 !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  @media (min-width: 765px) and (max-width: 999px){
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+}
+
+
+.navbar-toggler{
+  .materials-icon{
+    font-size: 30px;
+    padding-top: 0 !important;
+  }
+}
+.onboarding-title{
+  color: $color-purple;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.main-title{
+  
+}
+
+@media (min-width: 1500px){
+  .left{
+    width: 290px;
+  }
+
+  .right{
+    //width: 80%
+  }
+}
+
+:host ::ng-deep{
+  .step-bullets{
+    z-index: 9 !important;
+    background: rgba(0,0,0,0);
+  }
+
+  .mat-step{
+    
+    overflow: auto !important;
+  }
+
+  .mat-step-text-label{
+
+    span{
+      margin-top: 0px !important;
+      font-size: 11px !important;
+      margin-bottom: 2px !important;
+      height: 15px ;
+    }
+    label{
+      margin-top: 0px !important;
+      font-size: 13px !important;
+      overflow-wrap: break-word !important;
+      //background: red;
+      overflow: visible !important;
+      height: 22px !important;
+      z-index: 9999;
+      line-height: 16px !important;
+    }
+  }
+}
+
+.main-container{
+  background: $color-purple-gradient;
+  //padding-top: 15px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  .login-ellipse{
+    width: 350px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9 !important;
+  }
+
+  .login-ellipse-2{
+    width: 450px;
+    position: absolute;
+    bottom: 0px;
+    left: 50px;
+    z-index: 9 !important;
+  }
+
+  .login-rectangle{
+    width: 250px;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    opacity: 0.5;
+    
+  }
+
+  .login-dots{
+    width: 200px;
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    opacity: 1;
+  }
+  
+
+  .login-dots-2{
+    width: 200px;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    opacity: 1;
+  }
+  
+
+  .login-cross{
+    width: 400px;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    opacity: 1;
+
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.4, 1.4);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+
+  .login-gear{
+    width: 100px;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    opacity: 1;
+    animation: rotation 3s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+  
+
+  .login-main-image{
+    z-index: 9999 !important;
+    //position: absolute;
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 80%;
+    //bottom: 20px;
+    //right: 20px;
+  }
+
+  .login-text{
+    color: white;
+    font-size: 28px;
+    /* word-wrap: break;
+    width: 150px; */
+  }
+
+  .login-shake-hands{
+    width: 65px;
+    position: absolute;
+    bottom:15%;
+    left: -20px;
+    z-index: 9999999 !important;
+  }
+
+  .login-heart{
+    width: 65px;
+    position: absolute;
+    top: 15%;
+    right: -20px;
+    z-index: 9999999 !important;
+    
+  }
+
+  @media (min-width: 1000px) and (max-width: 1300px){
+    .login-circle{
+      width: 55px;
+    }
+
+    .login-heart{
+      width: 26px;
+      right: 45px;
+      top: 27.3%;
+    }
+  }
+
+  @media (min-width: 650px) and (max-width: 998px){
+    .login-circle{
+      width: 42px;
+    }
+
+    .login-heart{
+      width: 25px;
+      right: 40px;
+      top: 26.5%;
+    }
+  }
+
+  @media (max-width: 649px){
+    .login-circle{
+      width: 42px;
+    }
+
+    .login-heart{
+      width: 22px;
+      right: 40px;
+      top: 28%;
+    }
+  }
+}
+
+.bg-gray{
+  background: #f9f9f9 !important;
+}
+
+.btn-primary-secondary{
+  background: white;
+  border: solid 0.5px $color-purple;
+  color: $color-purple;
+  border-radius: 4px !important;
+  font-size: 12px !important; 
+  font-weight: 600 !important;
+  -webkit-transition: all 0.1s linear !important;
+      -moz-transition: all 0.1s linear !important;
+           transition: all 0.1s linear !important;
+  &:hover{
+    color: white;
+    background: $color-purple;
+  }
+}
+
+.card{
+  z-index: 999 !important;
+}
+
+.container-title{
+  font-size: 25px;
+  font-weight: bold;
+  color: $color-gray;
+  //color: white;
+}
+
+
+:host ::ng-deep{
+  .mat-snack-bar-container{
+    background: $color-purple !important;
+    color: white !important;
+    font-weight: 300 !important;
+    font-size: 13px;
+    padding-left: 25px !important;
+    border: 2px solid $color-purple !important;
+    position: absolute;
+    right: 0;
+    top: 0px;
+    z-index: 9999999 !important;
+    border-radius: 8px !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
+    -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
+    -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
+    //background: white;
+
+    .mat-button, .mat-button-base{
+      color: white !important;
+      font-size: 18px;
+      padding-right: 10px;
+      //width: 26px;
+
+      /* &::before {
+        font-family: "Material Icons";;
+        content: "\e5cd";
+      } */
+    }
+  }
+}
+
+
+.img-container{
+  //border-radius: 20px !important;
+  //box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
+  -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
+  -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
+  //background: linear-gradient(146.77deg, #9595E5 0%, #7676B5 100%);
+  padding: 0px;
+  position: relative !important;
+  overflow: hidden;
+
+  .img-banner{
+    padding: 0px;
+    border-radius: 50px;
+    min-height: 580px;
+    z-index: 99999 !important;
+
+    @media (max-width: 998px){
+      min-height: 100% !important;
+    }
+  }
+
+  
+
+}
+
+.dont-have-account{
+  color: #98A0B1;
+  span{
+    color: $color-purple;
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .text-input {
+    .label-top {
+      padding-left: 0px !important;
+      font-style: normal;
+      font-weight: 600 !important;
+      font-size: 16px !important;
+      line-height: 22px;
+      color: #767676 !important;
+    }
+
+    .sub-label {
+      font-style: normal;
+      font-weight: normal !important;
+      font-size: 16px;
+      line-height: 22px;
+      color: #767676 !important;
+    }
+
+
+    .container-input {
+      padding-left: 0px !important;
+    }
+  }
+}

@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-sm-7">
+        <h4 class="container-title">Safety Information</h4>
+        <p class="mb-4">Need help setting up your account? Contact our team at info@lamacare.com.au</p>
+
+        <form [formGroup]="safetyInformationForm">
+            <app-textarea 
+                label="What process do you want workers to follow in an emergency?"
+                [labelTop]="true"
+                formControlName="emergency_process"
+            >
+            </app-textarea>
+            <!-- <div class="pt-2 mb-3" style="border: dashed 1px #c9c9c9; max-width: 300px; max-height: 45px; border-radius: 6px;">
+                <app-field-upload 
+                    [labelTop]="false"
+                    label="Attach a File"
+                    [file]="emergency_process_file" 
+                    #uploadFile
+                    (upload)="onUpload($event, 'emergency_process_file')"
+                    >
+                </app-field-upload>
+            </div> -->
+
+            <app-textarea 
+                label="What process should workers follow if an incident occurs or<br> restrictive practices are used?"
+                subLabel="If an incident occurs or restrictive practices are used:"
+                [labelTop]="true"
+                formControlName="incident_process"
+            >
+            </app-textarea>
+
+            <!-- <div class="pt-2 pb-0" style="border: dashed 1px #c9c9c9; max-width: 300px; max-height: 45px; border-radius: 6px;">
+                <app-field-upload 
+                    [labelTop]="false"
+                    label="Attach a File" 
+                    [file]="incident_process_file"
+                    #uploadFile
+                    (upload)="onUpload($event, 'incident_process_file')"
+                    >
+                </app-field-upload>
+            </div> -->
+            <br>
+            <h4 class="container-title">Key Organisation Contact</h4>
+            <p class="mb-2">This will be your organization's key contact</p>
+            <hr>
+            <app-textfield 
+                label="Full Name" 
+                subLabel="The primary person to contact"
+                formControlName="emergency_contact_name"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Contact role" 
+                formControlName="emergency_contact_role"
+                subLabel="Primary Role of the contact person"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Phone Number" 
+                formControlName="emergency_contact_phone"
+                [inputType]="'tel'"
+                subLabel="The phone number of the contact person"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Email" 
+                formControlName="emergency_contact_email"
+                subLabel="The email address of the contact person"
+                [labelTop]="true">
+            </app-textfield>
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <button (click)="back()" mat-button class="btn btn-header btn-outline-primary">
+            Back
+        </button>
+        </div>
+
+         <div class="col-12 col-md-6 text-end">
+            <button 
+            (click)="next()"
+            [disabled]="!safetyInformationForm.valid"
+            mat-button class="btn btn-header btn-outline-primary me-2">
+                Next
+            </button>
+
+            <button 
+            (click)="next()"
+            [disabled]="!safetyInformationForm.valid || submitting"
+            mat-button class="btn btn-header btn-primary">
+               Save
+            </button>
+        </div>    
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Employee Timesheet</h5>
+		<hr>
+	</div>
+	<div class="row">
+		<div class="col-12 col-md-6">
+			<app-approval-logged 
+			[data]="data"
+			[isReadOnly]="isReadOnly"
+			[timeLoggedForm]="timeLoggedForm">
+			</app-approval-logged>
+		</div>
+
+		<div class="col-12 col-md-6">
+			<app-approval-details 
+			[data]="data"
+			[timesheetDetailsForm]="timesheetDetailsForm"
+			[timeLoggedForm]="timeLoggedForm"
+			[isReadOnly]="isReadOnly">
+			</app-approval-details>
+
+			<!-- <app-approval-logged 
+			[data]="data"
+			[isReadOnly]="isReadOnly"
+			[timeLoggedForm]="timeLoggedForm">
+			</app-approval-logged> -->
+		</div>
+
+		
+	</div>
+
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="dialogRef.close()" 
+			class="btn btn-header-gray btn-header me-3">Close</button>
+
+			<!-- <button mat-button *ngIf="formStep <= 1"
+			(click)="next()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button>
+ -->
+			<button mat-button *ngIf="!data?.employee_timesheet_approved"
+			(click)="save()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">
+			<!-- <ng-container *ngIf="data?.employee_timesheet_approved">Decline</ng-container> -->
+			<ng-container *ngIf="!data?.employee_timesheet_approved">Save</ng-container>
+			 Timesheet</button>
+		</div>
+	</div>
+</div>

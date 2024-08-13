@@ -1,0 +1,158 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+            <span *ngIf="!data; else showUpdate">Add </span>
+            <ng-template #showUpdate>Update </ng-template>   
+            Communication Group
+
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form [formGroup]="newGroupForm">
+		<div mat-dialog-content>
+
+
+            <div class="card card-body pt-4">
+                <div class="row">
+                    <div class="col-12 col-md-12" 
+                    style="min-width: 24vw" 
+                    [ngClass]="newGroupForm.controls['recipient_type'].value ? 'col-lg-4' : 'col-lg-12'">
+                        <app-textfield 
+                            label="Name"
+                            [labelTop]="true"
+                            [required]="true"
+                            formControlName="name">
+                        </app-textfield>
+
+                        <app-dropdown 
+                            label="Recipient Type"
+                            [labelTop]="true"
+                            [required]="true"
+                            formControlName="recipient_type"
+                            [options]="recipientType">
+                        </app-dropdown>
+
+                        <app-textarea 
+                            label="Group Description"
+                            [labelTop]="true"
+                            formControlName="description">
+                        </app-textarea>
+
+                        <app-dropdown 
+                            label="Communication Type"
+                            [labelTop]="true"
+                            [required]="true"
+                            formControlName="communication_type"
+                            [options]="communicationType">
+                        </app-dropdown>
+                    </div>
+
+                    <div class="col-12 col-md-12 col-lg-8" 
+                    style="min-width: 34vw" 
+                    *ngIf="newGroupForm.controls['recipient_type'].value || data">
+                        <!-- <h5 class="mat-subtitle"
+                        *ngIf="!data">List of Members</h5>
+                        <p class="p-mat-subtitle" *ngIf="!data">Please save record first</p> -->
+
+                        <div class="pb-5">
+                            <div class="mt-3" style="min-width: 48vw" 
+                            *ngIf="loading || filteredCheckboxOptions?.length === 0">
+                                <global-admin-loader 
+                                    [formOnly]="true"
+                                    [fromDetailTab]="true"
+                                    [withSideBar]="false"
+                                    [loading]="loading">
+                                </global-admin-loader>
+                            </div>
+                            
+                            <div style="min-width: 50vw" *ngIf="!loading && filteredCheckboxOptions?.length > 0">
+                                <div class="pe-3">
+                                    <div>
+                                        <h5 class="mt-2">Contact List
+                                            <div class="search-div me-1 float-end">
+                                                <div class="input-group">
+                                                  <img src="/assets/images/icons/search.png">
+
+                                                  <input type="text" class="form-control" placeholder="Search" aria-label="Search" [ngModelOptions]="{standalone: true}"
+                                                  [(ngModel)]="searchBy" (ngModelChange)="searchDataSource()">
+                                                </div>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                    <br>
+
+                                    <div class="mt-3"
+                                    *ngIf="newGroupForm.controls['recipient_type'].value && filteredCheckboxOptions?.length > 0">
+                                        <table class="table w-100" *ngIf="!loading">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <mat-checkbox color="primary"
+                                                            [value]="'All'"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            [(ngModel)]="checkAll"
+                                                            (ngModelChange)="checkAllEmployee()">
+                                                            <span>
+                                                                {{newGroupForm.controls['recipient_type'].value}}
+                                                            </span>
+                                                        </mat-checkbox>
+
+                                                    </th>
+                                                    <th *ngIf="newGroupForm.controls['recipient_type'].value === 'Employees'">Position</th>
+                                                    <th>Email Address</th>
+                                                    <th>Phone Number</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr  *ngFor="let cb of filteredCheckboxOptions; let i = index">
+                                                    <td>
+                                                        <mat-checkbox color="primary"
+                                                            [value]="cb.phone_number"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            [(ngModel)]="cb.checked"
+                                                            (change)="onChangeCheckbox($event, i)">
+                                                            <span class="text-capitalize">
+                                                                {{ cb?.full_name }}
+                                                            </span>
+                                                        </mat-checkbox>
+                                                    </td>
+                                                    <td  *ngIf="newGroupForm.controls['recipient_type'].value === 'Employees'">
+                                                        {{cb?.employee_position_display_name}}
+                                                    </td>
+                                                    <td>{{ cb?.email_address || '-' }}</td>
+                                                    <td>{{ cb?.phone_number || '-' }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!newGroupForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data else showSave">Save</span>
+                    <ng-template #showSave>Update</ng-template>
+                </button>
+			</div>
+		</div>
+	</form>
+
+</div>

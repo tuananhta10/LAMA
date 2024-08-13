@@ -1,0 +1,354 @@
+<admin-navigation [activeLink]="'profile'"></admin-navigation>
+
+<div style="width: 100% !important" *ngIf="!loading">
+	<div class="row" [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="col-12 col-md-12 col-lg-12">
+			<div class="mb-3 d-flex" id="client-details">
+				<div class="client-img-icon-details flex-wrap">
+					<img src="/assets/images/icons/client-details.png">
+				</div>
+
+				<div class="client-data flex-wrap">
+					<h5 class="card-title">Personal Info
+						<span class="float-end view-edit">Edit</span>
+					</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3 mb-md-0">
+							<dl>
+								<dd>
+									<strong class="me-3">Title</strong> 
+									<span>{{adminData?.title}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Last Name</strong> 
+									<span>{{adminData?.last_name}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">First Name</strong>
+									<span>{{adminData?.first_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Preferred Name</strong> 
+									<span>{{adminData?.preferred_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Gender</strong> 
+									<span>{{adminData?.preferred_gender}}</span>
+								</dd>
+							</dl>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3 mb-md-0">
+							<dl>
+								<dd>
+									<strong class="me-3">Title</strong> 
+									<span>{{adminData?.title}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Last Name</strong> 
+									<span>{{adminData?.last_name}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">First Name</strong>
+									<span>{{adminData?.first_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Preferred Name</strong> 
+									<span>{{adminData?.preferred_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Gender</strong> 
+									<span>{{adminData?.preferred_gender}}</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3 d-flex" id="client-details">
+				<div class="client-img-icon-details flex-wrap">
+					<img src="/assets/images/icons/client-details.png">
+				</div>
+
+				<div class="client-data flex-wrap">
+					<h5 class="card-title">Home Address
+						<span class="float-end view-edit">Edit</span>
+					</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3 mb-md-0">
+							<dl>
+								<dd>
+									<strong class="me-3">Title</strong> 
+									<span>{{adminData?.title}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Last Name</strong> 
+									<span>{{adminData?.last_name}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">First Name</strong>
+									<span>{{adminData?.first_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Preferred Name</strong> 
+									<span>{{adminData?.preferred_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Gender</strong> 
+									<span>{{adminData?.preferred_gender}}</span>
+								</dd>
+							</dl>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3 mb-md-0">
+							<dl>
+								<dd>
+									<strong class="me-3">Title</strong> 
+									<span>{{adminData?.title}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Last Name</strong> 
+									<span>{{adminData?.last_name}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">First Name</strong>
+									<span>{{adminData?.first_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Preferred Name</strong> 
+									<span>{{adminData?.preferred_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Gender</strong> 
+									<span>{{adminData?.preferred_gender}}</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-12 col-lg-12">
+			<div class="mb-3 d-flex" id="client-demographics">
+				<div class="client-img-icon-demographics flex-wrap">
+					<img src="/assets/images/icons/client-demographics.png">
+				</div>
+
+				<div class="client-data flex-wrap">
+					<h5 class="card-title">Emergency Contact
+						<span class="float-end view-edit">Edit</span>
+					</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<dl>
+								<dd>
+									<strong class="me-3">Date of Birth</strong> 
+									<span>{{adminData?.birthdate}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Age</strong> 
+									<span>{{adminData?.age}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">Place of Birth</strong>
+									<span>{{adminData?.birthplace}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Country of Birth</strong> 
+									<span>Philippines</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Citizenship</strong> 
+									<span>Permanent Residence</span>
+								</dd>
+							</dl>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<dl>
+								<dd>
+									<strong class="me-3">Date of Birth</strong> 
+									<span>{{adminData?.birthdate}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Age</strong> 
+									<span>{{adminData?.age}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">Place of Birth</strong>
+									<span>{{adminData?.birthplace}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Country of Birth</strong> 
+									<span>Philippines</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Citizenship</strong> 
+									<span>Permanent Residence</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3 d-flex" id="client-background">
+				<div class="client-img-icon-background flex-wrap">
+					<img src="/assets/images/icons/client-background.png">
+				</div>
+
+				<div class="client-data flex-wrap">
+					<h5 class="card-title">Bank Information
+						<span class="float-end view-edit">Edit</span>
+					</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<dl>
+								<dd>
+									<strong class="me-3">Family Status</strong> 
+									<span>Single</span>
+								</dd>
+
+								<dd><strong class="me-3">Religion</strong> 
+									<span>Catholic</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">Background</strong>
+									<span>Worker</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Indigenous</strong> 
+									<mat-radio-group aria-label="Select an option" 
+										[(ngModel)]="indigenous" id="indigenous">
+											<mat-radio-button [value]="true">Yes</mat-radio-button>
+											<mat-radio-button [value]="false">No</mat-radio-button>
+										</mat-radio-group>
+								</dd>
+							</dl>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<dl>
+								<dd>
+									<strong class="me-3">Family Status</strong> 
+									<span>Single</span>
+								</dd>
+
+								<dd><strong class="me-3">Religion</strong> 
+									<span>Catholic</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">Background</strong>
+									<span>Worker</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Indigenous</strong> 
+									<mat-radio-group aria-label="Select an option" 
+										[(ngModel)]="indigenous" id="indigenous">
+											<mat-radio-button [value]="true">Yes</mat-radio-button>
+											<mat-radio-button [value]="false">No</mat-radio-button>
+										</mat-radio-group>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-12 col-lg-12">
+			<div class="mb-3" id="onboarding-notes">
+				<h5 class="card-title">Onboarding Notes
+					<span class="float-end view-edit">View All</span>
+				</h5>
+
+				<div class="row">
+					<div class="col-6 col-md-6 mb-3 px-1 pb-0">
+						<div class="notes-container">
+							<button class="btn btn-view-more btn-active-client admin">Admin</button>
+
+							<p class="text-justify mt-2">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form ipsum is a</p>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6 mb-3 px-1 pb-0">
+						<div class="notes-container">
+							<button class="btn btn-view-more btn-active-client co-worker">Co-worker</button>
+
+							<p class="text-justify mt-2">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form ipsum is a</p>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6 mb-3 px-1 pb-0">
+						<div class="notes-container">
+							<button class="btn btn-view-more btn-active-client current-worker">Current Worker</button>
+
+							<p class="text-justify mt-2">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form ipsum is a</p>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6 mb-3 px-1 pb-0">
+						<div class="notes-container">
+							<button class="btn btn-view-more btn-active-client client">Client</button>
+
+							<p class="text-justify mt-2">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form ipsum is a</p>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6 mb-3 px-1 pb-0">
+						<div class="notes-container">
+							<button class="btn btn-view-more btn-active-client admin">Admin</button>
+
+							<p class="text-justify mt-2">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form ipsum is a</p>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6 mb-3 px-1 pb-0">
+						<div class="notes-container">
+							<button class="btn btn-view-more btn-active-client client">Client</button>
+
+							<p class="text-justify mt-2">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form ipsum is a</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div  [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+	<!-- LOADING ANIMATION SCREEN -->
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>

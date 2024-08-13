@@ -1,0 +1,163 @@
+<div class="container-fluid p-0 ms-1 pe-md-2 mb-3">
+	<div class="row">
+		<!-- MAIN CONTAINER -->
+		<section>
+			<div class="d-flex w-100 mt-3">
+				<div class="d-flex-wrap side-stepper d-none d-lg-flex h-100"
+				[@animate]="{ value: '*', params: { x: '-100px', delay: '200ms' }}">
+					<lama-stepper [stepperList]="steps" 
+					[isVerticalClick]="true"
+					[selectedIndex]="formStep - 1" 
+					(selectionChanged)="updateStepperClick($event.selectedIndex + 1)"
+					[orientation]="'vertical'" #stepper></lama-stepper>
+				</div>
+
+				<div class="d-flex-wrap w-100 h-100">
+					<!-- : formStep === 3 ? 'Intake' -->
+					<app-client-banner *ngIf="!loading"
+					[clientName]="clientName"
+					[title]="'Update'"
+					[label]="formStep === 1 ? 'Participant Details'
+					: formStep === 2 ? 'Demographics'
+					: formStep === 3 ? 'Support Notes'
+					: formStep === 4 ? 'Support Team'
+					: formStep === 5 ? 'Medical/Health'
+					: formStep === 6 ? 'Service Details'
+					: formStep === 7 ? 'Contact Details'
+					: formStep === 8 ? 'Related Documents'
+					
+					: ''">
+					</app-client-banner>
+
+				
+
+					<div class="me-2 mb-3 pe-2" *ngIf="currentStatus !== 'draft'"
+					[@animate]="{ value: '*', params: { x: '-100px', delay: '200ms' }}">
+						<div class="banner-container w-100 me-3" style="margin-top: -92px">
+							<span class="float-end btn btn-view-more btn-active-employee me-2" 
+							routerLink="/admin/clients/details/{{clientId}}">
+								Visit Profile
+							</span>
+							<span class="float-end btn btn-view-more btn-active-employee me-2" 
+							routerLink="/admin/clients">
+								Close
+							</span>
+						</div>
+					</div>
+
+					<div class="mt-3" *ngIf="loading">
+						<global-admin-loader 
+					        [withSideBar]="false"
+					        [fromDetailTab]="true"
+					        [loading]="loading">
+					    </global-admin-loader>
+					</div>
+
+
+					<div *ngIf="!loading" class="mt-2">
+						<app-client-detail 
+						*ngIf="formStep === 1"
+						[isUpdate]="isUpdate"
+						[clientDetailData]="clientForm?.clientDetail"
+						[navigation]="navigation"
+						[currentStatus]="currentStatus"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateClientDetailData($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-client-detail>
+	
+						<app-demographics 
+						*ngIf="formStep === 2"
+						[isUpdate]="isUpdate"
+						[demographicsData]="clientForm.demographics"
+						[navigation]="navigation"
+						[currentStatus]="currentStatus"
+						(submitData)="updateDemographicsData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-demographics>
+
+						<ng-container *ngIf="formStep === 3"></ng-container>
+	
+						<app-onboarding-notes 
+						*ngIf="formStep === 3"
+						[isUpdate]="isUpdate" 
+						[onboardingNotesData]="clientForm.onboardingNotes"
+						[navigation]="navigation"
+						[currentStatus]="currentStatus"
+						(submitData)="updateOnboardingNotesData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-onboarding-notes>
+		
+						
+
+						<app-care-workers 
+						*ngIf="formStep === 4" 
+						[isUpdate]="isUpdate"
+						[careWorkersData]="clientForm.careWorkers"
+						[navigation]="navigation"
+						[currentStatus]="currentStatus"
+						(submitData)="updateCareWorkersData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-care-workers>
+
+						<app-medication-client-notes
+						*ngIf="formStep === 5" 
+						[isUpdate]="isUpdate" 
+						[navigation]="navigation"
+						[currentStatus]="currentStatus"
+						[medicationClientNotes]="clientForm.medicationClientNotes"
+						(submitData)="updateMedicationClientNotes($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-medication-client-notes>
+	
+						<app-service-details 
+						*ngIf="formStep === 6" 
+						[isUpdate]="isUpdate"
+						[serviceDetailsData]="clientForm.serviceDetails"
+						[navigation]="navigation"
+						[currentStatus]="currentStatus"
+						(submitData)="updateServiceDetailsData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-service-details>
+	
+						<app-contact-details 
+						*ngIf="formStep === 7"
+						[isUpdate]="isUpdate"
+						[contactDetailsData]="clientForm.contactDetails"
+						[navigation]="navigation"
+						[currentStatus]="currentStatus"
+						[clientId]="clientId"
+						(submitData)="updateContactDetailsData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-contact-details>
+	
+						<app-related-documents
+						*ngIf="formStep === 8"
+						[documents]="clientForm.clientDocs"
+						[navigation]="navigation"
+						[isUpdate]="isUpdate"
+						[currentStatus]="currentStatus"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateRelatedDocument($event)" 
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-related-documents>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>	
+</div>

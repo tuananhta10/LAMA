@@ -1,0 +1,52 @@
+<div class="analog-clock-container"
+[ngStyle]="{
+	'padding-left': labelTop ? '25px' : ''
+}">
+	<label class="main-label">
+		{{label}}<span *ngIf="required" class="asterisk-required">*</span>
+	</label>
+
+	<div class="d-flex analog-clock">
+		<div class="time-selector">
+			<input type="number" class="clock-input" max="24" min="0"
+			(change)="hoursChange()"
+			(keyup)="hoursChange()"
+			(click)="hoursChange()"
+			(focus)="onFocus($event)"
+			(blur)="onTouch($event)"
+			[disabled]="disabled"
+			[readonly]="readonly"
+			[(ngModel)]="hours" (ngModelChange)="hoursChange(); triggerEvent()">
+		</div>
+
+		<div class="mx-2">
+			<h5 class="time-separator" style="margin-top: -4px">:</h5>
+		</div>
+
+		<div class="time-selector">
+			<input type="number" class="clock-input" max="59" min="0"
+			(change)="minutesChange()"
+			(keyup)="minutesChange()"
+			(click)="minutesChange()"
+			(focus)="onFocus($event)"
+			(blur)="onTouch($event)"
+			[disabled]="disabled"
+			[readonly]="readonly"
+			[(ngModel)]="minutes" (ngModelChange)="minutesChange(); triggerEvent()">
+		</div>
+		<ng-container *ngIf="!value24Hour">
+
+			<div class="am-pm-picker ms-2">
+				<button class="btn btn-picker me-2"
+				[disabled]="disabled"
+				(click)="am_pm = 'AM'; triggerEvent(); onFocus($event); onTouch($event); minutesChange(); hoursChange(); onValueChanged($event)"
+				[ngClass]="am_pm === 'AM' ? 'active' : ''">AM</button>
+				<button class="btn btn-picker"
+				[disabled]="disabled"
+				(click)="am_pm = 'PM'; triggerEvent(); onFocus($event); onTouch($event); minutesChange(); hoursChange(); onValueChanged($event)"
+				[ngClass]="am_pm === 'PM' ? 'active' : ''">PM</button>
+			</div>
+		</ng-container>
+
+	</div>
+</div>

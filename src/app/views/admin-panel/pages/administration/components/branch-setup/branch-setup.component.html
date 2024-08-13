@@ -1,0 +1,174 @@
+<div class="mt-3" *ngIf="loading">
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>
+
+<section class="mb-5" *ngIf="!loading"
+ [@animate]="{value:'*', params:{ x:'-50px'}}">
+	<!-- BRANCH DETAILS -->
+	<ng-container *ngIf="mainStep === 'branch-details'">
+		<div class="container-fluid" id="branch-details">
+			<div class="banner-container w-100 d-flex  justify-content-between align-items-center">
+				<div class="content d-flex justify-content-between flex-column">
+					<h4>Branch Setup</h4>
+					<h5>Branch Details</h5>
+					<!-- <img src="/assets/images/placeholder/branch-banner-image.png" class="img-fluid banner-main"> -->
+					<img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+					<img src="/assets/images/placeholder/banner-eclipse-left.png" class="img-fluid banner-eclipse-left">
+					<!-- <img src="/assets/images/placeholder/banner-dots-right.png" class="img-fluid banner-dots-right">
+					<img src="/assets/images/placeholder/banner-eclipse-right.png" class="img-fluid banner-eclipse-right"> -->
+				</div>
+				<span class="float-end btn btn-view-more btn-active-employee me-2" 
+					routerLink="/admin/setup/branch-list">
+						Close
+					</span>
+			</div>
+
+			<div class="container text-center mt-4">
+				<div class="stepper-container align-self-center">
+					<lama-stepper 
+					[stepperList]="branchSteps$" 
+					[orientation]="'horizontal'" 
+					(selectionChanged)="updateStepperBranches($event.selectedIndex + 1)"
+					[selectedIndex]="formStep - 1" #branchStepper></lama-stepper>
+				</div>
+
+				<div class="">
+					<ng-container *ngIf="formStep === 1">
+						<admin-branch-details
+						*ngIf="formStep === 1" 
+						(isValid)="checkFormValidity($event)"
+						[branchDetailsForm]="branchDetailsForm">
+						</admin-branch-details>
+					</ng-container>
+
+					<ng-container *ngIf="formStep === 2">
+						<admin-branch-travel-setup
+						*ngIf="formStep === 2" 
+						(isValid)="checkFormValidity($event)"
+						[travelSetupForm]="travelSetupForm">
+						</admin-branch-travel-setup>
+					</ng-container>
+
+					<!-- <ng-container *ngIf="formStep === 3">
+						<admin-support-worker-app
+						*ngIf="formStep === 3" 
+						(isValid)="checkFormValidity($event)"
+						[supportAppForm]="supportAppForm">
+						</admin-support-worker-app>
+					</ng-container>
+
+					<ng-container *ngIf="formStep === 4">
+						<admin-branch-portal
+						*ngIf="formStep === 4" 
+						(isValid)="checkFormValidity($event)"
+						[portalForm]="portalForm">
+						</admin-branch-portal>
+					</ng-container> -->
+
+					<ng-container *ngIf="formStep === 3">
+						<admin-branch-address
+						*ngIf="formStep === 3" 
+						(isValid)="checkFormValidity($event)"
+						[addressForm]="addressForm">
+						</admin-branch-address>
+					</ng-container>
+
+					<ng-container *ngIf="formStep === 4">
+						<admin-branch-letter-head
+						*ngIf="formStep === 4" 
+						(isValid)="checkFormValidity($event)"
+						[letterHeadForm]="letterHeadForm">	
+						</admin-branch-letter-head>
+					</ng-container>
+				</div>
+
+				<div class="mt-3">
+					<button mat-button *ngIf="formStep !== 1" (click)="backBranches()" 
+					class="btn btn-header-gray btn-header float-start">Back</button>
+
+					<!--  [disabled]="!checkFormDisabled()" -->
+					<!-- <button mat-button (click)="formStep === 4 ? nextBranches() : goToContactDetails()"
+					cdkFocusInitial class="btn btn-primary btn-header ms-2 float-end">Go to Contact Details</button> -->
+
+					<button mat-button (click)="save()" *ngIf="(formStep === 4 && !branchData )|| branchData"
+					[disabled]="!checkFormDisabled()"
+					cdkFocusInitial class="btn btn-primary btn-header float-end">Submit</button>
+
+					<button mat-button (click)="nextBranches()" *ngIf="formStep !== 4"
+					cdkFocusInitial class="btn btn-primary btn-header float-end me-2">Next</button>
+
+					
+				</div>
+			</div>
+			<br>
+		</div>
+	</ng-container>
+
+	<!-- CONTACT DETAILS -->
+	<!-- <ng-container *ngIf="mainStep === 'contact-details'">
+		<div class="container-fluid" id="contact-details">
+			<div class="banner-container w-100">
+				<h4>Branch Setup</h4>
+				<h5>Contact Details</h5>
+
+				 <img src="/assets/images/placeholder/banner-dots-left-2.png" class="img-fluid banner-dots-left">
+				<img src="/assets/images/placeholder/banner-eclipse-left-2.png" class="img-fluid banner-eclipse-left">
+			</div>
+
+			<div class="container text-center my-4">
+				<div class="stepper-container ">
+					<lama-stepper [stepperList]="contactSteps$" 
+					[orientation]="'horizontal'" 
+					(selectionChanged)="updateStepperContact($event.selectedIndex + 1)"
+					[selectedIndex]="formStepContact - 1" #contactStepper></lama-stepper>
+				</div>
+
+				<div class="">
+					<ng-container *ngIf="formStepContact === 1">
+						<admin-branch-address
+						*ngIf="formStepContact === 1" 
+						[addressForm]="addressForm">
+						</admin-branch-address>
+					</ng-container>
+
+					<ng-container *ngIf="formStepContact === 2">
+						<admin-branch-letter-head
+						*ngIf="formStepContact === 2" 
+						[letterHeadForm]="letterHeadForm">	
+						</admin-branch-letter-head>
+					</ng-container>
+
+					<ng-container *ngIf="formStepContact === 3">
+						<admin-service-agreement-templates
+						*ngIf="formStepContact === 3" 
+						[serviceAgreementForm]="serviceAgreementForm">
+						</admin-service-agreement-templates>
+					</ng-container>
+				</div>
+
+				<div class="my-3">
+					<button mat-button 
+					*ngIf="(mainStep !== 'branch-details')" (click)="backContact()" 
+					class="btn btn-header-gray btn-header float-start">Back</button>
+
+					<button mat-button *ngIf="formStepContact !== 2" (click)="nextContact()"
+					cdkFocusInitial class="btn btn-primary btn-header float-end">Next</button>
+
+					<button mat-button *ngIf="formStepContact === 2" (click)="save()" 
+					[disabled]="!checkFormDisabled()"
+					cdkFocusInitial class="btn btn-primary btn-header float-end">
+						<span *ngIf="!id; else showSave">Submit</span>
+						<ng-template #showSave>
+							<span>Save</span>
+						</ng-template>
+					</button>
+				</div>
+				<br>
+			</div>
+		</div>
+	</ng-container> -->
+</section>

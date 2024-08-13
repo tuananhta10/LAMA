@@ -1,0 +1,70 @@
+<div id="client-medication-container">
+	<!-- BUTTONS CONTROLLER -->
+	<client-details-navigation
+		[id]="id"
+		[activeLink]="'medication'">
+	</client-details-navigation>
+
+	<div class="row">
+		<div class="col-12 col-md-3">
+			<div class="search-div me-1">
+				<div class="input-group">
+				  <img src="/assets/images/icons/search.png">
+				  
+				  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				  [(ngModel)]="searchBy" (ngModelChange)="multipleSearch()">
+				</div>
+			</div>
+		</div>
+		<div class="col-8 col-md-9"></div>
+		
+	</div>
+	<hr>
+
+	<!-- LOADING ANIMATION SCREEN -->
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+	
+	<div class="row">
+		<div class="col-12 col-lg-12">
+			<!-- DOCUMENT FILE DATA -->
+			<div style="width: 100% !important; min-height: 400px;" 
+			[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+				<app-client-service-details-table *ngIf="!loading"
+					[loading]="loading"
+					[showSearch]="false"
+					[componentTitle]="'Medication'"
+					[displayedColumns]="medicationColumns"
+					[selectedColumns]="medicationColumnsCol"
+					[selectedColumnsMobile]="medicationColumnsCol"
+					[searchSource]="{}"
+					[maxRows]="10"
+					[listDataSource]="filteredMedication">
+				</app-client-service-details-table> 
+				<br>
+				<app-client-service-details-table *ngIf="!loading"
+					[loading]="loading"
+					[showSearch]="false"
+					[componentTitle]="'Client Notes'"
+					[displayedColumns]="clientNotesColumns"
+					[selectedColumns]="clientNotesColumnsCol"
+					[selectedColumnsMobile]="clientNotesColumnsCol"
+					[searchSource]="{}"
+					[maxRows]="10"
+					[listDataSource]="filteredClientNotes">
+				</app-client-service-details-table> 
+			</div>
+		</div>
+		<div class="col-12 col-lg-4">
+			<!-- STATISTICS DATA
+			<div class="mb-3 mt-5" *ngIf="!loading">
+				<client-main-profile-stats></client-main-profile-stats>
+			</div> -->
+		</div>
+	</div>
+
+	
+</div>

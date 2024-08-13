@@ -1,0 +1,44 @@
+@import "src/scss/colors";
+
+
+::ng-deep body{
+  background: #f8f8f8 !important;
+}
+
+h4.logo-text{
+  display: block;
+  margin-top: 50px auto;
+}
+
+img.logo {
+  max-width: 150px;
+  display: block;
+  margin: 10px auto;
+}
+
+.coming-soon-text {
+  background: $color-purple;
+  display: block;
+  width: 100%;
+  color: #fff !important;
+  text-align: center;
+  padding: 80px auto;
+}
+
+.coming-soon-text {
+  margin-top:30px;
+  color:#fff;
+}
+a.btn.bg-dark {
+  color: #fff;
+  border-radius: 0;
+  margin-top: 30px;
+  background: #000 !important;
+  padding: 4px 40px;
+  font-size: 14px;
+}
+
+.logo-text{
+  color: $color-gray-dark;
+  font-weight: 600;
+}

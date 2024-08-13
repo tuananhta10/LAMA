@@ -1,0 +1,72 @@
+
+<div id="admin-sidebar-profile-container" class="mb-3" 
+[@animate]="{value:'*', params:{ x:'-100px', delay:'200ms' }}">
+	<div class="side-profile" style="min-height: 600px;">
+		<div class="text-center profile-image">
+			<img 
+			[defaultImage]="defaultImage"
+			[lazyLoad]="adminData?.profile_image" alt="User Image"
+			class="card-img-top img-fluid my-4">
+
+			<h5>{{adminData?.first_name}} {{adminData?.last_name}}</h5>
+			<span>CEO / Owner / Admin</span>
+		</div>
+
+		<div class="d-flex mt-3">
+			<div class="flex-wrap w-100  mb-2">
+				<dl>
+					<dd><hr></dd>
+
+					<dd class="ps-3">
+						<span><img class="img-fluid me-1" width="15px" src="/assets/images/icons/email-purple.png"> {{adminData?.email}}</span>
+					</dd>
+
+					<dd class="ps-3">
+						<span><img class="img-fluid me-1" width="13px" src="/assets/images/icons/phone-purple.png"> {{adminData?.mobile_phone_no}}</span>
+					</dd>
+
+					<dd><hr></dd>
+				</dl>
+			</div>
+		</div>
+
+		<div class="d-flex">
+			<div class="flex-wrap w-100 mb-2">
+				<dl>
+					<dd class="ps-3">
+						<strong class="me-2">Department:</strong> 
+						<br><span>IT Department</span>
+					</dd>
+				
+					<dd class="ps-3"><strong class="me-2">Office:</strong> 
+						<br><span>{{adminData?.branch_name}}</span>
+					</dd>
+
+					<dd class="ps-3">
+						<strong class="me-2">Line Manager:</strong> 
+						<br><span>Service Manager</span>
+					</dd>
+
+					<dd><hr></dd>
+				</dl>
+			</div>
+		</div>
+
+		<div class="px-1 d-flex">
+			<div class="membership-details flex-wrap mb-2 hvr-grow">
+				<div>
+					<span>Get all access to</span><br>	
+					<span>this software</span>
+					<br>
+					<p>Upgrade to</p>
+					<h5>Premium!</h5>	
+				</div>		
+
+				<div>
+					<img class="img-fluid" src="/assets/images/placeholder/membership-rocket.png">
+				</div>
+			</div>
+		</div>
+	</div>
+  
+</div>

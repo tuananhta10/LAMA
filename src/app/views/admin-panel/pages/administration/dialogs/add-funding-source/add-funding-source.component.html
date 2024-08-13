@@ -1,0 +1,92 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Funding Source
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form [formGroup]="newFundingSourceForm">
+		<div mat-dialog-content>
+            <h5 class="mat-subtitle">Funding Source Details</h5>
+            <app-textfield 
+                label="Code"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="code">
+            </app-textfield>
+
+            <app-textfield 
+                label="Funding Name"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="full_name">
+            </app-textfield>
+
+            <app-dropdown 
+                label="Funding Source Provider" 
+                [labelTop]="true"
+                formControlName="funding_source_provider" 
+                [required]="true"
+                [options]="fundingSourceProviderOptions">
+			</app-dropdown>
+
+            <app-radio-button 
+                label="Self Funded" 
+                formControlName="self_funded" 
+                [labelTop]="true"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            <app-textfield 
+                label="Registration Number"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="registration_number">
+            </app-textfield>
+
+            <h5 class="mat-subtitle">Invoicing Options</h5>
+
+            <app-dropdown 
+                label="Invoice Type" 
+                [labelTop]="true"
+                formControlName="invoice_type" 
+                [required]="true"
+                [options]="invoiceTypeOptions">
+            </app-dropdown>
+
+            <app-radio-button 
+                label="Client Name In Invoice Number" 
+                formControlName="client_name_in_invoice_number" 
+                [labelTop]="true"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            <app-radio-button 
+                label="Include In Invoice Sync" 
+                formControlName="include_in_invoice_sync" 
+                [labelTop]="true"
+                [options]="radioOptions">
+            </app-radio-button>
+
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data else showSave">Add</span>
+                    <ng-template #showSave>Save</ng-template>   
+                </button>
+			</div>
+		</div>
+	</form>
+
+</div>

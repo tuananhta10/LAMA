@@ -1,0 +1,53 @@
+<div class="row">
+	<div class="col-12 col-md-12">
+		<form [formGroup]="createClientForm">
+			<app-textfield 
+				label="Name" 
+				[labelTop]="true"
+				formControlName="name"
+				[required]="true">
+			</app-textfield>
+
+			<app-dropdown 
+				label="Goal Type" 
+				[labelTop]="true"
+				formControlName="goalType" 
+				[options]="goalTypeOptions">
+			</app-dropdown>
+
+			<app-dropdown 
+				label="Goal" 
+				[labelTop]="true"
+				formControlName="goal" 
+				[options]="goalOptions">
+			</app-dropdown>
+
+			<app-date-picker 
+				label="Start Date" 
+				[labelTop]="true"
+				formControlName="startDate">
+			</app-date-picker>
+
+			<app-date-picker 
+				label="End Date" 
+				[labelTop]="true"
+				formControlName="endDate">
+			</app-date-picker>
+
+			<app-textarea 
+				label="Description" 
+				[labelTop]="true"
+				formControlName="description"
+			>
+			</app-textarea>
+
+			<app-dropdown 
+				label="Goal Client" 
+				[labelTop]="true"
+				formControlName="goalClient" 
+				[options]="goalClientOptions">
+			</app-dropdown>
+
+		</form>
+	</div>
+</div>

@@ -1,0 +1,31 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">{{data.title}}</h5>
+		<hr>
+	</div>
+    <div mat-dialog-content>
+        <div class="row">
+            <div class="col-12 col-md-11">
+                <img src="/assets/images/icons/danger.png" *ngIf="!data?.icon" 
+                class="img-fluid ms-3 ps-1 mb-3" width="45px">
+
+                <img [src]="data?.icon_src" *ngIf="data?.icon" 
+                class="img-fluid ms-3 ps-1 mb-3" width="45px">
+
+                <p class="alert-details" [innerHtml]="data.details"></p>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div class="text-center mb-3 px-0 w-100">
+            <hr><br>
+            <button mat-button (click)="close(false)" 
+            class="btn  btn-header btn-danger me-3">Cancel</button> 
+
+            <button mat-button (click)="close(true)"
+            cdkFocusInitial class="btn btn-primary btn-header me-3">
+                <span>Continue</span>
+            </button>
+        </div>
+    </div>
+</div>

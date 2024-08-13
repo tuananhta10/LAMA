@@ -1,0 +1,29 @@
+<div class="card mb-3 px-0">
+	<div class="card-body">
+		<h5 class="main-title">
+			<!-- <img src="/assets/images/icons/dashboard/accident-2.png" 
+			style="width: 30px;" class="me-2"> -->
+			Accidents/Incidents
+			<span class="float-end">7 Days Period</span>
+		</h5>
+		
+		<div class="chart-container mt-4">
+			<!-- <canvas baseChart
+			[datasets]="pieChartData" 
+			[legend]="pieChartLegend"
+			[labels]="pieChartLabels" 
+			[options]="pieChartOptions"
+			[type]="pieChartType"> 
+			</canvas> -->
+
+			<canvas
+			baseChart 
+			[datasets]="barChartData" 
+			[labels]="barChartLabels" 
+			[options]="barChartOptions"
+			[legend]="barChartLegend" 
+			[type]="barChartType"> 
+			</canvas>
+		</div>
+	</div>
+</div>

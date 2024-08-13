@@ -1,0 +1,42 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data?.schedule; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Service Schedule
+			<!-- <span class="float-end">
+				<select class="form-select" [(ngModel)]="stepperSelector" 
+				(ngModelChange)="updateStepper($event)">
+				  	<option *ngFor="let step of steps; let i = index" [value]="i + 1">
+				  		{{step?.stepLabel}}
+				  	</option>
+				</select>
+			</span> -->
+		</h5>
+		<hr>
+	</div>
+	<div class="row">
+		
+
+		<div class="col-12 col-md-12">
+			<app-service-details-simple 
+			*ngIf="formStep === 1" 
+			[data]="data"
+			(group_service_schedule_client)="getGroupClients($event)"
+			[serviceScheduleForm]="serviceScheduleForm">
+			</app-service-details-simple>
+		</div>
+	</div>
+
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="dialogRef.close()" 
+			class="btn btn-header-gray btn-header me-3">Back</button>
+
+			<button mat-button
+			(click)="save()"
+			[disabled]="!serviceScheduleForm.valid"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+		</div>
+	</div>
+</div>

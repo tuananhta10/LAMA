@@ -1,0 +1,167 @@
+@import "src/scss/colors";
+
+.banner-container{
+	background: red;
+	margin-top: 20px;
+	padding: 20px 40px;
+	background: linear-gradient(91.16deg, $color-purple 0%, $color-purple-dark 100%);
+	border-radius: 6px;
+	position: relative;
+	overflow: hidden;
+
+	h4{
+		color: white;
+		font-size: 35px;
+		font-weight: bold;
+	}
+
+	h5{
+		color: white;
+		font-weight: 500;
+		font-size: 24px;
+	}
+
+	.banner-main{
+		width: 270px;
+		position: absolute;
+		right: 15%;
+		top: 0;
+		z-index: 99;
+	}
+
+	.banner-dots-left{
+		position: absolute;
+		width: 150px; 
+		left: 35%;
+		bottom: 0;
+		z-index: 9;
+	}
+
+	.banner-eclipse-left{
+		position: absolute;
+		width: 500px;
+		left: 22%;
+		bottom: 0;
+		z-index: 9;
+	}
+
+	.banner-dots-right{
+		position: absolute;
+		width: 150px;
+		right: 10%;
+		top: 0;
+		z-index: 9;
+	}
+
+	.banner-eclipse-right{
+		position: absolute;
+		width: 530px;
+		right: 0.1%;
+		top: 0;
+		z-index: 9;
+	}
+}
+
+
+.btn-active-tab{
+    background: rgba($color-purple, 1);
+    //margin-right: 10px;
+    border-radius: 0px !important;
+    color: white;
+    padding: 10px 13px !important;
+}
+
+.btn-active-next{
+    background: rgba($color-purple, 0.2);   
+    //margin-right: 10px;
+    border-radius: 0px !important;
+    padding: 10px 14px !important;
+}
+
+.card{
+    border-top: dashed #c9c9c9 1px !important;
+    border-radius: 0 !important;
+
+}
+
+.main-title{
+	font-size: 24px;
+	font-weight: 600;
+	color: $color-gray;
+
+}
+
+.main-title-sub{
+	font-size: 18px;
+	font-weight: 600;
+	color: $color-gray;
+	border-bottom: solid 1px #c9c9c9;
+	padding-bottom: 20px;
+}
+
+.img-title{
+	margin-top: -8px !important;
+}
+
+.btn-primary{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+}
+
+.btn-menu{
+	background: #F0F1F5 !important;
+	border: 1px solid rgba(93, 93, 93, 0.2) !important;
+	box-sizing: border-box !important;
+	border-radius: 8px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+:host ::ng-deep{
+	.pricelist-toggle{
+		color: #767676;
+		font-size: 15px;
+		max-width: 190px;
+		margin-top: 10px;
+		.mat-slide-toggle {
+
+		    .mat-slide-toggle-bar {
+		        background-color: #BDBDBD;
+		        border-radius: 14px;
+		        height: 26px;
+		        width: 50px;
+		        .mat-slide-toggle-thumb-container {
+		            top: 3px;
+		            left: 4px;
+		        }
+		        .mat-slide-toggle-thumb {
+		            background-color: #fff;
+		        }
+		    }
+		    &.mat-checked {
+		        .mat-slide-toggle-bar {
+		            background-color: $color-purple;
+		        }
+		        .mat-slide-toggle-thumb-container {
+		            transform: translate3d(22px, 0px, 0px);
+		            -moz-transform: translate3d(22px, 0px, 0px);
+		            -o-transform: translate3d(22px, 0px, 0px);
+		            -webkit-transform: translate3d(22px, 0px, 0px);
+		        }
+		    }
+		}
+		.toggle-label {
+		    display: inline-block;
+		    float: right;
+		    margin: 0px 30px 0px 10px;
+		    ///width: 290px;
+		}
+	}
+}
+
+
+:host ::ng-deep{
+	#table-container{
+		min-height: 200px !important;
+	}
+}

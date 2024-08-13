@@ -1,0 +1,147 @@
+<div class="card mb-3 px-0">
+	<div class="card-body">
+		<div style="border-bottom: 1px dashed rgba(196, 196, 196, 0.6); ">
+			<h5 class="main-title">
+				<!-- <img src="/assets/images/icons/dashboard/accident-2.png" 
+				style="width: 30px;" class="me-2"> -->
+				Accidents/Incidents
+
+				<a routerLink="/admin/care/incidents" class="btn btn-view-all float-end">View All</a>
+				<span class="float-end">
+
+					<!-- <div class="dropdown">
+					  	<span id="periodToggle" class="me-2 graph-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+					  	style="cursor: pointer">
+					    	{{ graphView !== 'week' ? '1 Month Period' : '7 Days Period' }}
+					    	<img src="/assets/images/icons/caret-right.png" class="ms-2 caret-down">
+					  	</span>
+					  	<ul class="dropdown-menu" aria-labelledby="periodToggle">
+						    <li><a class="dropdown-item" (click)="switchGraphPeriod('week')">7 Days Period</a></li>
+
+						    <li><a class="dropdown-item" (click)="switchGraphPeriod('month')">1 Month Period</a></li>
+					  	</ul>
+					</div> -->
+				</span>
+			</h5>
+			<p class="title-subtitle">This shows the number of people who submitted an accident/incident report for this month.  </p>
+		</div>
+		
+		<ng-container *ngIf="graphView === 'week'">
+			<div class="chart-container mt-4">
+				<!-- <canvas baseChart
+				[datasets]="pieChartData" 
+				[legend]="pieChartLegend"
+				[labels]="pieChartLabels" 
+				[options]="pieChartOptions"
+				[type]="pieChartType"> 
+				</canvas> -->
+
+				<canvas
+				baseChart 
+				[datasets]="barChartData" 
+				[labels]="barChartLabels" 
+				[options]="barChartOptions"
+				[legend]="barChartLegend" 
+				[type]="barChartType"> 
+				</canvas>
+			</div>
+		</ng-container>
+
+
+		<ng-container *ngIf="graphView === 'month'">
+			<div class="chart-container mt-4">
+				<!-- <canvas baseChart
+				[datasets]="pieChartData" 
+				[legend]="pieChartLegend"
+				[labels]="pieChartLabels" 
+				[options]="pieChartOptions"
+				[type]="pieChartType"> 
+				</canvas> -->
+
+				<canvas
+				baseChart 
+				[datasets]="stackedGraphChartData" 
+				[labels]="stackedGraphChartLabels" 
+				[options]="stackedGraphChartOptions"
+				[legend]="stackedGraphChartLegend" 
+				[type]="stackedGraphChartType"> 
+				</canvas>
+			</div>
+		</ng-container>
+	</div>
+</div>
+
+<!-- REFERRALS -->
+<div id="statistic-data" >
+	<div class="card px-3"  id="enquiry-data">
+		<div class="col-12 col-md-12">
+			<div class="ps-3">
+				<h5 class="intake-total mt-4 mb-2">{{filteredReferrals?.length}} Monthly Referrals
+					<a routerLink="/admin/referrals" class="btn btn-view-all float-end">View All</a>
+				</h5>
+				<p class="intake-subtitle">This shows the number of people referred in this month. This data helps track service demand and referral sources and can be used to plan resources and anticipate future needs. </p>
+			</div>
+
+			<div class="d-flex ps-3">
+				<div class="me-3" style="width: 95px">
+					<div class="d-flex">
+						<h5 class="leave-sub-total">{{openReferrals?.length}}</h5>
+						<p class="leave-subtitle" style="overflow: visible; white-space: nowrap;">Open</p>
+					</div>
+					<div class="progress">
+					  <div class="progress-bar bg-open" role="progressbar" 
+					  [ngStyle]="{ 
+					  	'width': (openReferrals?.length/filteredReferrals?.length) * 100 + 'px' 
+					  }" 
+					  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<p class="intake-subtitle"></p>
+				</div>
+
+				<div class="me-3" style="width: 95px">
+					<div class="d-flex">
+						<h5 class="leave-sub-total">{{approvedReferrals?.length}}</h5>
+						<p class="leave-subtitle" style="overflow: visible; white-space: nowrap;">Onboarded</p>
+					</div>
+
+					<div class="progress">
+					  <div class="progress-bar bg-approved" role="progressbar" 
+					  [ngStyle]="{ 
+					  	'width': (approvedReferrals?.length/filteredReferrals?.length) * 100 + 'px' 
+					  }" 
+					  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<p class="intake-subtitle"></p>
+				</div>
+
+				<div class="me-3" style="width: 95px">
+					<div class="d-flex">
+						<h5 class="leave-sub-total">{{declinedReferrals?.length}}</h5>
+						<p class="leave-subtitle" style="overflow: visible; white-space: nowrap;">Declined</p>
+					</div>
+
+					<div class="progress">
+					  <div class="progress-bar bg-declined" role="progressbar" 
+					  [ngStyle]="{ 
+					  	'width': (declinedReferrals?.length/filteredReferrals?.length) * 100 + 'px' 
+					  }" 
+					  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<p class="intake-subtitle"></p>
+				</div>
+			</div>
+
+			<div class="chart-container-2 mt-2">
+				<canvas
+				baseChart 
+				[datasets]="lineChartData" 
+				[labels]="lineChartLabels" 
+				[options]="lineChartOptions"
+				[legend]="lineChartLegend" 
+				[type]="lineChartType"> 
+				</canvas>
+			</div>
+			<br>
+		</div>
+	</div>
+</div> 

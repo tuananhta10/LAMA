@@ -1,0 +1,607 @@
+<div class="mt-3" id="schedule-board-container" style="overflow-x: hidden;">
+	<!-- <img src="/assets/images/icons/schedule-board-purple.svg" width="25px" class="me-2 img-fluid img-title"> -->
+	<span class="ms-2 main-title">Schedule Board
+		<span class="float-end me-3 mb-3" *ngIf="!loading">
+			<button *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }" class="btn btn-primary" (click)="openServiceScheduleSimple()">Add Service Schedule</button>
+		</span>
+
+		<span *ngIf="!loading" class="date-grouping-status float-end me-3"
+		[@animate]="{value:'*', params:{ x:'50px', delay:'200ms' }}">
+			<!-- <button class="btn btn-menu me-3 ">
+				<img src="/assets/images/icons/menu-icon.png" width="15px" class="img-fluid">
+			</button> -->
+			<button class="btn btn-minimize hvr-grow" *ngIf="showStatus" 
+			(click)="[showStatus = false, filterByShiftStatus(null)]">
+				<mat-icon class="mat-icon close">close</mat-icon>
+			</button> 
+
+			<span class="show-status ms-3 hvr-grow" 
+			(click)="showStatus = true" *ngIf="!showStatus">Show Status</span>
+			<button class="btn btn-maximize hvr-grow"
+			*ngIf="!showStatus" (click)="showStatus = true">
+				<mat-icon class="mat-icon add">add</mat-icon> 
+			</button>
+
+			<ng-container *ngIf="showStatus">
+				<span [@animate]="{value:'*', params:{ x:'50px', delay:'200ms' }}">
+					<button class="btn btn-cancelled mt-2"
+					[ngClass]="filterBy === 'cancelled' ? 'active-cancelled' : ''"
+					(click)="filterByShiftStatus('cancelled')">
+						<span class="badge-cancelled mx-2">2</span>
+						<span class="me-2">Cancelled</span>
+					</button>
+
+					<button class="btn btn-completed mt-2 ms-2"
+					[ngClass]="filterBy === 'completed' ? 'active-completed' : ''"
+					(click)="filterByShiftStatus('completed')">
+						<span class="badge-completed mx-2">2</span>
+						<span class="me-2">Completed</span>
+					</button>
+					<button class="btn btn-scheduled mt-2 ms-2"
+					[ngClass]="filterBy === 'scheduled' ? 'active-scheduled' : ''"
+					(click)="filterByShiftStatus('scheduled')">
+						<span class="badge-scheduled mx-2">0</span>
+						<span class="me-2">Scheduled</span>
+					</button>
+					<button class="btn btn-created mt-2 ms-2"
+					[ngClass]="filterBy === 'created' ? 'active-created' : ''"
+					(click)="filterByShiftStatus('created')">
+						<span class="badge-created mx-2">0</span>
+						<span class="me-2">Created</span>
+					</button>
+					<button class="btn btn-pending mt-2 ms-2"
+					[ngClass]="filterBy === 'pending' ? 'active-pending' : ''"
+					(click)="filterByShiftStatus('pending')">
+						<span class="badge-pending mx-2">2</span>
+						<span class="me-2">Pending</span>
+					</button>
+				</span>
+			</ng-container>
+			<!-- <button class="btn btn-primary-outline ms-3">Templates</button> -->
+		</span>
+
+
+	</span>
+
+	<div class="card card-body mt-3"
+	style="width: 98.5% !important; min-height: 400px;" >
+		<div class="date-grouping-container" 
+		[@animate]="{value:'*', params:{ y:'-50px', delay:'500ms' }}">
+			<div class="row">
+				<div class="col-4">
+					<span class="ms-3" >
+						<h5 class="container-date mt-0">
+							<span class="mx-2 btn  hvr-grow"
+							[ngClass]="thisWeekActive ? 'this-week-return-active' : 'this-week-return'"
+							(click)="setToThisWeek()">This Week</span>
+						</h5>
+					</span>
+				</div>
+
+				<div class="col-4 text-center">
+					<span class="ms-3" >
+						<h5 class="container-date">
+							<span class="ms-3">
+								<img src="/assets/images/icons/caret-left.png" 
+								class="img-fluid hvr-grow" width="7px"
+								(click)="subtractWeek()">
+
+								<span class="mx-4 this-week hvr-grow">
+									{{ dateRange?.start_date | date : 'MMM dd'}} - 
+									{{ dateRange?.end_date | date : 'MMM dd'}}
+								</span>
+
+								<img src="/assets/images/icons/caret-right.png" 
+								class="img-fluid hvr-grow" width="7px"
+								(click)="addWeek()">
+							</span>
+						</h5>
+					</span>
+				</div>
+
+				<div class="col-4 text-end mt-3">
+					<div class="group-by float-end ">
+						<button class="btn px-2 group-toggle" 
+						[ngClass]="groupBy === 'Client' ? 'group-by-active me-1': ''"
+						(click)="regroupItems('Client')">Client
+						</button>
+
+						<button class="btn group-toggle px-0"
+						*appRoleHide="{roles: adminAccess, role:loggedUser.system_role }"
+						[ngClass]="groupBy === 'Group' ? 'group-by-active': ''"
+						(click)="regroupItems('Group')">
+						Group
+						</button>
+
+						<button class="btn group-toggle px-0" 
+						*appRoleHide="{roles: adminAccess, role:loggedUser.system_role }"
+						[ngClass]="groupBy === 'Employee' ? 'group-by-active': ''"
+						(click)="regroupItems('Employee')">
+						 Employee 
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+		<!-- SCHEDULE DATA CLIENT-->
+		<ng-container *ngIf="groupBy === 'Client' && scheduleBoardListClient?.length > 0">
+			<div class="mt-3 parent"
+			cdkScrollable #elemt
+			(mousedown)="startDragging($event, false, elemt)" 
+			(mouseup)="stopDragging($event, false)"
+			(mouseleave)="stopDragging($event, false)" 
+			(mousemove)="moveEvent($event, elemt)" 
+			(mousedown)="$event.preventDefault(); $event.stopPropagation()" 
+			*ngIf="!loading" id="schedule-board-table" 
+			[@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+				<table class="table parent"
+				style="width: 99% !important; min-height: 400px; overflow-x: auto;">
+				  <thead>
+				    <tr>
+				      <th scope="col" *ngFor="let day of displayedColumns; let i = index">
+				      	<ng-container *ngIf="day?.col_name !== 'client'; else showClientHead">
+				      		{{day?.title}}<br>
+				      		<span class="title-date">
+				      			{{addDays(dateRange?.start_date, i - 1) | date : 'MMM dd'}}
+				      		</span>
+				      	</ng-container>
+
+				      	<ng-template #showClientHead>
+				      		<!-- SEARCH CLIENT -->
+				      		<div class="search-div me-1">
+				      			<div class="input-group">
+				      			  <img src="/assets/images/icons/search.png">
+				      			  
+				      			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				      			  [(ngModel)]="searchBy" (ngModelChange)="searchByClient()">
+				      			</div>
+				      		</div>
+				      	</ng-template>
+				      </th>
+				    </tr>
+				  </thead>
+
+				  <tbody class="parent" >
+				  	<tr>
+				  		<td *ngFor="let day of displayedColumns; let i = index" 
+				  		style="padding: 6px !important;">
+				  			<span class="hvr-grow" 
+				  			style="cursor: pointer;" 
+				  			*ngIf="i === 0" (click)="filterByCheckList()">
+				  				<img src="/assets/images/icons/checklist.png" class="mx-2" 
+				  				style="width: 14px; ">Filter 
+				  			</span>
+				  		</td>
+				  	</tr>
+				    <tr *ngFor="let data of filteredBoardListClient" 
+				    [@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+				      <td scope="row" class="text-center" style="min-width: 185px !important;">
+				      	<div class="pt-3 px-3" (click)="navigateToClient(data?.client?.id)">
+				      		<div class="profile">
+				      			<img [defaultImage]="defaultImg"
+				      			[lazyLoad]="data?.client?.profile_pic_url">
+				      		</div>
+				      		
+				      		<div class="mt-2">
+				      			<h5 class="client-name">{{data?.client?.name}}</h5>
+
+				      			<p class="client-hour mb-0">{{data?.client?.total_hours?.toFixed(2)}} Hour/s</p>
+				      			<p class="client-hour mb-0">Billable: {{data?.client?.total_hours?.toFixed(2)}} Hour/s</p>
+				      			<p class="client-hour mb-0 mt-2 pt-2" style="border-top: dashed 1px #d9d9d9;">Total Transport: {{data?.client?.total_transport?.toFixed(2)}}</p>
+				      			<p class="client-hour mb-0">Total Travel: {{data?.client?.total_travel_km?.toFixed(2)}} km</p>
+				      		</div>
+				      	</div>
+				      </td>
+
+				      <td *ngFor="let schedule of data?.schedule?.slice(0,7); let i = index"
+				      (click)="!schedule.status && !schedule[0]?.status 
+					      ? openServiceScheduleSimple(
+					      	undefined, 
+					      	undefined, 
+					      	addDays(dateRange?.start_date, i), 
+					      	data?.client, 
+					      	i
+					      ) : ''
+				      "
+				      style="min-width: 200px !important;">
+				      	<ng-container *ngIf="schedule[0]?.status">
+				      		<div *ngFor="let item of schedule; let day = index" class="mb-3"
+				      		(click)="makeDoubleClick(item, dateRange, data, i)" 
+				      		[ngClass]="item?.status?.toLowerCase()" >
+
+				      			<p class="total-hour text-truncate mt-0">
+				      				{{item?.total_hours}} Hour/s
+				      				<span class="float-end">
+				      					<div class="d-flex">
+				      						<div class="text-truncate ms-2" *ngIf="item?.type"
+				      						[ngClass]="item?.type?.toLowerCase()">
+				      							{{item?.type}} 
+				      							
+				      						</div>
+
+				      						<img src="/assets/images/icons/dollar.png" 
+				      						*ngIf="item?.claimed" class="ms-1" 
+				      						width="25px">
+				      					</div>
+				      				</span> 
+				      			</p>
+				      			
+				      			<div class="pb-2 mt-2" 
+				      			style="border-bottom: dashed 1px #d9d9d9 !important;">
+				      				<span class="date-range text-truncate me-1" >
+				      					{{ convertTo12Hrs(item?.start_time) }} - 
+				      					{{ convertTo12Hrs(item?.end_time) }}
+				      				</span> 
+				      			</div>
+
+				      			<div style="height: 8px;"></div>
+				      			<div class="text-truncate text-start funding-source" *ngIf="item?.client_funding_code">
+				      			{{item?.client_funding_code}}</div>
+
+				      			<h5 class="activity-title text-capitalize px-2 pt-2" 
+				      			style="border-top: dashed 1px #d9d9d9 !important;">{{item?.activity}}</h5>
+
+				      			<div class="d-flex w-100 ps-2 mb-2">
+				      				<img src="/assets/images/icons/travel.png" style="width: 20px;" class="me-2" [title]="'Travel KM'"> 
+
+				      				<span class="total-transport">{{item?.total_travel_km?.toFixed(2)}} km</span>
+
+				      				<ng-container *ngIf="item?.total_transport !== 0">
+				      					<img src="/assets/images/icons/transport.png" style="width: 20px;" class="me-2" [title]="'Total Travel KM'"> 
+
+				      					<span class="total-transport">{{item?.total_transport?.toFixed(2)}}</span>
+
+				      				</ng-container>
+				      			</div>
+
+				      			<div class="text-center pt-1" *ngIf="item?.employee_name"   
+				      			style="border-top: 1px dashed #d9d9d9">
+				      				<div class="assign-employee-2 text-truncate" 
+				      				(click)="assignEmployee(item)">
+				      					<img src="/assets/images/icons/scheduled-employee.png" class="me-2" 
+				      					style="width: 18px;">
+				      					{{item?.employee_name}}
+
+				      					<span class="float-end">
+				      						<img src="/assets/images/icons/scheduled-refresh.png" 
+				      						style="width: 18px; margin-right: -10px;">
+				      					</span>
+				      				</div>
+				      			</div>
+
+				      			<ng-container *ngIf="item?.group?.length > 0">
+				      				<div style="border-top: 1px dashed #d9d9d9">
+				      					<div class="mt-3 pt-3 assign-employee-2 text-truncate">
+				      						<img src="/assets/images/icons/scheduled-group.png" class="me-2" 
+				      						style="width: 18px;">
+				      						{{ item?.group[0]?.name }}
+				      					</div>
+				      				</div>
+				      			</ng-container>
+
+				      			<ng-container *ngIf="!item?.employee_name && item?.group_id == null">
+				      				<div class="text-center" style="border-top: 1px dashed #d9d9d9">
+				      					<span class="assign-employee hvr-grow" 
+				      					(click)="assignEmployee(item, day)">Assign Employee</span>
+				      				</div>
+				      			</ng-container>
+				      		</div>
+				      	</ng-container>
+
+				      	<ng-container *ngIf="!schedule.status && !schedule[0]?.status; ">
+				      		<div class="hvr-shadow h-100 v-100"
+				      		(click)="openServiceSchedule()" >-</div>
+				      	</ng-container>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+		</ng-container>
+
+		<ng-container *ngIf="groupBy === 'Client' && scheduleBoardListClient?.length === 0">
+			<div class="text-center p-5" *ngIf="!loading">
+				<h5>List of schedule is currently empty. Create schedule now</h5>
+				<img src="/assets/images/placeholder/empty.gif" width="500px">
+			</div>
+		</ng-container>
+
+		<!-- SCHEDULE DATA EMPLOYEE-->
+		<ng-container *ngIf="groupBy === 'Employee' && scheduleBoardListEmployee?.length !== 0">
+			<div class="mt-3 parent" *ngIf="!loading" id="schedule-board-table" 
+			cdkScrollable #elemt
+			(mousedown)="startDragging($event, false, elemt)" 
+			(mouseup)="stopDragging($event, false)"
+			(mouseleave)="stopDragging($event, false)" 
+			(mousemove)="moveEvent($event, elemt)" 
+			(mousedown)="$event.preventDefault(); $event.stopPropagation()" 
+			style="width: 99% !important; min-height: 400px;" 
+			[@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col" *ngFor="let day of displayedColumns; let i = index">
+				      	<ng-container *ngIf="day?.col_name !== 'client'; else showClientHead">
+				      		{{day?.title}}<br>
+				      		<span class="title-date">
+				      			{{addDays(dateRange?.start_date, i - 1) | date : 'MMM dd'}}
+				      		</span>
+				      	</ng-container>
+
+				      	<ng-template #showClientHead>
+				      		<!-- SEARCH CLIENT -->
+				      		<div class="search-div me-1">
+				      			<div class="input-group">
+				      			  <img src="/assets/images/icons/search.png">
+				      			  
+				      			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				      			  [(ngModel)]="searchBy" (ngModelChange)="searchByEmployee()">
+				      			</div>
+				      		</div>
+				      	</ng-template>
+				      </th>
+				    </tr>
+				  </thead>
+
+				  <tbody>
+				  	<tr>
+				  		<td *ngFor="let day of displayedColumns; let i = index" 
+				  		style="padding: 6px !important;">
+				  			<span class="hvr-grow" 
+				  			style="cursor: pointer;" 
+				  			*ngIf="i === 0" (click)="filterByCheckList()">
+				  				<img src="/assets/images/icons/checklist.png" class="mx-2" 
+				  				style="width: 14px; ">Filter 
+				  			</span>
+				  		</td>
+				  	</tr>
+				    <tr *ngFor="let data of filteredBoardListEmployee" 
+				    [@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+				      <td scope="row" (click)="navigateToEmployee(data?.employee?.id)">
+				      	<div class="pt-3 px-3 text-center"
+				      	style="min-width: 185px !important;">
+				      		<div class="profile mt-3">
+				      			<img [defaultImage]="defaultImg"
+				      			[lazyLoad]="data?.employee?.profile_pic_url">
+				      		</div>
+				      		
+				      		<div class="mt-2">
+				      			<h5 class="client-name">{{data?.employee?.name}}</h5>
+				      			<h5 class="client-hour">{{data?.employee?.employee_position || '-'}}</h5>
+				      			<p class="client-hour">Billable: {{data?.employee?.total_hours.toFixed(2)}} Hour/s</p>
+				      		</div>
+				      	</div>
+				      </td>
+
+				      <td *ngFor="let schedule of data?.schedule?.slice(0,7)"
+				      style="min-width: 200px !important;">
+				      	<ng-container *ngIf="schedule[0]?.status 
+				      	&& !schedule?.employee_leave">
+				      		<div *ngFor="let item of schedule" class="mb-2" 
+				      		[ngClass]="item?.status?.toLowerCase()"
+				      		(dblclick)="openServiceSchedule(item, 'Client')">
+				      			<p class="total-hour text-truncate mt-0">
+				      				{{item?.total_hours}} Hour/s
+				      				<span class="float-end">
+				      					<span class="text-truncate ms-2" *ngIf="item?.type"
+				      					[ngClass]="item?.type?.toLowerCase()">
+				      						{{item?.type}} 
+				      						
+				      					</span>
+
+				      					<img src="/assets/images/icons/dollar.png" 
+				      					*ngIf="item?.billable" class="ms-1" 
+				      					width="25px">
+				      				</span> 
+				      			</p>
+				      			
+				      			<div class="pb-2 mt-2" 
+				      			style="border-bottom: dashed 1px #d9d9d9 !important;">
+				      				<span class="date-range text-truncate me-1" >
+				      					{{ convertTo12Hrs(item?.start_time) }} - 
+				      					{{ convertTo12Hrs(item?.end_time) }}
+				      				</span> 
+				      			</div>
+
+				      			<div style="height: 8px;"></div>
+				      			<div class="text-truncate text-start funding-source" *ngIf="item?.client_funding_code">
+				      			{{item?.client_funding_code}}</div>
+
+
+				      			<h5 class="activity-title text-capitalize px-2 pt-2" 
+				      			style="border-top: dashed 1px #d9d9d9 !important;">{{item?.activity}}</h5>
+
+				      			<div class="text-truncate pt-2" style="border-top: 1px dashed #d9d9d9">
+				      				<span class="assign-employee-2">
+				      					<img src="/assets/images/icons/scheduled-employee.png" class="me-2" 
+				      					style="width: 18px;">{{item?.client_name}}
+				      				</span>
+				      			</div>
+				      		</div>
+				      	</ng-container>
+
+				      	<ng-container *ngIf="schedule?.employee_leave">
+				      		<div class="p-2">
+				      			Not Working
+				      		</div>
+				      	</ng-container>
+
+				      	<ng-container *ngIf="!schedule.status 
+				      	&& !schedule[0]?.status 
+				      	&& !schedule?.employee_leave">
+				      		<div class="h-100 v-100">
+				      			-
+				      		</div>
+				      	</ng-container>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+		</ng-container>
+
+		<ng-container *ngIf="groupBy === 'Employee' && scheduleBoardListEmployee?.length === 0">
+			<div class="text-center p-5" *ngIf="!loading">
+				<h5>List of schedule is currently empty. Create schedule now</h5>
+				<img src="/assets/images/placeholder/empty.gif" width="500px">
+			</div>
+		</ng-container>
+
+		<!-- SCHEDULE DATA GROUP -->
+		<ng-container *ngIf="groupBy === 'Group' && scheduleBoardListGroup?.length > 0">
+			<div class="mt-3 parent" *ngIf="!loading" id="schedule-board-table" 
+			cdkScrollable #elemt
+			(mousedown)="startDragging($event, false, elemt)" 
+			(mouseup)="stopDragging($event, false)"
+			(mouseleave)="stopDragging($event, false)" 
+			(mousemove)="moveEvent($event, elemt)" 
+			(mousedown)="$event.preventDefault(); $event.stopPropagation()" 
+			style="width: 99% !important; min-height: 400px;" 
+			[@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col" *ngFor="let day of displayedColumns; let i = index">
+				      	<ng-container *ngIf="day?.col_name !== 'client'; else showGroupHead">
+				      		{{day?.title}}<br>
+				      		<span class="title-date">
+				      			{{addDays(dateRange?.start_date, i - 1) | date : 'MMM dd'}}
+				      		</span>
+				      	</ng-container>
+
+				      	<ng-template #showGroupHead>
+				      		<!-- SEARCH CLIENT -->
+				      		<div class="search-div me-1">
+				      			<div class="input-group">
+				      			  <img src="/assets/images/icons/search.png">
+				      			  
+				      			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				      			  [(ngModel)]="searchBy" (ngModelChange)="searchByGroup()">
+				      			</div>
+				      		</div>
+				      	</ng-template>
+				      </th>
+				    </tr>
+				  </thead>
+
+				  <tbody>
+				  	<tr>
+				  		<td *ngFor="let day of displayedColumns; let i = index" 
+				  		style="padding: 6px !important;">
+				  			<span class="hvr-grow" 
+				  			style="cursor: pointer;" 
+				  			*ngIf="i === 0" (click)="filterByCheckList()">
+				  				<img src="/assets/images/icons/checklist.png" class="mx-2" 
+				  				style="width: 14px; ">Filter 
+				  			</span> 
+				  		</td>
+				  	</tr>
+				    <tr *ngFor="let data of filteredBoardListGroup" 
+				    [@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+				      <td scope="row">
+				      	<div class="pt-3 px-3 text-center" 
+				      	style="min-width: 185px;"
+				      	(click)="navigateToClient(data?.group?.id)">
+				      		<div class="profile">
+				      			<img [defaultImage]="defaultImg"
+				      			[lazyLoad]="data?.group?.profile_pic_url">
+				      		</div>
+				      		
+				      		<div class="mt-2">
+				      			<h5 class="client-name">{{data?.group?.name}}</h5>
+				      			<p class="client-hour">Billable: {{data?.group?.total_hours.toFixed(2)}} Hour/s</p>
+				      		</div>
+				      	</div>
+				      </td>
+
+				      <td *ngFor="let schedule of data?.schedule?.slice(0,7); let i = index"
+				      (click)="!schedule.status && !schedule[0]?.status 
+					      ? openServiceSchedule(
+					      	undefined, 
+					      	undefined, 
+					      	addDays(dateRange?.start_date, i), 
+					      	data?.group, 
+					      	i
+					      ) : ''
+				      "
+				      style="min-width: 200px !important;">
+				      	<ng-container *ngIf="schedule[0]?.status">
+				      		<div *ngFor="let item of schedule; let day = index" class="mb-3"
+				      		(dblclick)="openServiceSchedule(item, 'Employee')" 
+				      		[ngClass]="item?.status?.toLowerCase()" >
+				      			<p class="total-hour text-truncate mt-0">
+				      				{{item?.total_hours}} Hour/s
+				      				<span class="float-end">
+				      					<img src="/assets/images/icons/dollar.png" 
+				      					*ngIf="item?.billable" class="ms-1" 
+				      					width="25px">
+				      				</span> 
+				      			</p>
+				      			
+				      			<div class="pb-2 mt-2" >
+				      				<span class="date-range text-truncate me-1" >
+				      					{{ convertTo12Hrs(item?.start_time) }} - 
+				      					{{ convertTo12Hrs(item?.end_time) }}
+				      				</span> 
+				      			</div>
+				      			
+				      			<h5 class="activity-title text-capitalize px-2 pt-2" 
+				      			style="border-top: dashed 1px #d9d9d9 !important;">{{item?.activity}}</h5>
+
+				      			<div class="text-center pt-1" *ngIf="item?.employee_name"   
+				      			style="border-top: 1px dashed #d9d9d9">
+				      				<div class="assign-employee-2 text-truncate" 
+				      				(click)="assignEmployee(item)">
+				      					<img src="/assets/images/icons/scheduled-employee.png" class="me-2" 
+				      					style="width: 18px;">
+				      					{{item?.employee_name}}
+
+				      					<span class="float-end">
+				      						<img src="/assets/images/icons/scheduled-refresh.png" 
+				      						style="width: 18px; margin-right: -10px;">
+				      					</span>
+				      				</div>
+				      			</div>
+
+				      			<ng-container *ngIf="!item?.employee_name">
+				      				<div class="text-center" style="border-top: 1px dashed #d9d9d9">
+				      					<span class="assign-employee hvr-grow" 
+				      					(click)="assignEmployee(item, day)">Assign Employee</span>
+				      				</div>
+				      			</ng-container>
+				      		</div>
+				      	</ng-container>
+
+				      	<ng-container *ngIf="!schedule.status && !schedule[0]?.status; ">
+				      		<div class="hvr-shadow h-100 v-100"
+				      		(click)="openServiceSchedule()" >-</div>
+				      	</ng-container>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+		</ng-container>
+
+		<ng-container *ngIf="groupBy === 'Group' && scheduleBoardListGroup?.length === 0">
+			<div class="text-center p-5" *ngIf="!loading">
+				<h5>List of schedule is currently empty. Create schedule now</h5>
+				<img src="/assets/images/placeholder/empty.gif" width="500px">
+			</div>
+		</ng-container>
+
+
+		<br>
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>
+
+<!-- LOADING ANIMATION SCREEN 
+<global-admin-loader [loading]="loading"></global-admin-loader>-->

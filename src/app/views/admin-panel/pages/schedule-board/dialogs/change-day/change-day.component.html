@@ -1,0 +1,41 @@
+
+<div class="assign-action-container px-2">
+	<img src="/assets/images/icons/pending-status.png" class="img-fluid" width="30px">
+
+	<h5 class="header-text-action mb-0">{{data?.title || 'Add or Subtract Days to Calendar Schedules'}}</h5>
+	<h5 class="header-text mt-1">Fill up the form and click continue to proceed</h5><hr>
+
+	<div class="">
+		<form [formGroup]="rescheduleForm" >
+			<div class="ms-4 mt-3">
+				<p class="mat-subtitle-description">All selected schedule will change based on the input selected below. Proceed carefully.</p>
+			</div>
+
+            <app-textfield 
+                label="Add Number of Days"
+                [labelTop]="true"
+                [required]="true"
+                [inputType]="'number'"
+                formControlName="add_days">
+            </app-textfield >
+
+		</form>
+	</div>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Cancel</button>
+
+			<button [disabled]="!rescheduleForm.valid"
+			mat-button 
+			(click)="closeSaveDialog()" 
+			class="btn btn-primary">Continue</button>
+		</div>
+	</div>
+</div>

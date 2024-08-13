@@ -1,0 +1,98 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+:host ::ng-deep {
+    .card-form {
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+
+        .mat-dialog-title{
+            font-size: 15px !important;
+            color: $color-gray-dark;
+
+            hr {
+                border: 0.5px solid #777777;
+                margin-bottom: 30px;
+            }
+        }
+
+        .mat-card {
+            box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            -webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            -moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            border-radius: 20px;
+            padding: 25px 25px;
+
+            .mat-card-title{
+                font-size: 13px !important;
+                color: $color-gray-dark;
+
+                hr {
+                    border: 0.5px solid #777777;
+                    margin-bottom: 30px;
+                }
+            }
+
+            .mat-card-content {
+                padding: 0 100px 0 50px;
+
+                .table-border{
+                    border: 1px solid #BDBDBD;
+                    box-sizing: border-box;
+                    border-radius: 6px;
+                }
+            }
+
+            .mat-card-actions{
+                padding: 10px 25px;
+
+                .btn-header-gray{
+                    background: #D0D0D0;
+                    color: $color-gray-dark;
+                }
+
+                .btn-header{
+                    border-radius: 5px !important;
+                    padding: 7px 30px !important;
+                }
+            }
+
+            .mat-dialog-actions{
+                border-top: solid 1px $color-gray;
+                text-align: center;
+            }
+        }
+    }
+}
+
+.dialog-responsive .mat-dialog-container
+{
+  
+    //min-height: 300px !important;
+    min-width: 450px !important;
+    //max-height: 70% !important; 
+   // max-width: 800px;
+
+    @media (max-width: 768px){
+      min-height: 50%;
+      min-height: 500px;
+    }
+}
+
+.btn-header-gray{
+  background: #D0D0D0;
+  color: $color-gray-dark;
+}
+
+.btn-header{
+  border-radius: 5px !important;
+  padding: 7px 30px !important;
+}

@@ -1,0 +1,98 @@
+<section class="p-3 text-center alternate-theme" id="edit-client-list-dialog">
+	<h4 class="selection-title-outer pe-2">Choose which {{data?.groupBy === 'Client' ? 'Participants' : 'Employee' }} you want to include</h4>
+	<hr>
+	<div class="ms-2" cdkDropListGroup>
+		<div class="selection-container">
+			<!-- SEARCH CLIENT -->
+			<div class="search-div me-1">
+				<div class="input-group">
+				  <img src="/assets/images/icons/search.png">
+				  
+				  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				  [(ngModel)]="searchBy" (ngModelChange)="searchByType()">
+				</div>
+			</div>
+			<hr>
+
+			<div class="selection-list" *ngIf="!drag">
+				<div class="table">
+					<table class="table w-100">
+						<thead>
+							<tr class="text-start" >
+								<th>{{data?.groupBy === 'Client' ? 'Participants' : 'Employee' }} Name</th>
+								<th *ngIf="data?.groupBy === 'Client'">Branch</th>
+								<th>Total Hours</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+					          	<tr class="text-start" *ngFor="let item of filteredColumns" >
+					          		<td class="d-flex">
+					          			<mat-checkbox style="margin-top: -7px;"
+					          			class="selection-check me-2"  
+					          			[checked]="item?.selected"
+					          			(change)="updateSelectedItem(item)">
+					          			</mat-checkbox>
+
+					          			<span *ngIf="data?.groupBy === 'Client'">
+					          				{{item?.client?.name}} 
+					          			</span>
+
+					          			<span *ngIf="data?.groupBy === 'Employee'">
+					          				{{item?.employee?.name}}
+					          			</span>
+
+					          			<span *ngIf="data?.groupBy === 'Group'">
+					          				{{item?.group?.name}}
+					          			</span>
+					          		</td>
+
+					          		<td  *ngIf="data?.groupBy === 'Client'">
+					          			<span *ngIf="data?.groupBy === 'Client'">
+					          				{{item?.client?.branch_name}}
+					          			</span>
+
+					          			<span *ngIf="data?.groupBy === 'Employee'">
+					          				{{item?.employee?.branch_name}}
+					          			</span>
+
+					          			<span *ngIf="data?.groupBy === 'Group'">
+					          				{{item?.group?.branch_name}}
+					          			</span>
+					          		</td>
+
+					          		<td>
+					          			<span >
+					          				{{calculateTotalHours(item)}}
+					          			</span>
+
+					          			Hours
+					          		</td>
+					          	</tr>
+					         
+							
+
+
+						</tbody>
+					</table>
+				</div>
+			</div> 
+		</div>
+	</div>
+
+	<!-- <div class="text-start ms-2">
+		<small class="text-muted">*Drag items to the left if you want to hide the column.</small>
+	</div> -->
+	<br>
+	<div class="text-center">
+		<button mat-button class="btn btn-header btn-header-gray me-3" (click)="closeDialog()">
+			Cancel
+		</button>
+
+		<button mat-button class="btn btn-header btn-primary" (click)="closeSaveDialog()"
+		[disabled]="selected?.length <= 0">
+			Save
+		</button>
+	</div>
+</section>

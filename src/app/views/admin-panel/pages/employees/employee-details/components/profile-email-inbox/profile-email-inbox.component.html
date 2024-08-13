@@ -1,0 +1,140 @@
+<div class="p-3" [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+	<div class="d-flex mb-3" style="border-bottom: solid 1px #D0D0D0">
+		<section class="d-flex" style="margin-top: -10px;">
+			<div class="search-div me-1 mt-1 mb-0" style="width: 300px; height: 41px;">
+				<div class="input-group">
+				  <img src="/assets/images/icons/search.png">
+
+				  <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+				  [(ngModel)]="searchBy" (ngModelChange)="searchDataSource()">
+				</div>
+			</div>
+
+			<div class="d-flex mt-1"  *ngIf="showDateFilter">
+				<div class="date-div me-2 mb-3">
+					<div class="input-group" (click)="dateFrom.open()">
+					  <img matSuffix src="/assets/images/icons/calendar-input-icon.png">
+					  <mat-datepicker #dateFrom></mat-datepicker>
+					  <input type="text" class="form-control"
+					  [matDatepicker]="dateFrom"  
+					  placeholder="Date From" aria-label="Search"
+					  [(ngModel)]="dateSearch.dateFrom" (dateChange)="updateDateFilter()">
+					</div>
+				</div>
+
+				<div class="date-div me-2 mb-3">
+					<div class="input-group" (click)="dateTo.open()">
+					  <img matSuffix src="/assets/images/icons/calendar-input-icon.png">
+					  <mat-datepicker #dateTo></mat-datepicker>
+					  <input type="text" class="form-control" 
+					  [matDatepicker]="dateTo" 
+					  placeholder="Date To" aria-label="Search"
+					  [(ngModel)]="dateSearch.dateTo" (dateChange)="updateDateFilter()">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="w-100 text-end">
+			<button class="btn btn-sort me-2 dropdown"
+			data-bs-toggle="dropdown" 
+			aria-expanded="false" >
+				<span>Sort</span>
+				<img src="/assets/images/icons/sort-descending.png" style="height: 15px" class="ms-2">
+			</button>
+
+			<ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="status-filter">
+				<li (click)="sortFunc('a-z')">Aa - Zz</li>
+				<li (click)="sortFunc('z-a')">Zz - Aa</li>
+				<li (click)="sortFunc('date-up')">Date (asc)</li>
+				<li (click)="sortFunc('date-down')">Date (desc)</li>
+			</ul>
+
+			<button class="btn btn-sort me-2" (click)="deleteEmailItem()">
+				<img src="/assets/images/icons/bin.png" style="height: 15px" title="Delete">
+			</button>
+
+			<button class="btn btn-sort me-2" (click)="archiveEmailItem()">
+				<img src="/assets/images/icons/archive.png" style="height: 15px" title="Archive">
+			</button>
+		</div>
+	</div>
+
+	<div class="table-body" style="max-height: 650px; overflow-y: auto;">
+		<table class="table w-100">
+			<tbody>
+				<tr *ngFor="let email of filteredEmailList; let i = index">
+					<td style="padding-top: 10px">
+						<mat-checkbox color="primary"
+							[(ngModel)]="email.selected"
+							(ngModelChange)="updateSelected(email)"
+						    [value]="'All'">
+						</mat-checkbox>
+					</td>
+					<td (click)="toggleEvent(email?.id)">
+						<h5 class="title-email" style="width: 13vw;">
+							<strong>From: {{email?.from}}</strong> 
+						</h5>
+
+						<h5 class="title-description" style="width: 13vw;">
+							{{email?.email}}
+						</h5>
+					</td>
+
+					<td class="col-animate" (click)="toggleEvent(email?.id)">
+						<div class="">
+							<h5 class="title-email">
+								{{email?.subject}}
+							</h5>
+						</div>
+
+						<!-- EMAIL CONTENT HTML VIEW -->
+						<div class="title-description" 
+						*ngIf="email?.view "
+						[@animate]="{value:'*', params:{ y:'-10px', delay:'200ms' }}"
+						[innerHtml]="email?.content"
+						[ngClass]="email?.view ? '' : 'text-truncate'"
+						style="width: 40vw;">
+						</div>
+
+						<!-- EMAIL CONTENT -->
+						<div class="title-description" 
+						[@animate]="{value:'*', params:{ y:'-10px', delay:'200ms' }}"
+						*ngIf="!email?.view "
+						[ngClass]="email?.view ? '' : 'text-truncate'"
+						style="width: 40vw;">
+							{{replaceContent(email?.content)}}
+						</div>
+
+						<!-- ATTACHMENT -->
+						<div class="mb-3" [ngClass]="email?.view ? 'mt-3' : ''" *ngIf="i%2===0">
+							<span class="email-attachment">
+								<img src="/assets/images/icons/attachment-icon.png" style="height: 14px; margin-top: -3px" class="me-2"> <span class="title-description">Attachment.png</span>
+							</span>
+						</div>
+					</td>
+
+					<td class="text-end pe-3">
+						<button class="btn btn-sort me-1" (click)="addNewEmail(email, 'forward')"> 
+						<ng-container *ngIf="email?.view">Forward</ng-container>
+						<img src="/assets/images/icons/forward.png" 
+						[ngClass]="email?.view ? 'ms-2' : ''" style="height: 17px;"></button>
+
+						<!-- <br *ngIf="email?.view"> -->
+
+						<button class="btn btn-sort" (click)="addNewEmail(email, 'reply')">  
+						Reply
+						<img src="/assets/images/icons/reply.png" 
+						[ngClass]="email?.view ? 'ms-1' : ''" style="height: 17px;"></button>
+
+						<div class="title-description mt-2">
+							<i>{{email?.date_sent | date: 'dd-MM-yyyy h:mm a'}}</i>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p class="total-number">Showing 1-{{filteredEmailList?.length}} of {{filteredEmailList?.length}} Emails</p>
+	</div>
+</div>

@@ -1,0 +1,67 @@
+<div id="employee-shift-container">
+	<!-- BUTTONS CONTROLLER 
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'appraisal-client'">
+	</employee-details-navigation>-->
+
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class=""
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<span class="main-title" *ngIf="!url?.match('cancelled')">Employee Shift</span>
+			<span class="main-title" *ngIf="url?.match('cancelled')">Cancelled Shift</span>
+			<div class="float-end">
+				<!-- <button class="btn btn-menu me-3 ">
+					<img src="/assets/images/icons/menu-icon.png" width="15px" class="img-fluid">
+				</button> -->
+				
+				<button (click)="back()" mat-button class="btn btn-header btn-header-gray me-2" *ngIf="id">
+					Back
+				</button>
+
+				<button class="btn btn-primary" (click)="createShift()">Add Shift</button>
+			</div>
+		</div>
+
+		<!-- DOCUMENT FILE DATA -->
+		<div class="mt-2" *ngIf="!loading"
+		style="width: 100% !important; min-height: 400px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+			<!-- <employee-reusable-list-view
+				[loading]="loading"
+				[componentTitle]="'Employee Shift'"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[maxRows]="25"
+				[selectedColumnsMobile]="selectedColumns"
+				[listDataSource]="employeeShiftList"
+				[searchSource]="searchSource">
+				
+			</employee-reusable-list-view> -->
+			<employee-reusable-table-shift
+				[loading]="loading"
+				[componentTitle]="'Employee Shift'"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				(updateSelectedRowDialog)="editDataDialog($event)"
+				[maxRows]="25"
+				[selectedColumnsMobile]="selectedColumns"
+				[listDataSource]="employeeShiftList"
+				[searchSource]="searchSource">
+				
+			</employee-reusable-table-shift>
+		</div>
+
+		<div class="mt-4 pe-lg-0" *ngIf="loading">
+			<!-- LOADING ANIMATION SCREEN -->
+			<global-admin-loader 
+				[withSideBar]="false"
+				[fromDetailTab]="true"
+				[loading]="loading">
+			</global-admin-loader>
+		</div>
+	</div>
+</div>
