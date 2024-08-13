@@ -1,0 +1,44 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Create</span>
+            <ng-template #showUpdate>Update</ng-template>  Goals</h5>
+		<hr>
+	</div>
+	<div mat-dialog-content>
+		<div class="row">
+			<div class="col-12 col-md-5">
+				<lama-stepper [stepperList]="steps" [orientation]="'vertical'" [selectedIndex]="formStep - 1" #stepper (selectionChanged)="updateStepper($event.selectedIndex + 1)"></lama-stepper>
+			</div>
+			<div class="col-12 col-md-7">
+				<app-client-goal-details *ngIf="formStep === 1" 
+				[createClientForm]="clientGoalDetailsForm">
+				</app-client-goal-details>
+
+				<app-status *ngIf="formStep === 2" 
+				[createClientForm]="statusForm">
+				</app-status>
+
+				<app-responsible-parties *ngIf="formStep === 3" 
+				[createClientForm]="responsiblePartiesForm">
+				</app-responsible-parties>
+			</div>
+		</div>
+	</div>
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button *ngIf="formStep === 1" (click)="dialogRef.close()" 
+			class="btn btn-header-gray btn-header me-3">Cancel</button>
+
+			<button mat-button *ngIf="formStep !== 1" (click)="back()" 
+			class="btn btn-header-gray btn-header me-3">Back</button>
+
+			<button mat-button *ngIf="formStep !== 3" (click)="next()" [disabled]="!checkFormDisabled()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button>
+
+			<button mat-button *ngIf="formStep === 3" (click)="save()" [disabled]="!checkFormDisabled()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Add</button>
+		</div>
+	</div>
+</div>

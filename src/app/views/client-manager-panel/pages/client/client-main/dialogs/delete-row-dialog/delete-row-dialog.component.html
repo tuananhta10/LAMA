@@ -1,0 +1,27 @@
+<section class="p-3" id="delete-client-row-dialog">
+	<h4 class="selection-title-outer">Are you sure you want to delete the selected rows?</h4>
+	<hr>
+	<div class="selection-container">
+		<ul>
+			<li class="selection-box " *ngFor="let item of selectedRows">
+				<strong>ID: {{item?.id}} </strong> -  {{ item?.first_name }} {{ item?.last_name}}  
+				|  Work Phone  |  {{ item?.work_phone_no }}
+
+				<span class="material-icons close" (click)="removeSelected(item)">close</span>
+			</li>
+		</ul>
+	</div>
+
+	<br>
+	<div class="text-center">
+		<button mat-button class="btn btn-header btn-header-gray me-3" (click)="closeDialog()">
+			Cancel
+		</button>
+
+		<button mat-button class="btn btn-danger" 
+		[disabled]="selectedRows?.length === 0"
+		(click)="closeSaveDialog()">
+			Delete
+		</button>
+	</div>
+</section>

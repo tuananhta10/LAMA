@@ -1,0 +1,17 @@
+<div id="service-templates-container">
+	<!-- DOCUMENT FILE DATA -->
+	<div class="card card-body" *ngIf="!loading"
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		Service Templates here {{id}}
+	</div>
+
+	<div  [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

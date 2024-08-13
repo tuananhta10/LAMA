@@ -1,0 +1,223 @@
+<div mat-dialog-content style="width: 800px">
+
+    <form [formGroup]="hourForm">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                 <app-textarea 
+                     label="Activity"
+                     [labelTop]="true"
+                     [disabled]="isDisabled"
+                     formControlName="activity">
+                 </app-textarea>
+
+                 <app-dropdown 
+                     label="A/H Calculation"
+                     [labelTop]="true"
+                     [required]="true"
+                     formControlName="a_h_calculator"
+                     [options]="ahCalculation">
+                 </app-dropdown>
+
+                 <app-dropdown 
+                     label="Status"
+                     [required]="true"
+                     [labelTop]="true"
+                     [disabled]="true"
+                     formControlName="status"
+                     [options]="status">
+                 </app-dropdown>
+
+                  <app-textarea 
+                      label="Additional Roster Comments"
+                      [labelTop]="true"
+                      [disabled]="isDisabled"
+                      formControlName="additional_roster_comment">
+                  </app-textarea>
+
+                  <app-textarea 
+                      label="Shift Instructions"
+                      [labelTop]="true"
+                      [disabled]="isDisabled"
+                      formControlName="shift_instruction">
+                  </app-textarea>
+            </div>
+            <div class="col-12 col-md-6">
+                  <app-radio-button
+                  label="Billable"
+                  [labelTop]="true"
+                  formControlName="billable"
+                  [options]="radioOptions"
+                  [disabled]="false"
+                  [info]="true"
+                  [infoTitle]="'Whether or not to charge the client for this service'">
+                  </app-radio-button>
+
+                  <app-radio-button
+                  label="Override Availability"
+                  [labelTop]="true"
+                  [disabled]="isDisabled"
+                  formControlName="override_availability"
+                  [options]="radioOptions"
+                  [info]="true"
+                  [infoTitle]="'If overridden system will not consider employee availability for the shift'">
+                  </app-radio-button>
+
+                  <app-radio-button
+                  label="Override Qualifications"
+                  [labelTop]="true"
+                  [disabled]="isDisabled"
+                  formControlName="override_qualifications"
+                  [options]="radioOptions"
+                  >
+                  </app-radio-button>
+
+                  <app-textarea 
+                      label="Override Qualifications Comments"
+                      [labelTop]="true"
+                      [disabled]="isDisabled"
+                      formControlName="override_qualifications_comment">
+                  </app-textarea>
+            </div>
+
+
+            <!-- CANCELLATION POLICY 
+                
+                && hourForm?.controls['status']?.value === 'cancelled'
+            -->
+            <ng-container *ngIf="!loading && !employeeLoading 
+            && hourForm.controls['status'].value === 'cancelled'">
+                <div class="col-12 col-md-6">
+                    <div class="ms-4 mb-0">
+                        <h5 class="mat-subtitle">Cancellation Policy Details</h5>
+                    </div>
+                    <app-search-list 
+                        label=""
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [isTextArea]="true"
+                        [readonly]="true"
+                        formControlName="cancellation_policy_id"
+                        [options]="cancellationPolicyOption">
+                    </app-search-list>
+
+                    <app-textfield 
+                        label="Reason of Cancellation"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [required]="true"
+                        [readonly]="true"
+                        formControlName="cancellation_reason">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Charge Percentage"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [readonly]="true"
+                        [required]="true"
+                        [disabled]="true"
+                        formControlName="cancellation_percent">
+                    </app-textfield>
+                    
+
+                    <app-textarea 
+                        label="Additional Comments"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [readonly]="true"
+                        formControlName="cancellation_comments">
+                    </app-textarea>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <br>
+                    <app-textfield 
+                        label="Cancelled By"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [required]="true"
+                        [readonly]="true"
+                        formControlName="cancelled_by">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Cancellation Received Type"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [readonly]="true"
+                        formControlName="cancellation_received_type">
+                    </app-textfield>
+
+                    <app-search-list 
+                        label="Staff Allocated"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [info]="true"
+                        [readonly]="true"
+                        [infoTitle]="'Name of Staff allocated'"
+                        formControlName="name_of_staff_allocated"
+                        [options]="employeeEnums">
+                    </app-search-list>     
+                </div>
+
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <app-radio-button 
+                                label="Charge to Participants"
+                                [labelTop]="true"
+                                [required]="true"
+                                formControlName="charge_to_client"
+                                [disabled]="true"
+                                [readonly]="true"
+                                [options]="radioOptions">
+                            </app-radio-button>
+
+                            <app-radio-button 
+                                label="Inform Employees"
+                                [labelTop]="true"
+                                [required]="true"
+                                [disabled]="true"
+                                [readonly]="true"
+                                formControlName="inform_employees"
+                                [options]="radioOptions">
+                            </app-radio-button>
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="right-margin-button">
+                                <app-radio-button 
+                                    label="Pay Employees"
+                                    [labelTop]="true"
+                                    [required]="true"
+                                    formControlName="pay_employees"
+                                    [disabled]="true"
+                                    [readonly]="true"
+                                    [options]="radioOptions">
+                                </app-radio-button>
+
+                                <app-radio-button 
+                                    label="Is This a once off cancellation"
+                                    [labelTop]="true"
+                                    [required]="true"
+                                    [disabled]="true"
+                                    [readonly]="true"
+                                    formControlName="is_this_a_once_off_cancellation"
+                                    [options]="radioOptions">
+                                </app-radio-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>  
+
+    <div class="row">
+        <!-- <div class="col-12 col-lg-12" *ngIf="data?.schedule?.employee_id">
+            <app-assigned-employee-details
+            [data]="data"></app-assigned-employee-details>
+        </div> -->
+    </div>
+</div>

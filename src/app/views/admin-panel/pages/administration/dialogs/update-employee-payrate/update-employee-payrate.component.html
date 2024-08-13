@@ -1,0 +1,183 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Update Employee Pay Rates
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end mt-2" 
+			style="width: 13px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	<form [formGroup]="updatePayRateForm">
+		<div mat-dialog-content>
+            <div class="row">
+            	<div class="col-12 col-md-6">
+            		<app-textfield 
+            			classType="text-uppercase"
+            		    label="Award Code"
+            		    [labelTop]="true"
+            		    [info]="true"
+            		    [readonly]="true"
+            		    [infoTitle]="'SCHADS Award Code'"
+            		    formControlName="award_code">
+            		</app-textfield>
+
+            		<app-textfield 
+            			classType="text-capitalize"
+            		    label="Classification"
+            		    [labelTop]="true"
+            		    [readonly]="true"
+            		    formControlName="classification">
+            		</app-textfield>
+
+            		<!-- <app-textfield 
+            		    label="Weekly Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Weekly Pay Rate'"
+            		    formControlName="weekly_pay_rate">
+            		</app-textfield> 
+ -->
+            		
+
+<!--             		<app-textfield 
+            		    label="Saturday Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Saturday Pay Rate'"
+            		    formControlName="saturday_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Public Holiday Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Public Holiday Pay Rate'"
+            		    formControlName="public_holiday_rate">
+            		</app-textfield> -->
+            	</div>
+
+            	<div class="col-12 col-md-6">
+            		<app-textfield classType="text-capitalize"
+            		    label="Parent Classification"
+            		    [labelTop]="true"
+            		    [readonly]="true"
+            		    formControlName="category">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Hourly Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Hourly Pay Rate'"
+            		    formControlName="hourly_pay_rate">
+            		</app-textfield>
+
+            		<!-- <app-textfield 
+            		    label="Sunday Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Sunday Pay Rate'"
+            		    formControlName="sunday_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Afternoon Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Afternoon Shift Pay Rate'"
+            		    formControlName="afternoon_rate">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Night Rate"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Night Shift Pay Rate'"
+            		    formControlName="night_rate">
+            		</app-textfield> -->
+            	</div>
+
+            	<!-- <div class="col-12 pb-3"><hr></div>
+
+            	<div class="col-12 col-md-6">
+            		<app-textfield 
+            		    label="Overtime - Monday to Saturday - First Hours"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Overtime - Monday to Saturday - first 3 hours (full-time) or first 2 hours (part-time)'"
+            		    formControlName="overtime_monday_saturday_first_two">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Overtime - Monday to Saturday - After Hours"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Overtime - Monday to Saturday - after 3 hours (full-time) or after 2 hours (part-time)'"
+            		    formControlName="overtime_monday_saturday_after_two">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Broken shift - Beyond a 12 Hour Span"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Broken shift - working beyond a 12 hour span - disability services work'"
+            		    formControlName="broken_shift">
+            		</app-textfield>
+            	</div>
+            	<div class="col-12 col-md-6">
+            		<app-textfield 
+            		    label="Overtime - Public Holiday"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Overtime - Public Holiday'"
+            		    formControlName="overtime_public_holiday">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="Less than 10 hour break between shifts"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'Less than 10 hour break between shifts'"
+            		    formControlName="less_than_10_hour_break">
+            		</app-textfield>
+
+            		<app-textfield 
+            		    label="24 hour care - payment per shift"
+            		    [labelTop]="true"
+            		    [inputType]="'number'"
+            		    [info]="true"
+            		    [infoTitle]="'24 hour care - payment per shift'"
+            		    formControlName="twentyfour_hour_shift">
+            		</app-textfield>
+            	</div> -->
+            </div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!updatePayRateForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+					<span>Save</span>
+				</button>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,99 @@
+<section style="min-height: 200px" 
+*ngIf="notesList?.length > 0 ">
+    <div *ngFor="let note of notesList ">
+        <div class="card-body notes-section">
+        <!-- <div class="card-body notes-section"> -->
+            <div class="d-flex">
+                <div class="flex-wrap support-coordinate text-center">
+                    <div class="support-coordinate--detail"
+                    [ngStyle]="{'background': note.color}">
+                        <div class="text-sub">
+                            {{formatDate(note.calendar_start_date)}} 
+                        </div>
+                        <div class="text-title">
+                            {{formatTime(note.start_time)}}
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="title-employee-name">{{note.employee_name}}</h5>
+                        <span class="title-branch">{{note?.branch_name}}</span>
+                    </div>
+                </div>
+        
+                <div class="flex-wrap support-description ps-4 ms-2">
+                    <!-- <div class="category">
+                        <button (click)="openRecordCancellation()" class="add-new btn btn-independent me-2"> 
+                            Independent Living
+                        </button>
+        
+                        <button (click)="openRecordSession()" class="add-new btn btn-ceo me-2"> 
+                            Ceo
+                        </button>
+        
+                        <button (click)="openRecordAdmin()" class="add-new btn btn-director me-2"> 
+                            Director
+                        </button>
+                    </div> -->
+                    <h5 class="title">{{note.activity}}</h5>
+                    <h5 class="d-flex title-schedule">
+                        <img src="/assets/images/icons/calendar.png"  class="img-fluid"  width="15px;">
+                        <span>
+                            {{formatDate(note.calendar_start_date)}} 
+                            | {{formatTime(note.start_time)}} - {{formatTime(note.end_time)}} 
+                            | {{ note?.total_hours?.toFixed(1) }} Hour/s
+                        </span>
+                    </h5>
+    <!--                 
+                    <p><b>Support Case Notes</b></p>
+                    <p>{{note.support_worker_case_notes}}</p> -->
+
+                    <!-- Support Coordinator  -->
+                    <ng-container>
+                        <p class="mt-2 mb-0"><b>Case Notes (Support Coordinator)</b></p>
+                        <!-- <quill-view [content]="note.support_coordinator_case_notes" format="text" theme="snow"></quill-view> -->
+                        <div [innerHTML]="note.support_coordinator_case_notes"></div>
+                        <!-- <p>{{note.support_coordinator_case_notes || '-'}}</p> -->
+                    </ng-container>
+
+                    <!-- Service Facilitator  -->
+                    <ng-container>
+                        <p class="mt-2 mb-0"><b>Case Notes (Service Facilitator)</b></p>
+                        <!-- <p>{{note.service_facilitator_case_notes || '-'}}</p> -->
+                        <div [innerHTML]="note.service_facilitator_case_notes"></div>
+                        <!-- <quill-view [content]="note.service_facilitator_case_notes" format="text" theme="snow"></quill-view> -->
+                    </ng-container>
+                    
+                    <!-- <div class="support-description--info" *ngIf="note.info.diagnosis">
+                        <dl>
+                            <dd>
+                                <span class="me-2">Diagnosis</span> 
+                                <p>{{note.info.diagnosis}}</p>
+                            </dd>
+                            <dd>
+                                <span class="me-2">Email Address</span> 
+                                <p>{{note.info.email}}</p>
+                            </dd>
+                            <dd>
+                                <span class="me-2">Address</span> 
+                                <p>{{note.info.address}}</p>
+                            </dd>
+                            <dd>
+                                <span class="me-2">Mobile Phone</span> 
+                                <p>{{note.info.mobile_no}}</p>
+                            </dd>
+                            <dd>
+                                <span class="me-2">Task</span> 
+                                <p>View Task</p>
+                            </dd>
+                        </dl>
+                    </div> -->
+                </div>
+            </div>
+        </div>              
+    </div>
+</section>
+
+<section style="min-height: 200px" 
+*ngIf="!notesList">
+    <p class="p-4 title-no-record">There's currently no record notes for this participant</p>
+</section>

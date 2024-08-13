@@ -1,0 +1,332 @@
+<div class="row" mat-dialog-content>
+     <div class="col-12" >
+            <form [formGroup]="serviceScheduleForm">
+                <div *ngIf="riskNotification" class="mb-3 text-danger text-justify ps-3">
+                    <strong>Risk Notification</strong>: {{riskNotification}}
+                    <hr>
+                </div>
+
+                <div class="row" *ngIf="!clientLoading && !priceListLoading" >
+                    <!-- GROUP SCHEDULE -->
+                    <ng-container *ngIf="data.grouping === 'Group'">
+                        <div class="col-12 col-md-6">
+                            <app-dropdown 
+                                 label="Type"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 formControlName="type"
+                                 [readonly]="true"
+                                 [options]="type">
+                             </app-dropdown>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <app-search-list 
+                                label="Group"
+                                [labelTop]="true"
+                                [required]="data.grouping === 'Group'"
+                                formControlName="group_id"
+                                (keyevents)="setGroupClients($event)"
+                                [options]="groupEnums">
+                            </app-search-list>
+                        </div>
+
+                        <div class="col-12 col-md-12 px-lg-4">
+                            <hr>
+                            <div class="px-3 mt-4">
+                                <app-form-table
+                                    label='Clients'
+                                    [columns]="clientColumns"
+                                    [data]="clientTableData"
+                                    (addEvent)="openClientModal($event)"
+                                    (deleteEvent)="deleteClientModal($event)"
+                                    [isAddEnabled]="true"
+                                    [isDeleteEnabled]="true"
+                                ></app-form-table>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <app-textarea 
+                                label="Activity"
+                                [labelTop]="true"
+                                formControlName="activity">
+                            </app-textarea>
+
+                            <ng-container>
+                                <app-search-list 
+                                    label="Support Item Name"
+                                    [isTextArea]="true"
+                                    [labelTop]="true"
+                                    formControlName="price_list_id"
+                                    [required]="true"
+                                    [options]="priceListEnum">
+                                </app-search-list>
+                                 
+                                <app-search-list 
+                                    label="Shift Rates"
+                                    [labelTop]="true"
+                                    formControlName="shift_rate"
+                                    [required]="true"
+                                    [disabled]="!serviceScheduleForm?.controls['price_list']?.value"
+                                    [options]="rateTypeOption">
+                                </app-search-list>
+
+                                <app-textfield 
+                                    label="Support Item Price"
+                                    [labelTop]="true"
+                                    formControlName="editable_rate_value"
+                                    [inputType]="'number'"
+                                    [info]="true"
+                                    [readonly]="disableRate"
+                                    [required]="true"
+                                    [infoTitle]="'Price of the selected support item'">
+                                </app-textfield> 
+
+                                <app-radio-button
+                                    label="TTP"
+                                    [labelTop]="true"
+                                    formControlName="ttp"
+                                    [options]="radioOptions"
+                                 >
+                                </app-radio-button>
+                            </ng-container>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <app-date-picker 
+                                label="Start Date"
+                                [labelTop]="true"
+                                [required]="true"
+                                [disabled]="data?.client"
+                                [datepickerFilter]="weekendsDatesFilter"
+                                (keyevents)="setEndDateFromHoursEvents($event, 'start_date')"
+                                formControlName="start_date">
+                            </app-date-picker >
+                            
+                            <app-time-picker 
+                                label="Start Time"
+                                [labelTop]="true"
+                                [required]="true"
+                                [disabled]="disableDates"
+                                (focus)="activeFocus($event, 'start_time')"
+                                [defaultTime]="minStartTime"
+                                [minTime]="minStartTime"
+                                [maxTime]="maxStartTime" 
+                                [value24Hour]="true"
+                                formControlName="start_time">
+                            </app-time-picker >
+
+                            <app-time-picker  
+                                label="End Time"
+                                [labelTop]="true"
+                                [required]="true"
+                                [disabled]="disableDates"
+                                (focus)="activeFocus($event, 'end_time')"
+                                [defaultTime]="minEndTime"
+                                [minTime]="minEndTime"
+                                [maxTime]="maxEndTime"
+                                [value24Hour]="true" 
+                                formControlName="end_time">
+                            </app-time-picker >
+
+                            <app-radio-button
+                                label="Recurring"
+                                [labelTop]="true"
+                                formControlName="is_recurring"
+                                [options]="radioOptions"
+                             >
+                            </app-radio-button>
+
+                            <ng-container *ngIf="!!serviceScheduleForm.controls['is_recurring'].value">
+                                <app-dropdown
+                                    label="Recurring Interval"
+                                    [labelTop]="true"
+                                    [required]="true"
+                                    formControlName="recurring_interval"
+                                    [options]="recurringInterval">
+                                </app-dropdown>
+
+                                <app-date-picker  
+                                    label="End Date"
+                                    [labelTop]="true"
+                                    [required]="!!serviceScheduleForm.controls['is_recurring'].value"
+                                    [disabled]="disableDates"
+                                    [datepickerFilter]="weekendsDatesFilter"
+                                    [minDate]="serviceScheduleForm?.controls['start_date']?.value"
+                                    formControlName="recurring_end_date">
+                                </app-date-picker >
+                            </ng-container>
+
+                            <hr>
+                            
+                            <app-textfield 
+                                label="Total Hours"
+                                [labelTop]="true"
+                                [inputType]="'number'"
+                                [readonly]="disableDates"
+                                (focus)="activeFocus($event, 'total_hours')"
+                                formControlName="total_hours">
+                            </app-textfield>
+                        </div>
+
+                    </ng-container>
+
+                    <!-- CLIENT SCHEDULE -->
+                    <ng-container *ngIf="data.grouping == 'Client'">
+                        <div class="col-12 col-md-6">
+                            <app-search-list 
+                                 label="Client"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 [readonly]="data?.client"
+                                 formControlName="client_id"
+                                 [options]="clientEnum">
+                            </app-search-list>
+
+                            <app-search-list
+                                 label="Client Funding"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 [readonly]="!data?.client && !serviceScheduleForm?.controls['client_id'].value"
+                                 formControlName="client_funding_id"
+                                 [options]="clientFundingEnum">
+                            </app-search-list>
+
+                            <app-textarea 
+                                label="Activity"
+                                [labelTop]="true"
+                                formControlName="activity">
+                            </app-textarea>
+
+                            <ng-container>
+                                <app-search-list 
+                                    label="Support Item Name"
+                                    [isTextArea]="true"
+                                    [labelTop]="true"
+                                    formControlName="price_list_id"
+                                    [required]="true"
+                                    [options]="priceListEnum">
+                                </app-search-list>
+                                 
+                                <app-search-list 
+                                    label="Shift Rates"
+                                    [labelTop]="true"
+                                    formControlName="shift_rate"
+                                    [required]="true"
+                                    [disabled]="!serviceScheduleForm?.controls['price_list']?.value"
+                                    [options]="rateTypeOption">
+                                </app-search-list>
+
+                                <app-textfield 
+                                    label="Support Item Price"
+                                    [labelTop]="true"
+                                    formControlName="editable_rate_value"
+                                    [inputType]="'number'"
+                                    [info]="true"
+                                    [readonly]="disableRate"
+                                    [required]="true"
+                                    [infoTitle]="'Price of the selected support item'">
+                                </app-textfield> 
+
+                                <app-radio-button
+                                    label="TTP"
+                                    [labelTop]="true"
+                                    formControlName="ttp"
+                                    [options]="radioOptions"
+                                 >
+                                </app-radio-button>
+                            </ng-container>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <app-date-picker 
+                                label="Start Date"
+                                [labelTop]="true"
+                                [required]="true"
+                                [disabled]="data?.client"
+                                [datepickerFilter]="weekendsDatesFilter"
+                                (keyevents)="setEndDateFromHoursEvents($event, 'start_date')"
+                                formControlName="start_date">
+                            </app-date-picker >
+                            
+                            <app-time-picker 
+                                label="Start Time"
+                                [labelTop]="true"
+                                [required]="true"
+                                [disabled]="disableDates"
+                                (focus)="activeFocus($event, 'start_time')"
+                                [defaultTime]="minStartTime"
+                                [minTime]="minStartTime"
+                                [maxTime]="maxStartTime" 
+                                [value24Hour]="true"
+                                formControlName="start_time">
+                            </app-time-picker >
+
+                            <app-time-picker  
+                                label="End Time"
+                                [labelTop]="true"
+                                [required]="true"
+                                [disabled]="disableDates"
+                                (focus)="activeFocus($event, 'end_time')"
+                                [defaultTime]="minEndTime"
+                                [minTime]="minEndTime"
+                                [maxTime]="maxEndTime"
+                                [value24Hour]="true" 
+                                formControlName="end_time">
+                            </app-time-picker >
+
+                            <app-radio-button
+                                label="Recurring"
+                                [labelTop]="true"
+                                formControlName="is_recurring"
+                                [options]="radioOptions"
+                             >
+                            </app-radio-button>
+
+                            <ng-container *ngIf="!!serviceScheduleForm.controls['is_recurring'].value">
+                                <app-dropdown
+                                    label="Recurring Interval"
+                                    [labelTop]="true"
+                                    [required]="true"
+                                    formControlName="recurring_interval"
+                                    [options]="recurringInterval">
+                                </app-dropdown>
+
+                                <app-date-picker  
+                                    label="End Date"
+                                    [labelTop]="true"
+                                    [required]="!!serviceScheduleForm.controls['is_recurring'].value"
+                                    [disabled]="disableDates"
+                                    [datepickerFilter]="weekendsDatesFilter"
+                                    [minDate]="serviceScheduleForm?.controls['start_date']?.value"
+                                    formControlName="recurring_end_date">
+                                </app-date-picker >
+                            </ng-container>
+
+                            <hr>
+                            
+                            <app-textfield 
+                                label="Total Hours"
+                                [labelTop]="true"
+                                [inputType]="'number'"
+                                [readonly]="disableDates"
+                                (focus)="activeFocus($event, 'total_hours')"
+                                formControlName="total_hours">
+                            </app-textfield>
+                        </div>
+
+                    </ng-container>
+
+                    
+                </div>
+            </form> 
+           
+         <global-admin-loader 
+            [withSideBar]="false"
+            [fromDetailTab]="true"
+            [loading]="clientLoading || priceListLoading"
+            [formOnly]="true">
+        </global-admin-loader>
+     </div>
+</div>

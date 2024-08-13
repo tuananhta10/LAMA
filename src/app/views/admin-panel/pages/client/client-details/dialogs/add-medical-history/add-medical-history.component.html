@@ -1,0 +1,51 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Medical Record</h5>
+		<hr>
+	</div>
+	<div mat-dialog-content>
+		<div class="row">
+			<div class="col-12 col-md-12 mb-3 stepper-container">
+				<lama-stepper [stepperList]="steps" 
+				[orientation]="'horizontal'" 
+				[selectedIndex]="formStep - 1" #stepper 
+				(selectionChanged)="updateStepper($event.selectedIndex + 1)">
+				</lama-stepper>
+			</div>
+			<div class="col-12 col-md-12 mb-3">
+				<client-medical-history-details *ngIf="formStep === 1" 
+				[medicalInfoForm]="medicalInfoForm"
+				id="medicalInfoForm">
+				</client-medical-history-details>
+
+				<client-admission-record *ngIf="formStep === 2" 
+				[admissionRecord]="admissionRecord"
+				id="admissionRecord">
+				</client-admission-record>
+
+				<client-assessment-record *ngIf="formStep === 3" 
+				[assessmentmentRecord]="assessmentmentRecord"
+				id="serviceTaskForm">
+				</client-assessment-record>
+			</div>
+		</div>
+	</div>
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button *ngIf="formStep === 1" (click)="dialogRef.close()" 
+			class="btn btn-header-gray btn-header me-3">Cancel</button>
+
+			<button mat-button *ngIf="formStep !== 1" (click)="back()" 
+			class="btn btn-header-gray btn-header me-3">Back</button>
+
+			<button mat-button *ngIf="formStep !== 3" (click)="next()" [disabled]="!checkFormDisabled()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button>
+
+			<button mat-button *ngIf="formStep === 3" (click)="save()" [disabled]="!checkFormDisabled()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,119 @@
+@import "src/scss/colors";
+
+.main-title{
+	font-size: 24px;
+	font-weight: 600;
+	color: $color-gray;
+
+}
+
+.img-title{
+	margin-top: -8px !important;
+}
+
+.btn-primary{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+}
+
+.btn-menu{
+	background: #F0F1F5 !important;
+	border: 1px solid rgba(93, 93, 93, 0.2) !important;
+	box-sizing: border-box !important;
+	border-radius: 8px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+.btn-primary-outline{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+	color: $color-purple;
+	border: solid 1px $color-purple;
+	font-weight: 600;
+}
+
+
+.search-link{
+	cursor: pointer;
+	padding: 20px !important;
+	position: relative;
+
+	.navigator-button{
+		position: absolute;
+		right: 20px;
+		top:45%;
+		width: 10px !important;
+	}
+}
+
+.card{
+	padding: 0 !important;
+}
+
+.hvr-underline-reveal{
+
+}
+
+.hvr-underline-reveal::before{
+	background-color: $color-purple;
+	border-radius: 7px !important;
+}
+
+.link-title{
+	font-weight: 600;
+	color: $color-purple;
+	font-size: 16px;
+}
+
+.link-description{
+	color: $color-gray;
+}
+
+.link-route{
+	color: #767676;
+}
+
+
+.btn-secondary-filter{
+	border: solid 1px rgba(93, 93, 93, 0.2);
+	border-radius: 8px !important;
+	background: #F0F1F5 !important;
+	font-size: 13.5px !important;
+	font-family: 'Noto Sans' !important;
+	color: #5D5D5D;
+	height: 39px !important;
+	//font-weight: 600 !important;
+	//width: 80px !important;
+	padding: 10px 10px 10px 10px !important;
+
+	.material-icons{
+		vertical-align: top;
+		margin-top: -7px !important;
+		font-size: 30px !important;
+		color: $color-gray;
+	}
+}
+
+.dropdown{
+	min-width: 110px !important;
+	font-family: 'Noto Sans' !important;
+
+	
+
+	.dropdown-menu{
+		font-size: 13px;
+		min-width: 100px;
+
+		.dropdown-item{
+			//max-width: 110px !important;
+			padding: 8px 13px;
+			border-bottom: solid 1px $color-lightgray;
+			line-height: 15px;
+			cursor: pointer;
+		}
+	}
+
+
+}
+

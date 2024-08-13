@@ -1,0 +1,48 @@
+@import "src/scss/colors";
+
+.title-welcome{
+	font-style: normal;
+	font-weight: 800;
+	font-size: 34.9413px;
+	line-height: 35px;
+	text-transform: uppercase;
+
+	color: #3D2159;
+}
+
+.title-description{
+	font-style: normal;
+	font-weight: 500;
+	font-size: 22px;
+	line-height: 26px;
+
+	color: #303030;
+}
+
+.title-sub{
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 23px;
+
+	color: #303030;
+}
+
+dd{
+	&:hover{
+		cursor: pointer !important;
+		text-decoration: underline;
+	}
+}
+
+
+.bg-primary{
+	&:hover{
+		background: $color-purple !important;
+	}
+	border-radius: 5px !important;;
+}
+
+.logo-container{
+	margin-top: 25vh;
+}

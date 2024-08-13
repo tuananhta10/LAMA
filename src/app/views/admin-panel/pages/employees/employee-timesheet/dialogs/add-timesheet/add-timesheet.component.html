@@ -1,0 +1,66 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">View Employee Timesheet
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end mt-2" 
+			style="width: 13px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	<div class="row">
+		<!-- <div class="col-12 col-md-3 py-0">
+			<lama-stepper 
+			[stepperList]="steps" 
+			[orientation]="'vertical'" 
+			[isVerticalClick]="true"
+			#stepper
+			[selectedIndex]="formStep - 1" 
+			(selectionChanged)="updateStepperClick($event.selectedIndex + 1)">
+			</lama-stepper>
+		</div> -->
+
+		<div class="col-12 col-md-6">
+			<app-time-logged 
+			[data]="data"
+			[isReadOnly]="isReadOnly"
+			[timeLoggedForm]="timeLoggedForm">
+			</app-time-logged>
+		</div>
+
+		<div class="col-12 col-md-6">
+			<app-timesheet-details 
+			[data]="data"
+			[timesheetDetailsForm]="timesheetDetailsForm"
+			[timeLoggedForm]="timeLoggedForm"
+			[isReadOnly]="isReadOnly">
+			</app-timesheet-details>
+
+			<!-- <app-time-logged 
+			[data]="data"
+			[isReadOnly]="isReadOnly"
+			[timeLoggedForm]="timeLoggedForm">
+			</app-time-logged> -->
+		</div>
+
+		
+	</div>
+
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="back()" 
+			[disabled]="formStep === 1"
+			class="btn btn-header-gray btn-header me-3">Back</button>
+
+			<!-- <button mat-button *ngIf="formStep <= 1"
+			(click)="next()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button>
+ -->
+			<button mat-button *ngIf="!isReadOnly"
+			(click)="save()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+		</div>
+	</div>
+</div>

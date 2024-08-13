@@ -1,0 +1,230 @@
+@import "src/scss/colors";
+
+.navbar-brand{
+	font-size: 15px;
+	font-family: "Noto Sans";
+	padding: 10px 30px !important;
+	border: solid 1px #D0D0D0 !important;
+	border-radius: 50px;
+	margin-top: -10px;
+}
+
+.navbar-collapse{	
+	/* a{
+		padding-left: 20px !important;
+		padding-right: 20px !important;	
+	} */
+}
+
+.navbar-toggler{
+	.materials-icon{
+		font-size: 30px;
+		padding-top: 0 !important;
+	}
+}
+
+
+
+.nav-item{
+	cursor: pointer !important;
+	-webkit-transition: width 0.5s linear;
+	-moz-transition: width 0.5s linear;
+	transition: width 0.5s linear;
+
+	&:hover{
+		-webkit-transition: width 0.5s linear;
+		-moz-transition: width 0.5s linear;
+		transition: width 0.5s linear;
+		font-weight: 600 !important;
+		color: #4B4B4B !important;
+	}
+}
+
+.nav-link{
+	font-size: 13px !important;
+	color: #787878;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+
+	@media (max-width: 999px){
+		vertical-align: center !important;
+		padding-top: 0 !important;
+		padding-left: 0 !important;
+	}
+}
+
+
+.nav-link-active{
+	transition: visibility 0s, opacity 0.5s linear;
+	-webkit-animation: fadein 0.5s;
+	     -moz-animation: fadein 0.5s; 
+	      -ms-animation: fadein 0.5s; 
+	       -o-animation: fadein 0.5s; 
+	          animation: fadein 0.5s; 
+
+	a{
+		font-weight: 500;
+		color: $color-purple !important;
+	}
+
+	.nav-link-border-bottom{
+		border-radius: 8px;
+		background: $color-purple !important;
+		height: 7px !important;
+		width: 100% !important;
+	}
+
+	.navbar-nav-icon{
+		color: red !important;
+	}
+}
+
+.navbar-nav-icon{
+	width: 20px !important;
+	height: 20px !important;
+}
+
+.navbar-loggedin{
+	/* box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+	-webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+	-moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25); */
+
+	// /border-radius: 8px !important;
+	box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+	background: white;
+
+	border-bottom-left-radius: 8px !important;
+	border-bottom-right-radius: 8px !important;
+	padding: 10px 20px 0px 20px !important;
+	padding-bottom: 0 !important;
+	margin-bottom: 0 !important;
+	font-size: 13px;
+
+	@media (max-width: 999px){
+		left: 0 !important;
+		min-width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	@media (min-width: 765px) and (max-width: 999px){
+		padding-top: 10px !important;
+		padding-bottom: 10px !important;
+	}
+
+	.navbar-module{
+		a{
+			padding-left: 15px !important;
+			padding-right: 15px !important;	
+			-webkit-transition: width 0.5s linear;
+			-moz-transition: width 0.5s linear;
+			transition: width 0.5s linear;
+		}
+
+		li{
+			@media (min-width: 765px) and (max-width: 999px){
+				padding-top: 15px !important;
+				padding-bottom: 15px !important;
+			}
+		}
+	}
+
+	.reduce-margin-top{
+		margin-top: -17px !important;
+
+		@media (max-width: 999px){
+			margin-top: 0 !important;
+		}
+	}
+
+	.nav-profile{ 
+
+		padding: 0 !important;
+		margin-bottom: 0 !important;
+		position: relative !important;
+		margin-top: -10px;
+		
+
+		@media (max-width: 999px){
+			border-top: solid 1px #767676 !important;
+			margin-top: 20px !important;
+			margin-left: 15px !important;
+			width: 85% !important;
+		}
+
+		ul, li {
+		  list-style-type: none !important;
+		}
+
+		&-photo{
+			width: 40px;
+			border-radius: 50%;
+
+			@media (max-width: 999px){
+				width: 35px;
+			}
+		}
+
+		&-text{
+			color: #4D4D4D !important;
+			font-weight: 600;
+			font-size: 14px;
+			line-height: 17.71px;
+
+			@media (min-width: 999px) and (max-width: 1200px){
+				display: none !important;
+			}
+		}
+
+		&-separator{
+			width: 2px;
+			height: 37px;
+		}
+
+		&-icon-container{
+			width: 65px;
+
+			@media (min-width: 999px) and (max-width: 1349px){
+				display: none !important;
+			}
+		}
+
+		&-icon{
+			background: #eeeeee;
+			border-radius: 50%;
+			padding: 5px;
+			margin-right: 10px;
+			width: 40px;
+
+			@media (max-width: 999px){
+				width: 35px;
+			}
+		}
+
+		
+	}
+
+	.circle-tick{
+		width: 13px;
+		height: 13px;
+		border-radius: 50%;
+		border: solid 1px #f8f8f8;
+		position: absolute;
+
+		@media (max-width: 1350px){
+			display: none !important;
+		}
+	}
+
+	.active{
+		background: $color-green;
+	}
+
+	.inactive{
+		background: $color-red;
+	}
+}
+
+

@@ -1,0 +1,178 @@
+<div class="row"  mat-dialog-content style="width: 800px">
+    <div class="col-12">
+        <form [formGroup]="shiftLocationForm">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <app-textarea 
+                        label="Shift Address"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        formControlName="start_shift_address">
+                    </app-textarea>
+
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <app-textarea 
+                        label="End Shift Address"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        formControlName="end_shift_address">
+                    </app-textarea>
+
+                    <app-dropdown 
+                        label="Charge Travel to Client"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        formControlName="charge_travel_to_client"
+                        [options]="chargeTravel">
+                    </app-dropdown>
+                </div> 
+
+                <div class="col-12" *ngIf="shiftLocationForm.controls['charge_travel_to_client']?.value !== 'No'"><hr></div>
+
+                <div class="col-12 col-md-6" *ngIf="shiftLocationForm.controls['charge_travel_to_client']?.value !== 'No'">
+                    <h6 class="mb-2 ms-4 fw-bold">
+                        Travel
+                    </h6>
+                    <app-textfield 
+                        label="Travel Distance (KM)"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [inputType]="'number'"
+                        formControlName="travel_distance"
+                        [errorMessage]="shiftLocationForm.controls['travel_distance'].hasError('pattern') ? 'Negative values are not allowed.' : null"
+                        >
+                    </app-textfield>
+
+                    <ng-container>
+                        <app-textfield
+                            label="Travel Distance Rate (Claim rate)"
+                            [labelTop]="true"
+                            [disabled]="isDisabled"
+                            [max]="1"
+                            [step]="0.01"
+                            [inputType]="'number'"
+                            formControlName="travel_distance_rate"
+                            [errorMessage]="!shiftLocationForm.controls['travel_distance_rate'].valid ? '*Note: Travel distance rate max is $1' : null">
+                        </app-textfield>
+                    </ng-container>
+
+                    <app-textfield 
+                        label="Total Travel KM"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        formControlName="total_travel_km"
+                        [inputType]="'number'"
+                        [readonly]="true">
+                    </app-textfield>
+                    <h6 class="mb-2 ms-4 fw-bold">
+                        Transport
+                    </h6>
+                    <app-textfield 
+                        label="Transport Distance (KM)"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [inputType]="'number'"
+                        formControlName="transport_distance"
+                        [errorMessage]="shiftLocationForm.controls['transport_distance'].hasError('pattern') ? 'Negative values are not allowed.' : null"
+                        >
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Transport Distance Rate (Claim rate)"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [inputType]="'number'"
+                        formControlName="transport_distance_rate"
+                        [errorMessage]="!shiftLocationForm.controls['transport_distance_rate'].valid ? '*Note: Transport distance rate max is $1' :null">
+                    </app-textfield>
+                
+                    <app-textfield 
+                        label="Total Transport"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [readonly]="true"
+                        [inputType]="'number'"
+                        formControlName="total_transport">
+                    </app-textfield>
+                </div>
+
+                <div class="col-12 col-md-6" *ngIf="shiftLocationForm.controls['charge_travel_to_client']?.value !== 'No'">
+                    <h6 class="mb-2 ms-4 fw-bold">
+                        Travel Time
+                    </h6>
+                    <app-textfield 
+                        label="Travel Time (Hr/s)"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [inputType]="'number'"
+                        formControlName="travel_hours"
+                        [errorMessage]="shiftLocationForm.controls['travel_hours'].hasError('pattern') ? 'Negative values are not allowed.' : null"
+                        >
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Travel Time Rate"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [inputType]="'number'"
+                        formControlName="travel_time_rate"
+                        [readonly]="true">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Total Travel Time"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        formControlName="total_travel_time"
+                        [inputType]="'number'"
+                        [readonly]="true">
+                    </app-textfield>
+                    <div class="formula">
+                        <div class="row px-0">
+                            <div class="col-12 px-0">
+                                <small class="mb-0">
+                                    <strong>Total Travel KM = </strong>
+                                    Travel Distance (KM) * Travel Distance rate
+                                </small>
+                            </div>
+                            <div class="col-12 mt-2 px-0">
+                                <small class="mb-0">
+                                    <strong>Total Transport = </strong>
+                                    Transport Distance (KM) * Transport Distance Rate
+                                </small>
+                            </div>
+                            <div class="col-12 mt-2 px-0">
+                                <small class="mb-0">
+                                    <strong>Total Travel Time = </strong>
+                                    Travel time * Support line item
+                                </small>
+                            </div>
+                            <!-- <div class="col-12 mt-2 px-0">
+                                <small class="mb-0">
+                                    <strong>Travel Total = </strong>
+                                    Travel Total + Total Transport
+                                </small>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-12"><hr></div> -->
+
+                <!-- <div class="col-12 col-md-6">
+                    <app-textfield 
+                        label="Travel Total"
+                        [labelTop]="true"
+                        [disabled]="isDisabled"
+                        [readonly]="true"
+                        formControlName="travel_total">
+                    </app-textfield>
+                </div> -->
+
+                
+            </div>
+        </form>    
+    </div>
+</div>

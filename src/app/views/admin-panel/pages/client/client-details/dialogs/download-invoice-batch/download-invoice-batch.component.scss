@@ -1,0 +1,39 @@
+@import "src/scss/colors";
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+.bg-purple{
+  background: $color-purple-dark;
+  color: white;
+  padding: 8px 12px;
+  font-size: 17px;
+  border-radius: 2px;
+}
+
+
+.title-invoice-item{
+  font-size: 18px;
+}
+
+.sub-total{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.print-invoice{
+  &:hover{
+    cursor: pointer;  
+    text-decoration: underline;
+  }
+}
+
+.fit-cover-image{
+  width: 180px !important;
+  height: auto;
+  //height: 120px !important;
+}

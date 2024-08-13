@@ -1,0 +1,12 @@
+.btn-back{
+	border: solid 1px #c9c9c9;
+	border-radius: 7px !important;
+
+	@media (max-width:700px) {
+		display: none;
+	}
+}
+
+.terms-container{
+	padding-top: 55px;
+}

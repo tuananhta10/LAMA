@@ -1,0 +1,14 @@
+<div class="mb-3 row" id="profile-header">
+	<div class="pe-1 col-6 col-lg-2 ">
+		<button class="btn btn-header btn-header-secondary" 
+		routerLink="/staff/employees/details/{{id}}"
+		title="Employee Details">Employee Details</button>
+	</div>
+
+	<div class="px-lg-1 col-6 col-lg-2" *ngFor="let item of childLinks">
+		<button class="btn btn-header" 
+		[ngClass]="item?.routerLink.match(activeLink) ? 'btn-primary': 'btn-header-secondary'"
+		[routerLink]="item?.routerLink"
+		[title]="item?.title">{{item?.title}}</button>
+	</div>
+</div>

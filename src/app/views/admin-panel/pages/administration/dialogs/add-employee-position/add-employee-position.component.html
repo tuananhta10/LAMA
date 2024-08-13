@@ -1,0 +1,221 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+            <span *ngIf="!data; else showUpdate">New</span>
+            <ng-template #showUpdate>Update
+                <!-- <span class="float-end sync-employee"
+                (click)="openSyncDialog(data)">
+                <img src="/assets/images/icons/shift-logged.png" style="height: 12px" class="me-2">Sync to all Employee</span> -->
+            </ng-template> Employee Position
+
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+
+	<form *ngIf="!loading" [formGroup]="newEmployeePositionForm">
+		<div mat-dialog-content>
+            <div>
+                <div class="w-100">
+                    <button class="btn" (click)="stepper = 1"
+                    [ngClass]="stepper === 1 ? 'btn-active-tab' : 'btn-active-next'">Position Details</button>
+
+                    <button class="btn" (click)="stepper = 2"
+                    [ngClass]="stepper === 2 ? 'btn-active-tab' : 'btn-active-next'">Compliance Documents</button>
+
+                    <button class="btn" (click)="stepper = 3"
+                    *ngIf="newEmployeePositionForm.get('risk_assessed_roles').value == true"
+                    [ngClass]="stepper === 3 ? 'btn-active-tab' : 'btn-active-next'">Training Documents</button>
+                </div>
+
+                <!-- DETAILS -->
+                <div class="card card-body pt-4" *ngIf="stepper === 1"
+                [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}"
+                style="max-width: 700px;">
+                    <h5 class="mat-subtitle mt-1">Employee Position details</h5>
+                    <div class="row">
+                        <div  class="col-12 col-md-6">
+                            <app-textfield 
+                                label="Code"
+                                [labelTop]="true"
+                                [required]="true"
+                                formControlName="code">
+                            </app-textfield>
+
+                            <app-textfield 
+                                label="Employee Position"
+                                [labelTop]="true"
+                                [required]="true"
+                                formControlName="display_name">
+                            </app-textfield>
+
+                            <app-dropdown 
+                                label="Level of Access"
+                                [labelTop]="true"
+                                [required]="true"
+                                [options]="accessLevels"
+                                formControlName="name">
+                            </app-dropdown>
+
+                            
+                        </div>
+
+                        <div  class="col-12 col-md-6">
+                           <app-radio-button 
+                               label="Risk Assessed Roles"
+                               formControlName="risk_assessed_roles" 
+                               [labelTop]="true"
+                               [options]="radioOptions">
+                           </app-radio-button>
+
+                           <app-radio-button 
+                               label="Restrict Service Types"
+                               [info]="true"
+                               [infoTitle]="'Whether or not to restrict which service types employees with this position can create sessions for in the portal'" 
+                               formControlName="restrict_service_type" 
+                               [labelTop]="true"
+                               [options]="radioOptions">
+                           </app-radio-button> 
+                        </div>
+
+                        <div class="col-12 col-md-12 col-lg-12">
+                            <app-textarea 
+                                label="Key Responsibilities"
+                                [labelTop]="true"
+                                [rows]="5"
+                                formControlName="key_responsibilities">
+                            </app-textarea>
+
+                            <app-textarea 
+                                 label="Required Qualities"
+                                 [labelTop]="true"
+                                 [rows]="5"
+                                 formControlName="required_qualities">
+                             </app-textarea>
+
+                            <app-textarea 
+                                label="Position Summary"
+                                [labelTop]="true"
+                                [rows]="5"
+                                formControlName="position_summary">
+                            </app-textarea>
+
+                            <app-textarea 
+                                label="Desired Competencies"
+                                [labelTop]="true"
+                                [rows]="5"
+                                formControlName="desired_competencies">
+                            </app-textarea>
+                        </div>
+                    </div> 
+                </div>
+
+                <!-- QUALIFICATION -->
+                <div *ngIf="stepper === 2"
+                [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+                    <div class="card card-body pt-3">
+                        <div class="d-flex mt-3" 
+                        [ngClass]="linkComplianceDocs ? 'opacity-true' : 'opacity-zero'">
+                            <app-search-list style="width: 450px !important;" 
+                                label="Search Qualifications"
+                                [labelTop]="true"
+                                [isTextArea]="true"
+                                [options]="complianceDocsOptionsSelected"
+                                [objectReturn]="true" 
+                                formControlName="compliance_docs">
+                            </app-search-list>
+
+                            <button class="btn btn-link btn-primary"
+                            (click)="addQualification()"
+                            *ngIf="newEmployeePositionForm.get('compliance_docs').value">Link Requirement</button>
+                        </div>
+
+                        <h5 class="mat-subtitle"
+                        *ngIf="!data">Compliance Check Requirements</h5>
+                        <p class="p-mat-subtitle" *ngIf="!data">Please save record first</p>
+
+                        <div [hidden]="!data">
+                            <section style="padding: 0 25px !important;">
+                                <app-form-table 
+                                    (addEvent)="openLinkComplianceDocs($event)"
+                                    [isAddEnabled]="true"
+                                    [columns]="complianceDocs"
+                                    [data]="complianceDocsData"
+                                    (deleteEvent)="deleteQualification($event)"
+                                    [isDeleteEnabled]="true"
+                                    label="Compliance Check Requirements"
+                                ></app-form-table>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRAINING DOCUMENT -->
+                <div [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}"
+                *ngIf="stepper === 3 
+                && newEmployeePositionForm.get('risk_assessed_roles').value == true">
+                    <div class="card card-body pt-3">
+                        <div class="d-flex mt-3" 
+                        [ngClass]="linkTrainingDocs ? 'opacity-true' : 'opacity-zero'">
+                            <app-search-list style="width: 450px !important;" 
+                                label="Search Qualifications"
+                                [labelTop]="true"
+                                [isTextArea]="true"
+                                [options]="complianceDocsOptionsSelected"
+                                [objectReturn]="true" 
+                                formControlName="training_docs">
+                            </app-search-list>
+
+                            <button class="btn btn-link btn-primary"
+                            (click)="addTraining()"
+                            *ngIf="newEmployeePositionForm.get('training_docs').value">Link Requirement</button>
+                        </div>
+
+                        <h5 class="mat-subtitle"
+                        *ngIf="!data">Training Compliance Documents</h5>
+                        <p class="p-mat-subtitle" *ngIf="!data">Please save record first</p>
+
+                        <div [hidden]="!data">
+                            <section style="padding: 0 25px !important;">
+                                <app-form-table 
+                                    (addEvent)="openLinkTrainingDocs($event)"
+                                    [isAddEnabled]="true"
+                                    [columns]="complianceDocs"
+                                    [data]="trainingDocsData"
+                                    (deleteEvent)="deleteTraining($event)"
+                                    [isDeleteEnabled]="true"
+                                    label="Training Compliance Documents"
+                                ></app-form-table>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!newEmployeePositionForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data; else showSave">Add</span>
+                    <ng-template #showSave>Save</ng-template>  
+                </button>
+			</div>
+		</div>
+	</form>
+    <global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+
+</div>

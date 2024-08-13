@@ -1,0 +1,52 @@
+<div class="mt-3" id="employee-shift-container">
+	<!-- BUTTONS CONTROLLER 
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'appraisal-client'">
+	</employee-details-navigation>-->
+
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class=""
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<!-- <img src="/assets/images/icons/employees-purple.svg" width="25px" class="me-2 img-fluid img-title"> -->
+			<span class="ms-2 main-title">Employee Leave</span>
+			<div class="float-end">
+				<button class="btn btn-primary" (click)="openAddEmployeeLeave()">Add Leave</button>
+			</div>
+		</div>
+		
+		<!-- DOCUMENT FILE DATA -->
+		<div *ngIf="listView && !loading" class="mt-3" 
+		style="width: 100% !important; min-height: 400px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+			<employee-reusable-table-leaves
+				[loading]="loading"
+				(updateSelectedRowDialog)="editDataDialog($event)"
+				[componentTitle]="'Employee Leaves'"
+				(viewDetails)="editDataDialog($event)"
+				(deleteSelectedRow)="deleteDataDialog($event)"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[maxRows]="25"
+				(report)="generateReport()"
+				(import)="importEmployeeLeave()"
+				[selectedColumnsMobile]="selectedColumns"
+				[listDataSource]="employeeLeaveList"
+				[searchSource]="searchSource"
+				[showDateFilter]="true"
+				[dateSource]="'start_date'">
+			</employee-reusable-table-leaves>
+		</div>
+
+		<br>
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

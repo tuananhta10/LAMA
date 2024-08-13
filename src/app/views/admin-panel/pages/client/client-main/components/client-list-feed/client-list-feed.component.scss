@@ -1,0 +1,94 @@
+@import "src/scss/colors";
+
+#client-feed-body{
+	overflow: auto;
+	height:290px;	
+
+	.client-feed{
+		position: relative;
+		cursor: pointer; 
+		background: #F5F5F5;
+		border-radius: 10px;
+		padding: 15px 20px;
+		margin-bottom: 10px;
+
+		img{
+			width: 46px !important;
+			height: 46px !important;
+			border-radius: 50%;
+		}
+
+		p{
+			padding: 0 !important;
+			line-height: 17.17px;
+			margin-bottom: 5px !important;
+		}
+
+		&-text{
+			color: #4B4B4B;
+			width: 480px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			@media (min-width: 1138px) and (max-width: 1370px){
+				width: 320px;
+			}
+
+			@media (min-width: 980px) and (max-width: 1138px){
+				width: 200px;
+			}
+
+			@media (min-width: 512px) and (max-width: 621px){
+				width: 330px;
+			}
+
+			@media (max-width: 513px){
+				width: 200px;
+			}
+		}
+
+		&-text-muted{
+			color: #8B8B8B !important;
+			font-size: 11px;
+		}
+
+		&-circle-tick{
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			border: solid 1px #f8f8f8;
+			position: absolute;
+		}
+
+		.active{
+			background: $color-purple;
+		}
+
+		.inactive{
+			background: $color-green-light;
+		}
+	}
+}
+
+
+/* Grow */
+.hvr-sweep-to-bottom {
+    border-radius: 10px !important;
+
+    &::after{
+    	background: #e6e6e6 !important;
+    	border-radius: 10px !important;
+
+    }
+
+    &::before{
+    	background: #e6e6e6 !important;
+    	border-radius: 10px !important;
+    }
+
+    &:hover{
+    	color: whitesmoke !important;
+    	
+    }
+}

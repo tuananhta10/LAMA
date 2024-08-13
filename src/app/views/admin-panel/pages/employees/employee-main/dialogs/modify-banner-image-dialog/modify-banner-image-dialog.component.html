@@ -1,0 +1,173 @@
+<section class="p-3" id="modify-banner-dialog">
+	<ng-container *ngIf="image_src || croppedImage">
+		<h4 class="selection-title-outer">Modify your banner Image</h4>
+		<hr>
+	</ng-container>
+
+	<!-- ADD NEW -->
+	<ng-container *ngIf="data?.option === 'add'">
+		<div class="selection-container">
+			<div class="img-info text-center" *ngIf="!imageChangedEvent">
+				<img src="/assets/images/placeholder/painting.png"
+				[@animate]="{value:'*', params:{ y:'-100px', delay:'600ms' }}"
+				 *ngIf="!imageChangedEvent" class="img-fluid">
+			</div>
+
+			<div class="">		
+				<div class="float-md-start" *ngIf="imageChangedEvent">
+					<h5 class="ms-3">Preview</h5>
+					<div class="banner-image ms-3" *ngIf="!croppedImage"></div>
+
+					<!-- preview -->
+					<img *ngIf="croppedImage"
+					[src]="croppedImage"
+					class="banner-image ms-3 mt-1">
+				</div>
+
+				<div class="float-md-end" >
+					<div class="d-none d-md-block" *ngIf="imageChangedEvent"><br><br></div>
+					<div class="upload-btn-wrapper ms-3 mt-md-2" 
+					[ngStyle]="{
+						'cursor': 'pointer',
+						'position': !imageChangedEvent ? 'absolute' : '',
+						'bottom': !imageChangedEvent ? '25%' : '',
+						'right': !imageChangedEvent ? '5%' : ''
+					}">
+						<span>Upload File</span> 
+						<button class="btn-choose"
+						(click)="clickInput('uploader')">
+						Choose File</button>
+
+						<input type="file" 
+						name="myfile" 
+						id="uploader" 
+						(change)="fileChangeEvent($event)" />
+					</div>
+				</div>
+
+				<div class="d-none d-md-block">
+					<br><br>
+					<span *ngIf="imageChangedEvent">
+						<br><br>
+					</span>
+				</div>
+			</div>
+
+			<hr class="ms-3" *ngIf="imageChangedEvent">
+
+			<image-cropper class="ps-3 pe-1"
+				*ngIf="imageChangedEvent"
+			    [imageChangedEvent]="imageChangedEvent"
+			    [maintainAspectRatio]="false"
+			    [aspectRatio]="4 / 3"
+			    format="png"
+			    (imageCropped)="imageCropped($event)"
+			    (imageLoaded)="imageLoaded(croppedImage)"
+			    (cropperReady)="cropperReady()"
+			    (loadImageFailed)="loadImageFailed()"
+			></image-cropper>
+		</div>
+
+		<br *ngIf="imageChangedEvent">
+		<div class="text-center">
+			<button mat-button class="btn btn-header btn-header-gray me-3" (click)="closeDialog()">
+				Cancel
+			</button>
+
+			<button mat-button class="btn btn-header btn-primary" 
+			(click)="closeSaveDialog()">
+				Save
+			</button>
+		</div>
+	</ng-container>
+
+	<!-- EDIT BANNER -->
+	<ng-container *ngIf="data?.option === 'edit'">
+		<div class="selection-container">
+			<div class="">		
+				<div class="float-md-start">
+					<h5 class="ms-3">Preview</h5>
+					<!-- preview -->
+					<img [defaultImage]="defaultImage" 
+					[lazyLoad]="!croppedImage ? image_src : croppedImage" 
+					class="banner-image ms-3 mt-1">
+				</div>
+
+				<div class="float-md-end" style="cursor: pointer;">
+					<div class="d-none d-md-block"><br><br></div>
+					<div class="upload-btn-wrapper ms-3 mt-md-2">
+						<span>Upload File</span> 
+						<button class="btn-choose" 
+						(click)="clickInput('uploader-edit')">
+						Choose File</button>
+
+						<input type="file" 
+						name="myfile" 
+						id="uploader-edit" 
+						(change)="fileChangeEvent($event)" />
+					</div>
+				</div>
+				
+				<div class="d-none d-md-block">
+					<br><br><br><br>
+
+					<span *ngIf="!croppedImage">
+						<br><br>
+					</span>
+				</div>
+			</div>
+
+			<hr class="ms-3">
+			<image-cropper class="ps-3 pe-1"
+			    [imageChangedEvent]="imageChangedEvent"
+			    [maintainAspectRatio]="false"
+			    [aspectRatio]="4 / 3"
+			    format="png"
+			    [imageBase64]="converted_image_src"
+			    (imageCropped)="imageCropped($event)"
+			    (imageLoaded)="imageLoaded(croppedImage)"
+			    (cropperReady)="cropperReady()"
+			    (loadImageFailed)="loadImageFailed()"
+			></image-cropper>
+		</div>
+
+		<br>
+		<div class="text-center">
+			<button mat-button class="btn btn-header btn-header-gray me-3" (click)="closeDialog()">
+				Cancel
+			</button>
+
+			<button mat-button class="btn btn-header btn-primary" 
+			(click)="closeSaveDialog()">
+				Save
+			</button>
+		</div>
+	</ng-container>
+
+
+	<!-- EDIT BANNER -->
+	<ng-container *ngIf="data?.option === 'delete'">
+		<h4 class="selection-title-inner">Are you sure you want to delete the selected image?</h4>
+		<br>
+		
+		<div class="selection-container">
+			<img *ngIf="image_src" 
+			[defaultImage]="defaultImage" 
+			[lazyLoad]="image_src" 
+			class="banner-image-delete ms-2 mt-1">
+		</div>
+
+		<br>
+		<div class="text-center">
+			<button mat-button class="btn btn-header btn-header-gray me-3" (click)="closeDialog()">
+				Cancel
+			</button>
+
+			<button mat-button class="btn btn-header btn-danger" 
+			(click)="closeDeleteDialog()">
+				Delete
+			</button>
+		</div>
+	</ng-container>
+
+</section>

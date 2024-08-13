@@ -1,0 +1,15 @@
+<section class="d-flex" id="stat-data">
+	<ng-container  *ngFor="let stat_container of statData">
+		<div class="flex-wrap" [ngClass]="stat_container?.class">
+			<div class="stat-image">
+				<img [src]="stat_container?.img" class="img img-fluid" width="35.05">
+			</div>
+
+			<div class="stat-details">
+				<span class="stat-value">{{stat_container?.stat_val}}</span><br>
+				<span class="stat-title text-truncate">{{stat_container?.title}}</span><br>
+				<button class="btn btn-view-more btn-active-client" (click)="stat_container?.view_more()">View More</button>
+			</div>
+		</div>
+	</ng-container>
+</section>

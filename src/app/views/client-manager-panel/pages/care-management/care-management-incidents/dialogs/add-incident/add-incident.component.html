@@ -1,0 +1,65 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+		<span *ngIf="!data; else showUpdate">New</span>
+		<ng-template #showUpdate>Update</ng-template>
+		 Accident / Incident</h5>
+		<hr>
+	</div>
+	<div class="row">
+		<div class="col-12 col-md-5 py-0">
+			<lama-stepper 
+			[stepperList]="steps" 
+			[orientation]="'vertical'" 
+			[isVerticalClick]="true"
+			#stepper
+			[selectedIndex]="formStep - 1" 
+			(selectionChanged)="updateStepperClick($event.selectedIndex + 1)">
+			</lama-stepper>
+		</div>
+
+		<div class="col-12 col-md-7">
+			<app-care-management-general 
+			*ngIf="formStep === 1" 
+			[generalForm]="generalForm">
+			</app-care-management-general>
+
+			<app-care-management-details 
+			*ngIf="formStep === 2" 
+			[detailsForm]="detailsForm">
+			</app-care-management-details>
+
+			<app-care-management-notifications 
+			*ngIf="formStep === 3" 
+			[notificationForm]="notificationForm">
+			</app-care-management-notifications>
+
+			<app-care-management-actions-taken 
+			*ngIf="formStep === 4" 
+			[actionsTakenForm]="actionsTakenForm">
+			</app-care-management-actions-taken>
+		</div>
+	</div>
+
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="back()" 
+			[disabled]="formStep === 1"
+			class="btn btn-header-gray btn-header me-3">Back</button>
+
+			<button mat-button *ngIf="formStep <= 3 && !data"
+			(click)="next()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button>
+
+			<button mat-button *ngIf="formStep === 4 || data"
+			(click)="save()" 
+			[disabled]="!generalForm.valid
+			|| !detailsForm.valid 
+			|| !notificationForm.valid
+			|| !actionsTakenForm.valid"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+		</div>
+	</div>
+</div>

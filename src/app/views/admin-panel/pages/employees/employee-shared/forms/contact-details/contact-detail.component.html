@@ -1,0 +1,177 @@
+<div *ngIf="!loading" class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="contactDetailForm">
+			<mat-card>
+				<!-- <mat-card-title *ngIf="isUpdate">
+					Contact Details
+					<hr>
+				</mat-card-title> -->
+
+				<mat-card-content>
+					<div class="row">
+						<div class="col-12 col-md-6">
+							<app-google-places-input
+								label="Address 1" 
+								formControlName="address_a"
+								[required]="true"
+								(addressChange)="onAddressChange($event)">
+							</app-google-places-input>
+
+							<app-textfield id="address_b"  
+								label="Address 2"
+								formControlName="address_b">
+							</app-textfield>
+
+							<app-textfield id="suburb"  
+								label="Suburb"
+								formControlName="suburb"
+								[required]="true">
+							</app-textfield>
+
+							<app-dropdown 
+								label="State" 
+								[required]="true"
+								[options]="stateOption"
+								formControlName="state"
+								>
+							</app-dropdown>
+
+							<app-textfield id="post_code"  
+								label="Post Code"
+								formControlName="post_code"
+								[required]="true">
+							</app-textfield>
+
+							
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-textfield id="travel_distance"  
+								label="Travel distance"
+								formControlName="travel_distance">
+							</app-textfield>
+
+							<app-dropdown id="travel_time"  
+								label="Travel Time" 
+								formControlName="travel_time"
+								[options]="travelTimeOptions" 
+							></app-dropdown>
+
+							<app-textfield id="mobile_phone_no"  
+								label="Mobile Phone"
+								[inputType]="'tel'"
+								[required]="true"
+								formControlName="mobile_phone_no">
+							</app-textfield>
+
+							<app-textfield id="home_phone_no"  
+								label="Home Phone"
+								[inputType]="'tel'"
+								formControlName="home_phone_no">
+							</app-textfield>
+
+							<app-textfield id="work_phone_no"  
+								label="Work Phone"
+								[inputType]="'tel'"
+								formControlName="work_phone_no">
+							</app-textfield>
+						</div>
+
+						<div class="col-12 mt-3">
+							<h5 class="table-label">Emergency Contact Details</h5>
+							<hr>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-textfield id="emergency_contact_name"  
+								label="Contact Name"
+								formControlName="emergency_contact_name">
+							</app-textfield>
+
+							<app-textfield id="emergency_contact_relationship"  
+								label="Contact Relationship"
+								formControlName="emergency_contact_relationship">
+							</app-textfield>
+
+							<app-textfield id="emergency_contact_email"  
+								label="Contact Email"
+								formControlName="emergency_contact_email">
+							</app-textfield>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-textfield id="emergency_contact_mobile_phone_no"  
+								label="Contact Mobile"
+								[inputType]="'tel'"
+								formControlName="emergency_contact_mobile_phone_no">
+							</app-textfield>
+
+							<app-textfield id="emergency_contact_home_phone_no"  
+								label="Contact Home Phone"
+								[inputType]="'tel'"
+								formControlName="emergency_contact_home_phone_no">
+							</app-textfield>
+
+							<app-textfield id="emergency_contact_work_phone_no" 
+								label="Contact Work Phone"
+								[inputType]="'tel'"
+								formControlName="emergency_contact_work_phone_no">
+							</app-textfield>
+						</div>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+					<div>
+						<div class="row">
+							<div *ngIf="!isUpdate" class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header-gray">
+									Back
+								</button>
+							</div>
+
+							<div *ngIf="!isUpdate" class="col-sm-6 justify-content-end d-flex">
+								<button mat-button class="btn btn-header btn-header-gray" 
+								(click)="saveAsDraft()" 
+								style="padding-left: 14px !important; padding-right: 14px !important;" 
+								*ngIf="!isUpdate || currentStatus === 'draft'" >
+									Save as Draft
+								</button>
+								
+								<button (click)="next()" 
+								[disabled]="!contactDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Next
+								</button>
+							</div>
+						</div>
+						<div *ngIf="isUpdate" class="row">
+							<div class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+									Back
+								</button>
+							</div>
+							<div class="col-sm-6 justify-content-end d-flex">
+								<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+									Next
+								</button>
+								
+								<button (click)="submit()" 
+								[disabled]="!contactDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card-actions>
+
+			</mat-card>
+		</form>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>

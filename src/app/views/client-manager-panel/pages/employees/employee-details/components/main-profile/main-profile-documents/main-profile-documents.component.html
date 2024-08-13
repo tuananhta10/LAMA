@@ -1,0 +1,123 @@
+<section id="document-data">
+	<div class="card card-body mb-3 pt-4" style="height: 190px;">
+		<h5 class="document-title">Employee Documents
+			<button type="button" class="btn add-new ms-1 text-white" 
+			style="color: white !important; z-index: 9999 !important;" 
+			(click)="openCustomDocumentModal()"> 
+				<span class="material-icons text-white">add</span>Add
+			</button>
+			<a routerLink="related-documents" class="float-end">View All</a>
+		</h5>
+
+		<table class="table mt-2" *ngIf="employeeDocs?.length > 0; else showEmptyDocs">
+			<tr *ngFor="let document of employeeDocs">
+				<td style="width: 20px;" 
+					(click)="openCustomDocumentModal(document)">
+					<img src="/assets/images/icons/folder-file.png" width="32px">
+				</td>
+				<td class="file-title text-capitalize" (click)="openCustomDocumentModal(document)">{{document?.title}}</td>
+
+				<td class="file-title-date text-end" >
+					<span (click)="openCustomDocumentModal(document)">
+						{{ (document?.date_added * 1000 | date : 'MM-dd-yyyy') || '-'}}
+					</span>
+					<img src="/assets/images/icons/delete-red.png"  (click)="deleteDataDialog(document)" class="img-fluid delete" width="30px"> 
+				</td>
+			</tr>
+		</table>
+
+		<ng-template #showEmptyDocs>
+			<div *ngIf="!loading" class="mt-2">List of Employee Documents is currently empty.</div>
+		</ng-template>
+	</div>
+
+	<!-- CERTIFICATES-->
+	<div class="mb-3 mb-lg-0" id="certificates">
+		<h5 class="card-title">Certificates
+			<button type="button" class="btn add-new ms-1 text-white" 
+			style="color: white !important; z-index: 9999 !important;" 
+			(click)="openAddCertificateDialog()"> 
+				<span class="material-icons text-white">add</span>Add
+			</button>
+			<span class="float-end" (click)="openViewAllCertificate()">View All</span>
+		</h5>
+
+		<table class="table mt-3" *ngIf="!loading && certificateData?.length > 0; else showEmptyCert">
+			<tr *ngFor="let certificate of certificateData"
+			[title]="certificate?.description">
+				<td style="width: 20px;" (click)="openAddCertificateDialog(certificate)">
+					<img src="/assets/images/icons/degree-file.png" 
+					*ngIf="certificate?.type === 'Education'" width="32px">
+
+					<img src="/assets/images/icons/certificate-file.png" 
+					*ngIf="certificate?.type === 'Certifications' 
+					|| certificate?.type === 'Experience'" width="30px">
+
+					<img src="/assets/images/icons/folder-file.png" 
+					*ngIf="certificate?.type !== 'Education' 
+					&& certificate?.type !== 'Certifications'
+					&& certificate?.type !== 'Experience'" 
+					width="30px"> 
+				</td>
+				<td (click)="openAddCertificateDialog(certificate)">
+					<div  class="file-title text-truncate">{{certificate?.qualification_code || '-'}}</div>
+				</td>
+
+				<td class="file-title-date" (click)="openAddCertificateDialog(certificate)">
+					<div class="truncate">{{certificate?.description || '-'}}</div>
+				</td>
+
+				<td class="file-title-date text-end"  (click)="openAddCertificateDialog(certificate)">
+					{{ (certificate?.date_added * 1000 | date : 'MM-dd-yyyy') || '-'}}
+				</td>
+
+				<td class="file-title-date text-end" (click)="deleteDataDialog(certificate)">
+					<img src="/assets/images/icons/delete-red.png" class="img-fluid delete" width="30px"> 
+				</td>
+			</tr>
+		</table>
+
+		<ng-template #showEmptyCert>
+			<div *ngIf="!loading">List of Certificates is currently empty.</div>
+		</ng-template>
+		
+
+		<!-- <global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader> -->
+	</div>
+	
+	<!-- <div class="card card-body mb-3 pt-4" style="min-height: 195px;">
+		<h5 class="document-title">Recent Communication and Notes
+			<a routerLink="/employee/details/id" class="float-end">View All</a>
+		</h5>
+
+		<table class="table mt-2">
+			<tr>
+				<td style="width: 20px;">
+					<img src="/assets/images/icons/sms-file.png" width="32px">
+				</td>
+				<td class="file-title-recent">SMS Received</td>
+				<td class="file-title-date text-end">9-12-2021</td>
+			</tr>
+
+			<tr>
+				<td style="width: 20px;">
+					<img src="/assets/images/icons/folder-file.png" width="32px">
+				</td>
+				<td class="file-title-recent">PDF Received</td>
+				<td class="file-title-date text-end">9-12-2021</td>
+			</tr>
+
+			<tr>
+				<td style="width: 20px;">
+					<img src="/assets/images/icons/email-file.png" width="32px">
+				</td>
+				<td class="file-title-recent">Email Received</td>
+				<td class="file-title-date text-end">9-12-2021</td>
+			</tr>
+		</table>
+	</div> -->
+</section>

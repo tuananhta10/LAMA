@@ -1,0 +1,76 @@
+<div class="card card-body mt-3 py-5 px-md-5">
+	
+	<form [formGroup]="travelSetupForm">
+		<h5 class="text-center mb-4">Travel Setup</h5>
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-12 col-md-5">
+				<!-- <app-time-analog 
+					label="Hours Between Shifts" 
+					[labelTop]="true"
+					formControlName="hrs_between_shifts"
+					[required]="true">
+				</app-time-analog> -->
+
+				<app-dropdown 
+					label="Travel Time Pay Item" 
+					[labelTop]="true"
+					formControlName="travel_time_pay_item"
+					[options]="travelTime">
+				</app-dropdown>
+			</div>
+
+			<div class="col-12 col-md-5">
+				<!-- <app-time-analog
+					label="Travel Reset Hours" 
+					[labelTop]="true"
+					formControlName="travel_reset_hrs"
+					[required]="true">
+				</app-time-analog> -->
+
+				<app-dropdown 
+					label="Travel Km Pay Item" 
+					[labelTop]="true"
+					formControlName="travel_km_pay_item"
+					[options]="travelTime">
+				</app-dropdown>
+			</div>
+
+			<div class="col-1"></div>
+		</div>
+
+		<h5 class="text-center my-4">Invoice Setup</h5>
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-12 col-md-5">
+				<app-textarea 
+					label="Invoice Footer Left" 
+					[labelTop]="true"
+					formControlName="invoice_footer_left">
+				</app-textarea>
+
+				<app-radio-button 
+					label="Invoice Include <br> Employee Names" 
+					formControlName="include_employee_names"
+					[options]="radioOptions">
+				</app-radio-button>
+			</div>
+
+			<div class="col-12 col-md-5">
+				<app-textarea 
+					label="Invoice Footer Right" 
+					[labelTop]="true"
+					formControlName="invoice_footer_right">
+				</app-textarea>
+
+				<app-radio-button 
+					label="Invoice Show Times" 
+					formControlName="invoice_show_times"
+					[options]="radioOptions">
+				</app-radio-button>
+			</div>
+
+			<div class="col-1"></div>
+		</div>
+	</form>
+</div>

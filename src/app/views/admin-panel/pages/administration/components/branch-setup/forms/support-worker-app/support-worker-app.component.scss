@@ -1,0 +1,37 @@
+@import "src/scss/colors";
+
+h5{
+	color: $color-gray;
+	font-weight: 600;
+	font-size: 17px;
+}
+
+.support-title{
+	font-size: 16;
+	font-weight: 600;
+	color: $color-purple;
+}
+
+.btn-outline-gray{
+	padding: 5px 15px !important;
+	background: white !important;
+	color: rgba(77, 77, 77, 1);
+	border-color: rgba(77, 77, 77, 1);
+
+	&:hover{
+		background: rgba(232, 229, 255, 1) !important;
+		border-color:  $color-purple !important;
+		color: rgba(153, 95, 236, 1);
+		font-weight: 600 !important;
+	}
+}
+
+.btn-outline-primary{
+	padding: 5px 15px !important;
+	background: rgba(232, 229, 255, 1) !important;
+	border-color:  $color-purple !important;
+	color: rgba(153, 95, 236, 1);
+	font-weight: 600 !important;
+	
+
+}

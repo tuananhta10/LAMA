@@ -1,0 +1,52 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { map, filter, switchMap, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminJobTypeService {
+
+  private server = environment.host;
+  constructor(private http: HttpClient) { }
+
+  getJobTypesListData(): Observable<any> {
+    return this.http.get<any>(`${this.server}/jobtype`).pipe(
+      map((res) => <any[]>res.data),
+      catchError(this.handleError)
+    );
+  }
+
+  saveJobTypes(data: any): Observable<any> {
+    return this.http.post<any>(`${this.server}/jobtype`, data).pipe(
+      map((res: any) => <any[]>res),
+      catchError(this.handleError)
+    );
+  }
+
+  editJobTypes(data: any): Observable<any> {
+    return this.http.put(`${this.server}/jobtype`, data)
+      .pipe(
+        map((res) => <any>res)
+      );
+  }
+
+  deleteJobTypes(data: any): Observable<any> {
+    return this.http.delete<any>(`${this.server}/jobtype`,
+      {
+        body: { id: [...data] }
+      })
+      .pipe(
+        map((res) => <any>res),
+        catchError(this.handleError)
+      );
+  }
+
+  // error handler
+  private handleError(error: any, caught: any): any {
+    throw error;
+  }
+}

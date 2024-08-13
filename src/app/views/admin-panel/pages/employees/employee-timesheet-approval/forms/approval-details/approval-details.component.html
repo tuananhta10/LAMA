@@ -1,0 +1,223 @@
+<div style="">
+    <form [formGroup]="timesheetDetailsForm" *ngIf="!serviceTypeLoading">
+        <h5 class="mat-subtitle">Timesheet Details</h5>
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                
+                <app-textfield
+                    label="Employee"
+                    [labelTop]="true"
+                    [readonly]="true"
+                    [classType]="'text-capitalize'"
+                    formControlName="employee_name">
+                </app-textfield>
+
+                <app-textfield 
+                    label="Batch Number"
+                    [labelTop]="true"
+                    [readonly]="true"
+                    formControlName="batch_number">
+                </app-textfield>
+
+                <app-textfield 
+                    label="Employee Total"
+                    [labelTop]="true"
+                    [readonly]="true"
+                    formControlName="approved_total">
+                </app-textfield>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <app-textfield 
+                    label="Service Type"
+                    [labelTop]="true"
+                    [readonly]="true"
+                    formControlName="service_type">
+                </app-textfield>
+
+                <app-radio-button 
+                    label="Approved"
+                    [required]="true"
+                    [disabled]="true"
+                    [labelTop]="true"
+                    formControlName="approved"
+                    [options]="radioOptions">
+                </app-radio-button>
+
+                <app-radio-button 
+                    label="Paid"
+                    [required]="true"
+                    [labelTop]="true"
+                    [disabled]="true"
+                    formControlName="paid"
+                    [options]="radioOptions">
+                </app-radio-button>
+
+                
+            </div>
+        </div>
+    </form>
+
+    <section class="mt-3">
+        <h5 class="mat-subtitle">Service Schedule Details</h5>
+        <hr style="border: dashed 1px #c9c9c9">
+       
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <form [formGroup]="timesheetDetailsForm" *ngIf="!serviceTypeLoading">
+                    <app-textfield 
+                        label="Participant"
+                        [labelTop]="true"
+                        [readonly]="true"
+                        formControlName="client">
+                    </app-textfield>
+                </form>
+
+                <form class="row" [formGroup]="serviceDetailsForm">
+                    <app-textarea
+                        label="Support Item"
+                        [labelTop]="true"
+                        [readonly]="true"
+                        formControlName="service_type_support_item_name">
+                    </app-textarea>
+                </form>
+
+                <form [formGroup]="timesheetDetailsForm" *ngIf="!serviceTypeLoading">
+                    <app-textfield 
+                        label="Participant Total"
+                        [labelTop]="true"
+                        [readonly]="true"
+                        formControlName="client_total">
+                    </app-textfield>
+                </form>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <h5 class="mat-subtitle mt-2">Calendar Schedule: 
+                    <span class="float-end view-edit" (click)="viewServiceSchedule(data)">View on Calendar</span>
+                </h5>
+                <div class="mt-3 ms-4">
+                    <div class="d-flex">
+                        <p class="mb-0" style="width: 130px; font-weight: 500;">
+                            Start Date:
+                        </p> 
+
+                        <p class="w-100 mb-2">
+                            {{ convertToDate(data?.client_service_schedule_start_date) | date: 'EEEE, MMM d, y'}}, 
+                            {{  data?.client_service_schedule_start_time | convert24hr }}
+                        </p>
+                    </div>
+
+                    <div class="d-flex">
+                        <p class="mb-0" style="width: 130px; font-weight: 500;">
+                            End Date:
+                        </p> 
+
+                        <p class="w-100 mb-2">
+                            {{ convertToDate(data?.client_service_schedule_end_date) | date: 'EEEE, MMM d, y'}}, 
+                            {{ data?.client_service_schedule_end_time | convert24hr }}
+                        </p>
+                    </div>
+
+                    <div class="d-flex">
+                        <p class="mb-0" style="width: 130px; font-weight: 500;">
+                            Total Hours:
+                        </p> 
+
+                        <p class="w-100 mb-0">
+                            {{data?.client_service_schedule_total_hours}} hr/s
+                        </p>
+                    </div>
+
+                    <div class="d-flex mt-2" *ngIf="data?.client_service_schedule_status === 'cancelled' && data?.client_service_schedule_charge_to_client">
+                        <p class="mb-0" style="width: 130px; font-weight: 500;">
+                            Status:
+                        </p> 
+
+                        <p class="w-100 mb-0 ">
+                            <strong class="text-success">Cancelled with charge</strong>
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="mb-3" >
+                    <hr style="border: dashed 1px #c9c9c9">
+
+                    <div class="row schedule-details px-0">
+                    
+                        <div class="col-12 col-md-6 px-0">
+                            <div class="ms-1 mt-2 ms-2">
+                                <p>
+                                    <img src="/assets/images/icons/travel.png" width="18px;" class="me-2">
+                                    Travel Distance (KM): {{data?.client_service_schedule_travel_distance}}<br>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 px-0">
+                            <div class="ms-1 mt-2 ms-2">
+
+                                <p *ngIf="data?.total_transport !== 0">
+                                    <img src="/assets/images/icons/transport.png" width="18px;" class="me-2">
+                                    Transport Distance (KM): {{data?.client_service_schedule_transport_distance}}<br>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 px-0" *ngIf="data?.employee_position_display_name === 'Support Coordinator' || data?.employee_position_display_name === 'Service Facilitator'" >
+                            <div class="ms-1 mt-2 ms-2">
+
+                                <p>
+                                    <img src="/assets/images/icons/transport.png" width="18px;" class="me-2">
+                                    Total Travel Time: {{data?.client_service_schedule_travel_hours || 0}}<br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+
+        
+
+        
+    </section>
+
+    <form class=" row" [formGroup]="serviceDetailsForm" *ngIf="data
+    && (serviceDetailsForm?.controls['support_worker_case_notes'].value || serviceDetailsForm?.controls['support_coordinator_case_notes'].value ||
+    serviceDetailsForm?.controls['service_facilitator_case_notes'].value)">
+        <hr>
+        <h5 class="mat-subtitle ms-md-2">Case Notes</h5>
+
+        <div class="col-12 col-md-12">
+
+            <label *ngIf="serviceDetailsForm?.controls['support_worker_case_notes'].value" class="label-text mt-10">Support Worker Case Notes</label>
+            <div *ngIf="serviceDetailsForm?.controls['support_worker_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                <quill-editor [readOnly]="true" formControlName="support_worker_case_notes"></quill-editor>
+            </div>
+
+            <label *ngIf="serviceDetailsForm?.controls['support_coordinator_case_notes'].value" class="label-text">Support Coordinator Case Notes</label>
+            <div *ngIf="serviceDetailsForm?.controls['support_coordinator_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                <quill-editor [readOnly]="true" formControlName="support_coordinator_case_notes"></quill-editor>
+            </div>
+
+        </div>
+
+        <div class="col-12 col-md-12">
+            <label *ngIf="serviceDetailsForm?.controls['service_facilitator_case_notes'].value" class="label-text">Service Facilitator Case Notes</label>
+            <div *ngIf="serviceDetailsForm?.controls['service_facilitator_case_notes'].value" style="height:200px" class="quill-spacer pt-2 quill-mb">
+                <quill-editor [readOnly]="true" formControlName="service_facilitator_case_notes"></quill-editor>
+            </div>
+        </div>
+    </form>   
+
+     <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="serviceTypeLoading"
+        [formOnly]="true">
+    </global-admin-loader>
+</div>

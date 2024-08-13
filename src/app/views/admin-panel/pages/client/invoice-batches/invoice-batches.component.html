@@ -1,0 +1,61 @@
+<div class="mt-3" id="client-funding-container">
+	<!-- DOCUMENT FILE DATA -->
+	<div class="" 
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<!-- <img src="/assets/images/icons/target-arrow.png" width="30px" class="me-2 img-fluid img-title"> -->
+			<span class="ms-2 main-title">Invoice Batches</span>
+			<div class="float-end">
+				<!-- (click)="openAddInvoiceBatchModal()" -->
+				<button class="btn btn-primary" (click)="generateInvoiceBatch()">Generate Invoices</button>
+			</div>
+
+			<div class="float-end me-2">
+				<button class="btn btn-primary" (click)="syncToXeroDialog()">
+				Sync Data</button>
+			</div>
+		</div>
+		<br>
+
+		<!-- LIST VIEW -->
+		<div class="mt-2"  *ngIf="listView && !loading"
+		style="width: 100% !important; min-height: 400px;">
+			<section [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+				<!-- [withRemittance]="true" -->
+				<client-reusable-list-view
+					[loading]="loading"
+					[selectAll]="true"
+					[componentTitle]="'Self-Funded Invoice'"
+					(viewDetails)="editDataDialog($event)"
+					(updateSelectedRowDialog)="editDataDialog($event)"
+					(deleteSelectedRow)="deleteDataDialog($event)"
+					(report)="generateReport()"
+          			[withReport]="true"
+					[displayedColumns]="displayedColumns"
+					[selectedColumns]="selectedColumns"
+					[selectedColumnsMobile]="selectedColumns"
+					[searchSource]="searchSource"
+					[maxRows]="25"
+					[listDataSource]="invoiceBatchesList"
+					[withImport]="false"
+					(remittance)="importRemittance()"
+					(import)="importInvoiceBatches()"
+					[showDateFilter]="true"
+					[dateSource]="'date_created'"
+					[selectionReference]="'invoice_id'"
+					[multipleSelect]="true"
+					>
+				</client-reusable-list-view>
+			</section>
+		</div>
+
+	
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

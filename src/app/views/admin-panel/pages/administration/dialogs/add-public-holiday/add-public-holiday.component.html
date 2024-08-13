@@ -1,0 +1,82 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Public Holiday
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form *ngIf="!loading" [formGroup]="addPublicHolidayForm" style="max-width: 45vw !important;">
+		<div mat-dialog-content>
+            <app-textfield 
+                label="Name"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="name">
+            </app-textfield>
+
+            <app-textarea 
+                label="Description"
+                [labelTop]="true"
+                formControlName="description">
+            </app-textarea>
+
+            <app-date-picker 
+                label="Date"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="date">
+            </app-date-picker>
+
+      		<app-dropdown 
+                label="BG Color Code"
+                [labelTop]="true"
+                [required]="true"
+                [info]="true"
+                infoTitle="Background Color for Event"
+                formControlName="bg_color_code"
+                [options]="colors">
+            </app-dropdown>
+
+            <app-dropdown 
+                id="state"  
+                label="State"
+                [labelTop]="true"
+                [required]="true"
+                [isMultiple]="true"
+                [info]="true"
+                [maxSelection]="12"
+                infoTitle="Select the state in which the public holiday is applicable"
+                formControlName="state"
+                [options]="stateOptions">
+            </app-dropdown>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+                [disabled]="!addPublicHolidayForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data else showSave">Add</span>
+                    <ng-template #showSave>Save</ng-template> 
+                </button>
+			</div>
+		</div>
+	</form>
+
+    <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading"
+        [formOnly]="true">
+    </global-admin-loader>
+
+</div>

@@ -1,0 +1,25 @@
+<h5 class="goal-header">{{ goalData?.type }}</h5>
+<div class="goal-container">
+	<div class="d-flex">
+		<div class="goal-icon flex-wrap">
+			<img src="/assets/images/icons/goal-check.png">
+		</div>
+
+		<div class="flex-wrap">
+			<h5 class="goal-title">{{ goalData?.name }}</h5>
+			<p class="goal-due">Due in {{ goalData?.due }}</p>
+
+			<div class="d-flex">
+				<div class="progress">
+				  <div class="progress-bar" 
+				  [ngClass]="goalData?.progressBG"
+				  role="progressbar" 
+				  [ngStyle]="{ width: goalData?.width + '%' }" 
+				  aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div> 
+				</div> 
+
+				<p class="goal-due ms-2 mt-0" style="margin-top: -5px !important;">{{goalData?.width}}%</p>
+			</div>
+		</div>
+	</div>
+</div>

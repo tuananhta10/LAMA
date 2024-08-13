@@ -1,0 +1,160 @@
+<div class="card-form">
+	<div>
+		<h5 class="mat-dialog-title">Assign Employee</h5>
+		
+	</div>
+	<!--  *ngIf="!loading" -->
+	<div>
+		<div >
+			<hr>
+			<div class="schedule-details mb-3 ms-4"
+			*ngIf="data?.is_recurring">
+				<p class="recurring-title" style="line-height: 25px;" *ngIf="data?.recurring_interval !== 'Daily'">
+					<img src="/assets/images/icons/schedule.png" width="15px;" class="me-2">
+					Recurring {{data?.recurring_interval}} every 
+					{{ convertRecurringEvery(recurring_every) }}:
+				</p>
+
+				<p class="recurring-title mt-3 mb-3" *ngIf="data?.recurring_interval === 'Daily'">
+					<img src="/assets/images/icons/schedule.png" width="15px;" class="me-2">
+					Recurring Daily   
+				</p>
+
+				<p>
+					From {{ data?.start_date | date: 'MMM dd, yyyy' }} 
+					<ng-container *ngIf="data?.recurring_end_date; else showEndDate">
+						to {{ data?.recurring_end_date | date: 'MMM dd, yyyy' }}
+					</ng-container>
+
+					<ng-template #showEndDate >
+						to {{ data?.end_date | date: 'MMM dd, yyyy' }}
+					</ng-template>
+				</p>
+
+				<!-- <p>
+					{{ convertTo12Hrs(data?.start_time) }} - 
+					{{convertTo12Hrs(data?.end_time) }}
+				</p> -->
+			</div>	 	
+
+			<form [formGroup]="assignEmployeeForm" >
+				<!-- <div>
+					<app-dropdown
+					label="Select Availability"
+					[labelTop]="true"
+					[options]="available"
+					formControlName="availability">
+					</app-dropdown>
+				</div> -->
+
+				<app-textarea
+					label="Shift Instructions"
+					[labelTop]="true"
+					formControlName="shift_instruction"
+					[rows]="4">
+					
+				</app-textarea>
+				
+				<app-search-list  *ngIf="data?.type !== 'Group'"
+				    label="Employee"
+				    [labelTop]="true"
+				    formControlName="employee"
+				    [objectReturn]="true"
+				    [options]="employeeEnumFiltered"
+
+				    [newOption]="true"
+				    [newOptionLabel]="'Employee'"
+				    [newOptionRoute]="'/admin/employees'">
+				</app-search-list>
+
+
+				<app-dropdown *ngIf="data?.type === 'Group' && !loading"
+				label="Employees"
+				[labelTop]="true"
+				[isMultiple]="true"
+				[maxSelection]="maxEmployee"
+				formControlName="employee_group"
+				[options]="generateDropdownOption()">
+					
+				</app-dropdown>
+			</form>
+
+            <div  *ngIf="showFilter">
+            	<hr>
+            	<h5 class="ms-3 ps-2">Employee Filter</h5>
+
+            	<h6 class="ms-3 ps-2 no-funding" *ngIf="!data?.price_list_id"> 
+            		Please complete the participant details, funding, and support item first before filtering employees.
+
+            		<hr>
+            	</h6>
+
+            	<form [formGroup]="employeeLookupFilter">
+            		<app-dropdown id="qualifications"  
+            			label="Qualifications" 
+            			formControlName="qualifications"
+            			[options]="qualificationList" 
+            			[labelTop]="true"
+            		></app-dropdown>
+            		
+            		<app-radio-button id="smoker"  
+            			label="Smoker" 
+            			[labelTop]="true"
+            			formControlName="smoker" 
+            			[options]="radioOptions">
+            		</app-radio-button>
+
+            		<app-dropdown id="job_type"  
+            			label="Job Type"
+            			placeholder="Select" 
+            			formControlName="job_type" 
+            			[labelTop]="true"
+            			[options]="jobTypeEnum">
+            		</app-dropdown>
+
+            		<app-dropdown id="employment_type"  
+            			label="Employment Type" 
+            			formControlName="employment_type"
+            			[options]="employementTypeOption" 
+            			[info]="true"
+            			[labelTop]="true"
+            			[infoTitle]="'Penalty rates for employee will be calculated based on the employment type selected here.'"
+            		></app-dropdown>
+
+            		<app-dropdown id="gender"  
+            			label="Gender" 
+            			formControlName="gender"
+            			[options]="genderOptions" 
+            			[labelTop]="true"
+            		></app-dropdown>
+
+            		<app-search-list id="language"  
+            			#languageFilter
+            			label="Language" 
+            			formControlName="language"
+            			[options]="languageEnum" 
+            			[labelTop]="true"
+            		></app-search-list>
+
+            		<div class="ms-3 ps-2 mb-3">
+            			<button class="btn btn-primary btn-header" (click)="clearFilter()"> Clear Filter</button>
+            		</div>
+
+            		<!-- <hr> -->
+            	</form>
+            </div>
+
+            
+            
+            <div class="ms-3 ps-2 mb-3" *ngIf="!showFilter">
+            	<button class="btn btn-primary btn-header" (click)="applyFilter()">Add Filter</button>
+            </div>       
+		</div>
+
+	</div>
+    <!-- <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading">
+    </global-admin-loader>  -->
+</div> 

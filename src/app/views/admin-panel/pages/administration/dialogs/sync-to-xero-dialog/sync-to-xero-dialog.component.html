@@ -1,0 +1,24 @@
+
+<div class="assign-action-container px-0">
+	<img src="/assets/images/icons/report.png" class="img-fluid" width="25px">
+
+	<h5 class="header-text-action">{{data?.title || 'Sync to '+ data?.service.toUpperCase() +' Accounting Software'}}</h5>
+	<h5 class="header-text mt-2">You are about to sync the {{data?.records}} data directly to the {{data?.service.toUpperCase()}} accounting software. Click Continue to proceed.</h5>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="syncNow()" 
+			class="btn btn-primary">Continue</button>
+		</div>
+	</div>
+</div>

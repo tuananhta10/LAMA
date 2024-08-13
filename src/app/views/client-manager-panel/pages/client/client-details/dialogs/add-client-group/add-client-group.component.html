@@ -1,0 +1,70 @@
+<div class="card-form">
+	<div *ngIf="!loading">
+		<div mat-dialog-title>
+			<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+				<ng-template #showUpdate>Update</ng-template> Client Group</h5>
+			<hr>
+		</div>
+		<div mat-dialog-content>
+			<form class="row" [formGroup]="clientGroupForm" >
+				<div class="col-12 col-lg-6" >
+					<app-textfield 
+						label="Group Name"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="name">
+					</app-textfield>
+				</div>
+	
+				<div class="col-12 col-lg-6">
+					<app-search-list 
+						label="Branch"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="branch_id"
+						[options]="branchEnums">
+					</app-search-list>
+				</div>
+	
+				<div class="col-12 px-3">
+					<hr>
+					<div class="px-3 mt-4">
+						<app-form-table
+							label='Clients'
+							[columns]="clientColumns"
+							[data]="clientTableData"
+							(addEvent)="openClientModal($event)"
+							(deleteEvent)="deleteClientModal($event)"
+							[isAddEnabled]="true"
+							[isDeleteEnabled]="true"
+						></app-form-table>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+	
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+	
+				<button mat-button (click)="save()"
+				[disabled]="!clientGroupForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+					<span *ngIf="!data else showSave">Add</span>
+					<ng-template #showSave>Save</ng-template> 	
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+
+</div>

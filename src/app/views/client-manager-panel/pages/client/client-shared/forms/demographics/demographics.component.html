@@ -1,0 +1,145 @@
+<div class="row" *ngIf="!loading" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="demographicsForm">
+			<mat-card>
+				<!-- <mat-card-title  *ngIf="isUpdate">
+					Demographics
+					<hr>
+				</mat-card-title> -->
+				<mat-card-content>
+					<div class="row  pt-3">
+						<div class="col-sm-12 col-md-6">
+							<app-date-picker id="birthdate" 
+								label="Date of Birth" 
+								formControlName="birthdate"
+								(keyevents)="computeAge($event)"
+								[maxDate]="dateNow">
+							</app-date-picker>
+
+							<app-textfield id="age" 
+								*ngIf="demographicsForm?.controls['birthdate'].value"
+								label="Age" 
+								[disabled]="true" 
+								[info]="true"
+								[infoTitle]="'System Generated based on Date of Birth'"
+								formControlName="age">
+							</app-textfield>
+
+							<app-textfield id="birthplace" 
+								label="Place of Birth" 
+								formControlName="birthplace">
+							</app-textfield>
+							
+
+							<!-- [addOption]="true" 
+								(addMethod)="openAddCountry($event)" -->
+							<app-search-list id="birthplace_country_id" 
+								label="Country of Birth" 
+								formControlName="birthplace_country_id"
+								[options]="countriesEnums" 
+							></app-search-list>
+
+							<app-dropdown id="family_status" 
+								label="Family Status" 
+								formControlName="family_status" 
+								[options]="familyStatusOptions">
+							</app-dropdown>
+
+							<!-- [addOption]="true" 
+								(addMethod)="openReligion($event)" -->
+							<app-search-list id="religion_id" 
+								label="Religion" 
+								formControlName="religion_id"
+								[options]="religionEnums" 
+								[addOption]="true" 
+								(addMethod)="openReligion($event)"
+							></app-search-list>
+						</div>
+
+						<div class="col-sm-12 col-md-6">
+							<app-dropdown id="citizenship" 
+								label="Citizenship" 
+								formControlName="citizenship" 
+								[options]="citizenshipOptions">
+							</app-dropdown>
+
+							<app-dropdown id="background" 
+								label="Cultural Identification" 
+								formControlName="background" 
+								[options]="backgroundOptions"
+								(keyevents)="showOthers($event, 'background')">
+							</app-dropdown>
+
+							<app-textarea *ngIf="showOther?.background_other"
+								label="Other Cultural Identification" 
+								formControlName="background_other"
+							>
+							</app-textarea>
+
+							<app-radio-button id="indigenous" 
+								label="Indigenous" 
+								formControlName="indigenous" 
+					
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-dropdown id="disability_type" 
+								label="Primary Diagnosis<br>/Disability" 
+								formControlName="disability_type" 
+								[options]="conditionOptions" 
+								[required]="true"
+								(keyevents)="showOthers($event, 'disability_type')">
+							</app-dropdown>
+					
+							<app-textarea *ngIf="showOther?.disability_other"
+								label="Other Primary Diagnosis/Disability" 
+								formControlName="disability_type_other"
+							>
+							</app-textarea>
+
+							<app-textarea id="condition_description" 
+								label="Disability Type Description" 
+								formControlName="condition_description">
+							</app-textarea>
+						</div>
+					</div>
+				</mat-card-content>
+				<mat-card-actions>
+					<hr>
+					<div *ngIf="!isUpdate" class="row">
+						<div class="col-sm-12 justify-content-end d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+							
+							<button (click)="next()" 
+							[disabled]="!demographicsForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+						</div>
+					</div>
+					<div *ngIf="isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+								Next
+							</button>
+							
+							<button (click)="submit()" 
+							[disabled]="!demographicsForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Save
+							</button>
+						</div>
+					</div>
+				</mat-card-actions>
+			</mat-card>
+		</form>
+	</div>
+</div>
+<global-admin-loader [loading]="loading"></global-admin-loader>

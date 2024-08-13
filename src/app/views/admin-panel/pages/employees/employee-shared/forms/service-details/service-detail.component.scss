@@ -1,0 +1,279 @@
+@import "src/scss/colors";
+
+.shadow{
+    box-shadow: 0px 4px 5px rgba(102, 50, 102, 0.01);
+    -webkit-box-shadow: 0px 4px 5px rgba(102, 50, 102, 0.01);
+    -moz-box-shadow: 0px 4px 5px rgba(102, 50, 102, 0.01);
+}
+
+.btn-view-more{
+    @extend .shadow;
+    padding: 7px 15px !important;
+    margin-top: 8px;
+    //margin-left: -4px;
+    background: white;
+    color: $color-purple;
+    font-size: 10px;
+    border-radius: 4px !important;
+    //border: solid 1px $color-purple;
+
+    &:hover{
+        background: $color-purple;
+        color: white;
+    }
+}
+
+.bg-compliance{
+    border: solid #C5C5C5 1px;
+    border-radius: 6px;
+    padding: 10px;
+    padding-bottom: 0 !important;
+    padding-top: 0px;
+    margin-left: 15px;
+    //margin-top: -27px;
+    width: 100%;
+    overflow-x: auto;
+    
+}
+
+:host ::ng-deep {
+    #compliance-docs{
+        padding: 20px 35px;
+        
+
+        .form-table-main{
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .table{
+            min-width: 600px;
+
+            tr{
+                th{
+                    vertical-align: top !important;
+                }
+            }
+
+            /*th{
+                min-width: 100px;
+
+                &:nth-child(1){
+                    min-width: 150px !important;
+                }
+
+                &:nth-child(2){
+                    min-width: 100px !important;
+                }
+
+                &:nth-child(3){
+                    min-width: 120px !important;
+                }
+
+                &:nth-child(6){
+                    min-width: 80px !important;
+                }
+            }
+
+            td{
+                padding-top: 10px !important;
+                padding-bottom: 10px !important;
+                min-width: 100px;
+
+                &:nth-child(1){
+                    min-width: 150px !important;
+                }
+
+                &:nth-child(2){
+                    min-width: 100px !important;
+                }
+
+                &:nth-child(3){
+                    min-width: 120px !important;
+                }
+
+                &:nth-child(6){
+                    min-width: 80px !important;
+                }
+
+                color: #767676;
+            }*/
+
+            tr{
+                /* height: 65px !important; */
+            }
+        }
+    }
+    
+}
+
+
+
+.table-label{
+    font-family: 'Noto Sans' !important;
+    margin-top: -27px;
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 25px;
+    margin-bottom: 15px;
+    color: $color-gray-dark
+}
+
+:host ::ng-deep {
+    .card-form {
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+
+
+        .mat-card {
+            /* box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            -webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            -moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            border-radius: 20px; */
+
+            border-radius: 8px !important;
+            box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+            -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+            padding-top: 45px !important;
+            padding: 25px 25px;
+
+            .mat-card-title{
+                font-size: 20px;
+                color: $color-gray-dark;
+
+                hr {
+                    border: 0.5px solid #777777;
+                    margin-bottom: 30px;
+                }
+            }
+
+            .mat-card-content {
+                padding: 0 50px 0 50px;
+            }
+
+            .mat-card-actions{
+                padding: 10px 25px;
+
+                .btn-header-gray{
+                    background: #D0D0D0;
+                    color: $color-gray-dark;
+                }
+
+                .btn-header{
+                    border-radius: 5px !important;
+                    padding: 7px 30px !important;
+                }
+            }
+        }
+    }
+}
+
+@import "src/scss/colors";
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+.payrate-style{
+    //max-width: 67vw !important;
+}
+
+:host ::ng-deep {
+    .table{
+        //min-width: 930px !important;
+        width: 100%;
+
+        tr{
+            th{
+                vertical-align: top !important;
+            }
+        }
+
+        /*th{
+            min-width: 120px;
+
+            &:nth-child(1){
+                min-width: 180px !important;
+            }
+
+            //&:nth-child(1),
+            &:nth-child(2){
+                min-width: 200px !important;
+            }
+        }
+
+        td{
+            min-width: 120px;
+
+            &:nth-child(1){
+                min-width: 180px !important;
+            }
+
+            //&:nth-child(1),
+            &:nth-child(2){
+                min-width: 200px !important;
+            }
+
+            color: #767676;
+        }*/
+
+        tr{
+            /* height: 65px !important; */
+        }
+    }
+}
+
+.dialog-responsive .mat-dialog-container
+{
+    //min-height: 300px !important;
+    min-width: 400px !important;
+    //max-height: 70% !important; 
+    //max-width: 800px;
+
+    @media (max-width: 768px){
+      min-height: 50%;
+      min-height: 500px;
+    }
+}
+
+.btn-header-gray{
+  background: #D0D0D0;
+  color: $color-gray-dark;
+}
+
+.btn-header{
+  border-radius: 5px !important;
+  padding: 7px 30px !important;
+}
+
+.btn-include{
+    text-decoration: none !important;
+    border-radius: 5px !important;
+    padding: 7px 10px !important;
+    
+    text-decoration: none !important;
+}
+
+.btn-link{
+    height: 32px !important;
+    margin-top: -20px !important;
+
+    margin-left: 165px;
+}
+
+.btn-link-2{
+    position: absolute;
+    right:25px;
+    top: -15px;
+    background: $color-purple;
+    height: 32px !important;
+    text-decoration: none !important;
+    margin-top: 25px !important;
+    border-radius: 5px !important;
+    padding: 7px 10px !important;
+}

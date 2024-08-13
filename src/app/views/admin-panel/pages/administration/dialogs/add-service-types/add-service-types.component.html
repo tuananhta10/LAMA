@@ -1,0 +1,258 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Service Type
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form [formGroup]="serviceTypeForm">
+		<div mat-dialog-content>
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 class="mat-subtitle">Details</h5>
+                    <app-textfield 
+                        label="Code"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="code">
+                    </app-textfield>
+        
+                    <app-textfield 
+                        label="Name"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="name">
+                    </app-textfield>
+        
+                    <app-dropdown 
+                        label="Type" 
+                        [labelTop]="true"
+                        formControlName="type" 
+                        [required]="true"
+                        [options]="typeOptions">
+                    </app-dropdown>
+        
+                    <app-dropdown 
+                        label="Category" 
+                        [labelTop]="true"
+                        formControlName="category" 
+                        [required]="true"
+                        [options]="categoryOptions">
+                    </app-dropdown>
+        
+                    <app-dropdown 
+                        label="Job Type" 
+                        [labelTop]="true"
+                        formControlName="job_type" 
+                        [required]="true"
+                        [options]="jobTypeOptions">
+                    </app-dropdown>
+
+                    <app-dropdown 
+                        label="Service Location" 
+                        [labelTop]="true"
+                        formControlName="service_location" 
+                        [required]="true"
+                        [options]="serviceLocationOptions">
+                    </app-dropdown>
+
+                    <app-radio-button 
+                        label="Taxable" 
+                        [labelTop]="true"
+                        formControlName="taxable"
+                        [options]="radioOptions">
+                    </app-radio-button>
+
+                    <app-dropdown 
+                        label="Claim Type" 
+                        [labelTop]="true"
+                        formControlName="claim_type" 
+                        [required]="true"
+                        [options]="claimTypeOptions">
+                    </app-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <app-radio-button 
+                        label="Pay Travel" 
+                        [labelTop]="true"
+                        formControlName="pay_travel"
+                        [options]="radioOptions">
+                    </app-radio-button>
+
+                    <app-radio-button 
+                        label="Care Worker Management"
+                        [labelTop]="true"
+                        [info]="true"
+                        [infoTitle]="'If employee would like to be referred to by anything other than their first name, enter their preferred name here'" 
+                        formControlName="care_worker_management"
+                        [options]="radioOptions">
+                    </app-radio-button>
+
+                    <app-textfield 
+                        label="Min Employees"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="min_employees">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Max Employees"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="max_employees">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Max Travel Time"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="max_travel_time">
+                    </app-textfield>
+
+                    <app-radio-button 
+                        label="Allowance Pay Type" 
+                        [labelTop]="true"
+                        [info]="true"
+                        [infoTitle]="'If employee would like to be referred to by anything other than their first name, enter their preferred name here'" 
+                        formControlName="allowance_pay_type"
+                        [options]="radioOptions">
+                    </app-radio-button>
+
+                    <app-textfield 
+                        label="Max Travel Mileage"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="max_travel_mileage">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Max Transport Mileage"
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="max_transport_mileage">
+                    </app-textfield>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mat-subtitle">Pay Rate</h5>
+                    <app-radio-button 
+                        label="Override Pay Rate" 
+                        [labelTop]="true"
+                        [required]="true"
+                        formControlName="override_pay_rate"
+                        [options]="radioOptions">
+                    </app-radio-button>
+
+                    <h5 class="mat-subtitle">SIL Setup</h5>
+                    <app-textfield 
+                        label="Color Code"
+                        [labelTop]="true"
+                        formControlName="color_code">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="SIL Code"
+                        [labelTop]="true"
+                        formControlName="sil_code">
+                    </app-textfield>
+
+                    <h5 class="mat-subtitle">Required Qualitification</h5>
+                    <app-radio-button 
+                        label="Restrict By Qualitification"
+                        [labelTop]="true"
+                        [infoTitle]="'If employee would like to be referred to by anything other than their first name, enter their preferred name here'"
+                        [info]="true"
+                        formControlName="restrict_by_qualification"
+                        [options]="radioOptions">
+                    </app-radio-button>
+
+                    <app-textfield 
+                        label="Override Minimum Classification"
+                        [labelTop]="true"
+                        formControlName="override_minimum_classification">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Override Maximum Classification"
+                        [labelTop]="true"
+                        formControlName="override_maximum_classification">
+                    </app-textfield>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mat-subtitle">After Hour Setup</h5>
+                    <app-dropdown 
+                        label="After Hour Calculation Method" 
+                        [labelTop]="true"
+                        formControlName="after_hour_calculation_method" 
+                        [required]="true"
+                        [options]="calculationMethodOptions">
+                    </app-dropdown>
+
+                    <app-time-analog 
+                        label="After Hours Start" 
+                        [labelTop]="true"
+                        formControlName="after_hour_start"
+                        [required]="true">
+                    </app-time-analog>
+
+                    <app-time-analog 
+                        label="After Hours End" 
+                        [labelTop]="true"
+                        formControlName="after_hour_end"
+                        [required]="true">
+                    </app-time-analog>
+                </div>
+                <div class="col-md-12">
+                    <div *ngIf="!data">
+                        <h5 class="mat-subtitle">Charge Rates</h5>
+                        <span class="ms-4" >Please save record first</span><br><br>
+                    </div>
+                    <div class="px-md-4" *ngIf="data">
+                        <app-form-table
+                            label='Charge Rates'
+                            [columns]="chargeRateColumns"
+                            [data]="chargeRateTableData"
+                            (addEvent)="openChargeRateModal($event)"
+                            [isAddEnabled]="true"
+                            [isDeleteEnabled]="true"
+                        ></app-form-table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div *ngIf="!data">
+                        <h5 class="mat-subtitle">Funding Codes</h5>
+                        <span class="ms-4">Please save record first</span>
+                    </div>
+                    <div class="px-md-4"  *ngIf="data">
+                        <app-form-table
+                            label='Funding Codes'
+                            [columns]="fundingCodeColumns"
+                            [data]="fundingCodeTableData"
+                            (addEvent)="openFundingCodeModal($event)"
+                            [isAddEnabled]="true"
+                            [isDeleteEnabled]="true"
+                        ></app-form-table>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data else showSave">Add</span>
+                    <ng-template #showSave>Save</ng-template> 
+                </button>
+			</div>
+		</div>
+	</form>
+
+</div>

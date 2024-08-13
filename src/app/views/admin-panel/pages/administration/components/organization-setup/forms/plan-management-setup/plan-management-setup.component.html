@@ -1,0 +1,338 @@
+<div class="pt-5" [@animate]="{value:'*', params:{ x:'-50px'}}">
+	
+	<div class="mt-3" *ngIf="loading">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+
+	<ng-container *ngIf="!subscriptionData">
+		<div class="card card-body mt-4 pt-4 p-3 text-start">
+			<h5>Your LAMA subscription is currently unavailable.</h5>
+			<p>We were unable to find your subscription data. It appears that you are currently not subscribed to LAMA. If you accidentally cancelled your subscription, please contact us at info@lamacare.com.au.</p>
+		</div>
+	</ng-container>
+
+	<div class="mt-4 text-start" *ngIf="subscriptionData">
+		<div class="row">
+			<div class="col-12 col-md-12 col-lg-8">
+				<div class="card card-body" style="min-height: 410px">
+					<div class="p-4">
+						<div class="w-100" style="position: relative;">
+							<div class="lama-logo bg-primary">
+								<img src="/assets/images/placeholder/lama-logo-white.png">
+							</div>
+						</div>
+
+						<h5 class="title-active-subscription mt-2">Active Subscription</h5>
+
+						<p class="title-active-subscription-details pe-5 mt-3">
+							<!-- Your subscription is currently set to {{ subscriptionData?.status === 'trialing' ? 'a 30-day trial period' : 'Standard Subscription' }}. If you decide to continue with the subscription beyond the trial period, we will recalculate your bill based on the total number of active participants using the service. It's important to note that your subscription fee may change depending on the number of users, so we recommend monitoring your usage. -->
+
+							Your subscription is currently on a {{ subscriptionData?.status === 'trialing' ? 'a 30-day trial period' : 'Standard Subscription' }}. If you choose to keep the subscription after the trial, we will adjust your bill according to the total number of active participants using the service. Please be aware that your subscription fee may vary based on the number of users, so we suggest monitoring your usage. 
+						</p>
+
+						<p class="title-active-subscription-details pe-5">
+							If you want to cancel your subscription. Click the Cancel Button Below.
+						</p>
+
+						<div class="my-2">
+							<button class="btn btn-danger-secondary" (click)="cancelSubscription()">Cancel Subscription</button>
+						</div>
+
+						<p class="title-active-subscription-details mt-4">
+							Thank you for Using <span class="title-active-subscription-lama">LAMA Care.</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-12 col-lg-4">
+				<div class="card card-body" style="min-height: 410px">
+					<div class="plan-header">
+						<h6 class="title-current-plan">Current Plan</h6>
+						<h5 class="title-current-plan-day" *ngIf="subscriptionData?.status === 'trialing'; else showStandardPlan">30 Days Trial Period
+							<!-- <span class="float-end title-current-plan-period">
+								{{updateNegativeInvoice(subscriptionData?.items?.data[0]?.plan?.amount / 100)  }}/mo
+							</span> -->
+						</h5>
+
+						<ng-template #showStandardPlan>
+							<h5 class="title-current-plan-day">Standard Plan
+								<!-- <span class="float-end title-current-plan-period">
+									{{updateNegativeInvoice(subscriptionData?.items?.data[0]?.plan?.amount / 100)  }}/mo
+								</span> -->
+							</h5>
+						</ng-template>
+					</div>
+
+
+					<div class="px-3 px-lg-4 py-2 pt-4">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="mb-2" *ngIf="subscriptionData?.status === 'trialing'">
+									<h6 class="title-plan-sub">
+										Trial Start
+									</h6>
+
+									<h5 class="title-plan-details">{{subscriptionData?.trial_start * 1000 | date: 'dd MMM, yyyy h:mm a'}}</h5>
+								</div>
+
+								<div class="mb-2" *ngIf="subscriptionData?.status !== 'trialing'">
+									<h6 class="title-plan-sub">
+										Current Period Start
+									</h6>
+
+									<h5 class="title-plan-details">{{subscriptionData?.current_period_start * 1000 | date: 'dd MMM, yyyy h:mm a'}}</h5>
+								</div>
+
+								<div class="mb-2">
+									<h6 class="title-plan-sub">
+										Plan
+									</h6>
+
+									<h5 class="title-plan-details text-capitalize">{{subscriptionData?.object}}</h5>
+								</div>
+
+								<div class="mb-2">
+									<h6 class="title-plan-sub">
+										Total Amount
+									</h6>
+
+									<h5 class="title-plan-details">{{updateNegativeInvoice((subscriptionData?.items?.data[0]?.plan?.amount * subscriptionData?.items?.data[0]?.quantity) /100) }} </h5>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-6">
+								<div class="mb-2" *ngIf="subscriptionData?.status === 'trialing'">
+									<h6 class="title-plan-sub">
+										Trial End
+									</h6>
+
+									<h5 class="title-plan-details">{{subscriptionData?.trial_end * 1000 | date: 'dd MMM, yyyy h:mm a'}}</h5>
+								</div>
+
+								<div class="mb-2" *ngIf="subscriptionData?.status !== 'trialing'">
+									<h6 class="title-plan-sub">
+										Current Period End
+									</h6>
+
+									<h5 class="title-plan-details">{{subscriptionData?.current_period_end * 1000 | date: 'dd MMM, yyyy h:mm a'}}</h5>
+								</div>
+
+								<div class="mb-2">
+									<h6 class="title-plan-sub">
+										Item
+									</h6>
+
+									<h5 class="title-plan-details">{{updateNegativeInvoice(subscriptionData?.items?.data[0]?.plan?.amount /100) }} * {{subscriptionData?.items?.data[0]?.quantity}} Active Participants</h5>
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-2" *ngIf="!customerData?.paymentMethod">
+							<hr>
+							<button class="btn btn-outline-payment" (click)="addPaymentMethodDialog()" 
+							>Add Payment Method</button>
+						</div>
+
+						<div>
+							<ng-container *ngIf="customerData?.paymentMethod">
+								<hr>
+								
+								<div class="row">
+									<div class="col-12 col-md-6">
+										<h6 class="title-plan-sub">
+											Default Payment:
+										</h6>
+
+										<h5 class="title-plan-details text-capitalize">{{customerData?.paymentMethod?.card?.brand}}</h5>
+									</div>
+
+									<div class="col-12 col-md-6">
+										<h6 class="title-plan-sub">
+											Last 4 Digit:
+										</h6>
+
+										<h5 class="title-plan-details">**** **** **** {{customerData?.paymentMethod?.card?.last4}}</h5>
+									</div>
+								</div>
+								
+								<div class="text-start">
+									<button class="btn btn-outline-payment" (click)="addPaymentMethodDialog()">Add Another Payment Method</button>
+								</div>
+							</ng-container>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- <br>
+
+		<div class="d-flex">
+			
+			<div class="me-4" style="width: 450px">
+				<h5 class="ms-2 title-subscription">Subscription Details</h5>
+
+				<ul class="subscription-detail">
+					<li class="text-capitalize">
+						<b>Status:</b> {{subscriptionData?.status}}
+					</li>
+
+					<li *ngIf="subscriptionData?.status == 'trialing'">
+						<b>Trial Start:</b> 
+						{{subscriptionData?.trial_start * 1000 | date: 'dd MMM, yyyy h:mm a'}}
+					</li>
+
+					<li *ngIf="subscriptionData?.status == 'trialing'">
+						<b>Trial End:</b> {{subscriptionData?.trial_end * 1000 | date: 'dd MMM, yyyy h:mm a'}}
+					</li>
+
+					<li class="text-capitalize"><b>Plan:</b>  {{subscriptionData?.object}}</li>
+
+					<li>
+						<b>Item:</b> {{updateNegativeInvoice(subscriptionData?.items?.data[0]?.plan?.amount /100) }} * {{subscriptionData?.items?.data[0]?.quantity}}
+					</li>
+
+					<li>
+						<b>Total:</b> {{updateNegativeInvoice((subscriptionData?.items?.data[0]?.plan?.amount * subscriptionData?.items?.data[0]?.quantity) /100) }} 
+					</li>
+				</ul>
+
+				
+			</div>
+
+			<div class="pe-4 border-left-purple">
+				<img src="/assets/images/placeholder/lama-logo-black.png" class="img-subscribe mb-3">
+				<hr>
+				<p class="mt-3">Your subscription is currently set to 30 days trial period. If you continue with the subscription, we will recalculate your bill based on the total number of  active participants for the current month (before end of month).
+				</p>
+				
+
+				<p>If you want to cancel your subscription. Click the Cancel Subscription Button</p>
+
+				<button class="btn btn-danger-secondary" (click)="cancelSubscription()">Cancel Subscription</button>
+
+				<button class="btn btn-outline-primary ms-2" (click)="addPaymentMethodDialog()" 
+				*ngIf="!customerData?.paymentMethod">Add Payment Method</button>
+
+				<br><br>
+				Thank you for using LAMA
+				<br>
+			</div>
+		</div>
+
+		
+	</div> -->
+
+	<div class="card card-body mt-4 text-start" style="max-height: 440px !important; overflow-y: auto;">
+		<div class="px-4 py-3">
+			<h5 class="ms-2 mt-3 mb-4 title-subscription">Subscription Invoice
+				<div class="search-div me-1 float-end">
+					<div class="input-group">
+					  <img src="/assets/images/icons/search.png">
+					  
+					  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+					  [(ngModel)]="searchBy" (ngModelChange)="searchDataSource()">
+					</div>
+				</div>
+			</h5>
+
+			<table class="table w-100 mt-2" *ngIf="filteredInvoice?.length > 0">
+				<thead>
+					<tr>
+						<th>Customer</th>
+						<th>Description</th>
+						
+						<th>Currency</th>
+						<th>Paid</th>
+						<th>Item Price</th>
+						<th>Quantity</th>
+						<th>Total</th>
+						<th>Due Date</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of filteredInvoice">
+						<td>{{item?.customer_name}}</td>
+						<td>{{item?.lines?.data[0]?.description}}</td>
+						
+						<td class="text-uppercase">{{item?.currency}}</td>
+						<td>{{item?.paid ? "Yes" : "No"}}</td>
+						
+						<td>{{(item?.lines?.data[0]?.price?.unit_amount !== 0 ? updateNegativeInvoice(item?.lines?.data[0]?.price?.unit_amount/100) : 0)}}</td>
+
+						<td>{{item?.lines?.data[0]?.quantity}}</td>
+
+						<td>{{(item?.total !== 0 ? updateNegativeInvoice(item?.total/100) : 0)}}</td>
+						<td>{{ (item?.due_date * 1000) | date: 'dd MMM, yyyy'}}</td>
+						<td class="text-capitalize">{{item?.status}}</td>
+						<td> <button class="btn btn-outline-primary" (click)="generatePaymentLink(item)">View Invoice</button> </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- <div class="card card-body mt-4 text-start">
+	<h5>Stripe Customer</h5>
+	<div class="w-100 d-flex">
+		<button (click)="createCustomer()" class="btn btn-outline-primary mb-3 me-3">
+		Create Stripe Customer</button>
+
+		<button (click)="getCustomer()" class="btn btn-outline-primary mb-3 me-3">
+		Get Stripe Customer ID</button>
+
+		<button (click)="generateChargeTest()" class="btn btn-outline-primary mb-3 me-3">
+		Generate Test Charge</button>
+	</div>
+
+	<h5>Stripe Price and Invoice</h5>
+	<div class="w-100 d-flex">
+		<button (click)="createPriceForInvoice()" class="btn btn-outline-primary mb-3 me-3">
+		Create Item Price (40 Active Participants)</button>
+
+		<button (click)="getItemPrice()" class="btn btn-outline-primary mb-3 me-3">
+		Get Item Price ID</button>
+
+		<button (click)="createInvoice()" class="btn btn-outline-primary mb-3 me-3">
+		Generate Stripe Test Invoice</button>
+
+		<button (click)="getAllInvoice()" class="btn btn-outline-primary mb-3 me-3">
+		Get All Invoice</button>
+	</div>
+
+	<h5>Stripe Subscription</h5>
+	<div class="w-100 d-flex">
+
+		<button (click)="createSubscription()" class="btn btn-outline-primary mb-3 me-3">
+		Create Subscription (40 Clients)</button>
+
+		<button (click)="getSubscription()" class="btn btn-outline-primary mb-3 me-3">
+		Get Customer Subscription</button>
+
+		<button (click)="updateSubscription()" class="btn btn-outline-primary mb-3 me-3">
+		Update Subscription (60 Clients) will expire tomorrow</button>
+	</div>
+</div>
+
+<div class="card card-body text-start" *ngIf="stripeObject || error">
+	<ng-container *ngIf="stripeObject">
+		SUCCESS REQUEST
+		<br><pre>{{stripeObject | json }}</pre>
+	</ng-container>
+
+	<ng-container *ngIf="error">
+		ERROR REQUEST
+		<br>
+		<pre>{{error | json}}</pre>
+	</ng-container>
+</div>  -->

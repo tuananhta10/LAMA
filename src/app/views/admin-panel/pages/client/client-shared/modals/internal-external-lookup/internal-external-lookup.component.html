@@ -1,0 +1,72 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Select a {{ localData.title }}
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end mt-2" 
+			style="width: 13px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	
+	<form *ngIf="!loading" [formGroup]="careWorkerForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-md-6">
+					<app-search-list *ngIf="careWorkerForm.controls['internal_external'].value === true"
+					label="Employee" 
+					placeholder="Select" 
+					formControlName="employee"
+					[options]="employeeOptions"
+					[labelTop]="true"
+					[isTextArea]="true"
+					[objectReturn]="true" 
+					[newOption]="true"
+					[newOptionLabel]="'Employee'"
+					[newOptionRoute]="'/admin/employees/create'"
+					></app-search-list>
+
+					<app-search-list *ngIf="careWorkerForm.controls['internal_external'].value === false"
+					label="External Provider" 
+					placeholder="Select" 
+					formControlName="external_provider"
+					[options]="externalProviderList"
+					[labelTop]="true"
+					[isTextArea]="true"
+					[objectReturn]="true" 
+					[newOption]="true"
+					[newOptionLabel]="'External Provider'"
+					[newOptionRoute]="'/admin/setup/external-providers'"
+					></app-search-list>
+				</div>
+				<div class="col-md-6" *ngIf="!localData.isCareNotUse">
+					<app-radio-button
+					label="Support Provider" 
+					[required]="true" 
+					[labelTop]="true"
+					[options]="radioOptions"
+					formControlName="internal_external">
+					</app-radio-button>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+	<global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading"
+        [formOnly]="true">
+    </global-admin-loader>
+</div>

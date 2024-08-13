@@ -1,0 +1,234 @@
+<div style="min-width: 80vw" *ngIf="loading">
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>
+
+<section *ngIf="generatedData?.length > 0 && !loading"
+	mat-dialog-content
+	style="min-height: 40vh; max-height: 92vh;">
+
+	<h5 class="header-text mb-3 pb-3" 
+	style="border-bottom: dashed 2px #c9c9c9">
+		<ng-container *ngIf="optionGroup.controls['include_compliance'].value === true">
+			Employee Compliance Reports
+		</ng-container>
+		
+		<ng-container *ngIf="optionGroup.controls['include_compliance'].value === false">
+			Employee List Reports
+		</ng-container>
+		<!-- <span class="float-end hvr-grow" style="cursor: pointer;">
+			<img src="/assets/images/placeholder/lama-logo-black.png" class="me-2 mb-3" style="height: 70px">
+		</span> -->
+
+		<img src="/assets/images/icons/close-dialog.png" 
+		class="float-end" 
+		style="width: 15px; cursor: pointer;" 
+		(click)="dialogRef.close()"> 
+
+		<br style="height: 3px;">
+
+		<label class="mt-2 select-employee hvr-grow" 
+		style="cursor: pointer;" (click)="filterEmployee(employeePosition)">
+			<img src="/assets/images/icons/checklist.png" class="me-2" 
+			style="width: 14px; margin-top: -2px !important;">Select Employee Position
+		</label>
+	</h5>
+
+	<!-- NO COMPLIANCE -->
+		<div class="card card-body p-0" 
+		*ngIf="!loading && optionGroup.controls['include_compliance'].value === false"
+		id="timesheet-report-template"
+		style="overflow: auto !important; width: 100%; max-height: 520px;">
+			<table class="d-none">
+				<tr>
+					<td>
+						Employee Report
+					</td>
+				</tr>
+			</table>
+
+			<table class="table mt-2" *ngFor="let position of filteredEmployeePosition">
+				<tr>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td class="header-text">
+						{{position}}
+					</td>
+				</tr>
+
+				<table class="w-100 table mt-2" title="Employee Compliance Report">
+					<thead>
+						<tr>
+							<th *ngFor="let title of generatedColumn" 
+							[ngClass]="title === 'Position' ? 'd-none' : ''">
+								{{title}}
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<!-- <tr *ngFor="let data of generatedData"
+						[ngClass]="data['Position'] !== position ? 'd-none' : ''">
+							<td *ngFor="let title of generatedColumn" 
+							[ngClass]="title === 'Position' ? 'd-none' : ''">
+								{{data[title] || '-'}}
+							</td>
+						</tr> -->
+
+						<ng-container *ngFor="let data of generatedData">
+							<tr *ngIf="data['Position'] == position" >
+								<ng-container *ngFor="let title of generatedColumn" >
+									<td *ngIf="title !== 'Position'">
+										{{data[title] || '-'}}
+									</td>
+								</ng-container>
+							</tr>
+						</ng-container>
+					</tbody>
+
+
+				</table>
+			</table>
+		</div>
+	<!-- / NO COMPLIANCE -->
+
+	<!-- WITH COMPLIANCE -->
+		<div class="card card-body p-0" 
+		*ngIf="!loading && optionGroup.controls['include_compliance'].value === true"
+		id="timesheet-report-template-compliance"
+		style="overflow: auto !important; width: 100%; max-height: 520px;">
+			<table class="d-none">
+				<tr>
+					<td>
+						Employee Compliance Report
+					</td>
+				</tr>
+			</table>
+
+			<table class="table mt-2" *ngFor="let item of compliancePosition; let i = index">
+				<tr>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td class="header-text">
+						{{item?.position}} <!-- {{i}} -->
+					</td>
+				</tr>
+
+				<table class="w-100 table mt-2" title="Employee Compliance Report">
+					<thead>
+						<tr>
+							<ng-container *ngFor="let col_header of item?.columns; 
+							let col_i = index" >
+								<th class="text-capitalize" 
+								[ngClass]="col_i > 3 ? 'text-center' : ''">
+									{{col_header}}
+								</th>
+							</ng-container>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<ng-container *ngFor="let data of generatedData">
+							<tr *ngIf="stringifyData(data?.columns) === stringifyData(item?.columns)">
+								<td>
+									{{data['full_name'] || '-'}}
+								</td>
+
+								<td>
+									{{data['job_type'] || '-'}}
+								</td>
+
+								<td>
+									{{data['employment_type'] || '-'}}
+								</td>
+
+								<td>
+									{{data['branch_name'] || '-'}}
+								</td>
+
+								<td class="text-center" 
+								*ngFor="let compliance of item?.columns?.slice(4, item?.columns?.length)" 
+								[ngClass]="data[compliance]?.status === 'Valid' ? 'valid' 
+								: data[compliance]?.status === 'Expired' ? 'invalid'
+								: ''">
+									<span>
+										{{data[compliance]?.expiry_date}} <br>
+									</span> 
+									 {{data[compliance]?.status}}
+								</td>
+							</tr>
+						</ng-container>
+					</tbody> 
+
+
+				</table>
+			</table>
+		</div>
+	<!-- / WITH COMPLIANCE -->
+</section>
+
+
+<div class="assign-action-container px-0" *ngIf="generatedData?.length === 0 && !loading">
+	<!-- <img src="/assets/images/icons/report.png" class="img-fluid" width="25px">
+ -->
+	<h5 class="header-text-action">{{data?.title || 'Generate Report'}}</h5>
+	<h5 class="header-text mt-2">You are about to generate a report data. Click Continue to proceed.</h5>
+
+	<form  class="mt-3" [formGroup]="optionGroup">
+		<div>
+
+            <app-radio-button 
+                label="Include Compliance Requirements"
+                [labelTop]="true"
+                formControlName="include_compliance"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            
+		</div>
+	</form>
+</div>
+
+<div mat-dialog-actions *ngIf="generatedData?.length === 0">
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="generateReport()" 
+			class="btn btn-primary">Continue</button>
+		</div>
+	</div>
+</div>
+
+
+<div mat-dialog-actions *ngIf="generatedData?.length > 0">
+	<div class="w-100 text-center">
+		<button 
+		mat-button 
+		(click)="dialogRef.close()" 
+		class="btn  btn-header-gray">Close</button>
+
+		<button *ngIf="optionGroup.controls['include_compliance'].value === false"
+		mat-button 
+		(click)="getCanvasElement('timesheet-report-template')" 
+		class="btn btn-primary">Download Report</button>
+
+		<button *ngIf="optionGroup.controls['include_compliance'].value === true"
+		mat-button 
+		(click)="getCanvasElement('timesheet-report-template-compliance')" 
+		class="btn btn-primary">Download Report</button>
+	</div>
+</div>

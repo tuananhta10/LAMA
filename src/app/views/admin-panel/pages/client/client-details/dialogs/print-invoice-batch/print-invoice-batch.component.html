@@ -1,0 +1,143 @@
+<div style="max-width: 1000px">
+	<div class="container-fluid" id="invoiceData" 
+	[hidden]="loading || !organizationData?.logo[0]?.download_url">
+		<div class="px-2 pt-3">
+			<div class="d-flex">
+				<div class="me-4">
+					<!-- <img [src]="converted_image_src || '/assets/images/placeholder/lama-logo-black.png'" class="fit-cover-image" #imageElement> -->
+
+					<img [src]="base64Image" class="fit-cover-image" #imageElement>
+				</div>
+				<div class="w-100">
+					<h3 class="text-uppercase mt-3 bg-purple">Invoice Batch
+						<span class="float-end print-invoice" (click)="downloadZipFileInvoices()"
+						*ngIf="!downloading">Download</span>
+					</h3>
+
+					<div class="row px-3">
+						<div class="col-12 col-lg-6 text-start">
+							
+							<h5 class="d-flex">
+								<div class="me-1"><strong>Name:</strong></div>
+								<div>{{data?.invoice_batch?.invoice_name}}</div>
+							</h5>
+						</div>
+						<div class="col-12 col-lg-6">
+
+							<h5 class="d-flex">
+								<div class="me-1"><strong>Date Issue:</strong></div>
+								<div>{{data?.invoice_batch?.invoice_date_added_time_stamp * 1000 | date: 'MMM dd, yyyy'}}</div>
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-3">
+
+				<!-- INVOICE ITEMS -->
+				<div class="col-12">
+					
+					<h3 class="title-invoice-item">
+						Invoice Items
+					</h3>
+					<hr style="border: dashed 1px #c9c9c9">
+					<div *ngFor="let inv of data.invoice_batch_item">
+						<div class="row px-3">
+							<div class="col-12 col-lg-6 text-start">
+								
+								<h5 class="d-flex">
+									<div class="me-1"><strong>Invoice #:</strong></div>
+									<div>{{inv?.invoice_batch_claim_reference}}</div>
+								</h5>
+	
+								<h5 class="d-flex">
+									<div class="me-1"><strong>Name:</strong></div>
+									<div>{{inv?.client_name}}</div>
+								</h5>
+							</div>
+							<div class="col-12 col-lg-6">
+	
+								<h5 class="d-flex">
+									<div class="me-1"><strong>Date Issue:</strong></div>
+									<div>{{inv?.invoice_batch_date_added * 1000 | date: 'MMM dd, yyyy'}}</div>
+								</h5>
+	
+								<h5 class="d-flex">
+									<div class="me-1"><strong>Registration #:</strong></div>
+									<div>{{inv?.invoice_batch_registration_number}}</div>
+								</h5>
+							</div>
+							<app-form-table
+								label=''
+								[columns]="displayedColumns"
+								[data]="inv.invoice_batch_detail"
+								[isAddEnabled]="false"
+								[editable]="false"
+								[isDeleteEnabled]="false"
+							></app-form-table>
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="col-12 col-lg-7">
+					<div style="margin-top: -30px;">
+						<app-form-table
+						label=''
+						[columns]="invoiceTotalColumn"
+						[data]="invoiceTotalData"
+						[isAddEnabled]="false"
+						[editable]="false"
+						[isDeleteEnabled]="false"
+						></app-form-table>
+					</div>
+				</div> -->
+
+				<div class="col-12 col-lg-7"></div>
+
+				<div class="col-12 col-lg-5">
+					<div class="text-end" >
+						<div class="me-4 text-start">
+							<h5 class="sub-total d-flex justify-content-end">
+								<div><strong>Total Hours:</strong></div>  
+								{{data?.invoice_batch?.invoice_total_hours | number:'1.0':'en-US'}}
+							</h5>
+							<h5 class="sub-total d-flex justify-content-end">
+								<div><strong>Subtotal:</strong></div>  
+								${{data?.invoice_batch?.invoice_total_amount | number:'1.0':'en-US'}}
+							</h5>
+						</div>
+
+						<h5 class="bg-purple">Invoice batch Total: ${{data?.invoice_batch?.invoice_total_amount | number:'1.0':'en-US'}}</h5>
+					</div>
+				</div>
+
+				<!-- FOOTER -->
+				<div class="col-12">
+					<hr style="border: dashed 1px #c9c9c9">
+
+					<div class="row mt-4 my-3">
+						<div class="d-flex justify-content-end">
+							<span></span>
+							<div style="width:max-content;">
+								<h5><strong>BANK DETAILS </strong></h5>
+									<h5 class="text-uppercase">{{organizationData?.organization_register || '-'}} ({{organizationData?.abn}})</h5>
+								<h5>BSB: {{organizationData?.bsb}} Acc: {{organizationData?.acct_number}}</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<global-admin-loader 
+    [withSideBar]="false"
+    [fromDetailTab]="true"
+    [loading]="loading">
+</global-admin-loader>
+
+
+

@@ -1,0 +1,53 @@
+<div class="assign-action-container px-0" *ngIf="!data?.title">
+	<h1>Invite People to Team</h1>
+	<h5>Invite Share Link</h5>
+</div>
+
+<div mat-dialog-content class="invite-body">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="copy-div">
+				<input [(ngModel)]="inviteLink" type="text" #userInput>
+				<button 
+					mat-button  
+					(click)="copyText(userInput)"
+					class="btn btn-primary btn-header">
+					Copy
+				</button>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			Or
+		</div>
+	</div>
+	<div *ngFor="let item of inviteList" class="row invite-input">
+		<div class="col-sm-6">
+			<input [(ngModel)]="item.email" type="text">
+		</div>
+		<div class="col-sm-6">
+			<input [(ngModel)]="item.name" type="text">
+		</div>
+	</div>
+	<div class="row add-div">
+		<div class="col-sm-12">
+			<button (click)="addInviteList()" mat-button class="btn btn-header btn-outline-primary">
+				+ Add another person
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 action-btn-div">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-header-gray btn-header ms-3">Later</button>
+
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-primary btn-header">Invite</button>
+		</div>
+	</div>
+</div>

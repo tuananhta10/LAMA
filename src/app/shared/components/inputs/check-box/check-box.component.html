@@ -1,0 +1,38 @@
+<ng-container>
+    <div class="text-input">
+        <div *ngIf="labelTop">
+            <p class="label-top text-start text-truncate">
+                <span [innerHtml]="label"></span>
+                <span *ngIf="required" class="asterisk-required">*</span>
+            </p> 
+        </div>
+
+        <div class="container-input pt-2 px-md-4"
+        [ngStyle]="{
+            'width': labelTop ? '100%': '',
+            'margin-left': labelTop ? '0px': ''
+        }">
+            <div class="d-flex">
+                <mat-checkbox color="primary"
+                    [disabled]="readonly"
+                    [value]="label"
+                    [checked]="checked"
+                    (change)="writeValue($event)">
+                    <ng-container *ngIf="label && !labelTop">
+                    <span>{{ label }}</span>
+                    </ng-container>
+                </mat-checkbox>
+            </div>
+            <p *ngIf="isTouched" class="error-msg">*Empty Field</p>
+        </div>
+
+        <div class="container-info">
+            <span class="img-info-container" *ngIf="info">
+                <img src="/assets/images/icons/info-input-icon.png" 
+                [matTooltip]="infoTitle"
+                matTooltipPosition="above"
+                class="img-fluid">
+            </span>
+        </div>
+    </div> 
+</ng-container>

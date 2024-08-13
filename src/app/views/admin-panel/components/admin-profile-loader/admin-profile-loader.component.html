@@ -1,0 +1,30 @@
+
+
+<div class="container p-0" *ngIf="loading" 
+			[@animate]="{value:'*', params:{ y:'-100px', delay:'200ms' }}" >
+	<div class="row">
+		<section class="col-12 pb-3">
+			<!-- PROFILE SECTION -->
+			<div class="card ps-3 py-3">
+				<div class="card-body">
+					<section class="custom-loader" *ngIf="loading">
+						<div class="ml-3 me-0">
+							<div class="title-header"></div>
+							<div class="title-description-up mt-3 mb-3"></div>
+						</div>
+						<hr>
+						<img src="/assets/images/placeholder/img-placeholder.jpg" class="img img-fluid mt-3" width="120px">
+						<hr>
+						<div class="me-3">
+							<div class="title-header"></div>
+							<div class="title-description-up mt-3 mb-3"></div>
+							<div class="title-description-bottom"></div>
+							<div class="title-description-bottom-2 mt-3"></div>
+							<div class="title-description-bottom-3 mt-3"></div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</section>
+	</div>	
+</div>

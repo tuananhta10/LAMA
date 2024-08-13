@@ -1,0 +1,48 @@
+<div id="employee-available-shift-container">
+	<!-- BUTTONS CONTROLLER 
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'appraisal-client'">
+	</employee-details-navigation>-->
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class=""
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<span class="main-title">Available Shift</span>
+			<div class="float-end">
+				<!-- <button class="btn btn-menu me-3 ">
+					<img src="/assets/images/icons/menu-icon.png" width="15px" class="img-fluid">
+				</button> -->
+				<button class="btn btn-primary" (click)="openAddShift()">Add Shift</button>
+			</div>
+		</div>
+
+		<br>
+
+		<!-- DOCUMENT FILE DATA -->
+		<div *ngIf="!loading"
+		style="width: 100% !important; min-height: 400px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+			<employee-reusable-list-view
+				[loading]="loading"
+				[componentTitle]="'Available Shift'"
+				[displayedColumns]="displayedColumns"
+				[selectedColumns]="selectedColumns"
+				[maxRows]="25"
+				[selectedColumnsMobile]="selectedColumns"
+				[listDataSource]="availableShiftList"
+				[searchSource]="searchSource">
+				
+			</employee-reusable-list-view>
+		</div>
+
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

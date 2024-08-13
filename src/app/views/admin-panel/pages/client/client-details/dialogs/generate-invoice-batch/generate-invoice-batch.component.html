@@ -1,0 +1,102 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+			Generate Invoice Batches
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end mt-2" 
+			style="width: 13px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	<form [formGroup]="fundingClaimForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<ng-container>
+					<div class="col-12 col-md-10 px-lg-0 row">
+						<div class="col-sm-12 col-md-4 px-lg-0">
+							<app-search-list 
+								label="Funding Source" 
+								[labelTop]="true"
+								[required]="true"
+								formControlName="funding_source"
+								[objectReturn]="true" 
+								[options]="fundingSourceEnum">
+							</app-search-list>
+						</div>
+
+						<div class="col-sm-12 col-md-4 px-lg-0">
+							<app-date-picker 
+							    label="Start Date"
+							    [labelTop]="true"
+							    [required]="true"
+							    formControlName="start_date">
+							</app-date-picker >
+						</div>
+
+						<div class="col-sm-12 col-md-4 px-lg-0">
+							<app-date-picker 
+							    label="End Date"
+							    [labelTop]="true"
+							    [required]="true"
+							    formControlName="end_date">
+							</app-date-picker >
+						</div>
+					</div>
+
+					<div class="col-12 col-md-2 px-lg-0 pt-4" *ngIf="step === 1 && !loading">
+						<button mat-button class="btn btn-primary btn-header mx-3" 
+						[disabled]="!fundingClaimForm.valid"
+						(click)="getApprovedTimesheets()">Next</button>
+					</div>
+				</ng-container>
+
+				<global-admin-loader 
+				    [withSideBar]="false"
+				    [fromDetailTab]="true"
+				    [loading]="loading"
+				    [formOnly]="true">
+				</global-admin-loader>
+
+				<div class="col-12 px-4" *ngIf="step === 2 && !loading">
+					<hr style="border: dashed 1px #c9c9c9">
+					<client-reusable-list-view 
+						[loading]="loading"
+						[showImageEmpty]="false"
+						(updateSelectedRowDialog)="viewGeneratedClaimSchedule($event)"
+						[componentTitle]="'Approve Timesheet'"
+						[displayedColumns]="displayedColumns"
+						[selectedColumns]="selectedColumns"
+						[selectedColumnsMobile]="selectedColumns"
+						[searchSource]="searchSource"
+						[maxRows]="25"
+						[multipleSelect]="true"
+						[isDelete]="false"
+						[listDataSource]="approveTimeSheets"
+						[exportable]="false"
+						[fromClaim]="true"
+						[selectAll]="true"
+						(updateSelectedRows)="getSelectedRows($event)">
+					</client-reusable-list-view>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="row text-center mb-3 w-100">
+				<div class="col-sm-12 text-center w-100">
+					<hr><br>
+
+					<button mat-button (click)="close()" 
+					class="btn btn-header-gray btn-header me-3">Close</button>
+
+					<button mat-button (click)="generateInvoiceBatch()" 
+					[disabled]="selectedRowForInvoice?.length === 0 || loading" 
+					*ngIf="step === 2 && approveTimeSheets?.length > 0" 
+					cdkFocusInitial class="btn btn-primary btn-header me-3">
+					Generate Invoice Batch</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>

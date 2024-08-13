@@ -1,0 +1,79 @@
+<div *ngIf="!loading" 
+	[@animate]="{value:'*', params:{ y:'-100px', delay:'300ms' }}" >
+	<div class="banner-placeholder">
+
+		<!-- DYNAMIC CAROUSEL -->
+		<ng-container *ngIf="images.length > 0">
+			<div id="bannerCarousel" class="carousel slide" 
+			data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					<button type="button"
+						[id]="'carousel' + i"
+						*ngFor="let item of images; let i = index" 
+						data-bs-target="#bannerCarousel"
+						[attr.data-bs-slide-to]="i" 
+						class="hvr-grow"
+						[ngClass]="i === 0  ? 'active': ''"
+						aria-current="true">
+					</button>
+				</div>
+
+				<div class="carousel-inner">
+					<div class="carousel-item "
+					[ngClass]="i === 0  ? 'active': ''"
+					*ngFor="let item of images; let i = index">
+						<img [defaultImage]="defaultImage" [lazyLoad]="item" class="img-fluid">
+
+						<div class="carousel-editor-container">
+							<div class="carousel-editor">
+								<img class="hvr-grow" 
+								src="/assets/images/icons/carousel-delete.png"
+								(click)="modifyImage('delete', item, i)">
+
+								<img class="hvr-grow" 
+								src="/assets/images/icons/carousel-edit.png" 
+								(click)="modifyImage('edit', item, i)">
+
+								<img class="hvr-grow" *ngIf="images?.length < 5"
+								src="/assets/images/icons/carousel-add.png"
+								(click)="modifyImage('add', defaultImage, images?.length)">
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+
+		<!-- EMPTY CAROUSEL -->
+		<ng-container *ngIf="images.length === 0">
+			<div id="bannerCarouselEmpty" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					<button type="button"
+						data-bs-target="#bannerCarouselEmpty"
+						data-bs-slide-to="0" 
+						class="active hvr-grow"
+						aria-current="true">
+					</button>
+				</div>
+
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img [defaultImage]="defaultImage" [lazyLoad]="defaultImage" class="img-fluid">
+
+						<div class="carousel-editor-container">
+							<div class="carousel-editor">
+								<img class="hvr-grow" 
+								src="/assets/images/icons/carousel-edit.png" 
+								(click)="modifyImage('edit', defaultImage, 0)">
+
+								<img class="hvr-grow" 
+								src="/assets/images/icons/carousel-add.png"
+								(click)="modifyImage('add', defaultImage, images?.length)">
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+</div>

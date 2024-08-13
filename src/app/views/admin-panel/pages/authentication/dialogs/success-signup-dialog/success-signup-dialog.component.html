@@ -1,0 +1,38 @@
+<div class="assign-action-container px-0" *ngIf="!data?.title">
+	<img src="/assets/images/icons/checked-success.png" class="img-fluid" width="30px">
+
+	<h5 class="header-text-action">Registration Successful!</h5>
+	<h5 class="header-text">You successfully created your organisation. 
+		
+	</h5>
+	<p class="header-info">We will now redirect you to the onboarding of new organisation.</p>
+</div>
+
+<div class="assign-action-container px-0" *ngIf="data?.title">
+	<img src="/assets/images/icons/checked-success.png" class="img-fluid" width="30px">
+
+	<h5 class="header-text-action">{{data?.title}}</h5>
+	<h5 class="header-text">Logging you in...
+		
+	</h5>
+	<p class="header-info">Ask the team owner for permissions</p>
+</div>
+
+<div mat-dialog-actions style="width: 400px !important; z-index: 99999 !important;">
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-header-gray btn-header ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-primary btn-header">Got It</button>
+		</div>
+	</div>
+</div>

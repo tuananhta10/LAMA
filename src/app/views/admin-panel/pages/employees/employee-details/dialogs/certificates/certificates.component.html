@@ -1,0 +1,74 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data?.certificate; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Certificate
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form *ngIf="!loading" [formGroup]="certificateForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-sm-12">
+					<app-dropdown 
+					label="Type" 
+					[required]="true"
+					[labelTop]="true"
+					formControlName="type" 
+					[options]="certificateOption">
+					</app-dropdown>
+		
+					<app-search-list 
+					label="Qualification" 
+					[labelTop]="true"
+					[required]="true"
+					[isTextArea]="true"
+					[rows]="1"
+					formControlName="qualification_id" 
+					[options]="qualifications">
+					</app-search-list>
+					
+					<app-textarea
+					label="Description" 
+					[labelTop]="true"
+					formControlName="description">
+					</app-textarea>
+
+					<div class="ps-3 mb-3 w-100 pe-4" *ngIf="data && currentFile">
+						<div class="ms-2 truncate">
+							Download: <a [href]="currentFile?.download_url" targe="_blank" >Link - {{currentFile?.filename}}</a>
+						</div>
+					</div>
+
+					<app-field-upload
+					label="Upload/Update File"
+					[labelTop]="true"
+					#upload 
+					(upload)="onUpload($event)"
+					>
+					</app-field-upload> 
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				[disabled]="!certificateForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Upload</button>
+			</div>
+		</div>
+	</form>
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>

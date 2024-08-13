@@ -1,0 +1,8 @@
+<div class="mb-3 d-flex  w-100" id="profile-header">
+	<div class="flex-wrap  w-100 me-3" *ngFor="let item of childLinks">
+		<button class="btn btn-header text-truncate  w-100" 
+		[ngClass]="item?.routerLink.match(activeLink) ? 'btn-primary': 'btn-header-secondary'"
+		[routerLink]="item?.routerLink"
+		[title]="item?.title">{{item?.title}}</button>
+	</div>
+</div>

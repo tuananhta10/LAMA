@@ -1,0 +1,33 @@
+<!-- <section id="stat-data">
+	<ng-container *ngFor="let stat_container of statData">
+		<div [ngClass]="stat_container?.class">
+			<div class="stat-image" style="min-width: 62px !important;">
+				<img [src]="stat_container?.img" class="img img-fluid" width="35.05">
+			</div>
+
+			<div class="stat-details">
+				<span class="stat-value">{{stat_container?.stat_val}}</span><br>
+				<span class="stat-title">{{stat_container?.title}}</span><br>
+				<button class="btn btn-view-more btn-active-employee" (click)="stat_container?.view_more()">View More</button>
+			</div>
+		</div>
+	</ng-container>
+</section> -->
+
+<section id="stat-data" class="">
+	<ng-container *ngFor="let stat_container of statData">
+		<div  class="">
+			<div [ngClass]="stat_container?.class" class="d-flex">
+				<div class="stat-image" style="min-width: 62px !important;">
+					<img [src]="stat_container?.img" class="img img-fluid" width="35.05">
+				</div>
+
+				<div class="stat-details">
+					<span class="stat-value">{{stat_container?.stat_val}}</span><br>
+					<span class="stat-title">{{stat_container?.title}}</span><br>
+					<button class="btn btn-view-more btn-active-employee" (click)="stat_container?.view_more()">View More</button>
+				</div> 
+			</div>
+		</div>
+	</ng-container>
+</section>

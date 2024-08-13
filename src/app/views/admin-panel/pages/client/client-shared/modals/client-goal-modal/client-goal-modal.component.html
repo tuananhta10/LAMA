@@ -1,0 +1,221 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Participants Goal
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end mt-2" 
+			style="width: 13px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	<form [formGroup]="clientGoalForm" *ngIf="!loading && !employeeLoading">
+		<div mat-dialog-content>
+			<div class="row">
+				<!-- <div class="col-md-6">
+					<app-textfield 
+						label="Name" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="name">
+					</app-textfield>
+					<app-dropdown 
+						label="Goal client"
+						[labelTop]="true"
+						formControlName="goal_client"
+						[options]="goalParticipantsOptions">
+					</app-dropdown>
+					<app-dropdown 
+						label="Goal"
+						[labelTop]="true"
+						formControlName="goal"
+						[options]="goalOptions">
+					</app-dropdown>
+					<app-dropdown 
+						label="Goal Type"
+						[labelTop]="true"
+						formControlName="goal_type"
+						[options]="goalTypeOptions">
+					</app-dropdown>
+				</div>
+				<div class="col-md-6">
+					<app-textarea 
+						label="Description"
+						[labelTop]="true"
+						formControlName="description">
+					</app-textarea>
+					<app-date-picker 
+						label="Start Date" 
+						[labelTop]="true"
+						formControlName="start_date">
+					</app-date-picker>
+					<app-date-picker 
+						label="End Date" 
+						[labelTop]="true"
+						formControlName="end_date">
+					</app-date-picker>
+					<app-dropdown 
+						label="Status"
+						[labelTop]="true"
+						formControlName="status"
+						[options]="statusOptions">
+					</app-dropdown>
+				</div> -->
+
+
+				<div class="col-md-6">
+					<app-textfield 
+						label="Participants" 
+						[required]="true"
+						[labelTop]="true"
+						[readonly]="true"
+						[classType]="'text-capitalize'"
+						formControlName="goal_client">
+					</app-textfield>
+
+					<app-textfield 
+						label="Goal Name" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="goal">
+					</app-textfield>
+
+					<app-dropdown 
+						label="Goal Type" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="goal_type"
+						[isMultiple]="true"
+						[maxSelection]="3"
+						[options]="goalTypeOptions">
+					</app-dropdown>
+
+					<app-dropdown
+						label="Status" 
+						[labelTop]="true"
+						formControlName="status"
+						[required]="true"
+						[options]="statusOptions">
+					</app-dropdown>
+				</div>
+
+				<div class="col-6">
+					<app-dropdown 
+						label="Duration" 
+						[labelTop]="true"
+						formControlName="duration"
+						[options]="goalDuration">
+					</app-dropdown>
+
+					<app-date-picker 
+						label="Start Date" 
+						[labelTop]="true"
+						[required]="true"
+						formControlName="start_date">
+					</app-date-picker>
+
+					<app-date-picker 
+						label="End Date" 
+						[labelTop]="true"
+						[required]="true"
+						formControlName="end_date">
+					</app-date-picker>
+
+					<app-radio-button 
+						label="Reportable Goal" 
+						[labelTop]="true"
+						formControlName="reportable_goal"
+						[options]="radioOptions">
+					</app-radio-button>
+				</div>
+
+				<div class="col-12">	
+				
+					<app-textarea 
+						label="Description" 
+						[labelTop]="true"
+						[rows]="5"
+						formControlName="description">
+					</app-textarea>
+				</div>
+
+				<div class="col-12">
+					<h5 class="mat-subtitle ms-4">Related Task
+						<!-- <span class="float-end me-3" (click)="addTaskArray()">
+							<mat-icon class="mat-icon">add</mat-icon>
+						</span> -->
+					</h5>
+
+					<hr>
+				</div>
+
+				<div class="col-md-12">
+					<app-search-list 
+						label="Task Name" 
+						[labelTop]="true"
+						[isTextArea]="true"
+						[rows]="2"
+						formControlName="employee_task_id"
+						[options]="tasksOptions">
+					</app-search-list>
+
+					<app-search-list 
+						label="Assigned To" 
+						[labelTop]="true"
+						[isTextArea]="true"
+						[rows]="1"
+						formControlName="assigned_to_id"
+						[options]="assignedTo">
+					</app-search-list>
+
+					<div>
+						<!-- TASK DETAILS 
+						<div class="row" *ngFor="let item of taskArray; 
+						let i = index">
+							
+							<div class="col-12 col-md-6">
+								<app-autocomplete-chip
+									label="Select Tasks" 
+									[labelTop]="true"
+									[(ngModel)]="item.tasks"
+									[isTextArea]="true"
+									[ngModelOptions]="{standalone: true}" 
+									[options]="tasksOptions">
+								</app-autocomplete-chip>
+							</div>
+							<div class="col-12 col-md-6">
+								<app-search-list 
+									label="Assigned To" 
+									[labelTop]="true"
+									[isTextArea]="true"
+									[rows]="1"
+									[(ngModel)]="item.assigned_to"
+									[ngModelOptions]="{standalone: true}" 
+									[options]="assignedTo">
+								</app-search-list>
+							</div>
+						</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+	<global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading || employeeLoading"
+        [formOnly]="true">
+    </global-admin-loader>
+
+</div>

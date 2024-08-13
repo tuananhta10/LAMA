@@ -1,0 +1,161 @@
+<section>
+	<div style="min-width: 80vw" *ngIf="loading">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+
+	<section *ngIf="generatedData?.length > 0 && !loading"
+		mat-dialog-content
+		style="min-height: 40vh; max-height: 87vh;">
+
+		<h5 class="header-text mb-3 pb-3"
+		style="border-bottom: dashed 2px #c9c9c9">{{data?.sub_title}} Report
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end" 
+			style="width: 15px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+
+			<br style="height: 3px;">
+			
+			<label class="mt-2 select-employee hvr-grow"  *ngIf="data?.groupItems"
+			style="cursor: pointer;" (click)="filterGroup(grouping)">
+				<img src="/assets/images/icons/checklist.png" class="me-2" 
+				style="width: 14px; margin-top: -2px !important;">Select {{data?.groupBy}} 
+			</label>
+
+			<ng-container *ngIf="data?.showDateFilter">
+				<div style="min-height: 30px;">
+					<div class="d-flex w-100 mt-3">
+						<div class="date-div me-2">
+							<div class="input-group" (click)="dateFrom.open()">
+							  <img matSuffix src="/assets/images/icons/calendar-input-icon.png">
+							  <mat-datepicker #dateFrom></mat-datepicker>
+							  <input type="text" class="form-control"
+							  [matDatepicker]="dateFrom"  
+							  placeholder="Date From" aria-label="Search"
+							  [(ngModel)]="data.dateSearch.dateFrom" (dateChange)="updateDateFilter($event)">
+							</div>
+						</div>
+
+						<div class="date-div me-2">
+							<div class="input-group" (click)="dateTo.open()">
+							  <img matSuffix src="/assets/images/icons/calendar-input-icon.png">
+							  <mat-datepicker #dateTo></mat-datepicker>
+							  <input type="text" class="form-control" 
+							  [matDatepicker]="dateTo" 
+							  [min]="data.dateSearch.dateFrom"
+							  placeholder="Date To" aria-label="Search"
+							  [(ngModel)]="data.dateSearch.dateTo" (dateChange)="updateDateFilter($event)">
+							</div>
+						</div>
+					</div>
+
+					<div class="float-end" style="margin-top: -70px" *ngIf="tempGroup">
+						<form  class="mt-3" [formGroup]="optionGroup">
+							<app-radio-button 
+							    label="Group items {{data?.groupBy ? 'by ' +  data?.groupBy : ''}}"
+							    [labelTop]="true"
+							    formControlName="showGroup"
+							    [options]="radioOptions">
+							</app-radio-button>
+						</form>
+					</div>
+				</div>
+				
+			</ng-container>
+		</h5>
+
+		<div class="card card-body p-0" 
+		*ngIf="!loading"
+		id="incident-report-template"
+		style="overflow: auto !important; width: 100%; max-height: 500px;">
+			<table class="d-none">
+				<tr>
+					<td>
+						{{data?.sub_title}} Report
+					</td>
+				</tr>
+			</table>
+
+			<table class="table mt-2" *ngFor="let group of filteredGrouping">
+				<tr>
+					<td></td>
+				</tr>
+
+				<ng-container *ngIf="checkGrouping(group)">
+					<tr *ngIf="group">
+						<td class="header-text">
+							{{group}}
+						</td>
+					</tr>
+
+					<table class="w-100 table mt-2" title="{{data?.sub_title}} Report">
+						<thead>
+							<tr>
+								<th *ngFor="let title of generatedColumn" 
+								[ngClass]="title === data?.groupBy ? 'd-none excludeExport' : ''"
+								style="vertical-align: top; background: #F4F3FB; color: #512C77; padding-top: 10px">
+									{{title}}
+								</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<ng-container *ngFor="let item of generatedData">
+								<tr *ngIf="item[data?.groupBy] == group" >
+									<ng-container *ngFor="let title of generatedColumn" >
+										<td *ngIf="title !== data?.groupBy">
+											{{item[title] || '-'}}
+										</td>
+									</ng-container>
+								</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</ng-container>
+			</table>
+		</div>
+	</section>
+</section>
+
+
+<div class="assign-action-container px-0"  *ngIf="generatedData?.length === 0">
+	<!-- <img src="/assets/images/icons/report.png" class="img-fluid" width="25px">
+ -->
+	<h5 class="header-text-action">{{data?.title || 'Generate Report'}}</h5>
+	<h5 class="header-text mt-2">You are about to generate a report data. Click Continue to proceed.</h5>
+</div>
+
+<div mat-dialog-actions  *ngIf="generatedData?.length === 0">
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="generateReport()" 
+			class="btn btn-primary">Continue</button>
+		</div>
+	</div>
+</div>
+
+<div mat-dialog-actions *ngIf="generatedData?.length > 0">
+	<div class="w-100 text-center">
+		<button 
+		mat-button 
+		(click)="dialogRef.close()" 
+		class="btn  btn-header-gray">Close</button>
+
+		<button 
+		mat-button 
+		(click)="getCanvasElement('incident-report-template')" 
+		class="btn btn-primary">Download Report</button>
+	</div>
+</div>

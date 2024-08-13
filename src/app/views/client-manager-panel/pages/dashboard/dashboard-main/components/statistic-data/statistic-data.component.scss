@@ -1,0 +1,183 @@
+@import "src/scss/colors";
+
+.card{
+    border-radius: 8px !important;
+    border-color: white !important;
+    //box-shadow: none !important
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+h5{
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $color-gray-dark;
+    margin-bottom: 15px;
+}
+
+.bg-whitesmoke{
+    background: whitesmoke !important;
+}
+
+.bg-gray{
+    background: #f8f8f8;
+}
+
+.card{
+    text-align: left;
+}
+
+.btn-view-all{
+    background: rgba($color-purple, 0.6);
+    padding: 5px 10px !important;
+    color: white;
+    //font-weight: 600 !important;
+    border-radius: 6px !important;
+}
+
+#statistic-data{
+    z-index: 99;
+    h5{
+        font-size: 17px;
+        font-weight: 600 !important;
+        color: $color-gray-dark;
+        margin-bottom: 0 !important;
+        margin-right: 15px;
+    }
+
+    .stat-header{
+        margin-top: 7px;
+        margin-bottom: 0px;
+        font-weight: 600 !important;
+        color: $color-gray-dark;
+        font-size: 30px;
+        margin-right: 15px;
+
+    }
+
+    .stat-subtitle{
+        color: $color-gray;
+        margin-right: 15px;
+    }
+
+    .card{
+        height: 130px;
+        border-radius: 5px !important;
+    }
+
+    .card-body{
+        cursor: pointer;
+        padding-top: 10px;
+    }
+
+
+    .img-position{
+        img{
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 52px;
+        }
+    }
+
+    .stat-button-main{
+        font-size: 15px !important;
+        border-radius: 5px !important;
+        padding: 5px 25px 5px 10px !important;
+        position: relative;
+        .mat-icon{
+            position: absolute;
+            right: 0px;
+            top: 7px;
+            font-size: 15px !important;
+            vertical-align: bottom;
+        }
+    }
+
+
+    .incident{
+        //border-left: solid 5px rgba(#1B998A, 0.9) !important;
+        border-radius: 7px !important;
+
+        .bg-incident{
+            background: #1B998A !important;
+            border-top-right-radius: 7px !important;
+            border-bottom-right-radius: 7px !important;
+            max-height: 130px !important;
+        }
+
+        //background: rgba(#1B998A, 0.2) !important;
+        h5{
+            color: rgba(#1B998A, 0.8) !important;
+        }
+
+        .stat-button{
+            @extend .stat-button-main;
+            background: rgba(#1B998A, 0.9);
+            color: white;
+        }
+
+        @extend .img-position;
+    }
+
+    .funding{
+        //border-left: solid 5px rgba(#FEC040, 1) !important;
+         border-radius: 7px !important;
+        //background: rgba(#FEC040, 0.2) !important;
+        .bg-funding{
+            background: rgba(0, 110, 229, 1);
+            border-top-right-radius: 7px !important;
+            border-bottom-right-radius: 7px !important;
+            max-height: 130px !important;
+        }
+
+        h5{
+            color: rgba(0, 110, 229, 1) !important;
+        }
+
+        .stat-button{
+            @extend .stat-button-main;
+            background: rgba(0, 110, 229, 1);
+            color: white;
+        }
+
+        @extend .img-position;
+        .img-position{
+            img{
+                top: 23% !important;
+            }
+        }
+    }
+
+    .careworker{
+        //border-left: solid 5px rgba(0, 110, 229, 1) !important;
+        //background: rgba(64, 187, 234, 0.2) !important;
+        border-radius: 7px !important;
+
+        .bg-careworker{
+            background:  rgba(#FEC040, 1);
+            border-top-right-radius: 7px !important;
+            border-bottom-right-radius: 7px !important;
+            max-height: 130px !important;
+        }
+
+        h5{
+            color: rgba(#FEC040, 1) !important;
+        }
+
+        .stat-button{
+            @extend .stat-button-main;
+            background: rgba(#FEC040, 1);
+            color: white;
+        }
+
+        @extend .img-position;
+    }
+
+
+    
+    
+    
+}

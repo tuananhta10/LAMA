@@ -1,0 +1,102 @@
+<div class="signup-container" [ngClass]="!error ? 'pt-lg-5': ''">
+	<!-- Error Message -->
+	<form class="px-3 px-md-5" (submit)="signupAdmin()" [formGroup]="adminSignupForm">
+		<h4 class="signup-title m-0">Register your Organisation!</h4>
+		<br>
+
+		<div class="alert alert-danger alert-dismissible fade show error-message" [@animate]="{value:'*', params:{ y:'50px', delay:'600ms' }}" *ngIf="error" role="alert">
+		  	<button type="button" class="btn-close hvr-buzz-out" data-bs-dismiss="alert" aria-label="Close" (click)="onAlertClose()"></button>
+		  	<span [innerHtml]="error"></span>
+		</div>  
+
+		<div class="alert alert-success alert-dismissible fade show success-message" [@animate]="{value:'*', params:{ y:'50px', delay:'600ms' }}" *ngIf="message" role="alert">
+		  	<button type="button" class="btn-close hvr-buzz-out" data-bs-dismiss="alert" aria-label="Close" (click)="onAlertClose()"></button>
+		  	<span [innerHtml]="message"></span>
+		</div>  
+
+		<div class="form-group mt-2">
+			<input type="text" class="form-control" 
+			formControlName="organization" id="organization"
+			placeholder="Organisation Name" required>
+			<label for="organization"
+			*ngIf="adminSignupForm.controls['organization'].value"
+			[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+			[ngClass]="adminSignupForm.controls['organization'].value ? 'form-val' : ''">Organisation</label>
+		</div> 
+
+		<div class="form-group mt-4">
+			<input type="text" class="form-control" 
+			formControlName="first_name" id="first_name"
+			placeholder="First Name" required>
+			<label for="first_name"
+			*ngIf="adminSignupForm.controls['first_name'].value"
+			[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+			[ngClass]="adminSignupForm.controls['first_name'].value ? 'form-val' : ''">First name</label>
+		</div> 
+
+		<div class="form-group mt-4">
+			<input type="text" class="form-control" 
+			formControlName="last_name" id="last_name"
+			placeholder="Last Name" required>
+			<label for="last_name"
+			*ngIf="adminSignupForm.controls['last_name'].value"
+			[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+			[ngClass]="adminSignupForm.controls['last_name'].value ? 'form-val' : ''">Last name</label>
+		</div> 
+
+		<div class="form-group mt-4">
+			<input type="tel" class="form-control" 
+			formControlName="phone" id="phone"
+			placeholder="Phone Number" required>
+			<label for="phone"
+			*ngIf="adminSignupForm.controls['phone'].value"
+			[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+			[ngClass]="adminSignupForm.controls['phone'].value ? 'form-val' : ''">Phone Number</label>
+		</div> 
+
+		<div class="form-group mt-4">
+			<input type="email" class="form-control" 
+			formControlName="email" id="email"
+			placeholder="Email" required>
+			<label for="email"
+			*ngIf="adminSignupForm.controls['email'].value"
+			[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+			[ngClass]="adminSignupForm.controls['email'].value ? 'form-val' : ''">Email</label>
+		</div> 
+
+		<div class="form-group mt-4">
+			<input type="password" class="form-control" id="password" 
+			placeholder="Password" formControlName="password" required>
+			<label for="password"
+			*ngIf="adminSignupForm.controls['password'].value"
+			[@animate]="{value:'*', params:{ scale:'.9', delay:'200ms' }}"
+			[ngClass]="adminSignupForm.controls['password'].value ? 'form-val' : ''">Password</label>
+		</div>
+
+		<!-- <div class="mt-4 px-2 d-flex">
+			<mat-checkbox class="example-margin" color="primary"
+			formControlName="isRegistered" ></mat-checkbox>
+			<label class="text-white ms-3">Our organization is NDIS registered</label>
+		</div> -->
+
+		<div class="mt-4 px-2 d-flex">
+			<mat-checkbox class="example-margin" color="primary"
+			formControlName="terms" ></mat-checkbox>
+			<label class="text-white ms-3">Our provider has reviewed and accepts the provided <span class="terms" routerLink="/terms-and-condition">Terms and Conditions</span> and confirm we will adhere to Safety Standards</label>
+		</div>
+
+		<br>
+
+		<button type="submit" class="btn btn-signup w-100 mt-3"
+		[disabled]="submitting || !adminSignupForm.valid">Sign Up
+			<img src="/assets/images/placeholder/loading-login.gif" width="20px" class="img-fluid float-end" *ngIf="submitting">
+		</button>
+
+		<div class="text-center mt-3">
+			<p class="dont-have-account">Already have an account? 
+			<span routerLink="/signin">Login your account</span></p>
+		</div>
+
+		<img src="/assets/images/placeholder/login-dots.png" class="img-fluid signup-dots">
+	</form> 
+</div>

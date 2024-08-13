@@ -1,0 +1,109 @@
+<div style="max-width: 700px;">
+    <form  class="row" [formGroup]="timeLoggedForm" >
+        <h5 class="mat-subtitle ms-2">Employee Time Log Details</h5>
+
+        <div  class="col-12 col-md-6">
+            <!-- (keyevents)="setEndDateFromHours($event, 'start_date')" -->
+            <app-date-picker 
+                label="Start Date"
+                [labelTop]="true"
+                [required]="true"
+                [disabled]="true"
+                formControlName="start_date">
+            </app-date-picker >
+        
+            <!-- (keyevents)="setEndDateFromHours($event, 'end_date')" -->
+            <app-date-picker  
+                label="End Date"
+                [labelTop]="true"
+                [disabled]="true"
+                [required]="true"
+                [minDate]="timeLoggedForm?.controls['start_date']?.value"
+                formControlName="end_date">
+            </app-date-picker >
+        </div>
+
+        <div  class="col-12 col-md-6 time-logged">
+            <app-time-analog 
+                label="Time in"
+                [labelTop]="true"
+                [disabled]="true"
+                [required]="true"
+                (focus)="activeFocus($event, 'start_time')"
+                formControlName="start_time">
+            </app-time-analog >
+
+            <app-time-analog  
+                label="Time out"
+                [labelTop]="true"
+                [disabled]="true"
+                [required]="true"
+                (focus)="activeFocus($event, 'end_time')"
+                formControlName="end_time">
+            </app-time-analog >
+
+            
+        </div>
+
+
+        <div  class="col-12 col-md-6">
+            <app-textfield 
+                label="Total Hours"
+                [labelTop]="true"
+                [disabled]="true"
+                [inputType]="'number'"
+                (focus)="activeFocus($event, 'total_hours')"
+                formControlName="total_hours">
+            </app-textfield>
+
+            <!-- <app-textfield 
+                label="Break Hours"
+                [labelTop]="true"
+                formControlName="break_hours"
+                [inputType]="'number'">
+            </app-textfield> -->
+
+            <app-textfield 
+                label="Travel Time"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="travel_time"
+                [inputType]="'number'">
+            </app-textfield>
+            
+        </div>
+
+        <div  class="col-12 col-md-6">
+
+
+            <app-textfield 
+                label="Travel Mileage"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="travel_mileage"
+                [inputType]="'number'">
+            </app-textfield>
+
+            <app-textfield 
+                label="Transport Mileage"
+                [labelTop]="true"
+                [disabled]="true"
+                formControlName="transport_mileage"
+                [inputType]="'number'">
+            </app-textfield>
+            
+        </div>
+
+        <div  class="col-12 col-md-12">
+            <h5 class="mat-subtitle">Comments</h5>
+
+            <app-textarea 
+                label=""
+                [labelTop]="true"
+                [disabled]="true"
+                [rows]="5"
+                formControlName="comment">
+            </app-textarea>
+        </div>
+    </form>
+</div>

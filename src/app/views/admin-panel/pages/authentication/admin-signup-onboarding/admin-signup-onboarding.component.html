@@ -1,0 +1,93 @@
+<!-- Different Navbar for logged in user -->
+<nav class="navbar navbar-expand-lg navbar-loggedin bg-white" 
+[@animate]="{value:'*', params:{ y:'-50px', delay:'200ms' }}">
+	<img src="/assets/images/placeholder/lama-logo-black.png" class="img-fluid logo-placeholder navbar-brand">
+
+  	<div class="container">
+	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLoggedAdmin" aria-controls="navbarLoggedAdmin" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+  	</div>
+</nav>
+
+
+<div class="main-container" style="position: relative !important; min-height: 100vh;">
+	<img src="/assets/images/placeholder/login-ellipse.png" class="img-fluid login-ellipse">
+	<img src="/assets/images/placeholder/login-ellipse-2.png" class="img-fluid login-ellipse-2">
+	
+	<div class="pt-lg-3">
+		<div class="container-fluid px-md-4">
+			<div class="img-container py-4" 
+			[@animate]="{value:'*', params:{ y:'-100px', delay:'500ms' }}">
+				<div class="row d-lg-flex ps-md-5" >
+					<div class="col-12 col-md-3 flex-lg-wrap left mb-3 mb-md-0" style="position: relative;">
+						<div class="card card-body">
+							<div class="text-center" style="z-index: 999;">
+								<h5 class="onboarding-title mt-4"><img src="/assets/images/icons/onboarding-purple.png" class="me-2" width="20px"> Onboarding</h5>
+							</div>
+
+							<div class="w-100" style="margin-top: -30px; z-index: 99;">
+								<lama-stepper 
+								[stepperList]="steps" 
+								[isVerticalClick]="true"
+								[selectedIndex]="formStep - 1" #stepper 
+								(selectionChanged)="updateStepperClick($event.selectedIndex + 1)"
+								[orientation]="'vertical'"></lama-stepper>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-12 col-md-9 flex-lg-wrap mb-3 right" style="position: relative;">
+						<div class="card card-body p-5">	
+
+							<div class="w-100">
+								<app-sign-up-organization-details
+								*ngIf="formStep === 1"
+								[navigation]="navigation"
+								[organizationDetailData]="adminSignupOnboardingData.organizationDetails"
+								(updateStepper)="updateStepper($event)"
+								(submitData)="updateOrganizationDetails($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-sign-up-organization-details>
+
+								<app-sign-up-understanding-needs
+								*ngIf="formStep === 2"
+								[navigation]="navigation"
+								(updateStepper)="updateStepper($event)"
+								[understandingNeedData]="adminSignupOnboardingData.understandingNeeds"
+								(submitData)="updateUnderStandingNeeds($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-sign-up-understanding-needs>
+
+								<app-sign-up-safety-information
+								*ngIf="formStep === 3"
+								[navigation]="navigation"
+								(updateStepper)="updateStepper($event)"
+								[safetyInformationData]="adminSignupOnboardingData.safetyInformation"
+								(submitData)="updateSafetyInformation($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-sign-up-safety-information>
+
+								<app-sign-up-finance-and-legal
+								*ngIf="formStep === 4 || formStep === 5"
+								[navigation]="navigation"
+								(updateStepper)="updateStepper($event)"
+								[financeAndLegalFormData]="adminSignupOnboardingData.financeAndLegal"
+								(submitData)="updateFinanceAndLegal($event)"
+								(formStep)="getNavigation($event)"
+								(isValid)="checkFormValidity($event)">
+								</app-sign-up-finance-and-legal>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

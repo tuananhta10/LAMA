@@ -1,0 +1,185 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+			Reference: {{data?.invoice_batch_claim_reference}}
+
+			<span class="float-end">
+				<button (click)="printInvoice()" [disabled]="loading"
+				class="btn btn-header-gray me-3">Print Invoice</button>
+			</span>
+		</h5>
+		<hr>
+	</div>
+	<form [formGroup]="invoiceForm" *ngIf="!loading">
+		<div class="w-100">
+		    <button class="btn" (click)="stepper = 1"
+		    [ngClass]="stepper === 1 ? 'btn-active-tab' : 'btn-active-next'">Invoice Details
+			</button>
+
+		    <button class="btn" (click)="stepper = 2"
+		    [ngClass]="stepper === 2 ? 'btn-active-tab' : 'btn-active-next'">Invoice Reference Items</button>
+		</div>
+
+		<div mat-dialog-content>
+			<div class="card card-body pt-4">
+				<div class="row"  style="max-width: 700px;" 
+				*ngIf="stepper === 1">
+					<div class="col-sm-12 col-md-6">
+						<h5 class="mat-subtitle">Invoice Details</h5>
+						<app-textfield 
+							label="Reference" 
+							[labelTop]="true"
+							[required]="true"
+							[readonly]="true"
+							formControlName="invoice_name">
+						</app-textfield>
+
+						<app-textfield 
+						    label="Invoice Batch"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    formControlName="invoice_batch">
+						</app-textfield>
+
+						<app-date-picker 
+						    label="Date Created"
+						    [labelTop]="true"
+						    [required]="true"
+						    [disabled]="true"
+						    formControlName="date_created">
+						</app-date-picker>
+
+						<app-textfield 
+						    label="Client Name"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    formControlName="client_name">
+						</app-textfield>
+
+						<app-textfield 
+						    label="Account"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    formControlName="account">
+						</app-textfield>
+					</div>
+
+					<div class="col-sm-12 col-md-6">
+						<h5 class="mat-subtitle">Total</h5>
+						<app-textfield 
+						    label="Sub Total"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    [inputType]="'number'"
+						    [required]="true"
+						    formControlName="sub_total">
+						</app-textfield>
+
+						<app-textfield 
+						    label="Tax"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    [inputType]="'number'"
+						    [required]="true"
+						    formControlName="tax">
+						</app-textfield>
+
+						<app-textfield 
+						    label="Total Amount"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    [inputType]="'number'"
+						    [required]="true"
+						    formControlName="total_amount">
+						</app-textfield>
+
+						<app-textfield 
+						    label="Brokerage Number"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    formControlName="brokerage_number">
+						</app-textfield>
+
+						<app-radio-button 
+						    label="Emailed"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    formControlName="emailed"
+						    [options]="radioOptions">
+						</app-radio-button>
+					</div>
+
+					<div class="col-12">
+						<h5 class="mat-subtitle">Payment Details</h5>
+
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<app-dropdown 
+						    label="Status"
+						    [labelTop]="true"
+						    [options]="status"
+						    formControlName="status">
+						</app-dropdown >
+
+						<app-textarea 
+						    label="Comments"
+						    [labelTop]="true"
+						    formControlName="comments">
+						</app-textarea >
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<app-textfield 
+						    label="Amount Paid"
+						    [labelTop]="true"
+						    [readonly]="data?.invoice_batch_status !== 'Awaiting Payment'"
+						    [inputType]="'number'"
+						    formControlName="amount_paid">
+						</app-textfield >
+
+						<app-textfield 
+						    label="Payment Reference"
+						    [labelTop]="true"
+						    [info]="true"
+						    [infoTitle]="'Bank Deposit payment reference number to track invoices against payments received'"
+						    formControlName="payment_reference_number">
+						</app-textfield >
+					</div>
+				</div>
+
+				<div class="row"  *ngIf="stepper === 2">
+					<div class="col-12 px-4">
+						<app-form-table 
+						    (addEvent)="openLinkInvoice($event)"
+						    [isAddEnabled]="false"
+						    [columns]="invoiceColumns"
+						    [data]="invoiceReferrenceItems"
+						    (deleteEvent)="deleteInvoice($event)"
+						    [isDeleteEnabled]="false"
+						    label="Invoice Reference Items"
+						></app-form-table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="row text-center mb-3 w-100">
+				<div class="col-sm-12 text-center w-100">
+					<hr><br>
+
+					<button mat-button (click)="close()" 
+					class="btn btn-header-gray btn-header me-3">Close</button>
+
+					<button mat-button (click)="updatePayment()"
+					class="btn btn-primary btn-header me-3">Update Payment</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<global-admin-loader 
+	    [withSideBar]="false"
+	    [fromDetailTab]="true"
+	    [loading]="loading"
+	    [formOnly]="true">
+	</global-admin-loader>
+</div>

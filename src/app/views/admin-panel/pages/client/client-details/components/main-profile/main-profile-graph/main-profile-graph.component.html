@@ -1,0 +1,24 @@
+<section id="service-summary">
+	<div class="card card-body mb-3 p-4 shadow-3" style="min-height: 420px;">
+		<div class="mb-3">
+			<div class="float-md-start">
+				<h5>Service Summary</h5>
+				<h5 class="description">
+					<span class="text-purple">Hailey-District (Cash)</span> 09-12-2021 to 09-12-2022
+				</h5>
+			</div>
+
+			<div class="float-md-end">
+				<button class="btn btn-primary btn-active-client">One Year Term</button>
+			</div>
+		</div>
+
+		<canvas baseChart 
+		[datasets]="lineChartData" 
+		[labels]="lineChartLabels" 
+		[options]="lineChartOptions"
+		[legend]="lineChartLegend" 
+		[type]="lineChartType"> 
+		</canvas>
+	</div>
+</section>

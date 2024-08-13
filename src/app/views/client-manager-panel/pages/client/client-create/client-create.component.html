@@ -1,0 +1,115 @@
+<!-- LOADING ANIMATION SCREEN -->
+
+
+<div class="container-fluid p-0 ms-1 pe-md-2 mb-3">
+	<div class="row">
+		<!-- MAIN CONTAINER -->
+		<section>
+			<div class="d-flex">
+				<div class=" d-flex-wrap side-stepper d-none d-lg-flex h-100 mt-3 "
+				[@animate]="{ value: '*', params: { x: '-100px', delay: '200ms' }}">
+					<lama-stepper [stepperList]="steps" 
+					[isVerticalClick]="true"
+					[selectedIndex]="formStep - 1" 
+					(selectionChanged)="updateStepperClick($event.selectedIndex + 1)"
+					[orientation]="'vertical'" #stepper></lama-stepper>
+				</div>
+
+				<div class=" d-flex-wrap w-100 h-100">
+					<app-client-banner 
+					[title]="'Create'"
+					[label]="formStep === 1 ? 'Client Details'
+					: formStep === 2 ? 'Demographics'
+					: formStep === 3 ? 'Care Notes'
+					: formStep === 4 ? 'Careworkers'
+					: formStep === 5 ? 'Service Details'
+					: formStep === 6 ? 'Contact Details'
+					: formStep === 7 ? 'Related Documents'
+					
+					: ''">
+					</app-client-banner>
+
+					<global-admin-loader 
+						[withSideBar]="true"
+						[loading]="loading">
+					</global-admin-loader>
+					
+					<div *ngIf="!loading" class=" d-flex-wrap w-100 h-100">
+						<app-client-detail 
+						*ngIf="formStep === 1"
+						[clientDetailData]="clientForm.clientDetail"
+						[navigation]="navigation"
+						(updateStepper)="updateStepper($event)"
+						(submitData)="updateClientDetailData($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-client-detail>
+	
+						<app-demographics 
+						*ngIf="formStep === 2"
+						[demographicsData]="clientForm.demographics"
+						[navigation]="navigation"
+						(submitData)="updateDemographicsData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-demographics>
+
+						<!-- <ng-container *ngIf="formStep === 3"></ng-container>
+	 -->
+						<app-onboarding-notes 
+						*ngIf="formStep === 3"
+						[onboardingNotesData]="clientForm.onboardingNotes"
+						[navigation]="navigation"
+						(submitData)="updateOnboardingNotesData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-onboarding-notes>
+	
+						<app-care-workers 
+						*ngIf="formStep === 4"
+						[careWorkersData]="clientForm.careWorkers"
+						[navigation]="navigation"
+						(submitData)="updateCareWorkersData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-care-workers>
+	
+						<app-service-details 
+						*ngIf="formStep === 5" 
+						[serviceDetailsData]="clientForm.serviceDetails"
+						[navigation]="navigation"
+						(submitData)="updateServiceDetailsData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-service-details>
+	
+						<app-contact-details 
+						*ngIf="formStep === 6"
+						[contactDetailsData]="clientForm.contactDetails"
+						[navigation]="navigation"
+						(submitData)="updateContactDetailsData($event)" 
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(isValid)="checkFormValidity($event)">
+						</app-contact-details>
+	
+						<app-related-documents
+						*ngIf="formStep === 7"
+						[documents]="clientForm.clientDocs.add"
+						[clientForm]="clientForm"
+						[navigation]="navigation"
+						(updateStepper)="updateStepper($event)"
+						(formStep)="getNavigation($event)"
+						(submitData)="updateRelatedDocuments($event)" 
+						(isValid)="checkFormValidity($event)">
+						</app-related-documents>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>	
+</div>

@@ -1,0 +1,159 @@
+
+<div class="row mt-2">
+	<div class="col-sm-12 col-md-12 card-form">
+		<mat-card>
+			<!-- <mat-card-title *ngIf="isUpdate">
+				Availability
+				<hr>
+			</mat-card-title> -->
+
+			<mat-card-content>
+				<div class="row">
+					<div class="col-12 col-md-12 px-0">
+						<table class="table w-100 px-2">
+							<tbody>
+								<ng-container *ngFor="let workday of weekdays?.slice(0, 7); let i = index;">
+									<tr *ngIf="workday?.week_label !== 'Weekdays (Mon-Fri)'">
+										<td class="workday-label">{{ workday?.week_label }}</td>
+										<td class="workday-toggle">
+											<mat-slide-toggle (click)="toBeUpdated = true"
+											[(ngModel)]="workday.is_available" [ngModelOptions]="{ standalone: true }"></mat-slide-toggle>
+											<span class="toggle-label">{{ workday.is_available ? 'Available' : 'Not Available' }}</span>
+										</td>
+
+										<td class="workday-time">
+											<ng-container *ngIf="workday.is_available">
+												<mat-form-field>
+													<input matInput id="timeStart-{{i}}" type="time" [(ngModel)]="workday.time_start" [ngModelOptions]="{ standalone: true }" #timeStart>
+													<div class="time-counter"><!-- 
+														<button class="time-up" (click)="upWeek($event, timeStart.id, i, 'time_start')">
+															
+														</button>
+														<button class="time-down" (click)="downWeek($event, timeStart.id, i, 'time_start')"></button> -->
+													</div>
+												</mat-form-field>
+												<span class="to">to</span>
+												<mat-form-field>
+													<input matInput id="timeEnd-{{i}}" type="time" [(ngModel)]="workday.time_end" [ngModelOptions]="{ standalone: true }" #timeEnd>
+													<div class="time-counter"><!-- 
+														<button class="time-up" (click)="upWeek($event, timeEnd.id, i, 'time_end')"></button>
+														<button class="time-down" (click)="downWeek($event, timeEnd.id, i, 'time_end')"></button> -->
+													</div>
+												</mat-form-field>
+											</ng-container>
+										</td>
+									</tr>
+								</ng-container>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- <div class="col-12 col-md-12 ps-4">
+						<hr>
+						<div class="row">
+							<div class="col-12 col-md-5 set-schedule">
+								<div class="schedule-header">
+									<span class="title">Set Specific date Schedule</span>
+									<mat-slide-toggle [(ngModel)]="isChecked" [ngModelOptions]="{standalone: true}"></mat-slide-toggle>
+									<mat-divider></mat-divider>
+								</div>
+								<mat-calendar class="mt-2"
+								[hidden]="!isChecked && selectedDates?.length === 0"
+									#calendar
+									(selectedChange)="selectDate($event, calendar)"
+									[dateClass]="isSelected"
+								></mat-calendar>
+							</div>
+							<div class="col-12 col-md-6 set-schedule mt-md-5">
+								
+								<div class="schedule-selected mt-md-2" *ngIf="isChecked">
+									<table class="table px-3">
+										<tbody>
+											<tr *ngFor="let selected of selectedDates; let i = index;">
+												<td class="workday-label" style="max-width: 140px !important;">{{ selected?.label }}</td>
+												<td class="workday-select pe-4">
+													<mat-select [(ngModel)]="selected.availability">
+														<mat-option *ngFor="let title of titleOptions" 
+														[value]="title">
+														  {{title}}
+														</mat-option>
+													</mat-select>
+												</td>
+												<td class="workday-time">
+													<mat-form-field>
+														<input matInput id="timeStartSelected-{{i}}" type="time" [(ngModel)]="selected.time_start" [ngModelOptions]="{ standalone: true }" #timeStartSelected>
+													<div class="time-counter">
+														<button class="time-up" (click)="upCalendar($event, timeStartSelected.id, i, 'time_start')"></button>
+														<button class="time-down" (click)="downCalendar($event, timeStartSelected.id, i, 'time_start')"></button>
+													</div>
+													</mat-form-field>
+													<span class="to">to</span>
+													<mat-form-field>
+														
+													<input matInput id="timeEndSelected-{{i}}" type="time" [(ngModel)]="selected.time_end" [ngModelOptions]="{ standalone: true }" value="{{ selected.time_end }}" #timeEndSelected>
+													<div class="time-counter">
+														<button class="time-up" (click)="upCalendar($event, timeEndSelected.id, i, 'time_end')"></button>
+														<button class="time-down" (click)="downCalendar($event, timeEndSelected.id, i, 'time_end')"></button> 
+													</div>
+													</mat-form-field>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+			</mat-card-content>
+
+			<mat-card-actions>
+				<hr>
+				<div>
+					<div class="row">
+						<div *ngIf="!isUpdate" class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header-gray">
+								Back
+							</button>
+						</div>
+
+						<div *ngIf="!isUpdate" class="col-sm-6 justify-content-end d-flex">
+							<button mat-button class="btn btn-header btn-header-gray" 
+							(click)="saveAsDraft()" 
+							style="padding-left: 14px !important; padding-right: 14px !important;" 
+							*ngIf="!isUpdate || currentStatus === 'draft'" >
+								Save as Draft
+							</button>
+							
+							<button (click)="next()" 
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+						</div>
+					</div>
+					<div *ngIf="isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+								Next
+							</button>
+							
+							<button (click)="submit()" 
+							mat-button class="btn btn-header btn-primary">
+								Save
+							</button>
+						</div>
+					</div>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>

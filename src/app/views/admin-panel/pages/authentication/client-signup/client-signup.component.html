@@ -1,0 +1,137 @@
+<!-- HEADER -->
+<!-- <app-header></app-header>
+ -->		
+<div class="container px-3 p-0 mt-3 mt-lg-4 mb-4" 
+[@animate]="{value:'*', params:{ scale:'.9', delay:'400ms' }}">
+	<div class="container">
+		<div class="row card-body p-0 px-lg-3 pe-lg-5">
+			<!-- <div class="col-md-1 text-center bg-gray"></div> -->
+
+			<div class="col-12 col-md-6 bg-white signup-container px-3 px-md-5 py-5"
+			[ngClass]="!error ? 'pt-lg-5': ''">
+				<!-- Error Message -->
+				<form class="px-3 px-md-5 pt-5" (submit)="signupAdmin()" [formGroup]="clientSignupForm">
+					<img src="/assets/images/placeholder/lama-logo-black.png" class="img-fluid logo-placeholder"><br>
+
+					<h4 class="signup-title m-0">Get Started!</h4>
+					<p class="text-justify signup-description mt-2">
+						Lorem ipsum dolor sit amet, veri modus conceptam mel cu, has in dictas discere qualisque, saperet ullamcorper ad eum. 
+					</p>
+
+					<div class="alert alert-danger alert-dismissible fade show error-message" [@animate]="{value:'*', params:{ y:'50px', delay:'600ms' }}" *ngIf="error" role="alert">
+					  	<button type="button" class="btn-close hvr-buzz-out" data-bs-dismiss="alert" aria-label="Close" (click)="onAlertClose()"></button>
+					  	<span [innerHtml]="error"></span>
+					</div>  
+
+
+					<div class="form-group mt-4">
+						<input type="text" class="form-control" 
+						formControlName="first_name" id="first_name"
+						placeholder="">
+						<label for="first_name">First name</label>
+					</div> 
+
+					<div class="form-group mt-4">
+						<input type="text" class="form-control" 
+						formControlName="last_name" id="last_name"
+						placeholder="">
+						<label for="last_name">Last name</label>
+					</div> 
+
+					<div class="form-group mt-4">
+						<input type="text" class="form-control" 
+						formControlName="phone" id="phone"
+						placeholder="">
+						<label for="phone">Phone Number</label>
+					</div> 
+
+					<div class="form-group mt-4">
+						<input type="email" class="form-control" 
+						formControlName="email" id="email"
+						placeholder="">
+						<label for="email">Email</label>
+					</div> 
+
+					<div class="form-group mt-4">
+						<input type="email" class="form-control" 
+						formControlName="confirm_email" id="confirm_email"
+						placeholder="">
+						<label for="confirm_email">Confirm Email</label>
+					</div> 
+					
+
+					<div class="form-group mt-4">
+						<input type="password" class="form-control" id="password" 
+						placeholder="" formControlName="password">
+						<label for="password">Password</label>
+					</div>
+
+					<div class="form-group mt-4">
+						<input type="password" class="form-control" id="confirm_password" 
+						placeholder="" formControlName="confirm_password">
+						<label for="confirm_password">Confirm Password</label>
+					</div>
+
+					<div class="form-group mt-4">
+						<input type="text" class="form-control" id="post_code" 
+						placeholder="" formControlName="post_code">
+						<label for="post_code">Post Code</label>
+					</div>
+
+					<select class="form-select mt-4" aria-label="Default select example"
+						formControlName="heardFrom">
+					  <option value="0"selected>How did you hear about us?</option>
+					  <option value="Radio">Radio</option>
+					  <option value="News">News</option>
+					  <option value="From Friends">From Friends</option>
+					  <option value="Internet">Internet</option>
+					  <option value="Others">Others</option>
+					</select>
+
+					<label class="mt-4 ms-1 text-muted dont-have-account">
+						Read <span>Service Agreement</span> and <span>Privacy Policy</span>
+					</label>
+
+					<div class="mt-2 px-2 d-flex">
+						<mat-checkbox class="example-margin" color="primary"
+						formControlName="terms" ></mat-checkbox>
+						<label class="text-muted ms-3">I confirm that I, as the account holder, am over 18 years of age and have read and agree with Service Agreement and Privacy Policy</label>
+					</div>
+
+					<br>
+
+					<button type="submit" class="btn btn-primary btn-signup w-100 mt-3"
+					[disabled]="submitting || !clientSignupForm.valid">Sign Up
+						<img src="/assets/images/placeholder/loading-login.gif" width="20px" class="img-fluid float-end" *ngIf="submitting">
+					</button>
+
+					<div class="text-center mt-3">
+						<p class="dont-have-account">Already have an account? 
+						<span routerLink="/signin">Login your account</span></p>
+					</div>
+
+					<img src="/assets/images/placeholder/login-dots.png" class="img-fluid signup-dots">
+				</form> 
+			</div>
+
+			<div class="col-12 col-md-6 text-start py-5 img-container" style="position: relative !important;">
+				<img src="/assets/images/icons/shake-hand-border.png" class="img-fluid signup-shake-hands">
+				<!-- <img src="/assets/images/placeholder/login-circle.png" class="img-fluid signup-circle"> -->
+				<img src="/assets/images/icons/heart-border.png" class="img-fluid signup-heart">
+
+
+				<img src="/assets/images/placeholder/login-ellipse.png" class="img-fluid signup-ellipse">
+				<img src="/assets/images/placeholder/login-ellipse-2.png" class="img-fluid signup-ellipse-2">
+				<img src="/assets/images/placeholder/login-rectangle.png" class="img-fluid signup-rectangle">
+
+				<div class="img-banner  h-100" style="z-index: 999999 !important;">
+					<h5 class="signup-text">NDIS - Lorem ipsum <br>dolor sit amet <br>sit amet </h5>
+
+					<img src="/assets/images/placeholder/client-sit.png" class="img-fluid signup-main-image">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

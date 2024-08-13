@@ -1,0 +1,84 @@
+@import "src/scss/colors";
+
+.shadow{
+    box-shadow: 0px 4px 5px rgba(102, 50, 102, 0.01);
+    -webkit-box-shadow: 0px 4px 5px rgba(102, 50, 102, 0.01);
+    -moz-box-shadow: 0px 4px 5px rgba(102, 50, 102, 0.01);
+}
+
+.btn-view-more{
+    @extend .shadow;
+    padding: 7px 15px !important;
+    margin-top: 8px;
+    //margin-left: -4px;
+    background: white;
+    color: $color-purple;
+    font-size: 10px;
+    border-radius: 4px !important;
+    //border: solid 1px $color-purple;
+
+    &:hover{
+        background: $color-purple;
+        color: white;
+    }
+}
+
+.table-label{
+    font-family: 'Noto Sans' !important;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    color: $color-gray-dark
+}
+
+
+:host ::ng-deep {
+    .card-form {
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+
+
+        .mat-card {
+            /* box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            -webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            -moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            border-radius: 20px; */
+
+            border-radius: 8px !important;
+            box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+            -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+            padding-top: 45px !important;
+            padding: 25px 25px;
+
+            .mat-card-title{
+                font-size: 20px;
+                color: $color-gray-dark;
+
+                hr {
+                    border: 0.5px solid #777777;
+                    margin-bottom: 30px;
+                }
+            }
+
+            .mat-card-content {
+                padding: 0 50px 0 50px;
+            }
+
+            .mat-card-actions{
+                padding: 10px 25px;
+
+                .btn-header-gray{
+                    background: #D0D0D0;
+                    color: $color-gray-dark;
+                }
+
+                .btn-header{
+                    border-radius: 5px !important;
+                    padding: 7px 30px !important;
+                }
+            }
+        }
+    }
+}

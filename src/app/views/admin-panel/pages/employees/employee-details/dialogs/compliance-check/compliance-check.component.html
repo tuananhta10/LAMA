@@ -1,0 +1,120 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">{{ data?.type === 'training' ? 'Training Document Details' : 'Compliance Check Details'}}
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end mt-2" 
+			style="width: 13px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	<form *ngIf="!loading" [formGroup]="certificateForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-12" *ngIf="data && !currentFile;">
+					<div class="ps-3 mb-3 w-100 pe-4" *ngIf="data?.item?.status == 'Valid'">
+						<div class="ms-2">
+							<span class="text-danger">The Status is already valid but the Compliance docs have not been uploaded yet or it was already checked by the admin manually</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-12">
+					<app-textfield 
+						[required]="true"
+						[readonly]="true"
+						label="Employee Name" 
+						[labelTop]="true"
+						formControlName="employeeName">
+					</app-textfield>
+
+					<app-dropdown 
+						label="Status" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="status" 
+						[options]="statusOption">
+					</app-dropdown>
+
+					<app-date-picker 
+						label="Expiry Date" 
+						[labelTop]="true"
+						[required]="data ? (data?.item?.type === 'License' || data?.item?.type === 'Passport') : false "
+						formControlName="expiry_date">
+					</app-date-picker>
+
+					<app-date-picker 
+						label="Completion Date" 
+						[labelTop]="true"
+						formControlName="completion_date">
+					</app-date-picker>
+
+					<app-dropdown 
+						label="Type" 
+						[labelTop]="true"
+						formControlName="type" 
+						[disabled]="true"
+						[options]="typeOption">
+					</app-dropdown>
+		
+					<app-search-list 
+						label="Qualification" 
+						[readonly]="true"
+						[labelTop]="true"
+						formControlName="qualifications" 
+						[options]="qualificationList">
+					</app-search-list>
+
+					<app-textarea
+						label="Description" 
+						[labelTop]="true"
+						[required]="true"
+						[readonly]="true"
+						formControlName="description">
+					</app-textarea>
+
+					<app-textarea 
+						label="Remarks/ Notes" 
+						[labelTop]="true"
+						formControlName="remarks">
+					</app-textarea>
+
+					<div class="ps-3 mb-3 w-100 pe-4" *ngIf="data && currentFile">
+						<div class="ms-2 truncate">
+							Download Link: <br>
+							<a [href]="currentFile?.download_url" targe="_blank" >{{currentFile?.filename}}</a>
+						</div>
+					</div>
+
+					<app-field-upload
+						label="Upload/Update File"
+						[labelTop]="true"
+						#upload 
+						(upload)="onUpload($event)"
+					>
+					</app-field-upload>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="row text-center mb-3 w-100">
+				<div class="col-sm-12 text-center w-100">
+					<hr><br>
+
+					<button mat-button (click)="close()" 
+					class="btn btn-header-gray btn-header me-3">Close</button>
+
+					<button mat-button (click)="save()" 
+					[disabled]="!certificateForm.valid"
+					cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- LOADING ANIMATION SCREEN -->
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>

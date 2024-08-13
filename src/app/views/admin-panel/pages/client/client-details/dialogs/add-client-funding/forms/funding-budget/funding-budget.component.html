@@ -1,0 +1,82 @@
+<div mat-dialog-content *ngIf="!priceListLoading && stepper === 2"
+[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+	<form [formGroup]="fundingBudgetForm" style="min-width: 700px;">
+		<h5 class="mat-subtitle mt-2">Funding Budget</h5>
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<app-textfield 
+					label="Budget" 
+					[info]="true"
+					[infoTitle]="'The amount agreed in Service Agreement'"
+					[labelTop]="true"
+					[readonly]="isDisabled"
+					[required]="true"
+					[inputType]="'number'"
+					formControlName="budget">
+				</app-textfield>
+
+				<app-textfield 
+					label="Utilised Total" 
+					[info]="true"
+					[readonly]="true"
+					[infoTitle]="'Funds used to date'"
+					[labelTop]="true"
+					[required]="true"
+					[inputType]="'number'"
+					formControlName="utilise_running_total">
+				</app-textfield>
+
+				<app-textfield 
+					label="External Utilisation" 
+					[info]="true"
+					[infoTitle]="'External Utilisation'"
+					[labelTop]="true"
+					[readonly]="isDisabled"
+					[required]="false"
+					[inputType]="'number'"
+					formControlName="utilise_total">
+				</app-textfield>
+
+				<app-textfield 
+					label="Balance" 
+					[info]="true"
+					[infoTitle]="'Remaining funds available'"
+					[labelTop]="true"
+					[required]="true"
+					[readonly]="true"
+					[inputType]="'number'"
+					formControlName="balance">
+				</app-textfield>	
+			</div>
+
+			<div class="col-12 col-md-6 ps-1">
+				<app-date-picker 
+					label="Plan Start Date" 
+					[required]="true"
+					[labelTop]="true"
+					[readonly]="isDisabled"
+					formControlName="start_date">
+				</app-date-picker>
+
+				<app-date-picker 
+					label="Plan End Date" 
+					[required]="true"
+					[labelTop]="true"
+					[readonly]="isDisabled"
+					formControlName="end_date">
+				</app-date-picker>
+
+				<app-textfield 
+					label="Planned" 
+					[info]="true"
+					[infoTitle]="'Allocated. For future shifts on the schedule board'"
+					[labelTop]="true"
+					[required]="true"
+					[readonly]="true"
+					[inputType]="'number'"
+					formControlName="allocated">
+				</app-textfield>
+			</div>
+		</div>
+	</form>
+</div>

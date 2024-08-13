@@ -1,0 +1,65 @@
+<div class="card card-body mt-3 py-5 px-md-5" >
+	<h5 class="text-center mb-4">Address Details</h5>
+	<form [formGroup]="addressForm" *ngIf="!loading">
+		<div class="row">
+			<div class="col-12 col-md-1"></div>
+			<div class="col-12 col-md-5">
+				<app-google-places-input
+					label="Address 1 (Street)" 
+					[labelTop]="true"
+					formControlName="address_a"
+					[required]="true"
+					(addressChange)="onAddressChange($event)">
+				</app-google-places-input>
+				
+				<app-textfield 
+					label="Suburb" 
+					[labelTop]="true"
+					formControlName="suburb" 
+					[required]="true">
+				</app-textfield>
+
+				<app-textfield 
+					label="Post Code" 
+					[labelTop]="true"
+					formControlName="post_code" 
+					[required]="true">
+				</app-textfield>
+			</div>
+
+			<div class="col-12 col-md-5">
+				<app-textfield 
+					label="Address 2" 
+					[labelTop]="true"
+					formControlName="address_b">
+				</app-textfield>
+
+				<app-dropdown 
+					label="State" 
+					[labelTop]="true"
+					formControlName="state" 
+					[required]="true"
+					[options]="stateOptions">
+				</app-dropdown>
+
+				<div style="margin-top: -4.5px !important">
+					<app-dropdown
+						label="Country" 
+						[labelTop]="true"
+						formControlName="country" 
+						[required]="true"
+						[options]="countriesEnums">
+					</app-dropdown>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="px-5">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

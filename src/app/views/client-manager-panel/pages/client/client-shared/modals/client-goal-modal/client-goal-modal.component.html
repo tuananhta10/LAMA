@@ -1,0 +1,184 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Client Goal</h5>
+		<hr>
+	</div>
+	<form [formGroup]="clientGoalForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<!-- <div class="col-md-6">
+					<app-textfield 
+						label="Name" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="name">
+					</app-textfield>
+					<app-dropdown 
+						label="Goal client"
+						[labelTop]="true"
+						formControlName="goal_client"
+						[options]="goalClientOptions">
+					</app-dropdown>
+					<app-dropdown 
+						label="Goal"
+						[labelTop]="true"
+						formControlName="goal"
+						[options]="goalOptions">
+					</app-dropdown>
+					<app-dropdown 
+						label="Goal Type"
+						[labelTop]="true"
+						formControlName="goal_type"
+						[options]="goalTypeOptions">
+					</app-dropdown>
+				</div>
+				<div class="col-md-6">
+					<app-textarea 
+						label="Description"
+						[labelTop]="true"
+						formControlName="description">
+					</app-textarea>
+					<app-date-picker 
+						label="Start Date" 
+						[labelTop]="true"
+						formControlName="start_date">
+					</app-date-picker>
+					<app-date-picker 
+						label="End Date" 
+						[labelTop]="true"
+						formControlName="end_date">
+					</app-date-picker>
+					<app-dropdown 
+						label="Status"
+						[labelTop]="true"
+						formControlName="status"
+						[options]="statusOptions">
+					</app-dropdown>
+				</div> -->
+
+
+				<div class="col-md-6">
+					<app-textfield 
+						label="Client" 
+						[required]="true"
+						[labelTop]="true"
+						[readonly]="true"
+						formControlName="client_name">
+					</app-textfield>
+
+					<app-textfield 
+						label="Goal Name" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="goal_name">
+					</app-textfield>
+
+					<app-dropdown 
+						label="Goal Type" 
+						[required]="true"
+						[labelTop]="true"
+						formControlName="goal_type"
+						[multiple]="true"
+						[options]="goalTypeOptions">
+					</app-dropdown>
+
+					<app-textarea 
+						label="Description" 
+						[labelTop]="true"
+						formControlName="description">
+					</app-textarea>
+
+					<app-search-list 
+						label="Duration" 
+						[labelTop]="true"
+						[isTextArea]="true"
+						formControlName="duration"
+						[options]="goalDuration">
+					</app-search-list>
+				</div>
+
+				<div class="col-md-6">
+					<!-- <div formArrayName="tasks">
+						<ng-container *ngFor="let items of clientGoalForm.get('tasks').controls; 
+						let i = index" [formGroupName]="i">
+							<div class="w-100">
+								<span class="float-end me-3">
+									<mat-icon class="mat-icon" (click)="addTask()">add</mat-icon>
+								</span>
+							</div>
+
+							<app-search-list *ngIf="items"
+								label="Task" 
+								[labelTop]="true"
+								formControlName="taskName"
+								[isTextArea]="true"
+								[options]="goalDuration">
+							</app-search-list>
+						</ng-container>
+					</div> -->
+
+					
+					<div>
+						<h5 class="mat-subtitle ms-4">Tasks
+							<!-- <span class="float-end me-3" (click)="addTaskArray()">
+								<mat-icon class="mat-icon">add</mat-icon>
+							</span> -->
+						</h5>
+
+						
+						<!-- TASK DETAILS -->
+						<div *ngFor="let item of taskArray; 
+						let i = index">
+							<hr>
+							<app-autocomplete-chip
+								[labelTop]="true"
+								[(ngModel)]="item.tasks"
+								[isTextArea]="true"
+								[ngModelOptions]="{standalone: true}" 
+								[options]="tasksOptions">
+							</app-autocomplete-chip>
+
+							<!-- READ ONLY AUTO POPULATE BASED ON SELECTED TASKS -->
+							<app-search-list 
+								label="Assigned To" 
+								[labelTop]="true"
+								[(ngModel)]="item.assigned_to"
+								[ngModelOptions]="{standalone: true}" 
+								[options]="assignedTo">
+							</app-search-list>
+					<!-- TASK DETAILS -->
+						</div>
+						<hr>
+					</div>
+
+					<app-dropdown
+						label="Status" 
+						[labelTop]="true"
+						formControlName="status"
+						[required]="true"
+						[options]="statusOptions">
+					</app-dropdown>
+
+					<app-radio-button 
+						label="Reportable Goal" 
+						[labelTop]="true"
+						formControlName="reportable_goal"
+						[options]="radioOptions">
+					</app-radio-button>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+</div>

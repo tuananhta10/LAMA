@@ -1,0 +1,41 @@
+<ngx-spinner
+  [fullScreen]="true"
+  [zIndex]="9999999999"
+  [type]="'pacman'"
+  [size]="'large'"
+  [bdColor]="'rgba(255, 255, 255, 0.75)'"
+  [color]="'#red'"
+></ngx-spinner> 
+
+<section id="body-main-container" style="background: #f8f8f8 !important; min-height: 700px;">
+	<!-- HEADER -->
+	<app-header-option-three></app-header-option-three>
+
+	<div class="d-flex p-0" id="body-row">
+		<div class="ms-0 me-0" id="main-client-manager-component"
+		[ngClass]="[
+				(
+					location.match('/staff/clients/details')
+					|| location.match('/staff/employees/details')
+					|| location.match('/staff/profile') 
+					|| location.match('/staff/jobs') 
+					|| location.match('/staff/payroll') 
+					|| location.match('/staff/documents') 
+					|| location.match('/staff/dependents') 
+					|| location.match('/signin')
+					|| location.match('/signup') 
+					|| location.match('/referral') 
+				) ? 'pull-to-left' : 'ms-0 ms-md-3',
+
+				(
+					location.match('/signin')
+					|| location.match('/signup') 
+				) ? 'remove-padding' : 'add-margin-top'
+
+			]">
+			<div id="sub-client-manager-component">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div>
+</section>

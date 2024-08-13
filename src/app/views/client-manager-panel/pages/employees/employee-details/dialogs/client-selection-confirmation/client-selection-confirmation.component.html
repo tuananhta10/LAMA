@@ -1,0 +1,117 @@
+<div class="row px-4">
+	<div class="col-md-12 text-center my-4 assign-container">
+		<img src="/assets/images/icons/help-purple.png" class="img img-fluid">
+	</div>
+
+	<div class="col-md-12 text-center mb-4 assign-container px-5">
+		<h5 class="header-text">Are you sure you want to assign 
+			<span class="text-capitalize">
+				{{data?.client?.first_name}} {{data?.client?.last_name}} ?
+			</span>
+		</h5>
+	</div>
+
+	<section class="row px-3 pe-lg-4 mt-2 ms-lg-1 assign-action-container">
+		<div class="col-12 col-md-6 text-center mb-3 px-2">
+			<div class="employee-details" >
+				<div class="img-container" 
+				>
+					<img [defaultImage]="defaultImage"
+					[lazyLoad]="data?.employeeData?.profile_image" class="img-fluid profile-image">
+				</div>
+
+				<div class="d-flex match my-2 text-start">
+					<div class="match-hand mt-1">
+						<img src="/assets/images/icons/shake-hands.png" class="img-fluid flex-wrap">
+					</div>
+
+					<span class="flex-wrap ms-2 w-100">
+						<p class="match-text-small">Matching</p>
+						<p class="match-text-large">90%</p>
+					</span>
+				</div>
+
+				<dl class="text-start mt-3">
+					<dd class="text-capitalize"><strong>Name</strong> {{data?.employeeData?.first_name}} {{data?.employeeData?.last_name}} 
+						<span class="d-none d-lg-inline ms-2"> | <strong class="ms-2">Age</strong> {{data?.employeeData?.age}}</span>
+					</dd>
+					<!-- <dd class="d-inline d-lg-flex w-100">
+						<strong class="me-2 flex-wrap" style="width:23% !important;">Location</strong> 
+						<span class="flex-wrap" style="width:77% !important;">{{client?.address}}</span>
+					</dd> -->
+					
+					<dd class="d-block d-lg-none"><strong>Age</strong> {{data?.employeeData?.age}}</dd>
+					<dd><strong>Interests</strong> {{data?.employeeData?.interests}}</dd>
+					<dd class="truncate" [title]="data?.employeeData?.address">
+						<strong>Location</strong> 
+						 <span>{{data?.employeeData?.address}}</span>
+					</dd>
+					
+				</dl>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-6 text-center mb-3 px-2">
+			<div class="client-details" >
+				<div class="img-container" 
+				>
+					<img [defaultImage]="defaultImage"
+					[lazyLoad]="data?.client?.profile_image" class="img-fluid profile-image">
+				</div>
+
+				<div class="d-flex match my-2 text-start">
+					<div class="match-hand mt-1">
+						<img src="/assets/images/icons/shake-hands.png" class="img-fluid flex-wrap">
+					</div>
+
+					<span class="flex-wrap ms-2 w-100">
+						<p class="match-text-small">Matching</p>
+						<p class="match-text-large">90%</p>
+					</span>
+				</div>
+
+				<dl class="text-start mt-3">
+					<dd class="text-capitalize"><strong>Name</strong> {{data?.client?.first_name}} {{data?.client?.last_name}} 
+						<span class="d-none d-lg-inline ms-2"> | <strong class="ms-2">Age</strong> {{data?.client?.age}}</span>
+					</dd>
+					<!-- <dd class="d-inline d-lg-flex w-100">
+						<strong class="me-2 flex-wrap" style="width:23% !important;">Location</strong> 
+						<span class="flex-wrap" style="width:77% !important;">{{client?.address}}</span>
+					</dd> -->
+					
+					<dd class="d-block d-lg-none"><strong>Age</strong> {{data?.client?.age}}</dd>
+					<dd><strong>Interests</strong> {{data?.client?.interests}}</dd>
+					<dd class="truncate" [title]="data?.client?.address">
+						<strong>Location</strong> 
+						 <span>{{data?.client?.address}}</span>
+					</dd>
+					
+				</dl>
+			</div>
+		</div>
+
+		<div class="col-12 my-3 assign-container text-center">
+			<h5 class="header-text">You don't have the permission to read or modify this file.</h5>
+			<p class="text-muted">Ask the team owner for permission</p>
+		</div>
+	</section>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container ps-3">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-header-gray btn-header ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="confirmSelection()" 
+			cdkFocusInitial 
+			class="btn btn-primary btn-header">Confirm</button>
+		</div>
+	</div>
+</div>

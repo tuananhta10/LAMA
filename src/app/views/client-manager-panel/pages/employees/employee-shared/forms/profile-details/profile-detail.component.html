@@ -1,0 +1,138 @@
+<div *ngIf="!loading" class="row" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="profileDetailForm">
+			<mat-card>
+				<mat-card-title *ngIf="isUpdate">
+					Profile Details
+					<hr>
+				</mat-card-title>
+
+				<mat-card-content>
+					<div class="row" [ngClass]="!isUpdate ? 'pt-3' : ''">
+						<div class="col-12 col-md-6">
+							<app-textarea id="job_description"  
+								label="Job Description" 
+								formControlName="job_description">
+							</app-textarea>
+
+							<app-textarea id="task_performed"  
+								label="Task Performed" 
+								formControlName="task_performed">
+							</app-textarea>
+
+							<app-textarea id="roster_info"  
+								label="Roster Info" 
+								formControlName="roster_info" >
+							</app-textarea>
+
+							<app-textarea id="other_remarks"  
+								label="Other Remarks" 
+								formControlName="other_remarks">
+							</app-textarea>
+
+							<app-dropdown 
+								id="interest"  
+								label="Interest" 
+								formControlName="interests" 
+								[options]="interestOptions"
+								[isMultiple]="true">
+							</app-dropdown>
+
+							<app-textfield id="skills"  
+								label="Skills" 
+								formControlName="skills">
+							</app-textfield>
+
+						</div>
+
+						<div class="col-12 col-md-6">
+							Others
+							<hr>
+
+							<app-radio-button id="smoker"  
+								label="Smoker" 
+								formControlName="smoker" 
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button id="allergies"  
+								label="Allergies" 
+								formControlName="allergies" 
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-textfield id="medicalInformation"  
+								label="Medical Information/Injections" 
+								formControlName="medical_information">
+							</app-textfield>
+
+							Qualifications
+							<hr>
+
+							<app-textarea id="general_training_notes"  
+								label="General Training Notes" 
+								formControlName="general_training_notes">
+							</app-textarea>
+
+							<app-textarea id="qualification_summary"  
+								label="Qualification Summary" 
+								formControlName="qualification_summary">
+							</app-textarea>
+
+							<app-textfield id="qualifications"  
+								label="Qualifications"
+								formControlName="qualifications"
+								[disabled]="true"
+								placeholder= "Save record first">
+							</app-textfield>
+
+						</div>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+					<div>
+						<div class="row">
+							<div *ngIf="!isUpdate" class="col-sm-12 justify-content-end d-flex">
+								<button (click)="back()" mat-button class="btn btn-header-gray">
+									Back
+								</button>
+								
+								<button (click)="next()" 
+								[disabled]="!profileDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Next
+								</button>
+							</div>
+						</div>
+						<div *ngIf="isUpdate" class="row">
+							<div class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+									Back
+								</button>
+							</div>
+							<div class="col-sm-6 justify-content-end d-flex">
+								<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+									Next
+								</button>
+								
+								<button (click)="submit()" 
+								[disabled]="!profileDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card-actions>
+
+			</mat-card>
+		</form>
+	</div>
+</div>
+<global-admin-loader [loading]="loading"></global-admin-loader>

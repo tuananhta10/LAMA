@@ -1,0 +1,83 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Employee Timesheet
+			<img src="/assets/images/icons/close-dialog.png" 
+			class="float-end" 
+			style="width: 15px; cursor: pointer;" 
+			(click)="dialogRef.close()"> 
+		</h5>
+		<hr>
+	</div>
+	<div class="row" *ngIf="showDifferentTimeDialog">
+		<div class="col-lg-12">
+			<div class="alert alert-danger">
+				Notice: The actual time of the employee does not align with the scheduled time.
+			</div>
+		</div>
+	</div>
+
+	<section mat-dialog-content style="min-height: 67vh">
+		<div class="w-100">
+		    <button class="btn" (click)="stepper = 1"
+		    [ngClass]="stepper === 1 ? 'btn-active-tab' : 'btn-active-next'">Timesheet Details</button>
+
+		    <button class="btn" (click)="stepper = 2"
+		    [ngClass]="stepper === 2 ? 'btn-active-tab' : 'btn-active-next'">Time Logged</button>
+
+		    <button class="btn" (click)="stepper = 3"
+		    [ngClass]="stepper === 3 ? 'btn-active-tab' : 'btn-active-next'">Calculated Total</button>
+		</div>
+
+		<div class="card card-body pt-4">
+			<div class="row">
+				<div class="col-12 col-md-12" *ngIf="stepper === 2"
+				[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+					<app-approval-logged 
+					[data]="data"
+					[isReadOnly]="isReadOnly"
+					[timeLoggedForm]="timeLoggedForm">
+					</app-approval-logged>
+				</div>
+
+				<div class="col-12 col-md-12" *ngIf="stepper === 1"
+				[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+					<app-approval-details 
+					[data]="data"
+					[timesheetDetailsForm]="timesheetDetailsForm"
+					[timeLoggedForm]="timeLoggedForm"
+					[isReadOnly]="isReadOnly">
+					</app-approval-details>
+				</div>
+
+				<div class="col-12 col-md-12" *ngIf="stepper === 3"
+				[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+					<app-calculated-cost 
+					[data]="data"
+					[timesheetDetailsForm]="timesheetDetailsForm"
+					[approvalForm]="approvalForm"
+					[timeLoggedForm]="timeLoggedForm">
+					</app-calculated-cost>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="save('decline')" 
+			[disabled]="this.data?.employee_timesheet_approved"
+			class="btn btn-header-gray btn-header me-3">Unapprove</button>
+
+			<!-- <button mat-button (click)="close()" 
+			[disabled]="this.data?.employee_timesheet_approved"
+			class="btn btn-header-gray btn-header me-3">Cancel</button> -->
+
+			<!-- [disabled]="this.data?.employee_timesheet_approved" -->
+			<button mat-button [disabled]="!!data?.employee_timesheet_approved"
+			(click)="save('approve')"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Approve</button>
+		</div>
+	</div>
+</div>

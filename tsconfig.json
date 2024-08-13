@@ -1,0 +1,46 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "types": ["googlemaps"],
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom",
+      "esnext"
+    ],
+    "paths": {
+      "@main/*": ["src/app/*"],
+      "@environments/*": ["src/environments/*"],
+      "@app-shared/*": ["src/app/shared/*"],
+      "@app-services/*": ["src/app/shared/services/*"],
+      "@app-admin-guard/*": ["src/app/shared/guards/*"],
+      "@app-employees/*": ["src/app/views/admin-panel/pages/employees/*"],
+      "@app-admin-store": ["src/app/views/admin-panel/store"],
+      "@app-admin-store/*": ["src/app/views/admin-panel/store/*"],
+      "@app-manager-store": ["src/app/views/client-manager-panel/store"],
+      "@app-manager-store/*": ["src/app/views/client-manager-panel/store/*"],
+      "@app-main-interceptor": ["src/app/shared/interceptor/set-auth-interceptor"],
+      "@app-main-animation": ["src/app/shared/animations/main-animations"],
+      "@app-material-component": ["src/app/shared/components/material-components/material-components.module"],
+    },
+    "allowSyntheticDefaultImports": true,
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

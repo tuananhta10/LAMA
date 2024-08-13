@@ -1,0 +1,180 @@
+
+<div id="employee-sidebar-profile-container" class="mb-3" 
+[@animate]="{value:'*', params:{ x:'-100px', delay:'200ms' }}">
+	<div class="side-profile" style="min-height: 600px;">
+		<!-- <div>
+			<img src="/assets/images/icons/lock.png" width="21px" class="hvr-grow password"
+			(click)="openUpdatePassword()">
+		</div> -->
+
+		<div class="close-button">
+			<a class="cursor-pointer d-flex align-items-center gap-2" routerLink="/admin/employees">
+				<img src="/assets/images/icons/close-dialog.png" 
+				class="float-end " 
+				style="width: 13px; height:13px; aspect-ratio:1; cursor: pointer;" 
+				> 
+			</a>
+		</div>
+
+		<div class="text-center profile-image">
+			<img 
+			[defaultImage]="defaultImage"
+			[lazyLoad]="employeeData?.profile_pic_url" alt="User Image"
+			class="card-img-top img-fluid my-4 avatar">
+
+			<h5 class="text-capitalize" style="margin-left: -20px !important; cursor: pointer;" 
+				routerLink="/admin/employees/edit/{{employeeData?.id}}">
+				<img src="/assets/images/icons/edit.png" class="hvr-grow edit-details me-1"
+				style="width: 22px !important; height: 22px !important " >
+				{{employeeData?.first_name}} {{employeeData?.last_name}}
+			</h5>
+			<span>{{employeeData?.preferred_name || '-'}}</span>
+		</div>
+
+		<ng-container *ngIf="!location?.match('/communication-feeds')">
+			<!-- <div class="text-center pt-3">
+				<img src="/assets/images/icons/additional-menu.png" 
+				(click)="openEmployeeMenu()"
+				class="img-fluid additional-menu hvr-grow" width="45px">
+			</div> -->
+
+			<br>
+			<div class="px-1 d-flex" 
+			*ngIf="employeeSubData?.employee_qualification_total || employeeSubData?.employee_service_schedule_total">
+				<div class="text-center active-data me-3 flex-wrap mb-2">
+					<small>Required Docs</small><br>
+					<h4 class="active-data-text">{{employeeSubData?.employee_qualification_total || 0}}</h4>
+				</div>
+				<div class="text-center active-data flex-wrap mb-2">
+					<small>Available Shifts</small><br>
+					<h4 class="active-data-text">{{employeeSubData?.employee_service_schedule_total || 0}}</h4>
+				</div>
+			</div>
+
+			<div class="d-block mt-3" [@animate]="{value:'*', params:{ y:'-10px', delay:'200ms' }}">
+				<button class="btn btn-primary-secondary mb-3 w-100"  
+				(click)="assignClient()">Assigned Participants</button>
+ 		
+ 				<!-- <button class="btn btn-primary-secondary mb-3 w-100"  
+ 				(click)="communicationFeeds()">Communication Feeds</button> -->
+
+				<button class="btn btn-primary-secondary mb-2 w-100" 
+				(click)="openUpdatePassword()">Manage Access</button>
+			</div>
+
+			<div class="px-1 d-flex" [@animate]="{value:'*', params:{ y:'-10px', delay:'200ms' }}">
+				<div class="employee-details flex-wrap mb-2">
+					<dl class="">
+						<dd>
+							<strong class="me-2">Gender</strong> 
+							<span>{{employeeData?.gender  || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<dd class="d-inline d-lg-flex">
+							<strong class="me-2 flex-wrap">Address</strong> 
+							<span class="flex-wrap">{{employeeData?.address_a  || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<dd class="d-inline d-lg-flex">
+							<strong class="me-2 flex-wrap">Suburb</strong> 
+							<span class="flex-wrap">{{employeeData?.suburb  || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<dd class="d-inline d-lg-flex">
+							<strong class="me-2 flex-wrap">Postal Code</strong> 
+							<span class="flex-wrap">{{employeeData?.post_code  || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<dd class="d-inline d-lg-flex">
+							<strong class="me-2 flex-wrap">State</strong> 
+							<span class="flex-wrap">{{employeeData?.state  || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<dd>
+							<strong class="me-2">Home Phone</strong> 
+							<span>{{employeeData?.home_phone_no  || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<dd>
+							<strong class="me-2">Mobile Phone</strong> 
+							<span>{{employeeData?.mobile_phone_no  || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<dd class="d-inline d-lg-flex w-100">
+							<strong class="me-2 flex-wrap" style="width:50% !important;">Position</strong> 
+							<span class="flex-wrap" style="width:50% !important;">{{employeeData?.employee_position_display_name || '-'}}</span>
+						</dd>
+
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<!-- <dd class="d-inline d-lg-flex w-100" *ngIf="loggedUser?.role_title === 'Lama Admin'">
+							<strong class="me-2 flex-wrap" style="width:50% !important;">Level of Access</strong> 
+							<span class="flex-wrap" style="width:50% !important;">{{employeeData?.employee_position_name || '-'}}</span>
+						</dd>
+ -->
+						<!-- <dd class="text-center ps-2"><hr class="details-border"></dd> -->
+
+						<dd class="d-inline d-lg-flex w-100">
+							<strong class="me-2 flex-wrap" style="width:50% !important;">Company</strong> 
+							<span class="flex-wrap text-capitalize" style="width:50% !important;">{{loggedUser?.organization_input  || '-' }}</span>
+						</dd>
+					</dl>
+				</div>
+			</div>
+
+			<button class="btn btn-danger-secondary mb-2 w-100" 
+				[disabled]="employeeData?.status == 'inactive'"
+				(click)="deactivateAccount()">Deactivate Account</button>
+		</ng-container>
+
+		<ng-container *ngIf="location?.match('/communication-feeds')">
+			<div class="d-block mt-3" [@animate]="{value:'*', params:{ y:'-10px', delay:'200ms' }}">
+				<button class="btn btn-primary-inbox mb-3 w-100" (click)="selectInboxType('inbox')"
+				[ngClass]="location?.match('inbox') ? 'btn-inbox-active' : ''">
+					<img src="/assets/images/icons/inbox.png" style="height: 15px; margin-top: -2px" class="me-2"> 
+					Inbox <span class="float-end">5</span>
+				</button>
+
+				<button class="btn btn-primary-inbox mb-3 w-100" (click)="selectInboxType('sent')"
+				[ngClass]="location?.match('sent') ? 'btn-inbox-active' : ''">
+					<img src="/assets/images/icons/sent.png" style="height: 17px; margin-top: -2px" class="me-2"> 
+					Sent<span class="float-end">1</span>
+				</button>
+
+				<button class="btn btn-primary-inbox mb-3 w-100" (click)="selectInboxType('archive')"
+				[ngClass]="location?.match('archive') ? 'btn-inbox-active' : ''">
+					<img src="/assets/images/icons/archives.png" style="height: 17px; margin-top: -2px" class="me-2"> 
+					Archive<span class="float-end">2</span>
+				</button>
+			</div>
+
+			<div class="px-1 d-flex" [@animate]="{value:'*', params:{ y:'-10px', delay:'200ms' }}">
+				<div class="employee-details flex-wrap mb-2">
+					<dl class="">
+						<dd>
+							<strong class="me-2">Phone</strong> 
+							<span>{{employeeData?.mobile_phone_no  || employeeData?.work_phone  || employeeData?.home_phone_no  || '-'}}</span>
+						</dd>
+						<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+						<dd>
+							<strong class="me-2">Email</strong> 
+							<span>{{employeeData?.email_address || '-'}}</span>
+						</dd>
+					</dl>
+				</div>
+			</div>
+
+			
+
+		</ng-container>
+	</div>
+  
+</div>

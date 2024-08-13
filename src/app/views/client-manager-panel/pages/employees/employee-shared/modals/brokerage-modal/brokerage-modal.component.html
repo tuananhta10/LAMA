@@ -1,0 +1,53 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Brokerage Form</h5>
+		<hr>
+	</div>
+	<form [formGroup]="brokerageForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-md-6">
+					<app-textfield 
+						label="Default" 
+						[labelTop]="true"
+						formControlName="default">
+					</app-textfield>
+					<app-textfield 
+						label="Brokerage No" 
+						[labelTop]="true"
+						formControlName="brokerageNo">
+					</app-textfield>
+					<app-textfield 
+						label="Name" 
+						[labelTop]="true"
+						formControlName="name">
+					</app-textfield>
+				</div>
+				<div class="col-md-6">
+					<app-textfield 
+						label="Contact Name" 
+						[labelTop]="true"
+						formControlName="contactName">
+					</app-textfield>
+					<app-textfield 
+						label="Contact No" 
+						[labelTop]="true"
+						formControlName="contactNo">
+					</app-textfield>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+</div>

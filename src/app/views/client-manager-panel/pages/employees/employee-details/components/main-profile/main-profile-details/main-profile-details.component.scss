@@ -1,0 +1,266 @@
+@import "src/scss/colors";
+
+.add-new{
+    cursor: pointer;
+    background: $color-purple;
+    //vertical-align: center !important;
+    color: white !important;
+    padding: 2px 10px !important;
+
+    .material-icons{
+        font-size: 11px;
+        margin-right: 2px;
+        vertical-align: bottom;
+        margin-bottom: 3px;
+    }
+}
+
+.btn-active-employee{
+	padding: 8px 5px !important;
+	font-size: 11px;
+}
+
+h5{
+	color: #595959;
+	font-size: 13px;
+}
+
+.card-title{
+	line-height: 20px !important;
+	border: none !important;
+	padding-top: 10px !important;
+}
+
+.view-edit{
+    background: rgba(140, 127, 249, 0.1) !important;
+    color: $color-purple !important;
+    padding: 3px 15px !important;
+    cursor: pointer;
+    border-radius: 7px;
+    font-weight: 500 !important;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.shadow{
+	/* box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+	-webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+	-moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25); */
+	border-color: white !important;
+	background: white;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-2{
+	/* box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206);
+	-webkit-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206);
+	-moz-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206); */
+	border-color: white !important;
+	background: white;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+/* CLIENT DETAILS DATA */ 
+#employee-details,
+#employee-demographics,
+#employee-work-details,
+#employee-background{
+	@extend .shadow-2;
+	padding: 20px 10px 20px 20px !important;
+	padding-bottom: 0px !important;
+	// /border-radius: 20px;
+	border-radius: 8px;
+	font-size: 13px;
+	min-height: 250px;
+	color: #595959 !important;
+	padding-left: 30px;
+
+	.img-icon{
+		border-radius: 50%;
+		width: 42px;
+		height: 40px;
+		padding: 5px 0px 0px 6px;
+		margin-top: 3px;
+	}
+
+	dl{
+		dd{
+			padding-bottom: 2px !important;
+			padding-top: 2px !important;
+		}
+	}
+
+	.employee-img-icon{
+		&-details{
+			@extend .img-icon;
+			background: #BFE7FF;
+			img{
+				width: 26px;
+			}
+		}
+
+		&-work-details{
+			@extend .img-icon;
+			background: #FCDDEC;
+			img{
+				width: 26px;
+			}
+		}
+
+		&-demographics{
+			@extend .img-icon;
+			background: #E1FEB1;
+			height: 35px !important;
+			img{
+				width: 26px;
+			}
+		}
+
+		&-preference{
+			@extend .img-icon;
+			padding-bottom: 0;
+			padding-top: 11px;
+			padding-left: 5px;
+			background: #FCDDEC;
+
+			img{
+				width: 28px;
+			}
+		}
+
+		&-background{
+			@extend .img-icon;
+			background: none;
+			padding-top: 0;
+			img{
+				width: 38px;
+			}
+		}	
+	}
+
+	.employee-data{
+		padding-left: 13px;
+		padding-right: 20px;
+		width: 100%;
+	}
+
+	.card-title{
+		.float-end{
+			@extend .view-edit;
+		}
+	}
+
+	strong{
+	    color: #4D4D4D;
+	}
+
+	span{
+	    color: #767676;
+	}
+
+	::ng-deep .mat-radio-outer-circle {
+		border-color: #BDBDBD;
+	}
+
+	::ng-deep .mat-radio-checked  {
+		/* .mat-radio-outer-circle {
+			border-color: $color-purple !important;
+		} */
+
+		position: relative !important;
+
+		.mat-radio-inner-circle{
+	    	height: 27.5px !important;
+	    	width: 27.5px !important;
+	    	//background: red;
+	    	position: absolute !important;
+	    	left: -4px !important;
+	    	top: -4px !important;
+	    	border-radius: 50%;
+	    }
+	} 
+
+	::ng-deep .mat-radio-inner-circle, .mat-radio-outer-circle {
+	    background-color: $color-purple;
+	}
+
+	::ng-deep .mat-radio-ripple .mat-ripple-element {
+	    background-color: rgba($color-purple, 0.26);
+	}
+
+	::ng-deep .mat-radio-button{
+		margin-right: 10px;
+	} 
+}
+
+
+/* QUALIFICATIONS NOTES */
+#qualification-notes{
+	@extend .shadow;
+	padding: 20px 20px 10px 20px;
+	//border-radius: 20px;
+	border-radius: 8px;
+	background: white;
+	color: #595959;
+	//height: 307px;
+	//min-height: 520px;
+
+
+	.card-title{
+		.float-end { @extend .view-edit; }
+	}
+
+	.notes-container{
+		background: #F1F1F1;
+		border-radius: 5px;
+		padding: 8px 10px 2px 13px !important;
+
+
+		.btn-view-more{
+			@extend .shadow;
+			padding: 2px 15px !important;
+			margin-top: 5px;
+			margin-left: -4px;
+			background: white;
+			font-size: 10px;
+		}
+
+		p{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2; /* number of lines to show */
+			-webkit-box-orient: vertical;
+		}
+
+		.training{
+			background: $color-purple;
+			color: white;
+		}
+
+		.co-worker{
+			background: $color-orange;
+			color: white;
+		}
+
+		.summary{
+			background: $color-pink;
+			color: white;
+		}
+
+		.employee{
+			background: $color-blue;
+			color: white;
+		}
+	}
+
+}
+
+

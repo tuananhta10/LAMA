@@ -1,0 +1,71 @@
+<section class="p-3">
+	<h4 class="selection-title-outer">{{data?.first_name}} {{data?.last_name}} 
+		<ng-container *ngIf="data?.preferred_name">
+			({{data?.preferred_name}})
+		</ng-container>
+
+		<img src="/assets/images/icons/close-dialog.png" 
+		class="float-end mt-2" 
+		style="width: 13px; cursor: pointer;" 
+		(click)="dialogRef.close()"> 
+	</h4>
+	<hr>
+	
+	<div class="form">
+		<form class="comment-card" [formGroup]="commentForm">
+			<ckeditor
+			    formControlName="comment"
+			    [config]="editorConfig"
+			    (change)="onChange($event)"
+			    (editorChange)="onEditorChange($event)" 
+			    (ready)="onReady($event)"
+			    (focus)="onFocus($event)"
+			    (blur)="onBlur($event)"
+			    (contentDom)="onContentDom($event)"
+			    (fileUploadRequest)="onFileUploadRequest($event)"
+			    (fileUploadResponse)="onFileUploadResponse($event)"
+			    (paste)="onPaste($event)"
+			    (drop)="onDrop($event)"
+			    debounce="500">
+			  </ckeditor>
+
+			  <div class="text-end mt-2">
+			  	<button mat-button class="btn btn-header btn-header-gray me-3" (click)="dialogRef.close()">
+			  		Cancel
+			  	</button>
+
+			  	<button mat-button class="btn btn-primary" (click)="addComment()">
+			  		Add Comment
+			  	</button>
+			  </div>
+		</form>
+		
+	</div>
+
+	<div class="comments-section mt-4" *ngIf="!loading">
+		<ng-container *ngIf="comments?.length > 0">
+			<ng-container *ngFor="let item of comments">
+				<div class="w-100 mb-3">
+					<div class="d-flex pe-3">
+						<img [src]="item?.employee?.profile_pic_url || '/assets/images/icons/user-placeholder.png'" 
+						class="img-avatar me-3">
+
+						<div class="comment-details text-start">
+							<div class="d-flex ">
+								<h5 *ngIf="item?.admin_id">{{item?.admin?.name}}</h5>
+								<h5 *ngIf="item?.employee_id">{{item?.employee?.name}}</h5>
+								<h5 *ngIf="!item?.employee_id && !item?.admin_id">{{item?.name}}</h5>  | 
+								<p>{{item?.date || generateTempDate()}}</p>
+							</div>
+							<div [innerHtml]="item?.comment" [ngStyle]="generateStyling(item?.comment)"></div>
+						</div>
+
+						<img src="/assets/images/icons/carousel-delete.png" (click)="deleteComment(item)"
+						style="height: 26px; width: auto; cursor: pointer; margin-right: 20px !important;" class="mt-3 hvr-grow">
+					</div>
+					<hr>
+				</div>
+			</ng-container>
+		</ng-container>
+	</div>
+</section>

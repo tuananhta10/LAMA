@@ -1,0 +1,250 @@
+<div class="p-3">
+	<div class="w-100 mb-3">
+		<form action="" [formGroup]="switchServiceForm">
+			<app-radio-button 
+						label="Choose Accounting Service" 
+						[labelTop]="true"
+						formControlName="service"
+						[options]="radioOptions">
+					</app-radio-button>
+		</form>
+	</div>
+	<!-- DOCUMENT FILE DATA -->
+	<div [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="banner-container w-100">
+			
+			<h4>
+				{{switchServiceForm.controls['service'].value.toUpperCase()}} Integration
+			</h4>
+
+			<h5>
+				<span style="font-weight: 400 !important;">
+					Sync Records to {{switchServiceForm.controls['service'].value.toUpperCase()}}</span>
+			</h5>
+			<!-- <img src="/assets/images/placeholder/organization-banner-image.png" class="img-fluid banner-main"> -->
+			<img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+			<img src="/assets/images/placeholder/banner-eclipse-left.png" class="img-fluid banner-eclipse-left">
+			<!-- <img src="/assets/images/placeholder/banner-dots-right.png" class="img-fluid banner-dots-right">
+			<img src="/assets/images/placeholder/banner-eclipse-right.png" class="img-fluid banner-eclipse-right"> -->
+		</div>
+		<br>
+
+		<div class="mt-2"  *ngIf="listView && !loading"
+		style="min-height: 400px;">
+			<section [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+				<div class="w-100">
+				    <button class="btn" (click)="updateStepper(1)"
+				    [ngClass]="stepper === 1 ? 'btn-active-tab' : 'btn-active-next'">Account Settings</button>
+
+				    <button class="btn" (click)="updateStepper(2)"
+				    [disabled]="!accountAquired || !allowed"
+				    [ngClass]="stepper === 2 ? 'btn-active-tab' : 'btn-active-next'">Records to Sync</button>
+				</div>
+
+				<div class="card card-body py-3" *ngIf="stepper === 1"
+				[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+					<form [formGroup]="switchServiceForm.controls['service'].value === 'xero' ? xeroForm : myobForm" class="row my-5">
+						<div class="col-12 col-md-4 mb-3 px-5 text-center">
+							<img [src]="switchServiceForm.controls['service'].value === 'xero' ? '/assets/images/placeholder/xero-logo.png' : '/assets/images/placeholder/myob-logo.png'" class="img-fluid w-50">
+							<h5 class="mt-3">
+								{{switchServiceForm.controls['service'].value === 'xero' ? 'Xero' : 'MYOB'}}
+								Accounting Software
+							</h5>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<h5 class="ms-4">Account Details</h5>
+							<p class="ms-4">
+								You can find your 
+								{{switchServiceForm.controls['service'].value === 'xero' ? 'Xero' : 'MYOB'}}
+								details on your profile. To learn more about 
+								{{switchServiceForm.controls['service'].value }} 
+								you can visit this <a [href]=" switchServiceForm.controls['service'].value === 'xero' ? 'https://www.xero.com/au/' : 'https://www.myob.com/au/support?productview=Browser'" target="_blank">link.</a></p>
+
+							<div class="row" *ngIf="switchServiceForm.controls['service'].value === 'xero'">
+								<div class="col-12 col-md-6 mb-3 mt-lg-3">
+									<!-- <app-textfield 
+										label="Application Id"
+										[labelTop]="true"
+										[readonly]="true"
+										[required]="true"
+										placeholder="*********************"
+										formControlName="xero_app_id">
+									</app-textfield> -->
+									<app-textfield 
+										label="Client ID"
+										[labelTop]="true"
+										[readonly]="loggedUser?.role_title !== 'Lama Admin'"
+										[required]="true"
+										[inputType]="'password'"
+										placeholder="*********************"
+										[errorMessage]="xeroForm.get('client_id').hasError('pattern') ? 'Invalid Client Id' : ''"
+										formControlName="client_id">
+									</app-textfield>
+								</div>
+
+								<div class="col-12 col-md-6 mb-3 mt-lg-3">
+									<app-textfield 
+										label="Client Secret"
+										[labelTop]="true"
+										[readonly]="loggedUser?.role_title !== 'Lama Admin'"
+										[required]="true"
+										[inputType]="'password'"
+										placeholder="*********************"
+										[errorMessage]="xeroForm.get('client_secret').hasError('pattern') ? 'Invalid Client Secret' : ''"
+										formControlName="client_secret">
+									</app-textfield>
+<!-- 
+									<app-textfield 
+										label="Redirect Uri"
+										[labelTop]="true"
+										[required]="true"
+										formControlName="redirect_uri">
+									</app-textfield> -->
+
+									<div class="w-100 text-end pe-lg-4">
+										<button class="btn btn-primary" (click)="connectAccountToXero()"
+										[disabled]="!xeroForm.valid">Connect Account to Xero</button>
+									</div>
+								</div>
+								
+							</div>
+							<div class="row" *ngIf="switchServiceForm.controls['service'].value === 'myob'">
+								<ng-container *ngIf="!isAuthenticated">
+									<div class="col-12 col-md-6 mb-3 mt-lg-3">
+										<div class="w-100 text-end pe-lg-4">
+											<button class="btn btn-primary" (click)="connectAccountToMyob()"
+											[disabled]="false">Connect Account to Myob</button>
+										</div>
+									</div>
+								</ng-container>
+
+								<ng-container *ngIf="isAuthenticated">
+									<div class="row">
+										<div class="col-12 col-md-6 mb-3 mt-lg-3">
+											<!-- <app-textfield
+												label="Application Id"
+												[labelTop]="true"
+												[readonly]="true"
+												[required]="true"
+												placeholder="*********************"
+												formControlName="xero_app_id">
+											</app-textfield> -->
+											<app-dropdown
+												label="Choose Company File"
+												[labelTop]="true"
+												[readonly]="loggedUser?.role_title !== 'Lama Admin'"
+												[required]="true"
+												formControlName="company_file_id"
+												[options]="companyFileOptions"
+												>
+											</app-dropdown>
+											
+										</div>
+									</div>
+								</ng-container>
+
+								<ng-container *ngIf="isAuthenticated">
+									<div class="row">
+										<div class="col-12 col-md-6 mb-3 mt-lg-3" *ngIf="taxCodeOption.length !== 0">
+											<!-- <app-textfield
+												label="Application Id"
+												[labelTop]="true"
+												[readonly]="true"
+												[required]="true"
+												placeholder="*********************"
+												formControlName="xero_app_id">
+											</app-textfield> -->
+											<app-dropdown
+												label="Tax Code"
+												[labelTop]="true"
+												[readonly]="loggedUser?.role_title !== 'Lama Admin'"
+												[required]="true"
+												formControlName="taxcode"
+												[options]="taxCodeOption"
+												[disabled]="myobForm.get('company_file_id').hasError('required')"
+												>
+											</app-dropdown>
+										</div>
+										<div class="col-12 col-md-6 mb-3 mt-lg-3" *ngIf="myobAccountsOption.length !== 0">
+											<app-dropdown
+												label="Account"
+												[labelTop]="true"
+												[readonly]="loggedUser?.role_title !== 'Lama Admin'"
+												[required]="true"
+												formControlName="account"
+												[disabled]="myobForm.get('company_file_id').hasError('required')"
+												[options]="myobAccountsOption"
+												>
+											</app-dropdown>
+										<!--
+											<app-textfield
+												label="Redirect Uri"
+												[labelTop]="true"
+												[required]="true"
+												formControlName="redirect_uri">
+											</app-textfield> -->
+										</div>
+										<div class="w-100 text-end pe-lg-4">
+											<button class="btn btn-primary" (click)="myobSaveCompanyFile()"
+											[disabled]=" myobForm.get('company_file_id').hasError('required')">Apply</button>
+										</div>
+									</div>
+								</ng-container>
+								
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="card card-body py-1" *ngIf="stepper === 2"
+				[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+					<h5 class="main-title-sub mt-3">Contacts to Sync</h5>
+					<admin-reusable-list-view
+						(updateSelectedRowDialog)="syncDataDialog($event)"
+						[loading]="loading"
+						[componentTitle]="'Contact Record to Sync'"
+						[displayedColumns]="displayedColumns"
+						[selectedColumns]="selectedColumns"
+						[selectedColumnsMobile]="selectedColumns"
+						[maxRows]="25"
+						[isSync]="true"
+						[showImport]="false"
+						[showExport]="false"
+						[isDelete]="false"
+						[listDataSource]="syncContactData">
+					</admin-reusable-list-view>
+				</div>
+
+				<div class="card card-body pb-1 pt-4 mt-3" *ngIf="stepper === 2"
+				style="border: none !important;" 
+				[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+
+					<h5 class="main-title-sub">Invoice and Timesheet</h5>
+					<admin-reusable-list-view
+						(updateSelectedRowDialog)="syncDataDialog($event)"
+						[loading]="loading"
+						[componentTitle]="'Invoice Record to Sync'"
+						[displayedColumns]="displayedColumns"
+						[selectedColumns]="selectedColumns"
+						[selectedColumnsMobile]="selectedColumns"
+						[maxRows]="25"
+						[isSync]="true"
+						[showImport]="false"
+						[showExport]="false"
+						[isDelete]="false"
+						[listDataSource]="syncData">
+					</admin-reusable-list-view>
+				</div>
+			</section>
+		</div>
+
+
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

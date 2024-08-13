@@ -1,0 +1,183 @@
+
+<div *ngIf="!loading" class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="clientDetailForm">
+			<mat-card>
+				<!-- <mat-card-title *ngIf="isUpdate">
+					Client Detail
+					<hr>
+				</mat-card-title> -->
+				
+				<mat-card-content>
+					<div class="row pt-3">
+						<div class="col-12 col-md-1" style="position: relative;">
+							<div class="profile-container align-self-center">
+								<div class="img-circle"*ngIf="!imgSrc">
+								    <img class="image-placeholder" src="/assets/images/placeholder/avatar-gray.png">
+								</div>
+
+								<img *ngIf="imgSrc" [src]="imgSrc" class="image-placeholder-add mb-3">
+
+								<!-- formControlName="logo" -->
+								
+								<div class="uploader mt-2">
+									<app-field-upload
+									    label=""
+									    #upload
+									    [acceptType]="'image/png, image/gif, image/jpeg'"
+									    [labelTop]="true"
+									    [chips]="false"
+									    [subtitle]="'Upload'"
+									    (upload)="onUpload($event)"
+									    >
+									</app-field-upload>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-5" style="position: relative;">
+							<div class="line"></div>
+
+							<app-dropdown id="title"
+								label="Title" 
+								formControlName="title" 
+								[required]="true"
+								[options]="titleOptions" >
+							</app-dropdown>
+
+							<app-textfield id="first_name"
+								label="First Name" 
+								formControlName="first_name" 
+								[required]="true">
+							</app-textfield>
+
+							<app-textfield  id="last_name"
+								label="Last Name" 
+								formControlName="last_name" 
+								[required]="true">
+							</app-textfield>
+
+							<app-textfield id="preferred_name"
+								label="Preferred Name" 
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								formControlName="preferred_name">
+							</app-textfield>
+
+							<app-dropdown id="gender"
+								label="Gender" 
+								formControlName="gender" 
+								[required]="true"
+								[options]="genderOptions">
+							</app-dropdown>
+
+							<app-dropdown id="status"
+								*ngIf="clientDetailData?.id"
+								label="Status" 
+								formControlName="status" 
+								[options]="statusOption">
+							</app-dropdown>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-search-list id="preferred_language_id" 
+							label="Preferred language" 
+							placeholder="Select" 
+							formControlName="preferred_language_id"
+							[options]="languagesEnums" 
+							[newOption]="true"
+							[newOptionLabel]="'Language'"
+							[newOptionRoute]="'/admin/setup/languages'"
+							></app-search-list>
+
+							<app-textfield id="registration_no" 
+								label="NDIS Number" 
+								formControlName="registration_no">
+							</app-textfield>
+
+							<app-search-list id="main_branch" 
+								label="Main Branch" 
+								[required]="true"
+								formControlName="main_branch_id" 
+								placeholder="Select"
+								[options]="branchesEnum" 
+								[addOption]="true"
+								(addMethod)="openAddMainBranch($event)"
+							></app-search-list>
+
+							<app-radio-button id="pm_require_approval" 
+								label=" Invoices Requires Approval" 
+								formControlName="pm_require_approval" 
+								[info]="true"
+								[infoTitle]="'Whether the client wants to approve all invoices or not'"
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<ng-container *ngIf="clientDetailForm.controls['status'].value === 'inactive'">
+								<app-date-picker 
+									label="Last Day of Service" 
+									[labelTop]="false"
+									formControlName="last_date">
+								</app-date-picker>
+
+								<app-textarea 
+									label="Reason for Leaving" 
+									[labelTop]="false"
+									class="text-capitalize"
+									formControlName="reason_for_leaving">
+								</app-textarea>
+							</ng-container>
+						</div>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+					<div class="row">
+						<div *ngIf="!isUpdate" class="col-sm-12 justify-content-end d-flex">
+							<button mat-button class="btn btn-header btn-header-gray" 
+							(click)="saveAsDraft()" 
+							style="padding-left: 14px !important; padding-right: 14px !important;" 
+							*ngIf="!isUpdate || currentStatus === 'draft'" >
+								Save as Draft
+							</button>
+							
+							<button (click)="next()" 
+							[disabled]="!clientDetailForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+
+							
+						</div>
+					</div>
+					<div *ngIf="isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" 
+							*ngIf="storageStep"
+							mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+								Next
+							</button>
+							
+							<button (click)="submit()" 
+							[disabled]="!clientDetailForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Save
+							</button>
+						</div>
+					</div>
+				</mat-card-actions>
+
+			</mat-card>
+		</form>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>

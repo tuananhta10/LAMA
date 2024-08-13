@@ -1,0 +1,63 @@
+<section id="compliance-check">
+	<div class="card card-body mb-3 pt-4" style="min-height: 415px;">
+		<h5 class="document-title">Compliance Check
+			<!-- <a type="button" class="add-new btn ms-1 text-white" 
+			style="color: white !important;" 
+			(click)="submitUpdateComplianceDoc()"> 
+				<span class="material-icons text-white">add</span>Add
+			</a> -->
+			<a class="float-end view-edit" (click)="openViewAllCompliance()">View All</a>
+		</h5>
+
+		<table class="table mt-2" *ngIf="complianceFile?.length > 0; else showEmptyCompliance">
+			<tr>
+				<th style="width: 20px;"></th>
+				<th class="file-title-head">Name</th>
+				<th class="file-title-date-head text-end">Expiry Date</th>
+				<th class="file-title-date-head text-end">Status</th>
+			</tr>
+
+			<tr *ngFor="let item of complianceFile.slice(0, 7)"
+			(click)="submitUpdateComplianceDoc(item)">
+				<td style="width: 20px;">
+					<img src="/assets/images/icons/id-license.png" width="32px" 
+					*ngIf="item?.type === 'License' 
+						|| item?.type === 'Form Document'">
+
+					<img src="/assets/images/icons/certificate-file.png" width="32px" 
+					*ngIf="item?.type === 'Clearance' 
+						|| item?.type === 'Experience' 
+						|| item?.type === 'Education'
+						|| item?.type === 'Training'">
+
+					<img src="/assets/images/icons/id-passport.png" width="32px" 
+					*ngIf="item?.type === 'Legal Document'">
+
+					<img src="/assets/images/icons/certificate-file-2.png" width="32px" 
+					*ngIf="item?.type === 'Certification'">
+
+					<img src="/assets/images/icons/folder-file.png" width="32px" 
+					*ngIf="item?.type === 'Other' || !item?.type">
+				</td>
+				<td class="file-title">{{item?.qualification_name}}</td>
+				<td class="file-title-date text-end">
+					{{ item?.expiry_date ? (item?.expiry_date * 1000 | date: 'dd-MM-yyyy') : '-'}}
+				</td>
+				<td class="file-title-date text-end" style="width: 20px;">
+					<img src="/assets/images/icons/inactive-status.png" width="32px" 
+					*ngIf="item?.status === 'Expired'">
+					
+					<img src="/assets/images/icons/active-status.png" width="32px" 
+					*ngIf="item?.status === 'Valid'">
+
+					<img src="/assets/images/icons/pending-status.png" width="32px" 
+					*ngIf="item?.status === 'Pending'">
+				</td>
+			</tr>
+		</table>
+
+		<ng-template #showEmptyCompliance>
+			<div class="mt-2">List of Employee Position compliance document is currently empty.</div>
+		</ng-template>
+	</div>
+</section>

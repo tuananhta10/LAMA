@@ -1,0 +1,75 @@
+<div class="card card-body mt-3 py-5 px-md-5">
+	
+	<form [formGroup]="letterHeadForm">
+		
+		<div class="row">
+			<div class="col-12 col-lg-6">
+				<h5 class="mb-4 text-start">Branch Logo</h5>
+				
+				<div class="text-center letter-head-main">
+					<div class="letter-head-container d-flex">
+						<div class="flex-wrap">
+							<div class="img-circle"*ngIf="!imgSrc">
+							    <img class="image-placeholder" src="/assets/images/placeholder/placeholder-png.png">
+							</div>
+
+							<img *ngIf="imgSrc" [src]="imgSrc" class="image-placeholder-add mb-3">
+
+						</div>
+						<!-- formControlName="logo" -->
+						
+						<div class="uploader flex-wrap mt-5">
+							<app-field-upload
+							    [label]="imgSrc ? '' : 'Upload Branch Logo'"
+							    #upload
+							    [acceptType]="'image/png, image/gif, image/jpeg'"
+							    [labelTop]="true"
+							    [chips]="true"
+							    [subtitle]="'Choose File'"
+							    (upload)="onUpload($event)"
+							    >
+							</app-field-upload>
+						</div>
+
+						
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-lg-6">
+				
+
+				<div class="contact-details">
+					
+					<h5 class="text-start mb-4 ms-4">Contact Details</h5>
+					<div class="row">
+						<div class="col-12 col-md-12">
+							<app-textfield 
+								label="Phone" 
+								[labelTop]="true"
+								[inputType]="'tel'"
+								formControlName="phone" 
+								[required]="true">
+							</app-textfield>
+
+
+						</div>
+
+						<div class="col-12 col-md-12">
+							<app-textfield 
+								label="Email" 
+								[labelTop]="true"
+								[inputType]="'email'"
+								formControlName="email_address" 
+								[required]="true">
+							</app-textfield>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

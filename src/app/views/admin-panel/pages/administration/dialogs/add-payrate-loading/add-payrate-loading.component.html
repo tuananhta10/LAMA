@@ -1,0 +1,84 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Payrate Loading
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form [formGroup]="newPayrateLoadingForm">
+		<div mat-dialog-content>
+            <app-textfield 
+                label="Name"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="name">
+            </app-textfield>
+
+            <app-dropdown 
+                label="Employment Type" 
+                [labelTop]="true"
+                formControlName="employment_type" 
+                [required]="true"
+                [options]="employmentTypeOptions">
+			</app-dropdown>
+
+            <app-dropdown 
+                label="Applicable Day" 
+                [labelTop]="true"
+                formControlName="applicable_day" 
+                [required]="true"
+                [options]="applicableDayOptions">
+            </app-dropdown>
+
+            <app-time-analog
+                label="Start Time"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="start_time">
+            </app-time-analog>
+
+            <app-time-analog 
+                label="End Time"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="end_time">
+            </app-time-analog>
+
+            <app-textfield 
+                label="Loading Rate %"
+                [inputType]="'number'"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="loading_rate">
+            </app-textfield>
+
+            <!-- <app-dropdown 
+                label="Pay Item" 
+                [labelTop]="true"
+                formControlName="pay_item" 
+                [options]="payItemOptions">
+            </app-dropdown> -->
+
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!newPayrateLoadingForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data else showSave">Add</span>
+                    <ng-template #showSave>Save</ng-template>   
+                </button>
+			</div>
+		</div>
+	</form>
+
+</div>

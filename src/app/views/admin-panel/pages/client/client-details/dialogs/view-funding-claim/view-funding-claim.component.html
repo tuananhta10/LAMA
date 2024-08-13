@@ -1,0 +1,161 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+			Funding Claim: {{data?.invoice_name}}
+		</h5>
+		<hr>
+	</div>
+
+	<form [formGroup]="fundingClaimForm" *ngIf="!loading">
+		<div class="w-100">
+		    <button class="btn" (click)="stepper = 1"
+		    [ngClass]="stepper === 1 ? 'btn-active-tab' : 'btn-active-next'">Funding Claim Details
+			</button>
+
+		    <button class="btn" (click)="stepper = 2"
+		    [ngClass]="stepper === 2 ? 'btn-active-tab' : 'btn-active-next'">Claim Batches</button>
+		</div>
+
+		<div mat-dialog-content>
+			<div class="card card-body pt-4" *ngIf="stepper === 1"
+			style="max-width: 750px">
+				<div class="row">
+					<div class="col-sm-12 col-md-6">
+						<app-textfield 
+							label="Name" 
+							[labelTop]="true"
+							[required]="true"
+							[readonly]="true"
+							formControlName="invoice_name">
+						</app-textfield>
+
+						<app-date-picker 
+						    label="Start Date"
+						    [labelTop]="true"
+						    [required]="true"
+						    [disabled]="true"
+						    formControlName="start_date">
+						</app-date-picker >
+
+						<app-date-picker 
+						    label="End Date"
+						    [labelTop]="true"
+						    [required]="true"
+						    [disabled]="true"
+						    formControlName="end_date">
+						</app-date-picker >
+
+						<app-time-picker 
+							label="Time Created" 
+							[labelTop]="true"
+							[disabled]="true"
+							formControlName="time_created">
+						</app-time-picker>
+
+						<app-textfield 
+							label="Created By" 
+							[labelTop]="true"
+							[required]="true"
+							[readonly]="true"
+							class="text-capitalize"
+							formControlName="created_by">
+						</app-textfield>
+
+						
+					</div>
+
+					<div class="col-sm-12 col-md-6">
+						<app-textfield 
+							label="Type" 
+							[labelTop]="true"
+							[required]="true"
+							[readonly]="true"
+							formControlName="invoice_type">
+						</app-textfield>
+
+						<app-textfield 
+						    label="Funding Source"
+						    [labelTop]="true"
+						    [required]="true"
+						    [readonly]="true"
+						    formControlName="funding_source_code">
+						</app-textfield >
+
+						<!-- <app-textfield 
+						    label="Invoice Batch"
+						    [labelTop]="true"
+						    [readonly]="true"
+						    formControlName="invoice_batch">
+						</app-textfield > -->
+						
+						<hr>
+
+						<app-textfield 
+						    label="Total Hours"
+						    [labelTop]="true"
+						    [inputType]="'number'"
+						    [readonly]="true"
+						    formControlName="invoice_total_hours">
+						</app-textfield >
+
+						<app-textfield 
+						    label="Total Amount"
+						    [labelTop]="true"
+						    [inputType]="'number'"
+						    [readonly]="true"
+						    formControlName="invoice_total_amount">
+						</app-textfield >
+
+						<app-date-picker  
+							label="Date Created" 
+							[labelTop]="true"
+							[disabled]="true"
+							formControlName="invoice_date_added">
+						</app-date-picker >
+					</div>
+				</div>
+			</div>
+
+			<div class="card card-body pt-4" *ngIf="stepper === 2">
+				<client-reusable-list-view
+					(viewDetails)="openAddInvoicesModal($event)"
+					(updateSelectedRowDialog)="openAddInvoicesModal($event)"
+					(deleteSelectedRow)="deleteDataDialog($event)"
+					[loading]="loading"
+					[componentTitle]="'Invoice Items'"
+					[displayedColumns]="displayedColumns"
+					[selectedColumns]="selectedColumns"
+					[selectedColumnsMobile]="selectedColumns"
+					[searchSource]="searchSource"
+					[maxRows]="25"
+					[isDelete]="true"
+					[listDataSource]="invoiceItems"
+					[showDateFilter]="true"
+					[dateSource]="'date_created'">>
+				</client-reusable-list-view>
+			</div>
+		</div>
+
+		<div mat-dialog-actions>
+			<div class="row text-center mb-3 w-100">
+				<div class="col-sm-12 text-center w-100">
+					<hr><br>
+
+					<button mat-button (click)="close()" 
+					class="btn btn-header-gray btn-header me-3">Close</button>
+
+					<button mat-button (click)="save()" 
+					cdkFocusInitial class="btn btn-primary btn-header me-3">Download Claim File</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<global-admin-loader 
+	    [withSideBar]="false"
+	    [fromDetailTab]="true"
+	    [loading]="loading"
+	    [formOnly]="true">
+	</global-admin-loader>
+
+</div>

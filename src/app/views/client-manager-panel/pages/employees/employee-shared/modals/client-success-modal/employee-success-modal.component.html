@@ -1,0 +1,50 @@
+<div class="row">
+	<div class="col-md-12 text-center mb-3 congrats-container">
+		<p class="header-msg">Congratulations!</p>
+		<p class="header-text">Congratulations for adding a new employee to your team!</p>
+		<img src="/assets/images/placeholder/congrats-main.png" class="img img-fluid">
+	</div>
+
+	<div class="col-md-12 text-center mb-3 congrats-container">
+		<h5 class="header-text-next">Things you can do next</h5>
+	</div>
+
+	<section class="row px-5 ms-2 congrats-action-container">
+		<div class="col-12 col-md-2"></div>
+
+		<div class="col-12 col-md-4 text-center mb-3 px-2">
+			<div class="card-action client-documents hvr-grow">
+				<div class="img-container">
+					<img src="/assets/images/placeholder/upload-docs-congrats.png">
+				</div>
+
+				<p class="header-text-action mt-2">Upload Documents</p>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-4 text-center mb-3 px-2">
+			<div class="card-action client-profile hvr-grow">
+				<div class="img-container">
+					<img src="/assets/images/placeholder/visit-profile-congrats.png">
+				</div>
+
+				<p class="header-text-action mt-2">Visit Employee Profile</p>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-2"></div>
+
+	</section>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container">
+		<div class="col-md-6 offset-md-3 text-center">
+			<button 
+			mat-button 
+			(click)="navigateToEmployees()" 
+			cdkFocusInitial 
+			class="btn btn-primary btn-header">Done</button>
+		</div>
+	</div>
+</div>

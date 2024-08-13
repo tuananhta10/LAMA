@@ -1,0 +1,221 @@
+<!-- <global-admin-loader *ngIf="loading"
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader> -->
+
+<div class="container-fluid p-0" *ngIf="!loading">
+	<div>
+		<div class="d-flex">
+			<div class="search-div me-1" style="width: 250px;">
+				<div class="input-group">
+				  <img src="/assets/images/icons/search.png">
+				  
+				  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				  [(ngModel)]="searchBy" (ngModelChange)="searchDataSource()">
+				</div>
+			</div>
+
+			<div class="table-controls-container">
+				<span class="flex-wrap dropdown pt-1 pt-sm-2 pt-md-1 mx-0">
+					<button class="px-0 btn-secondary-filter me-0" 
+					type="button" id="lengthFilter" data-bs-toggle="dropdown" aria-expanded="false">
+					{{selectedBranch || 'Branches'}}
+						<span class="material-icons">expand_more</span>
+					</button>
+
+					<ul class="dropdown-menu" aria-labelledby="lengthFilter">
+						<li>
+							<a class="dropdown-item" (click)="filterByBranch('')">All</a>
+						</li>
+						<li *ngFor="let item of mainBranchEnum">
+							<a class="dropdown-item" (click)="filterByBranch(item?.name)">{{item?.name}}</a>
+						</li>
+					</ul>
+				</span>
+			</div>
+			
+		</div>
+	</div>
+	<hr style="border: dashed #a9a9a9 1px !important">
+
+	
+	<!-- <button class="btn btn-scroller" *ngIf="!!scroller?.left"
+	style="position: fixed; top: 55vh; left: 5px; z-index: 999 !important" 
+	(click)="scrollLeftButton()"><img src="/assets/images/icons/arrow-white-right.png" class="arrow-left"></button>
+
+	<button class="btn btn-scroller" *ngIf="!!scroller?.right"
+	style="position: fixed; top: 55vh; right: 5px; z-index: 999 !important"  
+	(click)="scrollRightButton()"><img src="/assets/images/icons/arrow-white-right.png" class="arrow-right"></button> -->
+
+	<div class="row mb-4 mt-0 p-0 min-height-parent parent grabbable"
+	style="overflow-x: hidden; transition: transform 1s ease-out !important;" 
+	cdkScrollable #elemt [@scrollAnimation]="animationState"
+	(mousedown)="!loading ? startDragging($event, false, elemt) : ''" 
+	(mouseup)="stopDragging($event, false)"
+	(mouseleave)="stopDragging($event, false)" 
+	(mousemove)="moveEvent($event, elemt)"
+	id="mainReferralGrid" cdkDropListGroup>
+		<ng-container *ngFor="let details of dataStatus">
+		 	<div [id]="details?.title_sub" 
+		 	cdkDropList 
+		 	[cdkDropListData]="details?.data"
+		 	class="referral-details parent col-12 col-md-6 col-lg-2 px-2" 
+		 	(cdkDropListDropped)="drop($event)">
+	 			<button class="btn btn-status"
+	 			[ngClass]="details?.title_sub">{{details?.title}} 
+	 				<span class="count float-end">
+	 					({{details?.data?.length}})
+	 				</span>
+	 			</button>
+
+	 			<div class="card card-body mt-3 mb-3 grabbable" cdkDrag 
+	 			*ngFor="let item of details?.data"
+	 		 	(mouseEnter)="stopDragging($event, false)"
+	 		 	(click)="stopDragging($event, false); mouseDown = false"
+	 		 	(mouseDown)="stopDragging($event, false)"
+	 		 	style="min-height: 200px !important; padding: 0px !important;">
+
+	 				<div style="border-radius: 3px !important;" 
+	 				[ngClass]="details?.title_sub + '-child'">
+	 					<button mat-icon-button 
+	 					[matMenuTriggerFor]="menu" 
+	 					class="float-end menu-item">
+	 						<mat-icon>more_horiz</mat-icon>
+	 					</button>
+
+	 					<mat-menu #menu="matMenu">
+	 						<button mat-menu-item routerLink="/admin/referrals/details/{{item?.id}}">
+	 							<span>Edit Details</span>
+	 						</button>
+	 						<!-- <button mat-menu-item>
+	 							<span>Archive</span>
+	 						</button> -->
+
+	 						<button mat-menu-item (click)="referralComments(item)">
+	 							<span>Comments</span>
+	 						</button>
+
+	 						<button mat-menu-item (click)="deleteDataDialog(item)">
+	 							<span class="text-danger">Delete</span>
+	 						</button>
+	 					</mat-menu>
+
+	 					<p class="main-title ms-3 text-truncate" [title]="item?.name">
+	 						{{ item?.name }} 
+	 						<ng-container *ngIf="item?.preferred_name">({{item?.preferred_name}})</ng-container>
+	 					</p>
+	 				</div>
+
+	 				<div class="py-3 px-1 pe-3 bg-white">
+	 					<!-- <div class="mt-1 ms-2" *ngIf="item?.disability_type"
+	 					[title]="item?.disability_type !== 'Other' ? item?.disability_type : item?.disability_type_other">
+	 						<div class="me-3">
+	 							<div class="sub-title">Disability Type</div>
+	 						</div>
+	 						
+	 						<button class="btn btn-disability float-end text-truncate"
+	 						style="margin-top: -27px; max-width: 165px;" 
+	 						[title]="item?.disability_type !== 'Other' ? item?.disability_type : item?.disability_type_other"
+	 						[ngClass]="details?.title_sub">
+	 							<ng-container *ngIf="!item?.disability_type_other">
+	 								{{item?.disability_type}} 
+	 							</ng-container>
+	 							<ng-container *ngIf="item?.disability_type_other">{{item?.disability_type_other}}</ng-container>
+	 						</button>
+
+	 						
+	 						<div class="w-50">
+	 							<div class="sub-title">Funding</div>
+	 							
+	 							<button class="btn btn-funding text-capitalize">
+	 								{{item?.ndis_funding || 'Not Specificied'}}
+	 							</button>
+	 						</div>
+	 					</div>
+
+	 					<hr style="border: dashed #a9a9a9 1px !important" *ngIf="item?.ndis_participant_number || item?.birthdate || item?.branch_name">  -->
+
+	 					<div class="date-details ps-3">
+	 						<div class="d-flex justify-content-between">
+	 							<strong>Branch Name</strong>
+	 							<div class="branch text-center">{{item?.branch_name || '-'}} </div> 
+	 						</div>
+	 					</div>
+
+	 					<!-- <hr style="border: dashed #a9a9a9 1px !important; margin-bottom: 5px !important; margin-top: 10px !important;"  >
+
+	 					<div class="mb-2 date-details mt-2 ps-3">
+	 						<p class="mt-2 mb-0"><strong>NDIS Number:</strong> 
+	 							<span class="float-end">
+	 								{{item?.ndis_participant_number || '--'}}
+	 							</span>
+	 						</p>
+	 					</div> -->
+
+	 					<span class="main-description pt-3">
+	 						<hr style="border: dashed #a9a9a9 1px !important; 
+	 						margin-top: 5px !important; margin-bottom: 5px;">
+
+	 						<div class="d-flex ps-3 mt-2 mb-2">
+ 								<img src="/assets/images/icons/location.png" width="11px" height="14px" class="me-1" style="margin-top: 2px">
+
+ 								<div>
+ 									<div *ngIf="item?.address_a || item?.suburb || item?.state">
+ 										<ng-container 
+ 										*ngIf="item?.address_a && item?.address_a?.length > 3">
+ 										{{item?.address_a + ','}} </ng-container>
+ 										<ng-container *ngIf="item?.suburb  && item?.suburb?.length > 3">
+ 										{{item?.suburb + ','}} </ng-container>
+ 										<ng-container *ngIf="item?.state">
+ 										{{item?.state}} </ng-container>
+ 									</div>
+
+ 									<div *ngIf="!item?.address_a && !item?.suburb && !item?.state">
+ 										--
+ 									</div>
+ 								</div>
+	 						</div>
+
+	 						<div class="d-flex ps-3 mb-2" >
+ 								<img src="/assets/images/icons/phone-referral.png" width="11px" height="13px" class="me-1" style="margin-top: 2px">
+
+ 								<div> 
+ 									{{item?.mobile_phone_no?.length > 3 ? item?.mobile_phone_no : '--'}}
+ 								</div>
+	 						</div>
+	 		
+	 						<div class="d-flex ps-3 mb-2" >
+ 								<img src="/assets/images/icons/email-referral.png" width="13px" height="11px" class="me-1 mt-1">
+
+ 								<div class="text-truncate" [title]="item?.email_address">
+ 									{{item?.email_address?.length > 3 ? item?.email_address : '--'}}
+ 								</div>
+	 						</div>
+	 					</span>
+	 					
+	 					<!-- <div class="date-details ps-3" *ngIf="item?.referrer_full_name">
+	 						<hr style="border: dashed #a9a9a9 1px !important; margin-top: 10px !important; margin-bottom: 10px !important;">
+	 						<p class="mb-0"><strong>Referred By:</strong> 
+	 							<span class="float-end">
+	 								{{ item?.referrer_full_name }} 
+	 							</span>
+	 						</p>
+	 					</div> -->
+
+	 					<div class="date-details ps-3">
+	 						<hr style="border: dashed #a9a9a9 1px !important; margin-top: 5px !important; margin-bottom: 5px !important;">
+	 						<div class="mb-0 text-truncate d-flex justify-content-between" 
+	 						[title]="item?.employee_name">
+	 							<strong>Assigned Staff:</strong> 
+	 							<div>
+	 								{{ (item?.employee_name | nameFormat) || '--' }} 
+	 							</div>
+	 						</div>
+	 					</div>
+	 				</div>
+	 			</div>
+		 	</div>
+		</ng-container>
+	</div>
+</div>

@@ -1,0 +1,67 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Upload File</h5>
+		<hr>
+	</div>
+    <div mat-dialog-content>
+        <form class="px-0" *ngIf="data?.forPricelist" [formGroup]="data?.versionForm">
+            <app-textfield
+                label="Version Name" 
+                [labelTop]="true"
+                [required]="true"
+                formControlName="version">
+            </app-textfield>
+
+            <app-date-picker 
+                label="Effective Date" 
+                [labelTop]="true"
+                [required]="true"
+                formControlName="effective_date">
+            </app-date-picker>
+        </form>
+
+        <div class="row" [ngClass]="data?.forPricelist ? 'px-4' : ''">
+            <div class="col-12 col-md-12">
+                <div
+                appFileDrop
+                *ngIf="!uploadedFile"
+                class="upload-container-modal py-3 w-100"
+                (whenFileDropped)="onFileChangeEvent($event, true)"
+                (click)="uploadFile.click()">
+                    <input #uploadFile hidden type="file" (change)="onFileChangeEvent($event)" [accept]="data.fileType" multiple/>
+                    <div class="px-3 text-center py-4">
+                        <span><br>Drop file here or click to <br>
+                            <button type="button" class="btn btn-uploader">
+                                <img src="/assets/images/icons/import.png" style="width: 40px;"><br>
+                                <span class="mt-2">Upload</span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="upload-chips" style="min-height: 50px;" *ngIf="uploadedFile">
+                    <div class="d-flex">
+                        <mat-chip-list>
+                        <mat-chip class="mat-chip-height">
+                            <span class="chip-text truncate">{{uploadedFile.name}}</span>
+                            <mat-icon (click)="removeFile()" matChipRemove>close</mat-icon>
+                        </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div class="text-center mb-3 px-0 w-100">
+            <hr><br>
+            <button mat-button (click)="close()" 
+            class="btn  btn-header btn-danger me-3">Cancel</button> 
+
+            <button mat-button (click)="upload()"
+            [disabled]="checking"
+            cdkFocusInitial class="btn btn-primary btn-header me-3">
+                <span>Upload</span>
+            </button>
+        </div>
+    </div>
+</div>

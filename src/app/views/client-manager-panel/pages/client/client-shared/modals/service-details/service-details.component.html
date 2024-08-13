@@ -1,0 +1,153 @@
+<div class="row" *ngIf="!loading" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="serviceDetailsForm">
+			<mat-card>
+				<mat-card-title>
+					Service Details
+					<hr>
+				</mat-card-title>
+				<mat-card-content>
+					<div class="row">
+						<div class="col-sm-12 col-md-6">
+							<app-search-list 
+								label="Program" 
+								[labelTop]="true"
+								formControlName="program"
+								[options]="programsEnum" 
+								[addOption]="true" 
+								(addMethod)="openAddProgram($event)"
+							></app-search-list>
+
+							<app-date-picker 
+								label="Entry Date" 
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[labelTop]="true"
+								formControlName="entryDate">
+							</app-date-picker>
+
+							<app-dropdown 
+								label="Service Required" 
+								[labelTop]="true"
+								formControlName="serviceRequired" 
+								[options]="serviceRequiredOptions">
+							</app-dropdown>
+
+							<app-dropdown 
+								label="Service Location" 
+								[labelTop]="true"
+								formControlName="serviceLocation" 
+								[options]="serviceLocationOptions">
+							</app-dropdown>
+
+							<app-date-picker 
+								label="Last Service Date" 
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[labelTop]="true"
+								formControlName="lastServiceDate">
+							</app-date-picker>
+						</div>
+						
+						<div class="col-sm-12 col-md-6">
+							<app-date-picker 
+								label="End of Service Date" 
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[labelTop]="true"
+								formControlName="endOfServiceDate">
+							</app-date-picker>
+
+							<app-search-list 
+								label="Minimum Classification" 
+								[labelTop]="true"
+								formControlName="program"
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[options]="classificationsEnums" 
+								[addOption]="true" 
+								(addMethod)="openAddMinimumClassification($event)"
+							></app-search-list>
+
+							<app-date-picker 
+								label="Exit Date" 
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[labelTop]="true"
+								formControlName="exitDate">
+							</app-date-picker>
+
+							<app-textarea 
+								label="Risk Notification" 
+								[info]="true"
+								[infoTitle]="'If client would like to be referred to by anything other than their first name, enter their preferred name here'"
+								[labelTop]="true"
+								formControlName="riskNotification">
+							</app-textarea>
+						</div>
+					</div>
+					<div *ngIf="isUpdate" class="row">
+						<div class="col-md-12">
+							<app-form-table
+								label='Client Funding'
+								[columns]="clientFundingColumns"
+								[data]="clientFundingData"
+								(addEvent)="openClientFundingModal($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+						<div class="col-md-6">
+							<app-form-table
+								label='Service Template'
+								[columns]="serviceTemplateColumns"
+								[data]="serviceTemplateData"
+								(addEvent)="openServiceTemplateModal($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+						<div class="col-md-6">
+							<app-form-table
+								label='Plan Review'
+								[columns]="planReviewColumns"
+								[data]="planReviewData"
+								(addEvent)="openPlanReviewModal($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+						<div class="col-md-12">
+							<app-form-table
+								label='Client Goal'
+								[columns]="clientGoalColumns"
+								[data]="clientGoalData"
+								(addEvent)="openClientGoalModal($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+					<div class="row">
+						<div class="col-sm-12 justify-content-end d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+
+							<button (click)="submit()"
+							[disabled]="!serviceDetailsForm.valid" 
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+						</div>
+					</div>
+				</mat-card-actions>
+			</mat-card>
+		</form>
+	</div>
+</div>
+<global-admin-loader [loading]="loading"></global-admin-loader>

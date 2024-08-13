@@ -1,0 +1,221 @@
+<ng-container *ngIf="!labelTop">
+    <div class="text-input">
+        <div class="d-flex">
+            <div class="container-label flex-wrap me-3 justify-content-end d-flex align-items-center">
+                <div class="d-flex">
+                    <p [innerHtml]="label"></p>
+                    <div *ngIf="required" class="asterisk-required">*</div>
+                </div>
+            </div>
+            <div class="container-input flex-wrap">
+                <div class="d-flex">
+
+                    <span class="img-container">
+                        <img [src]="img_icon" class="img-fluid">
+                    </span>
+
+                    <input type="text"
+                    *ngIf="!isTextArea"
+                    class="remove-border-left-radius text-capitalize"
+                    [required]="required" 
+                    [readonly]="disabled"  
+                    [placeholder]="placeholder" 
+                    [disabled]="disabled"
+                    [formControl]="inputControl"
+                    [value]="inputControl?.value"
+                    [matAutocomplete]="auto"
+                    (input)="checkInput($event)"
+                    [title]="inputControl?.value"
+                    (blur)="!disabled ? onTouch($event) : ''"
+                    [ngClass]="[isTouched ? 'error' : '']">
+    
+                    <textarea
+                    *ngIf="isTextArea"
+                    class="remove-border-left-radius full-width text-capitalize"
+                    [required]="required" 
+                    [readonly]="disabled"  
+                    [placeholder]="placeholder" 
+                    [disabled]="disabled"
+                    [formControl]="inputControl"
+                    [matAutocomplete]="auto"
+                    (input)="checkInput($event)"
+                    [title]="inputControl?.value"
+                    [value]="inputControl?.value"
+                    [rows]="rows"
+                    (blur)="!disabled ? onTouch($event) : ''"
+                    [ngClass]="[isTouched ? 'error' : '']">
+                    </textarea>
+                    
+                    <mat-autocomplete class="search-list"  #auto="matAutocomplete">
+                        <div class="bg-add-option" (click)="navigateToOption()" *ngIf="newOption">
+                            Add {{newOptionLabel}} 
+                            <img src="/assets/images/icons/carousel-add.png" 
+                            class="ms-1" style="height: 17px; margin-top: -2px;">
+                        </div>
+
+                        <!-- <mat-option *ngIf="addOption" (click)="onValueChanged('addValue')" [value]="'addValue'"><span class="add-msg">Add Value</span><span class="add-icon">+</span></mat-option> -->
+                        <mat-option [ngClass]="isTextArea ? 'wrap-long-text' : ''"
+                        *ngFor="let item of filteredOptions | async" 
+                        (click)="onValueChanged(item)" [value]="item">
+                            <span *ngIf="withSubtoolTip"  matTooltipPosition="above" matTooltipPosition="above" [matTooltip]="formatToolTipMessage(item)" class="text-capitalize font-dropdown" [innerHtml]="item?.name?.trim() || item?.value?.trim() || item?.text?.trim()">
+                            </span>
+
+                            <span *ngIf="!withSubtoolTip" class="text-capitalize font-dropdown" [innerHtml]="item?.name?.trim() || item?.value?.trim() || item?.text?.trim()">
+                            </span>
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+            </div>
+
+            <div class="container-info">
+                <span class="img-info-container" *ngIf="info">
+                    <img src="/assets/images/icons/info-input-icon.png" 
+                    [matTooltip]="infoTitle"
+                    matTooltipPosition="above"
+                    class="img-fluid">
+                </span>
+            </div>
+        </div>
+    </div> 
+
+    <p *ngIf="notInList" class="text-danger not-in-list">Please select an option from the list</p>
+</ng-container>
+
+
+<ng-container *ngIf="labelTop">
+    <div class="text-input">
+        <div>
+            <p class="label-top text-start text-truncate">
+                <span [innerHtml]="label"></span>
+                <span *ngIf="required" class="asterisk-required">*</span>
+            </p> 
+        </div>
+
+        <div class="container-input pt-2 px-md-4"
+        [ngStyle]="{
+            'width': labelTop ? '100%': '',
+            'margin-left': labelTop ? '0px': ''
+        }">
+            <div class="d-flex">
+                <span class="img-container">
+                    <img [src]="img_icon" class="img-fluid"
+                    [ngClass]="isTextArea && rows > 1 ? 'margin-top-2' 
+                    : isTextArea && rows == 1 ? 'margin-top-3' 
+                    : ''">
+                </span>
+
+                <input type="text"
+                *ngIf="!isTextArea"
+                class="remove-border-left-radius text-capitalize"
+                [required]="required" 
+                [readonly]="readonly"  
+                [placeholder]="placeholder" 
+                [disabled]="disabled"
+                [formControl]="inputControl"
+                [matAutocomplete]="auto"
+                [value]="inputControl?.value"
+                (input)="checkInput($event)"
+                [title]="inputControl?.value"
+                (blur)="!disabled ? onTouch($event) : ''"
+                [ngClass]="[isTouched ? 'error' : '']">
+
+                <textarea style="min-height: 28px !important;"
+                *ngIf="isTextArea"
+                class="remove-border-left-radius full-width text-capitalize"
+                [required]="required" 
+                [readonly]="readonly"  
+                [placeholder]="placeholder" 
+                [disabled]="disabled"
+                [formControl]="inputControl"
+                [value]="inputControl?.value"
+                [matAutocomplete]="auto"
+                (input)="checkInput($event)"
+                [title]="inputControl?.value"
+                [rows]="rows"
+                (blur)="!disabled ? onTouch($event) : ''"
+                [ngClass]="[isTouched ? 'error' : '']">
+                </textarea>
+                
+                <mat-autocomplete class="search-list" #auto="matAutocomplete" 
+                (optionSelected)="onChange($event.option.value)">
+                    <div class="bg-add-option" (click)="navigateToOption()" *ngIf="newOption">
+                        Add {{newOptionLabel}} 
+                        <img src="/assets/images/icons/carousel-add.png" 
+                        class="ms-1" style="height: 17px; margin-top: -2px;">
+                    </div>
+
+                    <!-- <mat-option *ngIf="addOption" (click)="onValueChanged('addValue')" 
+                    [value]="'addValue'"><span class="add-msg">Add Value</span><span class="add-icon">+</span></mat-option> -->
+                    <mat-option [ngClass]="isTextArea ? 'wrap-long-text' : ''"
+                    *ngFor="let item of filteredOptions | async" 
+                    (click)="onValueChanged(item)" [value]="item">
+                        <span 
+                            *ngIf="withSubtoolTip"
+                            [matTooltip]="formatToolTipMessage(item)"
+                            matTooltipPosition="above"
+                            class="text-capitalize font-dropdown" 
+                            [innerHtml]="item?.name?.trim() || item?.value?.trim() || item?.text?.trim()">
+                        </span>
+
+                            <span 
+                            *ngIf="!withSubtoolTip"
+                            class="text-capitalize font-dropdown" 
+                            [innerHtml]="item?.name?.trim() || item?.value?.trim() || item?.text?.trim()">
+                        </span>
+
+                        <ng-container *ngIf="item?.preferred_careworker">
+                            <span class="float-end ms-1">
+                                <img src="/assets/images/icons/assigned.png" 
+                                [matTooltip]="'Previously Assigned Support Worker to Participant'"
+                                matTooltipPosition="above"
+                                style="height: 15px; margin-top: 2px;">
+                            </span>
+
+                            <span class="float-end" 
+                            >
+                                <img src="/assets/images/icons/star.png" 
+                                [matTooltip]="'This is a preferred support worker for this participant'"
+                                matTooltipPosition="above"
+                                style="height: 15px">
+                            </span> 
+                        </ng-container>
+
+                        
+                        <ng-container *ngIf="item?.preferred_careworker === false">
+                            <span class="float-end" 
+                            >
+                                <img src="/assets/images/icons/assigned.png" 
+                                [matTooltip]="'Previously Assigned Support Worker to Participant'"
+                                matTooltipPosition="above"
+                                style="height: 15px; margin-top:2px;">
+                            </span> 
+                        </ng-container>
+
+                        <span class="float-end me-1" *ngIf="item?.employee_not_use === true">
+                            <img src="/assets/images/icons/warning-red.png" 
+                            [matTooltip]="'This is not a preferred support worker, but it can still be assigned if there is no available support'"
+                            matTooltipPosition="above"
+                            style="height: 15px; margin-top: 2px;">
+                        </span>
+                    </mat-option>
+                </mat-autocomplete>
+
+                <div class="container-info">
+                    <span class="img-info-container" *ngIf="info">
+                        <img src="/assets/images/icons/info-input-icon.png" 
+                        [matTooltip]="infoTitle"
+                        matTooltipPosition="above"
+                        class="img-fluid">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <p *ngIf="notInList && !isTextArea" class="text-danger text-center w-100 mt-2"  
+        style="margin-left: -35%;">Please select an option from the list</p>
+
+        <p *ngIf="notInList && isTextArea" class="text-danger text-center w-100 mt-2" style="margin-left: -14%;">Please select an option from the list</p>
+    </div> 
+</ng-container>

@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-sm-7">
+        <h4 class="container-title">Understanding Your Needs</h4>
+        <p class="mb-4">Need help setting up your account? Contact our team at info@lamacare.com.au</p>
+
+        <form [formGroup]="understandingNeedForm">
+            <app-radio-button 
+                label="How do you plan to use LAMA?" 
+                formControlName="use_lama" 
+                [labelTop]="true"
+                [options]="useLamaOptions"
+                [required]="true"
+                [isVertical]="true">
+            </app-radio-button>
+
+            <app-textarea style="margin-top: -50px !important;"
+            *ngIf="understandingNeedForm?.controls['use_lama'].value == 'Other'"
+                label="Type in your plan for LAMA" 
+                formControlName="use_lama_other" 
+                [labelTop]="true"
+                [required]="true">
+            </app-textarea>
+
+            <div class="row mb-3">
+                <h5 class="label-top text-start text-truncate">
+                    Where will workers be providing support?
+                </h5> 
+                <div *ngFor="let cb of checkBoxOptions; let i = index" class="col-sm-6">
+                    <app-check-box [label]="cb.label" [checked]="cb.checked" 
+                    (keyevents)="onChangeCheckbox($event, i)"></app-check-box>
+                </div>
+
+                <app-textarea class="mt-3" *ngIf="!!checkBoxOptions[7]?.checked"
+                label="Other location for workers to provide support" 
+                formControlName="lama_workers_support_other" 
+                [labelTop]="true">
+                </app-textarea>
+            </div>
+
+            <app-textfield 
+                label="Approximately how many participants do you support?" 
+                formControlName="participant_number" 
+                [labelTop]="true"
+                [required]="true"
+                [inputType]="'number'">
+            </app-textfield> 
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <button (click)="back()" mat-button class="btn btn-header btn-outline-primary">
+                Back
+            </button>
+        </div>
+
+         <div class="col-12 col-md-6 text-end">
+            <button 
+            [disabled]="!understandingNeedForm.valid"
+            (click)="next()"
+            mat-button class="btn btn-header btn-outline-primary me-2">
+               Next
+            </button>
+
+            <button 
+            (click)="save()"
+            [disabled]="!understandingNeedForm.valid || submitting"
+            mat-button class="btn btn-header btn-primary">
+               Save
+            </button>
+        </div>    
+    </div>
+</div>

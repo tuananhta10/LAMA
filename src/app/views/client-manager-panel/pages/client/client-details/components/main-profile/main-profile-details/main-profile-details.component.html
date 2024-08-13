@@ -1,0 +1,175 @@
+<div class="row">
+	<div class="col-12 col-md-6 col-lg-6">
+		<div class="mb-3 d-flex" id="client-details">
+			<div class="client-img-icon-details flex-wrap">
+				<img src="/assets/images/icons/client-details.png">
+			</div>
+
+			<div class="client-data flex-wrap">
+				<h5 class="card-title">Participant Details
+					<!-- <span class="float-end view-edit">Edit</span> -->
+				</h5>
+
+				<hr>
+
+				<dl>
+					<dd class="text-truncate capitalize">
+						<strong>Title    </strong> 
+						<span>{{clientData?.title || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate capitalize"><strong>Last Name    </strong> 
+						<span>{{clientData?.last_name || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate capitalize">
+						<strong>First Name    </strong>
+						<span>{{clientData?.first_name || '-'}}</span>
+					</dd>
+					
+					<dd class="text-truncate capitalize">
+						<strong>Preferred Name    </strong> 
+						<span>{{clientData?.preferred_name || '-'}}</span>
+					</dd>
+					
+					<dd class="text-truncate">
+						<strong class="me-3">Gender</strong> 
+						<span>{{clientData?.gender || '-'}}</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
+
+		<div class="mb-3 d-flex" id="client-worker-preference">
+			<div class="client-img-icon-preference flex-wrap">
+				<img src="/assets/images/icons/client-preference.png">
+			</div>
+
+			<div class="client-data flex-wrap">
+				<h5 class="card-title">Worker Preference
+					<!-- <span class="float-end view-edit">Edit</span> -->
+				</h5>
+				<hr>
+
+				<dl>
+					<dd class="text-truncate">
+						<strong class="me-3">Preferred C/W Gender</strong> 
+						<span>{{clientData?.preferred_gender || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate"><strong class="me-3">NDIS No.</strong> 
+						<span>{{clientData?.id || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate">
+						<strong class="me-3">Main Branch</strong>
+						<span>{{clientData?.branch?.name || '-'}}</span>
+					</dd>
+					
+					<dd class="">
+						<strong class="me-3 ">PM Require Approval</strong> 
+						<span class="">
+							<mat-radio-group aria-label="Select an option" 
+							disabled="true"
+							[(ngModel)]="pmRequireApproval" id="require-approval">
+								<mat-radio-button [value]="true">Yes</mat-radio-button>
+								<mat-radio-button [value]="false">No</mat-radio-button>
+							</mat-radio-group>
+						</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-12 col-md-6 col-lg-6">
+		<div class="mb-3 d-flex" id="client-demographics">
+			<div class="client-img-icon-demographics flex-wrap">
+				<img src="/assets/images/icons/client-demographics.png">
+			</div>
+
+			<div class="client-data flex-wrap">
+				<h5 class="card-title">
+					Demographics
+					<!-- <span class="float-end view-edit">Edit</span> -->
+				</h5>
+				<hr>
+				<dl>
+					<dd class="text-truncate">
+						<strong class="me-3">Date of Birth</strong> 
+						<span>{{clientData?.birthdate | date: 'dd-MM-y' || '-'}}</span>
+					</dd>
+
+					<dd class="text-truncate"><strong class="me-3">Age</strong> 
+						<span>{{clientData?.age}}</span>
+					</dd>
+
+					<dd class="text-truncate">
+						<strong class="me-3">Place of Birth</strong>
+						<span>{{clientData?.birthplace}}</span>
+					</dd>
+					
+					<dd class="text-truncate">
+						<strong class="me-3">Country of Birth</strong> 
+						<span>{{clientData?.country_name || '-'}}</span>
+					</dd>
+					
+					<dd class="text-truncate">
+						<strong class="me-3">Citizenship</strong> 
+						<span>{{clientData?.citizenship || '-'}}</span>
+					</dd>
+					
+				</dl>
+			</div>
+		</div>
+
+		<div class="mb-3 d-flex" id="client-background">
+			<div class="client-img-icon-background flex-wrap">
+				<img src="/assets/images/icons/client-background.png">
+			</div>
+
+			<div class="client-data flex-wrap">
+				<h5 class="card-title">Background
+					<!-- <span class="float-end view-edit">Edit</span> -->
+				</h5>
+				<hr>
+				<dl>
+					<dd class="text-truncate">
+						<strong class="me-3">Family Status</strong> 
+						<span>Single</span>
+					</dd>
+
+					<dd class="text-truncate"><strong class="me-3">Religion</strong> 
+						<span>{{clientData?.religion?.name || '-'}}</span>
+					</dd>
+
+					<!-- <dd class="text-truncate">
+						<strong class="me-3">Background</strong>
+						<span>Worker</span>
+					</dd> -->
+					
+					<dd class="text-truncate">
+						<strong class="me-3">Indigenous</strong> 
+						<mat-radio-group aria-label="Select an option" 
+							disabled="true"
+							[(ngModel)]="indigenous" id="indigenous">
+								<mat-radio-button [value]="true">Yes</mat-radio-button>
+								<mat-radio-button [value]="false">No</mat-radio-button>
+							</mat-radio-group>
+					</dd>
+					
+					<dd class="text-truncate">
+						<strong class="me-3">Disability Type</strong> 
+						<span>{{clientData?.disability_type}}</span>
+					</dd>
+					
+					<dd class="text-truncate">
+						<strong class="me-3">Disability Description</strong> 
+						<span>{{clientData?.condition_description}}</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+
+</div>

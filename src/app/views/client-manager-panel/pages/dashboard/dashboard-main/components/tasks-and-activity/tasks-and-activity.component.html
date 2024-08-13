@@ -1,0 +1,163 @@
+<div class="row">
+	<section class="col-12 px-0">
+		<!-- ADMIN INCIDENTS -->
+		<admin-dashboard-incidents [incidentGraphData]="incidentGraphData"></admin-dashboard-incidents>
+	</section>
+
+	<div class="col-12 px-0 mb-3" id="my-tasks-container">
+		<div class="card px-3">
+			<div *ngIf="!loading" class="card-body p-0 py-3">
+				<div class="w-100 px-2"  id="task-table">
+					<h5 class="main-title ms-3">
+						<!-- <img src="/assets/images/icons/dashboard/task.png" 
+						style="width: 30px;" class="me-2"> -->Tasks
+						<div class="date-filter">
+							<span >
+								<h5 class="container-date">
+									<span class="ms-3">
+										<img src="/assets/images/icons/caret-left.png" 
+										class="img-fluid hvr-grow" width="7px"
+										(click)="subtractWeek()">
+
+										<span class="mx-4 this-week hvr-grow">
+											{{ dateRange?.start_date | date : 'MMM dd'}} - 
+											{{ dateRange?.end_date | date : 'MMM dd'}}
+										</span>
+
+										<img src="/assets/images/icons/caret-right.png" 
+										class="img-fluid hvr-grow" width="7px"
+										(click)="addWeek()">
+									</span>
+								</h5>
+							</span>
+						</div>
+					</h5>
+
+					<table class="table w-100 table-responsive">
+						<!-- <colgroup class="p-3" style="border-radius: 15px;">
+						    <col *ngFor="let count of days" 
+						    [ngClass]="currentDay === count + 1 ? 'highlight' : ''">
+					  	</colgroup> -->
+
+						<thead>
+							<tr>
+								<th *ngFor="let column of columns; let i = index"  
+								[ngClass]="currentDay === i + 1 ? 'highlight' : ''">
+									{{column?.title}}
+									<span class="title-date"><br>
+										{{addDays(dateRange?.start_date, i - 1) | date : 'dd'}}
+									</span>
+
+								</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td *ngFor="let column of columns; let i = index">
+									<span class="hvr-grow time" [ngClass]="checkProp(plotTask(addDays(dateRange?.start_date, i - 1), 0)) ? 'time-next': ''">{{convertTo12Hrs(plotTask(addDays(dateRange?.start_date, i - 1), 0))}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td *ngFor="let column of columns; let i = index">
+									<span class="hvr-grow time" [ngClass]="checkProp(plotTask(addDays(dateRange?.start_date, i - 1), 1)) ? 'time-next': ''">{{convertTo12Hrs(plotTask(addDays(dateRange?.start_date, i - 1), 1))}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td *ngFor="let column of columns; let i = index">
+									<span class="hvr-grow time" [ngClass]="checkProp(plotTask(addDays(dateRange?.start_date, i - 1), 2)) ? 'time-next': ''">{{convertTo12Hrs(plotTask(addDays(dateRange?.start_date, i - 1), 2))}}</span>
+								</td>
+							</tr>
+							<!-- <tr>
+								<td>
+									<span class="hvr-grow time">11:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">09:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">--</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">11:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">14:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">14:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">10:00</span>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<span class="hvr-grow time">12:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">10:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">11:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">--</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">16:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">15:00</span>
+								</td>
+								<td>
+									<span class="hvr-grow time">11:00</span>
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
+
+				<div class="row w-100 mt-3" *ngIf="taskData?.length !== 0; else showEmptyTask">
+					<div *ngFor="let data of taskData?.slice(0, 3); let i = index" 
+					class="col-4 hvr-grow pe-0">
+						<div class="schedule" 
+						[ngClass]="i === 0 ? 'schedule-active' : 'schedule-next'">
+							<h5 class="schedule-active-title text-capitalize">
+								{{data.task_name}}
+							</h5>
+
+							<p class="schedule-active-time">{{data?.due_date ? (data?.due_date * 1000 | date : 'MMM dd') : '-'}}, {{convertTo12Hrs(data.start_time)}} <!-- - {{formatTime(data.end_time)}} --></p>
+							<p class="schedule-active-client">{{data.employee_name}}</p>
+						</div>
+					</div>
+				</div>
+
+				<ng-template #showEmptyTask>
+					<div class="row w-100 mt-3">
+						<div class="col-5 hvr-grow pe-0">
+							<div class="schedule schedule-active" >
+								<p class="schedule-active-client py-2" 
+								routerLink="/admin/employees/employee-task">
+									There's currently no upcoming task. <br><span routerLink="/admin/employees/employee-task">Add task</span> now.
+								</p>
+
+							
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</div>
+			<global-admin-loader 
+		        [withSideBar]="false"
+		        [fromDetailTab]="true"
+		        [loading]="loading">
+		    </global-admin-loader>	
+		</div>
+	</div>
+
+	
+</div>	
+
+

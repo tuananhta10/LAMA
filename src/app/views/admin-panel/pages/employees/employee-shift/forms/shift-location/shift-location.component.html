@@ -1,0 +1,106 @@
+<div class="row"  mat-dialog-content>
+    <div class="col-12">
+        <form [formGroup]="shiftLocationForm">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <app-textarea 
+                        label="Shift Address"
+                        [labelTop]="true"
+                        formControlName="start_shift_address">
+                    </app-textarea>
+
+                    <app-textfield 
+                        label="Travel Hours"
+                        [labelTop]="true"
+                        [inputType]="'number'"
+                        formControlName="travel_hours">
+                    </app-textfield>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <app-textarea 
+                        label="End Shift Address"
+                        [labelTop]="true"
+                        formControlName="end_shift_address">
+                    </app-textarea>
+
+                    <app-dropdown 
+                        label="Change Travel to Client"
+                        [labelTop]="true"
+                        formControlName="charge_travel_to_client"
+                        [options]="chargeTravel">
+                    </app-dropdown>
+                </div> 
+
+                <div class="col-12" *ngIf="shiftLocationForm.controls['charge_travel_to_client']?.value !== 'No'"><hr></div>
+
+                <div class="col-12 col-md-6" *ngIf="shiftLocationForm.controls['charge_travel_to_client']?.value !== 'No'">
+                    <app-textfield 
+                        label="Travel Distance"
+                        [labelTop]="true"
+                        [inputType]="'number'"
+                        formControlName="travel_distance">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Travel Distance Rate"
+                        [labelTop]="true"
+                        [inputType]="'number'"
+                        formControlName="travel_distance_rate">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Travel Time Rate"
+                        [labelTop]="true"
+                        [inputType]="'number'"
+                        formControlName="travel_time_rate">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Total Travel Km"
+                        [labelTop]="true"
+                        formControlName="total_travel_km"
+                        [inputType]="'number'"
+                        [readonly]="true">
+                    </app-textfield>
+                </div>
+
+                <div class="col-12 col-md-6" *ngIf="shiftLocationForm.controls['charge_travel_to_client']?.value !== 'No'">
+                    <app-textfield 
+                        label="Transport Distance"
+                        [labelTop]="true"
+                        [inputType]="'number'"
+                        formControlName="transport_distance">
+                    </app-textfield>
+
+                    <app-textfield 
+                        label="Transport Distance Rate"
+                        [labelTop]="true"
+                        [inputType]="'number'"
+                        formControlName="transport_distance_rate">
+                    </app-textfield>
+                
+                    <app-textfield 
+                        label="Total Transport"
+                        [labelTop]="true"
+                        [readonly]="true"
+                        [inputType]="'number'"
+                        formControlName="total_transport">
+                    </app-textfield>
+                </div>
+
+                <div class="col-12"><hr></div>
+
+                <div class="col-12 col-md-6">
+                    <app-textfield 
+                        label="Travel Total Cost"
+                        [labelTop]="true"
+                        [readonly]="true"
+                        formControlName="travel_total">
+                    </app-textfield>
+                </div>
+
+            </div>
+        </form>    
+    </div>
+</div>

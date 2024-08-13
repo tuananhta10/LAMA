@@ -1,0 +1,29 @@
+
+<div class="assign-action-container px-0">
+	<img src="/assets/images/icons/checked-success.png" class="img-fluid" width="30px">
+
+	<h5 class="header-text-action">{{data?.title || 'Successfully added new record!'}}</h5>
+	<h5 class="header-text">You can now link it to other records or update it further.
+		
+	</h5>
+	<!-- <p class="header-info">Ask the team owner for permissions</p> -->
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<!-- <button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn  btn-header-gray ms-3">Cancel</button> -->
+
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-primary btn-header">Got It</button>
+		</div>
+	</div>
+</div>

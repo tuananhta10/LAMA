@@ -1,0 +1,128 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+
+h5{
+	color: $color-gray-dark;
+}
+
+.main-title{
+	font-size: 24px;
+	font-weight: 600;
+	color: $color-gray;
+
+}
+
+.img-title{
+	margin-top: -8px !important;
+}
+
+.btn-primary{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+}
+
+.btn-menu{
+	background: #F0F1F5 !important;
+	border: 1px solid rgba(93, 93, 93, 0.2) !important;
+	box-sizing: border-box !important;
+	border-radius: 8px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+.btn-primary-outline{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+	color: $color-purple;
+	border: solid 1px $color-purple;
+	font-weight: 600;
+}
+
+
+.search-div{
+    vertical-align: center !important;
+    background: #F0F1F5;
+    padding: 10px 20px 10px 15px !important;
+    border-radius: 8px !important;
+    margin-top: -15px;
+    //width: 80% !important;
+    //margin-left: 50px;
+
+    //margin-right: 30px;
+    .input-group-text{
+        /* background: none;
+        border:none; */
+    }
+
+    .input-group{
+        padding: 0px !important;
+        outline: none !important;
+        img{
+            width: 15px !important;
+            height: 15px !important;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+    }
+
+    .form-control{
+        border-radius: 0px !important;
+        font-size: 14px !important;
+        margin-left: 10px;
+        padding: 0 !important;
+        border: none !important;
+        background: #F0F1F5 !important;
+        outline: none !important;
+        //border-color: #a8a8a8 !important;
+    }
+
+    input{
+    	outline: none !important;
+    }
+}
+
+
+.btn-header{
+	background: #D0D0D0;
+	color: $color-gray-dark;
+    border-radius: 5px !important;
+    padding: 10px 30px !important;
+
+    &:hover{
+    	background: #c6c6c6 !important;
+    	color: $color-gray-dark !important;
+    }
+}
+
+
+.table{
+	th{
+		background: #F9F9F9;
+		border-top: solid 1px #DEDEDE !important;
+		border-bottom: solid 1px #DEDEDE !important;
+	}
+
+	th, td{
+		border: none;
+
+		&:first-child{
+			padding-left: 20px;
+		}
+	}
+
+	tr{
+		&:nth-child(even) {
+			td{
+				background: #eeeeee !important
+			}
+		}
+	}
+}

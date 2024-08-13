@@ -1,0 +1,95 @@
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader [loading]="loading"></global-admin-loader>
+
+<div class="container-fluid mt-3 p-0 mb-3 ms-1 pe-2">
+	<div class="row">
+
+		<!-- BANNER -->
+		<section class="col-sm-12 col-lg-9 pb-3" id="admin-title-container">
+			<div class="mb-4 mt-5 card card-body px-5 main-banner" 
+			*ngIf="!loading" [@animate]="{value:'*', params:{ y:'-100px', delay:'100ms' }}">
+				<h4 class="mt-3 text-capitalize">Welcome Back, 
+					<span class="admin-title">{{loggedUser?.first_name}}!</span></h4>
+				<h5>{{dateToday | date: 'fullDate'}}</h5>
+
+				<!-- <img src="/assets/images/icons/dashboard/dashboard-header-1.png" class="dashboard-header">
+				 -->
+				<!-- <img src="/assets/images/placeholder/banner-dots-left.png" class="img-fluid banner-dots-left">
+				 --><!-- <img src="/assets/images/placeholder/banner-eclipse-left.png" class="img-fluid banner-eclipse-left"> -->
+				<!-- <img src="/assets/images/placeholder/banner-dots-right.png" class="img-fluid banner-dots-right"> -->
+				<!-- <img src="/assets/images/placeholder/banner-eclipse-right.png" class="img-fluid banner-eclipse-right"> -->
+			</div>
+
+			<section class="mt-2">
+				<admin-dashboard-statistic-data
+				[dashboardData]="dashboardData[0]"
+				[loading]="loading">
+					
+				</admin-dashboard-statistic-data>
+			</section>
+
+			<div class="row mt-2">
+				<!-- STATISTIC DATA -->
+				<div class="col-sm-12 col-lg-4 px-lg-4"
+				*ngIf="!loading" [@animate]="{value:'*', params:{ y:'-50px', delay:'550ms' }}">
+					
+					<!-- TOTAL STATISTIC, ENQUIRY AND APPROVAL -->
+					<section>
+						<admin-dashboard-total-enquiry-and-approval 
+						*ngIf="dashboardData[0]"
+						[dashboardData]="dashboardData[0]">
+						</admin-dashboard-total-enquiry-and-approval>
+					</section> 
+				</div>
+
+				<!-- RIGHT -->
+				<section class="col-sm-12 col-lg-8 px-lg-4 px-1" 
+				style="padding-right: 30px;" *ngIf="!loading" 
+				[@animate]="{value:'*', params:{ y:'-50px', delay:'550ms' }}">
+					<!-- TASK, ACTIVITY, AND FEEDS -->
+					<admin-dashboard-tasks-and-activity [taskGraphData]="taskData" [incidentGraphData]="incidentGraphData"></admin-dashboard-tasks-and-activity>
+				</section>
+			</div>
+		</section>
+
+		<!-- NEW MEMBERS -->
+		<section class="col-sm-12 col-lg-3 mb-3 pe-lg-4 pt-3"
+		*ngIf="!loading" [@animate]="{value:'*', params:{ x:'50px', delay:'550ms' }}" >
+			<div style="position: relative;">
+				<admin-dashboard-new-members></admin-dashboard-new-members>
+				<!-- <img src="/assets/images/icons/dashboard/note.png" class="news-image"> -->
+			</div>
+		</section>
+
+		<!-- INCIDENTS -->
+		<div class="col-sm-12 col-lg-6 mb-3 pe-lg-4" *ngIf="!loading" 
+			[@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+			
+			<!-- EMPLOYEE SHIFTS -->
+			<section>
+				<admin-dashboard-employee-shifts 
+				*ngIf="dashboardData[0]"
+				[dashboardData]="dashboardData[0]"></admin-dashboard-employee-shifts>
+			</section>
+			
+		</div>
+		
+		<div class="col-sm-12 col-lg-6 mb-3 pe-lg-4 ps-lg-1" *ngIf="!loading" 
+			[@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+			
+
+			<!-- EMPLOYEE LEAVES -->
+			<section>
+				<admin-dashboard-employee-leaves  [dashboardData]="dashboardData[0]"></admin-dashboard-employee-leaves>
+			</section>
+		</div>
+
+		<!-- CLIENT FUNDING 
+		<section class="col-sm-12 col-lg-12 mb-3 pe-lg-4" *ngIf="!loading" 
+			[@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+			<admin-dashboard-client-funding></admin-dashboard-client-funding>
+		</section>-->
+
+	</div>	
+</div>
+

@@ -1,0 +1,48 @@
+@import "src/scss/colors";
+
+h5{
+	color: $color-gray;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.add-record{
+	color: $color-purple;
+	cursor: pointer;
+
+	.mat-icon{
+		margin-top: -3px;
+	}
+
+	.add-record-text{
+		vertical-align: top !important;
+	}
+}
+
+.container-info{
+    .img-info-container{
+        img{
+            margin-left: 13px;
+            margin-top: 6px;
+            width: 16px;
+            cursor: pointer;
+        }
+    }
+}
+
+.mat-slide-toggle{
+	width: 250px;
+}
+
+.btn-outline-primary{
+	border-radius: 4px !important;
+	padding: 5px 10px !important;
+	background: white;
+	border-color: $color-purple;
+	color: $color-purple;
+
+	&:hover{
+		background: $color-purple;
+		color: white;
+	}
+}

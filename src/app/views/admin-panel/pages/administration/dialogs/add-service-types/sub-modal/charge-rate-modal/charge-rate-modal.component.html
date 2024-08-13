@@ -1,0 +1,125 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">New Charge Rate</h5>
+		<hr>
+	</div>
+	<form [formGroup]="chargeRateForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-md-6">
+					<h5 class="mat-subtitle">Pricelist Rate Details</h5>
+					<app-dropdown 
+						label="Pricelist" 
+						[labelTop]="true"
+						formControlName="price_list" 
+						[required]="true"
+						[options]="priceListOptions">
+					</app-dropdown>
+		
+					<app-dropdown 
+						label="Price List Period" 
+						[labelTop]="true"
+						formControlName="price_list_period" 
+						[options]="priceListPeriodOptions">
+					</app-dropdown>
+		
+					<app-dropdown 
+						label="Service Type" 
+						[labelTop]="true"
+						formControlName="service_type" 
+						[required]="true"
+						[options]="serviceTypeOptions">
+					</app-dropdown>
+		
+					<h5 class="mat-subtitle">Rates</h5>
+		
+					<app-dropdown 
+						label="Rate Type" 
+						[labelTop]="true"
+						formControlName="rate_type" 
+						[required]="true"
+						[options]="rateTypeOptions">
+					</app-dropdown>
+		
+					<app-textfield 
+						label="Afternoon Rate"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="afternoon_rate">
+					</app-textfield>
+		
+					<app-textfield 
+						label="Night Rate"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="night_rate">
+					</app-textfield>
+		
+					<app-textfield 
+						label="Saturday Rate"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="saturday_rate">
+					</app-textfield>
+		
+					<app-textfield 
+						label="Sunday Rate"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="sunday_rate">
+					</app-textfield>
+		
+					<app-textfield 
+						label="Public Holiday Rate"
+						[labelTop]="true"
+						[required]="true"
+						formControlName="public_holiday_rate">
+					</app-textfield>
+				</div>
+				<div class="col-md-6">
+					<h5 class="mat-subtitle">Pay Items</h5>
+					<app-dropdown 
+						label="Pay Item" 
+						[labelTop]="true"
+						formControlName="pay_item" 
+						[options]="payItemOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Pay Item AH" 
+						[labelTop]="true"
+						formControlName="pay_item_ah" 
+						[options]="payItemAhOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Pay Item Sat" 
+						[labelTop]="true"
+						formControlName="pay_item_sat" 
+						[options]="payItemSatOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Pay Item Sun" 
+						[labelTop]="true"
+						formControlName="pay_item_sun" 
+						[options]="payItemSunOptions">
+					</app-dropdown>
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!chargeRateForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Add</button>
+			</div>
+		</div>
+	</form>
+
+</div>

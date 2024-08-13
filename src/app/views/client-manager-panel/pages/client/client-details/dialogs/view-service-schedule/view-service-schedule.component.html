@@ -1,0 +1,78 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Service Provider > {{data?.details?.employee_name}}
+			<img src="/assets/images/icons/close-dialog.png" class="float-end hvr-grow" width="15px"
+			(click)="dialogRef.close()" cdkFocusInitial>
+		</h5>
+		<hr>
+	</div>
+	<div mat-dialog-content>
+		<div class="card card-body mb-3">
+			<div class="header-title d-flex ps-3 py-4">
+				<img src="/assets/images/faces/face-15.jpg" class="img-fluid profile-image me-2">
+				<h3 class="client-name">{{data?.details?.name}}</h3>
+
+				<div class="action-buttons d-flex">
+					<div class="dropdown">
+					  <button class="btn btn-secondary-filter d-flex" type="button" id="filterButton" data-bs-toggle="dropdown">
+					    Filter <span class="ms-1 material-icons">arrow_drop_down</span>
+					  </button>
+					  <ul class="dropdown-menu" aria-labelledby="filterButton">
+					    <li><a class="dropdown-item" href="#">Action</a></li>
+					    <li><a class="dropdown-item" href="#">Another action</a></li>
+					    <li><a class="dropdown-item" href="#">Something else here</a></li>
+					  </ul>
+					</div>
+
+					<button class="btn btn-primary btn-header ms-4">Send Message</button>
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="header-details d-flex ps-3">
+				<div class="me-5">
+					<p class="title">Phone</p>
+					<p class="details">{{data?.clientData?.work_phone_no || '22422341112' }}</p>
+				</div>
+
+				<div class="mx-4">
+					<p class="title">Email</p>
+					<p class="details">{{data?.clientData?.email || 'sample_email@lama-care.com'}}</p>
+				</div>
+
+				<div class="mx-4">
+					<p class="title">Branch</p>
+					<p class="details">Branch Sample Name</p>
+				</div>			
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12 col-md-8">
+				<div class="card card-body px-4">
+					<h5 class="title-description">Lorem ipsum dolor sit amet</h5>
+					<p class="main-description">
+						consectetur adipiscing elit. Suspendisse nec urna at nisi ultrices vestibulum varius ac odio. Aenean luctus tempus mi nec rhoncus. Proin vehicula est nec auctor aliquet. Nulla facilisi. Nulla enim quam, elementum in magna condimentum, elementum semper augue. Proin vitae 
+					</p>
+				</div>
+
+				<div class="card card-body px-4">
+					<h5 class="title-description">Lorem ipsum dolor sit amet</h5>
+					<p class="main-description">
+						consectetur adipiscing elit. Suspendisse nec urna at nisi ultrices vestibulum varius ac odio. Aenean luctus tempus mi nec rhoncus. Proin vehicula est nec auctor aliquet. Nulla facilisi. Nulla enim quam, elementum in magna condimentum, elementum semper augue. Proin vitae 
+					</p>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-4">
+				<div class="card card-body px-4">
+					<h5 class="title-description">Lorem ipsum dolor sit amet</h5>
+					<p class="main-description">
+						consectetur adipiscing elit. Suspendisse nec urna at nisi ultrices vestibulum varius ac odio. Aenean luctus tempus mi nec rhoncus. Proin vehicula est nec auctor aliquet. Nulla facilisi. Nulla enim quam, elementum in magna condimentum, elementum semper augue. Proin vitae 
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

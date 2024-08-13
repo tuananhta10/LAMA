@@ -1,0 +1,242 @@
+<section >
+	<ng-container *ngIf="data?.approved_decline === 'decline'">
+		
+		<div class="assign-action-container" style="width: 400px !important;">
+			<img src="/assets/images/icons/danger.png" class="img-fluid" width="30px">
+
+			<h5 class="header-text-action mt-2">{{data?.title || 'Unapprove Timesheets'}}</h5>
+			<h5 class="header-text mt-2">Are you sure you want to unapprove the selected timesheets? Click continue to proceed.</h5>
+
+		</div>
+
+		<div mat-dialog-actions>
+			<div class="row container">
+
+				<div class="col-md-12 text-center">
+					<button 
+					mat-button 
+					(click)="dialogRef.close()" 
+					class="btn  btn-header-gray ms-3">Cancel</button>
+
+					<button 
+					mat-button 
+					(click)="closeSaveDialog()" 
+					class="btn btn-header btn-danger">Continue</button>
+				</div>
+			</div>
+		</div>
+
+	</ng-container>
+
+	<ng-container *ngIf="data?.approved_decline === 'approve'">
+		<div class="assign-action-container" [ngStyle]="{
+			'min-width': differentTime ? '1440px' : '400px'
+		}">
+			<!-- <img src="/assets/images/icons/checked-success.png" class="img-fluid" width="30px">
+ -->
+
+ 			<!-- Update Travel Time, Transport and Travel KM values to Yes/No -->
+
+			<h5 class="header-text-action mt-2">{{data?.title || 'Approve Timesheets'}}
+				<img src="/assets/images/icons/close-dialog.png" 
+				class="float-end mt-2" 
+				style="width: 13px; cursor: pointer;" 
+				(click)="dialogRef.close()"> 
+			</h5>
+			<h5 class="header-text" *ngIf="!differentTime">Are you sure you want to approve the <br>selected timesheets? Click "Approve" to proceed.</h5>
+
+			<ng-container *ngIf="true">
+				<!-- <h5 class="header-text">Are you sure you want to approve the selected timesheets? Some of the timesheet does not match the calendar schedule. <br>You can edit the options for each timesheet then click continue to proceed.</h5> -->
+				<hr>
+				<form [formGroup]="timeApproveForm" style="margin-left: -25px">
+					<div class="form d-flex align-items-center">
+						<span style="transform: translateY(-2px);">
+							<app-check-box [labelTop]="true"
+							[checked]="timeApproveForm.controls['updateTravelTransport'].value"
+							(keyevents)="onChangeCheckbox($event, 0)"
+							>
+							</app-check-box>
+
+						</span>
+						<span>Update Travel Time, Transport and Travel KM values</span>
+					</div>
+				</form>
+
+				<div class="table me-3 mt-3" style="min-height: 50vh">
+					<table class=" me-3 w-100">
+						<thead>
+							<tr>
+								<th class="w-">Calendar <br>Schedule</th>
+								<th>Employee <br>Name</th>
+								<th>Support <br>Item</th>
+								<th>Time <br>Logged</th>
+								<th>Comments</th>
+
+								<th>Transport <br>km's</th>
+								<th>Travel <br>km's</th>
+								<th>Travel <br>Time</th>
+								<th>Case <br>Notes</th>
+
+								<th style="width: 80px;">Update <br>Shift Time</th>
+								<th style="width: 80px;">Update <br>Transport Km's</th>
+								<th style="width: 80px;">Update <br>Travel Km's</th>
+								<th style="width: 80px;">Update <br>Travel Time</th>
+								<th style="width: 80px;">Used <br>Company Car?</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<tr *ngFor="let item of differentTimeArray">
+								<td>
+									{{item?.calendar_schedule}} - {{item?.client_service_schedule_total_hours}} Hour/s
+								</td>
+
+								<td>
+									{{item?.employee_last_name}}, {{item?.employee_first_name}}
+								</td>
+
+								<td>
+									<b>{{item?.client_last_name}},{{item?.client_first_name}}</b> - {{item?.service_type_support_item_name}}
+								</td>
+
+								<td >
+									<div class="time">
+										<span >{{item?.client_service_schedule_start_time | convert24hr}}</span>
+										-
+										<span >{{item?.client_service_schedule_end_time | convert24hr}}</span>,
+										<span class="ms-1">
+											{{item?.client_service_schedule_total_hours}} Hr/s
+										</span>
+									</div>
+									<div class="time" *ngIf="item?.client_service_schedule_start_time !== item?.employee_timesheet_start_time || item?.client_service_schedule_end_time !== item?.employee_timesheet_end_time">
+										<span [ngClass]="item?.client_service_schedule_start_time !== item?.employee_timesheet_start_time ? 'text-danger' : ''">{{item?.time_in}}</span>
+										-
+										<span [ngClass]="item?.client_service_schedule_end_time !== item?.employee_timesheet_end_time ? 'text-danger' : ''">{{item?.time_out}}</span>,
+										<span class="ms-1">
+											{{item?.employee_timesheet_total_hours}} Hr/s
+										</span>
+									</div>
+									<div class="status mt-1" *ngIf="item?.client_service_schedule_status === 'cancelled'">
+										<span class="text-success">
+											<strong>(cancelled)</strong>
+										</span>
+									</div>
+								</td>
+								<td>
+									{{item?.client_service_schedule_additional_roster_comment || '-'}}
+								</td>
+								<td>
+									{{item?.employee_timesheet_transport_mileage || 0 + ' KM'}}
+								</td>
+
+								
+
+								<td>
+									{{item?.employee_timesheet_travel_mileage || 0 + ' KM'}}
+								</td>
+
+								<td>{{item?.client_service_schedule_travel_hours || 0 + ' hr/s'}}</td>
+
+								<td >
+									<!-- <div class="container-info">
+										<span class="img-info-container" >
+											<img src="/assets/images/icons/info-input-icon.png"
+											[matTooltip]="item?.client_service_schedule_support_coordinator_case_notes"
+											matTooltipPosition="below"
+											class="img-fluid">
+										</span>
+									</div> -->
+									<div class="case-notes-container py-2" >
+										<div class="case-notes" [innerHTML]="item?.client_service_schedule_support_coordinator_case_notes ? item?.client_service_schedule_support_coordinator_case_notes : item?.client_service_schedule_support_worker_case_notes">
+										</div>
+									</div>
+								</td>
+
+								<td style="width: 80px;">
+									<select style="padding-left: 10px;" class="dropdown form-select form-select-lg  width-custom"
+								  	#inputs (keyup)="$event.preventDefault()"
+									[value]="
+										item?.client_service_schedule_start_time !== item?.employee_timesheet_start_time &&
+										item?.client_service_schedule_end_time !== item?.employee_timesheet_end_time ?
+										'Yes' :
+										'No'
+									"
+								 	(ngModelChange)="updateShiftTime(item, item['update_shift_time'])"
+								  	[(ngModel)]="item['update_shift_time']" name="value">
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select>
+								</td>
+
+
+								<td style="width: 80px;">
+									<select style="padding-left: 10px;" class="dropdown form-select form-select-lg  width-custom"
+								  	#inputs (keyup)="$event.preventDefault()"
+								 	(ngModelChange)="updateShiftTime(item, item['update_transport_km'])"
+								  	[(ngModel)]="item['update_transport_km']" name="value">
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select>
+								</td>
+
+
+								<td style="width: 80px;">
+									<select style="padding-left: 10px;" class="dropdown form-select form-select-lg  width-custom"
+									type="text"  
+								  	#inputs (keyup)="$event.preventDefault()"
+								 	(ngModelChange)="updateShiftTime(item, item['update_travel_km'])"
+								  	[(ngModel)]="item['update_travel_km']" name="value">
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select>
+								</td>
+
+
+								<td style="width: 80px;">
+									<select style="padding-left: 10px;" class="dropdown form-select form-select-lg  width-custom"
+									 
+								  	#inputs (keyup)="$event.preventDefault()"
+								 	(ngModelChange)="updateShiftTime(item, item['update_travel_time'])"
+								  	[(ngModel)]="item['update_travel_time']" name="value">
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select>
+								</td>
+
+								<td style="width: 80px;">
+									<select style="padding-left: 10px;" class="dropdown form-select form-select-lg  width-custom"
+									type="text"  
+								  	#inputs (keyup)="$event.preventDefault()"
+								 	(ngModelChange)="updateShiftTime(item, item['used_company_car'])"
+								  	[(ngModel)]="item['used_company_car']" name="value" >
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</ng-container>
+		</div>
+
+		<div mat-dialog-actions>
+			<div class="w-100">
+
+				<div class="text-center">
+					<button 
+					mat-button 
+					(click)="dialogRef.close()" 
+					class="btn btn-header-gray ms-3">Cancel</button>
+
+					<button 
+					mat-button 
+					(click)="closeSaveDialog()" 
+					class="btn btn-header btn-primary">Continue</button>
+				</div>
+			</div>
+		</div>
+
+
+	</ng-container>
+</section>

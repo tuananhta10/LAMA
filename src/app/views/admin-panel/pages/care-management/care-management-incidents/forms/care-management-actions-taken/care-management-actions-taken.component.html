@@ -1,0 +1,46 @@
+<div class="row" mat-dialog-content>
+     <div class="col-12" >
+         <form [formGroup]="actionsTakenForm" *ngIf="!employeeLoading">
+             <div class="row">
+                 <div class="col-12">
+                    <h5 class="mat-subtitle">Action Taken</h5>
+
+                     <app-date-picker 
+                         label="Action Date"
+                         [labelTop]="true"
+                         formControlName="action_date">
+                     </app-date-picker>
+
+                     <h5 class="mat-subtitle">Further Action Required</h5>
+
+                     <app-radio-button 
+                         label="Further Action Required?"
+                         [labelTop]="true"
+                         [required]="true"
+                         formControlName="further_action_required"
+                         (keyevents)="resetAssignedTo($event)"
+                         [options]="radioOptions">
+                     </app-radio-button>
+
+                     <app-search-list 
+                         label="Assigned to"
+                         *ngIf="!!actionsTakenForm.controls['further_action_required'].value"
+                         [labelTop]="true"
+                         formControlName="assigned_to"
+                         [options]="employeeEnums">
+                     </app-search-list>
+                 </div>
+
+             </div>
+         </form>   
+
+          <global-admin-loader 
+             [withSideBar]="false"
+             [fromDetailTab]="true"
+             [loading]="employeeLoading"
+             [formOnly]="true">
+         </global-admin-loader>   
+     </div>
+
+
+</div>

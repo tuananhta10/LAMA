@@ -1,0 +1,24 @@
+version: 0.1
+environment_variables:
+    plaintext:
+        S3_BUCKET: "staging.lamacare.com.au"
+        BUILD_ENV: "staging"
+phases:
+    install:
+        commands:
+            - echo Installing source NPM dependencies...
+            - npm install
+            - npm install -g @angular/cli
+    build:
+        commands:
+            - echo Build started on `date`
+            - ng build --configuration=${BUILD_ENV}
+    post_build:
+         commands:
+            - aws s3 cp  --recursive dist s3://${S3_BUCKET}/
+            - echo Build completed on `date`
+artifacts:
+    files:
+        - '**/*'
+    base-directory: 'dist*'
+    discard-paths: no

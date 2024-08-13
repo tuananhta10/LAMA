@@ -1,0 +1,61 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data?.certificate; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Certificate</h5>
+		<hr>
+	</div>
+	<form *ngIf="!loading" [formGroup]="certificateForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-sm-12">
+					<app-dropdown 
+					label="Type" 
+					[required]="true"
+					[labelTop]="true"
+					formControlName="type" 
+					[options]="certificateOption">
+					</app-dropdown>
+		
+					<app-search-list 
+					label="Qualification" 
+					[labelTop]="true"
+					[required]="true"
+					formControlName="qualification_id" 
+					[options]="qualifications">
+					</app-search-list>
+					
+					<app-textarea
+					label="Description" 
+					[labelTop]="true"
+					formControlName="description">
+					</app-textarea>
+
+					<app-field-upload
+					label="Upload File"
+					[labelTop]="true"
+					#upload 
+					(upload)="onUpload($event)"
+					>
+					</app-field-upload> 
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				[disabled]="!certificateForm.valid || !file"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Upload</button>
+			</div>
+		</div>
+	</form>
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>

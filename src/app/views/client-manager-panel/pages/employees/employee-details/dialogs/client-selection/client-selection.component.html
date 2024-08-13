@@ -1,0 +1,136 @@
+<div class="row ps-2">
+	<div class="col-md-12 text-center mb-3 client-container">
+		<h5 class="header-text">Assign a Client
+			<span class="float-end" (click)="dialogRef.close()" >x</span>
+		</h5>
+		<hr>
+	</div>
+
+	<div class="col-12 client-container">
+		<div class="search-div float-sm-end">
+			<div class="input-group">
+			  <img src="/assets/images/icons/search.png">
+			  
+			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+			  [(ngModel)]="search" (ngModelChange)="searchDataSource()">
+			</div>
+		</div>
+		<br><br><br>
+		<h5 class="header-text">Matching Clients</h5>
+	</div>
+
+	<section class="row ps-2 pe-0 mt-3 client-action-container">
+		<div class="col-12 col-lg-4 mb-3 px-2" *ngFor="let client of clientList.slice(0, 6); let i = index;">
+			<div class="client-selection d-flex"
+			[ngStyle]="{ 'background': i === 0 ? bgColor[0] : i === 1 ? bgColor[1] : bgColor[2] }">
+				<div class="flex-wrap" style="width: 120px !important;">
+					<img [defaultImage]="defaultImage"
+					[lazyLoad]="client?.profile_image" class="profile-image"><br>
+
+					<div class="d-flex match mt-2">
+						<div class="match-hand mt-1">
+							<img src="/assets/images/icons/shake-hands.png" class="img-fluid flex-wrap">
+						</div>
+
+						<span class="flex-wrap ms-2 w-100">
+							<p class="match-text-small">Matching</p>
+							<p class="match-text-large">90%</p>
+						</span>
+					</div>
+				</div>
+
+				<div class="flex-wrap ms-3 w-100">
+					<dl>
+						<dd class="text-capitalize"><strong>Name</strong> {{client?.first_name}} {{client?.last_name}}</dd>
+						<!-- <dd class="d-inline d-lg-flex w-100">
+							<strong class="me-2 flex-wrap" style="width:23% !important;">Location</strong> 
+							<span class="flex-wrap" style="width:77% !important;">{{client?.address}}</span>
+						</dd> -->
+						
+						<dd><strong>Age</strong> {{client?.age}}</dd>
+						<dd><strong>Interests</strong> {{client?.interests}}</dd>
+						<dd class="truncate" [title]="client?.address">
+							<strong>Location</strong> 
+							 <span>{{client?.address}}</span>
+						</dd>
+						
+					</dl>
+
+					<button class="btn btn-assign w-75" (click)="assignClient(client)">Assign</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="col-12 my-3 client-container">
+		<h5 class="header-text">Other Clients</h5>
+	</div>
+
+	<section class="row ps-2 pe-0 client-action-container">
+		<div class="col-12 col-lg-4 mb-3 px-2" *ngFor="let client of data?.clientList.slice(5, 8)">
+			<div class="other-clients p-3 text-center">
+				<div>
+					<img [defaultImage]="defaultImage"
+					[lazyLoad]="client?.profile_image"  class="img-fluid profile-image" ><br>
+
+					<dl class="mt-2">
+						<dd><strong>{{client?.first_name}} {{client?.last_name}}</strong></dd>
+						<dd><img class="img-fluid me-1" width="13px" src="/assets/images/icons/phone-outline.png"> {{client?.mobile_phone_no}}</dd>
+						<dd>{{client?.email}}</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+
+		<div *ngIf="data?.clientList.slice(5, 8)?.length === 0">
+			<p>List is currently empty.</p>
+		</div>
+
+	</section>
+
+	<div class="col-12 my-3 client-container">
+		<h5 class="header-text">Past Clients</h5>
+	</div>
+
+	<section class="row ps-2 pe-0 client-action-container">
+		<div class="col-12 col-lg-4 mb-3 px-2" *ngFor="let client of data?.clientList.slice(3, 6)">
+			<div class="other-clients p-3 text-center">
+				<div>
+					<img [defaultImage]="defaultImage"
+					[lazyLoad]="client?.profile_image"  class="img-fluid profile-image" ><br>
+
+					<dl class="mt-2">
+						<dd><strong>{{client?.first_name}} {{client?.last_name}}</strong></dd>
+						<dd><img class="img-fluid me-1" width="13px" src="/assets/images/icons/phone-outline.png"> {{client?.mobile_phone_no}}</dd>
+						<dd>{{client?.email}}</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+
+		<div *ngIf="data?.clientList.slice(3, 6)?.length === 0">
+			<p>List is currently empty.</p>
+		</div>
+
+	</section>
+</div>
+
+
+<div mat-action-container>
+	<div class="row container p-0 mt-3">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-header-gray btn-header float-md-start">Back</button>
+
+			<button 
+			mat-button 
+			(click)="proceedSelection()" 
+			cdkFocusInitial 
+			class="btn btn-primary-secondary btn-header float-md-end">Add New Care worker</button>
+		</div>
+	</div>
+</div>

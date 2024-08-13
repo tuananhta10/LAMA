@@ -1,0 +1,55 @@
+<div class="mb-3" id="employee-alerts">
+	<h5 class="card-title">Alerts</h5>
+
+	<div class="search-container">
+		<div class="search-div float-sm-end me-1">
+			<div class="input-group">
+			  <img src="/assets/images/icons/search.png">
+			  
+			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+			  [(ngModel)]="search" (ngModelChange)="searchDataSource()">
+			</div>
+		</div>
+
+		<h5 class="header-filter">
+			<div class="dropdown">
+			  <button class="btn btn-secondary-filter d-flex" type="button" id="filterButton" data-bs-toggle="dropdown">
+			    Filter <span class="ms-1 material-icons">arrow_drop_down</span>
+			  </button>
+			  <ul class="dropdown-menu" aria-labelledby="filterButton">
+			    <li><a class="dropdown-item" href="#">Action</a></li>
+			    <li><a class="dropdown-item" href="#">Another action</a></li>
+			    <li><a class="dropdown-item" href="#">Something else here</a></li>
+			  </ul>
+			</div>
+		</h5>
+	</div>
+	
+
+	<div class="alert-container mt-3" *ngIf="dataSource?.length > 0">
+		<div class="w-100 d-flex mb-3 alert-data" *ngFor="let alert of dataSource">
+			<div class="flex-wrap alert-icon" [ngClass]="alert?.level">
+				<img src="/assets/images/icons/warning.png" *ngIf="alert?.level === 'warning'">
+				<img src="/assets/images/icons/info.png" *ngIf="alert?.level === 'info'">
+				<img src="/assets/images/icons/success.png" *ngIf="alert?.level === 'success'">
+				<img src="/assets/images/icons/danger.png" *ngIf="alert?.level === 'danger'">
+			</div>
+
+			<div class="flex-wrap w-100 ms-2 pe-2">
+				<h5 class="alert-title">{{ alert?.title }} <small>By {{alert?.createdBy}}</small>
+					<span class="close float-end" (click)="removeAlert(alert?.id)">
+						<span class="material-icons">close</span>
+					</span>
+				</h5>
+				<p class="alert-description text-truncate">{{ alert?.description }}</p>
+				<span class="float-end mt-2">{{ alert?.dateAdded }}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="alert-container mt-3" *ngIf="dataSource?.length === 0">
+		<div class="alert-data">
+			<h5 class="alert-title">There's currently no new alerts.</h5>
+		</div>
+	</div>
+</div>

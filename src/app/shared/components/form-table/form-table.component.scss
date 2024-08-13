@@ -1,0 +1,156 @@
+@import "src/scss/colors";
+
+*{
+    //font-family: 'Noto Sans';
+    //font-size: 13px !important;
+}
+
+:host ::ng-deep {
+
+    .card-form {
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+
+
+        .mat-card {
+            box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            -webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            -moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+            border-radius: 20px;
+            padding: 25px 25px;
+
+            .mat-card-title{
+                font-size: 20px;
+                color: $color-gray-dark;
+
+                hr {
+                    border: 0.5px solid #777777;
+                    margin-bottom: 30px;
+                }
+            }
+
+            .mat-card-content {
+                padding: 0 100px 0 50px;
+
+                .table-border{
+                    border: 1px solid #BDBDBD;
+                    box-sizing: border-box;
+                    border-radius: 6px;
+                }
+            }
+
+            .mat-card-actions{
+                padding: 10px 25px;
+
+                .btn-header-gray{
+                    background: #D0D0D0;
+                    color: $color-gray-dark;
+                }
+
+                .btn-header{
+                    border-radius: 5px !important;
+                    padding: 7px 30px !important;
+                }
+            }
+        }
+    }
+}
+
+.table-label{
+    font-weight: 600;
+    font-size: 13px;
+    color: $color-gray-dark
+}
+
+.view-more{
+    text-decoration: underline;
+    color: $color-purple;
+    font-weight: 600;
+    //font-family: 'Noto Sans';
+}
+
+.add-new{
+    cursor: pointer;
+}
+
+.table{
+    font-family: 'Noto Sans';
+    
+    thead{
+        tr{
+            //background: #F4F3FB;
+
+            th{
+                color: $color-purple !important;
+                background: rgb(244,243,251) !important;
+                vertical-align: middle !important;
+                padding-bottom: 13px !important;
+                  padding-top: 15px !important;
+                font-size: 14px;
+                font-weight: 600 !important;
+                border-bottom: dashed #e0e0e0 1px !important;
+                //font-family: 'Noto Sans';
+                font-size: 13px;
+
+                &:first-child{
+                    padding-left: 17px !important;
+                }
+            }
+            
+        }
+    }
+
+    tbody{
+        tr{
+            td{
+                color: $color-gray;
+                font-weight: 400;
+                font-size: 13px;
+
+                &:first-child{
+                    padding-left: 17px !important;
+                }
+
+                p{
+                    padding-top: 20px;
+                    font-weight: 400;
+                    color: $color-gray;
+
+                }
+            }
+        }
+
+        tr:last-child{
+            border-bottom: solid white 1px !important;
+
+
+        }
+
+        .mat-icon{
+            //font-family: 'Mat Icon';
+            color: $color-gray;
+            font-size: 26px;
+            background: #fafafa;
+            border-radius: 50%;
+            padding: 2px;
+            margin-top: -3px;
+            cursor: pointer;
+        }
+    }
+
+    th, td{
+        &:last-child{
+            //background: red;
+            min-width: 90px !important;
+        }
+    }
+}
+
+.table-border{
+    border: solid #C5C5C5 1px !important;
+    border-radius: 6px;
+    padding: 10px;
+    padding-bottom: 0 !important;
+    padding-top: 20px;
+}

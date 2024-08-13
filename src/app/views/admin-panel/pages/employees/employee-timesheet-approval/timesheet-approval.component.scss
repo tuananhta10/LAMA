@@ -1,0 +1,236 @@
+@import "src/scss/colors";
+
+.main-title{
+	font-size: 24px;
+	font-weight: 600;
+	color: $color-gray;
+
+}
+
+.img-title{
+	margin-top: -8px !important;
+}
+
+.btn-primary{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+}
+
+.btn-menu{
+	background: #F0F1F5 !important;
+	border: 1px solid rgba(93, 93, 93, 0.2) !important;
+	box-sizing: border-box !important;
+	border-radius: 8px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+.btn-primary-outline{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+	color: $color-purple;
+	border: solid 1px $color-purple;
+	font-weight: 600;
+}
+
+
+
+.btn-header-gray{
+    background: #D0D0D0;
+    color: $color-gray-dark;
+}
+
+.btn-header{
+	margin-top: 2px;
+    //border-radius: 5px !important;
+    border-radius: 4px !important;
+    padding: 11px 30px !important;
+    box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+}
+
+
+.date-grouping-status{
+	//position: fixed;
+	//bottom: 5px;
+	//padding-bottom: 5px;
+	padding-right: 5px;
+	//right: 10px;
+	z-index: 99;
+	background: white;
+	display: flex;
+	align-items: center;
+
+	.mat-icon{
+		color: $color-gray;
+		font-size: 13px;
+		vertical-align: center;
+	}
+
+	.close{
+		margin-top: 5px !important;
+	}
+
+	.add{
+		margin-top: 5px !important;
+		padding-top: 4px;
+	}
+
+
+	.show-status{
+		font-size: 10px !important;
+		cursor: pointer;
+	}
+
+	.branches{
+		padding: 10px 15px;
+		border-radius: 2px;
+	}
+
+	.active{
+		&-cancelled{
+			border-right: solid 3px rgba($color-schedule-cancelled, 1) !important;
+			transition: all 0.1s ease !important;
+		}
+
+		&-completed{
+			border-right: solid 3px $color-schedule-completed !important;
+			transition: all 0.1s ease !important;
+		}
+
+		&-scheduled{
+			border-right: solid 3px $color-schedule-scheduled !important;
+			transition: all 0.1s ease !important;
+		}
+
+		&-created{
+			border-right: solid 3px rgba($color-schedule-created, 1) !important;
+			transition: all 0.1s ease !important;
+		}
+
+		&-pending{
+			border-right: solid 3px $color-schedule-pending !important;
+			transition: all 0.1s ease !important;
+		}
+
+
+	}
+
+	.btn{
+		//transition: all 0.5s ease !important;
+		//background: red !important;
+		padding: 5px 3px !important;
+		vertical-align: top !important;
+		border-radius: 4px !important;
+		font-size: 10px !important;
+
+		&-maximize{
+			//border-top: solid 0px rgba($color-schedule-cancelled, 1) !important;
+			font-weight: 600 !important;
+			border-radius: 5px;
+		}
+
+		&-cancelled{
+			background: $color-schedule-cancelled-light;
+			color: $color-schedule-cancelled; 
+			font-weight: 600 !important;
+			//border-top: solid 0px rgba($color-schedule-cancelled, 1) !important;
+		}
+
+		&-role{
+			background:$color-purple-light;
+			color: $color-purple; 
+			font-weight: 600 !important;
+			//border-top: solid 0px rgba($color-schedule-cancelled, 1) !important;
+			&.active{
+				border-right: solid 3px $color-purple !important;
+				transition: all 0.1s ease !important;
+			}
+		}
+
+		&-completed{
+			background: $color-schedule-completed-light;
+			color: $color-schedule-completed !important;
+			font-weight: 600 !important;
+			//border-top: solid 0px $color-schedule-completed !important;
+		}
+
+		&-scheduled{
+			background: $color-schedule-scheduled-light;
+			color: $color-schedule-scheduled !important;
+			font-weight: 600 !important;
+			//border-top: solid 0px $color-schedule-scheduled !important;
+		}
+
+		&-created{
+			background: $color-schedule-created-light;
+			color: $color-schedule-created;
+			font-weight: 600 !important;
+			//border-top: solid 0px rgba($color-schedule-created, 1) !important;
+		}
+
+		&-pending{
+			background: $color-schedule-pending-light;
+			color: $color-schedule-pending !important;
+			font-weight: 600 !important;
+			//border-top: solid 0px $color-schedule-pending !important;
+		}
+	}
+
+	.badge{
+		//background: red !important;
+		padding: 5px 10px !important;
+		border-radius: 50% !important;
+
+		&-cancelled{
+			color: white;
+			background: $color-schedule-cancelled; 
+			font-weight: 600 !important;
+			border-radius: 50% !important;
+			padding: 2px 5px; 
+			width: 10px;
+			height: 10px;
+		}
+
+		&-completed{
+			background: $color-schedule-completed;
+			color: white !important;
+			font-weight: 600 !important;
+			border-radius: 50% !important;
+			padding: 2px 5px; 
+			width: 10px;
+			height: 10px;
+		}
+
+		&-scheduled{
+			background: $color-schedule-scheduled;
+			color: white !important;
+			font-weight: 600 !important;
+			border-radius: 50% !important;
+			padding: 2px 5px; 
+			width: 10px;
+			height: 10px;
+		}
+
+		&-created{
+			background:  $color-schedule-created;
+			color: white !important;
+			font-weight: 600 !important;
+			border-radius: 50% !important;
+			padding: 2px 5px; 
+			width: 10px;
+			height: 10px;
+		}
+
+		&-pending{
+			background: $color-schedule-pending;
+			color: white !important;
+			font-weight: 600 !important;
+			border-radius: 50% !important;
+			padding: 2px 5px; 
+			width: 10px;
+			height: 10px;
+		}
+	}
+
+}
+

@@ -1,0 +1,61 @@
+@import "src/scss/colors";
+
+
+.goal-header{
+	color: $color-gray;
+	font-size: 14px;
+	font-weight: bold !important;
+	padding-left: 0 !important;
+	margin-bottom: 15px;
+}
+
+.goal-container{
+	padding: 18px 18px 5px 18px;
+	background: #FFFFFF;
+	box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.05);
+	border-radius: 10px;
+
+	.progress{
+		height: 8px !important;
+		width: 300px !important;
+		border-radius: 100px !important;
+
+		.success{
+			background: #00D0AF !important;
+		}
+
+		.warning{
+			background: #FFAA00 !important;
+		}
+
+		.danger{
+			background: #D03E00 !important;
+		}
+	}
+
+	.goal-icon{
+		border-radius: 50%;
+		padding: 15px;
+		background: $color-purple;
+		height: 55px !important;
+		width: 55px !important;
+		margin-right: 30px;
+
+		img{
+			width: 24px !important;
+			height: 24px !important;
+		}
+	}
+
+	.goal-title{
+		color: $color-gray;
+		font-size: 14px;
+		font-weight: 600px;
+	}
+
+	.goal-due{
+		margin-bottom: 10px !important;
+		font-size: 13px;
+		color: rgba($color-gray, 0.5);
+	}
+}

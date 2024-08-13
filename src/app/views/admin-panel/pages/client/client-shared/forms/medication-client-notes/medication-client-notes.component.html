@@ -1,0 +1,173 @@
+<div class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<mat-card>
+			<!-- <mat-card-title >
+				Medication and Client Notes
+				<hr>
+			</mat-card-title> -->
+			<mat-card-content>
+				<div class="row  pt-3">
+					<div class="col-sm-12 col-md-6" *ngIf="!isUpdate">
+						<app-textfield id="medications" 
+						label="Medications" 
+						[disabled]="true" 
+						placeholder="Please save record first"></app-textfield>
+
+						<app-textfield id="clientNotes" 
+						label="Participant Notes" 
+						[disabled]="true" 
+						placeholder="Please save record first" ></app-textfield>
+
+						<app-textfield id="healthCareProviders" 
+						label="Health Care Providers" 
+						[disabled]="true" 
+						placeholder="Please save record first" ></app-textfield>
+
+						<form [formGroup]="medicationForm">
+							<app-textarea id="allergies" 
+							label="Allergies" 
+							formControlName="allergies" ></app-textarea>
+						</form>
+					</div>
+
+					<div class="col-sm-12 col-md-6" *ngIf="!isUpdate">
+						<form [formGroup]="medicationForm">
+							<app-textarea 
+								label="Other Medical and Social History" 
+								formControlName="other_medical_social_history"
+								>
+							</app-textarea>
+
+							<app-textarea 
+								label="Meal Time Management" 
+								formControlName="meal_time_management"
+								>
+							</app-textarea>
+						</form>
+					</div>
+
+					<ng-container *ngIf="isUpdate">
+						<div class="col-md-6">
+							<form [formGroup]="medicationForm">
+								<app-textarea id="allergies" 
+								label="Allergies" 
+								formControlName="allergies" ></app-textarea>
+
+								<app-textarea 
+									label="Other Medical and Social History" 
+									formControlName="other_medical_social_history"
+									>
+								</app-textarea>
+							</form>
+						</div>
+
+						<div class="col-md-6">
+							<form [formGroup]="medicationForm">
+								<app-textarea 
+									label="Meal Time Management" 
+									formControlName="meal_time_management"
+									>
+								</app-textarea>
+							</form>
+						</div>
+
+						<div class="col-12 pb-3"><hr></div>
+
+						<div class="col-md-12">
+							<app-form-table
+								label='Medications'
+								[columns]="medicationColumns"
+								[data]="medicationData"
+								(addEvent)="openMedicationModal($event)"
+								(deleteEvent)="deleteMedicationRow($event)"
+								[isDeleteEnabled]="true"
+								(editEvent)="openMedicationModal($event)"
+								[isAddEnabled]="true"
+								[editable]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+						
+						<div class="col-md-12">
+							<app-form-table
+								label='Health Care Providers'
+								[columns]="healthCareColumn"
+								[data]="healthCareData"
+								(addEvent)="openHealthProviderModal($event)"
+								(deleteEvent)="deleteHealthProviderRow($event)"
+								[isAddEnabled]="true"
+								(editEvent)="openHealthProviderModal($event)"
+								[editable]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+
+						<div class="col-sm-12">
+							<app-form-table
+								label='Participant Notes'
+								[columns]="clientNotesColumns"
+								[data]="clientNotesData"
+								(addEvent)="openClientNotesModal($event)"
+								(deleteEvent)="deleteClientRow($event)"
+								[isAddEnabled]="true"
+								(editEvent)="openClientNotesModal($event)"
+								[editable]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+					</ng-container>
+				</div>
+			</mat-card-content>
+
+			
+
+			<mat-card-actions>
+				<hr>
+				<ng-container  *ngIf="!isUpdate">
+					<div class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button mat-button class="btn btn-header btn-header-gray" 
+							(click)="saveAsDraft()" 
+							style="padding-left: 14px !important; padding-right: 14px !important;" 
+							*ngIf="!isUpdate || currentStatus === 'draft'" >
+								Save as Draft
+							</button>
+							
+							<button *ngIf="!isUpdate"
+							(click)="next()" mat-button class="btn btn-header"
+							[ngClass]="isUpdate ? 'btn-header-gray' : 'btn-primary'">
+								Next
+							</button>
+
+							
+						</div>
+					</div>
+				</ng-container>
+
+				<div *ngIf="isUpdate" class="row">
+					<div class="col-sm-6 justify-content-start d-flex">
+						<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+							Back
+						</button>
+					</div>
+					<div class="col-sm-6 justify-content-end d-flex">
+						<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+							Next
+						</button>
+						
+						<button (click)="submit()" *ngIf="isUpdate"
+						mat-button class="btn btn-header btn-primary">
+							Save
+						</button>
+					</div>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

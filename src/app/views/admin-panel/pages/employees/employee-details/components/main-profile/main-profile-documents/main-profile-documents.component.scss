@@ -1,0 +1,218 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+.add-new{
+    cursor: pointer !important;
+    background: $color-purple !important;
+    //vertical-align: center !important;
+    color: white !important;
+    padding: 2px 10px !important;
+
+    .material-icons{
+        font-size: 11px;
+        margin-right: 2px;
+        vertical-align: bottom;
+        margin-bottom: 3px;
+    }
+}
+
+.truncate {
+  max-width: 180px !important;
+  width: 180px !important;
+  white-space: wrap;
+  //text-overflow: ellipsis;
+}
+
+.btn-active-employee{
+	padding: 8px 5px !important;
+	font-size: 11px;
+}
+
+h5{
+	color: #595959;
+	font-size: 13px;
+}
+
+.card-title{
+	line-height: 20px !important;
+	border: none !important;
+	padding-top: 10px !important;
+}
+
+.view-edit{
+    background: rgba(140, 127, 249, 0.1) !important;
+    color: $color-purple !important;
+    padding: 3px 15px !important;
+    cursor: pointer;
+    border-radius: 7px;
+    font-weight: 500 !important;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.shadow{
+	box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.1);
+	-webkit-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.1);
+	-moz-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.1);
+}
+
+.shadow-2{
+	/* box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206);
+	-webkit-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206);
+	-moz-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.206); */
+	border-color: white !important;
+	background: white;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* DOCUMENTS UPLOAD */
+#document-data{
+	@extend .shadow;
+	padding: 20px 20px 0px 20px;
+	//border-radius: 20px;
+	border-radius: 8px;
+	background: white;
+	color: #595959;
+	min-height: 130px;
+	max-height: 230px;
+	overflow: auto;
+
+	.table{
+		width: 100%;
+		//min-width: 525px;
+		overflow-x: scroll;
+
+		tr{
+			cursor: pointer !important;
+			&:hover{
+				background: #e9e9e9 !important;
+			}
+			/* td{
+				padding-top: 5px !important;
+				padding-bottom: 5px !important;
+			} */
+		}
+
+		tr:not(:last-child){
+			font-size: 13px !important;
+			width: 100% !important;
+			border-bottom: solid 0.5px #DBDBDB !important;
+		}
+
+		.file{
+			&-title{
+				text-decoration: underline;
+				color: $color-gray;
+				//width: 350px;
+			}
+
+			&-title-recent{
+				color: $color-gray;
+			}
+
+			&-title-date{
+				//background: red;
+				text-align: right;
+				width: 180px !important;
+				color: $color-gray;
+			}
+		}
+	}
+
+	.document-title{
+		font-weight: 600;
+		font-size: 13px !important;
+	}
+
+	a{
+		text-decoration: none;
+		@extend .view-edit;
+	}
+}
+
+/* CERTIFICATES */
+#certificates{
+	@extend .shadow;
+	padding: 20px 20px 0px 20px;
+	//border-radius: 20px;
+	border-radius: 8px;
+	background: white;
+	color: #595959;
+	min-height: 130px;
+	max-height: 245px;
+	overflow: auto;
+
+
+	.card-title{
+		.float-end{ @extend .view-edit; }
+	}
+
+	.table{
+		width: 100%;
+		//min-width: 525px;
+		overflow-x: scroll;
+
+		tr{
+			cursor: pointer !important;
+			&:hover{
+				background: #e9e9e9 !important;
+			}
+			/* td{
+				padding-top: 5px !important;
+				padding-bottom: 5px !important;
+			} */
+		}
+		
+		tr:not(:last-child){
+			font-size: 13px !important;
+			width: 100% !important;
+			border-bottom: solid 0.5px #DBDBDB !important;
+		}
+
+		.file{
+			&-title{
+				text-decoration: underline;
+				color: $color-gray;
+			}
+
+			&-title-recent{
+				color: $color-gray;
+			}
+
+			&-title-date{
+				//background: red;
+				text-align: right;
+				width: 180px !important;
+				color: $color-gray;
+			}
+		}
+	}
+
+	.document-title{
+		font-weight: 600;
+		font-size: 13px !important;
+	}
+
+	a{
+		color: $color-purple !important;
+		text-decoration: none !important;
+		font-weight: 600;
+	}
+
+	.delete{
+		cursor: pointer;
+		margin-top: -5px !important;
+	}
+
+}

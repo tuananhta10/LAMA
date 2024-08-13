@@ -1,0 +1,46 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">Service Schedule Details</h5>
+		<hr>
+	</div>
+	<div mat-dialog-content>
+		<div class="row">
+			<div class="col-12 col-md-5">
+				<lama-stepper [stepperList]="steps" [orientation]="'vertical'" [selectedIndex]="formStep - 1" #stepper (selectionChanged)="updateStepper($event.selectedIndex + 1)"></lama-stepper>
+			</div>
+			<div class="col-12 col-md-7">
+				<client-service-schedule-partner-details *ngIf="formStep === 1" 
+				[partnerDetailsForm]="partnerDetailsForm"
+				id="partnerDetailsForm">
+				</client-service-schedule-partner-details>
+
+				<client-service-schedule-service-tasks *ngIf="formStep === 2" 
+				[serviceTaskForm]="serviceTaskForm"
+				id="serviceTaskForm">
+				</client-service-schedule-service-tasks>
+
+				<client-service-schedule-service-travel *ngIf="formStep === 3" 
+				[serviceTravelForm]="serviceTravelForm"
+				id="serviceTaskForm">
+				</client-service-schedule-service-travel>
+			</div>
+		</div>
+	</div>
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button *ngIf="formStep === 1" (click)="dialogRef.close()" 
+			class="btn btn-header-gray btn-header me-3">Cancel</button>
+
+			<button mat-button *ngIf="formStep !== 1" (click)="back()" 
+			class="btn btn-header-gray btn-header me-3">Back</button>
+
+			<button mat-button *ngIf="formStep !== 3" (click)="next()" [disabled]="!checkFormDisabled()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button>
+
+			<button mat-button *ngIf="formStep === 3" (click)="save()" [disabled]="!checkFormDisabled()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3">Next</button>
+		</div>
+	</div>
+</div>

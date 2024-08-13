@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-12 col-md-12">
+		<form [formGroup]="createClientForm">
+			<app-textarea 
+				label="Client / Family Responsibilities" 
+				[labelTop]="true"
+				formControlName="clientFamilyResponsibilities"
+			>
+			</app-textarea>
+
+			<app-textarea 
+				label="Oganisation Responsibilities" 
+				[labelTop]="true"
+				formControlName="organizationResponsibilities"
+			>
+			</app-textarea>
+
+			<app-textarea 
+				label="Other Stakeholder Responsibilities" 
+				[labelTop]="true"
+				formControlName="otherStakeholderResponsibilities"
+			>
+			</app-textarea>
+
+		</form>
+	</div>
+</div>

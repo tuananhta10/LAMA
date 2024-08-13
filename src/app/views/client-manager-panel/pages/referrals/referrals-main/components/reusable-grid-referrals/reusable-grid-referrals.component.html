@@ -1,0 +1,252 @@
+<global-admin-loader *ngIf="dataStatus?.length === 0"
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader>
+
+<div class="container-fluid p-0">
+	<div>
+		<!-- <ng-container>
+			<div class="date-div me-2 float-start">
+				<div class="input-group" (click)="dateFrom.open()">
+				  <img matSuffix src="/assets/images/icons/calendar-input-icon.png">
+				  <mat-datepicker #dateFrom></mat-datepicker>
+				  <input type="text" class="form-control"
+				  [matDatepicker]="dateFrom"  
+				  placeholder="Date From" aria-label="Search"
+				  [(ngModel)]="dateSearch.dateFrom" (dateChange)="updateDateFilter()">
+				</div>
+			</div>
+
+			<div class="date-div me-2 float-start">
+				<div class="input-group" (click)="dateTo.open()">
+				  <img matSuffix src="/assets/images/icons/calendar-input-icon.png">
+				  <mat-datepicker #dateTo></mat-datepicker>
+				  <input type="text" class="form-control" 
+				  [matDatepicker]="dateTo" 
+				  placeholder="Date To" aria-label="Search"
+				  [(ngModel)]="dateSearch.dateTo" (dateChange)="updateDateFilter()">
+				</div>
+			</div>
+		</ng-container> -->
+		
+		
+		<div class="search-div me-1" style="width: 250px;">
+			<div class="input-group">
+			  <img src="/assets/images/icons/search.png">
+			  
+			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+			  [(ngModel)]="searchBy" (ngModelChange)="searchDataSource()">
+			</div>
+		</div>
+		
+		<!-- <div class="table-controls-container float-end">
+			<div class="table-controls mt-3">
+				<button class="px-0 me-3 pe-0" *ngFor="let action of tableController"
+				[disabled]="action?.class === 'delete' && selectedRows?.length === 0"
+				(click)="action?.action_event(openDialog(action?.class, {}))">
+					<img [src]="action?.icon" [ngClass]="action?.class">
+					<span>{{action?.name}}</span>
+				</button>
+
+				<span id="export-table">
+					<button
+						type="button"
+						data-bs-toggle="dropdown" 
+						aria-expanded="false" 
+						class="dropdown px-0 mx-0">
+						<img src="/assets/images/icons/export.png" class="export">Export
+					</button>
+
+					<ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="state-filter">
+						<li (click)="exportAsXLSX('all')">Export All</li>
+						<li (click)="exportAsXLSX('selected')">Export Selected</li>
+						<li (click)="exportAsXLSX()">Export View Table</li>
+					</ul>
+				</span>
+
+				<span class="flex-wrap pt-1 pt-sm-2 pt-md-1 mx-0">
+					<button class="px-0 dropdown dropdown-toggle me-0" 
+					type="button" id="lengthFilter" data-bs-toggle="dropdown" aria-expanded="false">
+					Show {{maxRows}}
+						<span class="material-icons">expand_more</span>
+					</button>
+
+					<ul class="dropdown-menu" aria-labelledby="lengthFilter" 
+					style="width: 110px !important;">
+						<li><a class="dropdown-item" (click)="adjustNumberOfItems(2)">Show 2</a></li>
+					    <li><a class="dropdown-item" (click)="adjustNumberOfItems(5)">Show 5</a></li>
+					    <li><a class="dropdown-item" (click)="adjustNumberOfItems(25)">Show 25</a></li>
+					    <li><a class="dropdown-item" (click)="adjustNumberOfItems(50)">Show 50</a></li>
+					</ul>
+				</span>
+
+				<span class="flex-wrap pt-1 pt-sm-2 pt-md-1">
+					<button class="px-0 dropdown dropdown-toggle me-4" 
+					type="button" id="lengthFilter" data-bs-toggle="dropdown" aria-expanded="false">
+					{{selectedStatus}}
+						<span class="material-icons">expand_more</span>
+					</button>
+
+					<ul class="dropdown-menu" aria-labelledby="lengthFilter" 
+					style="width: 160px !important;">
+						<li *ngFor="let item of status"><a class="dropdown-item" 
+							(click)="filterStatus(item)">{{item}}</a>
+						</li>
+					</ul>
+				</span>
+			</div>
+		</div> -->
+	</div>
+	<hr style="background: #a9a9a9 !important;">
+
+	<div class="d-block d-md-flex mb-4 mt-0 p-3 min-height-parent parent"
+	style="overflow-x: hidden;" cdkScrollable #elemt
+	(mousedown)="!loading ? startDragging($event, false, elemt) : ''" 
+	(mouseup)="stopDragging($event, false)"
+	(mouseleave)="stopDragging($event, false)" 
+	(mousemove)="moveEvent($event, elemt)"
+	id="main-referral-grid" cdkDropListGroup>
+		<ng-container *ngFor="let details of dataStatus">
+		 	<div [id]="details?.title_sub" 
+		 	cdkDropList 
+		 	[cdkDropListData]="details?.data"
+		 	class="referral-details parent" 
+		 	(cdkDropListDropped)="drop($event)">
+	 			<button class="btn btn-status"
+	 			[ngClass]="details?.title_sub">{{details?.title}} 
+	 				<span class="count float-end">
+	 					({{details?.data?.length}})
+	 				</span>
+	 			</button>
+
+	 			<div class="card card-body mt-3 mb-3 grabbable" cdkDrag 
+	 			*ngFor="let item of details?.data"
+	 		 	(mouseEnter)="stopDragging($event, false)"
+	 		 	(click)="stopDragging($event, false); mouseDown = false"
+	 		 	(mouseDown)="stopDragging($event, false)">
+
+	 				<div class="px-1 ps-0 pb-0 pt-3"
+	 				[ngClass]="details?.title_sub + '-child'">
+	 					<button mat-icon-button 
+	 					[matMenuTriggerFor]="menu" 
+	 					class="float-end menu-item">
+	 						<mat-icon>more_horiz</mat-icon>
+	 					</button>
+
+	 					<mat-menu #menu="matMenu">
+	 						<button mat-menu-item routerLink="/staff/referrals/details/{{item?.id}}">
+	 							<span>Edit</span>
+	 						</button>
+	 						<!-- <button mat-menu-item>
+	 							<span>Archive</span>
+	 						</button> -->
+	 						<button mat-menu-item (click)="deleteDataDialog(item)">
+	 							<span class="text-danger">Delete</span>
+	 						</button>
+	 					</mat-menu>
+
+	 					<p class="main-title float-start ms-3 truncate">
+	 						{{ item?.name }}
+	 					</p>
+	 				</div>
+
+	 				<div class="py-3 px-2 pe-3 bg-white">
+	 					<div class="d-flex mt-1 ms-2">
+	 						<div class="me-3">
+	 							<div class="sub-title">Disability</div>
+
+	 							<button class="btn btn-disability"
+	 							[ngClass]="details?.title_sub">{{item?.disability_type}} 
+	 								<ng-container *ngIf="item?.disability_type_other">- {{item?.disability_type_other}}</ng-container>
+	 							</button>
+
+	 						</div>
+
+	 						<div class="w-50">
+	 							<div class="sub-title">Funding</div>
+	 							
+	 							<button class="btn btn-funding text-capitalize">
+	 								{{item?.ndis_funding || 'Not Specificied'}}
+	 							</button>
+	 						</div>
+	 					</div>
+
+	 					<span class="main-description pt-3">
+	 						<hr>
+
+	 						<!-- <p class="ms-3 mt-2"><strong>Enquiry Date: </strong> 
+	 						<span class="">{{item?.date_added * 1000 | date: 'dd-MM-yyyy'}}</span></p>
+ -->
+	 						
+	 						<div class="d-flex ps-3 mb-3"  
+	 						*ngIf="item?.address_a || item?.suburb || item?.state">
+ 								<img src="/assets/images/icons/location.png" width="15px" height="18px" class="me-2">
+
+ 								<div class="ms-1">
+ 									<ng-container *ngIf="item?.address_a">
+ 									{{item?.address_a}}, </ng-container>
+ 									<ng-container *ngIf="item?.suburb">
+ 									{{item?.suburb}}, </ng-container>
+ 									<ng-container *ngIf="item?.state">
+ 									{{item?.state}} </ng-container>
+ 								</div>
+	 						</div>
+
+	 						<div class="d-flex ps-3 mb-3">
+ 								<img src="/assets/images/icons/phone-referral.png" width="15px" height="17px" class="me-2">
+
+ 								<div class="ms-1"> 
+ 									{{item?.mobile_phone_no}}
+ 								</div>
+	 						</div>
+	 		
+	 						<div class="d-flex ps-3 mb-3">
+ 								<img src="/assets/images/icons/email-referral.png" width="15px" height="13px" class="me-2 mt-1">
+
+ 								<div class="ms-1">
+ 									{{item?.email_address}}
+ 								</div>
+	 						</div>
+	 					</span>
+
+	 					<hr *ngIf="item?.ndis_participant_number || item?.birthdate">
+
+	 					<div class="mb-2 date-details mt-3 ps-3" *ngIf="item?.ndis_participant_number">
+	 						<p class="mt-2"><strong>NDIS Number:</strong> 
+	 							<span class="float-end enquiry-date btn">
+	 								{{item?.ndis_participant_number || '-'}}
+	 							</span>
+	 						</p>
+	 					</div>
+
+	 					<div class="date-details mt-1 ps-3" *ngIf="item?.birthdate">
+	 						<p class="mb-0"><strong>Date of Birth:</strong> 
+	 							<span class="float-end">
+	 								{{item?.birthdate * 1000 | date: 'dd-MM-yyyy'}} | 
+	 								<strong> {{item?.age}}</strong>
+	 							</span>
+	 						</p>
+	 					</div>
+
+	 					<div class="date-details ps-3" *ngIf="item?.referrer_full_name">
+	 						<p class="mb-0"><strong>Referred By:</strong> 
+	 							<span class="float-end">
+	 								{{ item?.referrer_full_name }} 
+	 							</span>
+	 						</p>
+	 					</div>
+
+	 					<!-- <div class="mb-2 date-details mt-3 ps-3" *ngIf="item?.birthdate">
+	 						<p class="mt-2"><strong>Date of Birth:</strong> 
+	 							<span class="float-end">
+	 								{{item?.birthdate * 1000 | date: 'dd-MM-yyyy'}}
+	 							</span>
+	 						</p>
+	 					</div> -->
+	 				</div>
+	 			</div>
+		 	</div>
+		</ng-container>
+	</div>
+</div>

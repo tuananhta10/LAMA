@@ -1,0 +1,81 @@
+<ng-container  *ngIf="!labelTop">
+    <div class="text-input">
+        <div class="d-flex">
+            <div class="container-label flex-wrap me-3 justify-content-end d-flex align-items-center" >
+                <p [innerHtml]="label" [matTooltip]="label" matTooltipPosition="above"></p>
+                <span *ngIf="required" class="asterisk-required" [matTooltip]="label" matTooltipPosition="above">*</span>
+            </div>
+            
+            <div class="container-input flex-wrap">
+                <mat-radio-group aria-label="Select an option" 
+                (change)="onSelectionChange($event)" 
+                [disabled]="disabled"
+                (focusout)="onTouch($event)">
+                    <mat-radio-button 
+                    *ngFor="let item of options" 
+                    [value]="item"
+                    [checked]="objectComparisonFunction(item)">
+                        <span class="radio-text">{{ item.name || item.value || item.text }}</span>
+                    </mat-radio-button>
+                </mat-radio-group>
+                <p *ngIf="isTouched" class="error-msg">*Empty Field</p>
+            </div>
+
+            <div class="container-info">
+                <span class="img-info-container" *ngIf="info">
+                    <img src="/assets/images/icons/info-input-icon.png" 
+                    [matTooltip]="infoTitle"
+                    matTooltipPosition="above"
+                    class="img-fluid">
+                </span>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+
+<ng-container *ngIf="labelTop">
+    <div class="text-input">
+        <div  matTooltipPosition="above">
+            <p class="label-top text-start text-truncate" >
+                <span [innerHtml]="label"></span>
+                <span *ngIf="required" class="asterisk-required">*</span>
+            </p> 
+        </div>
+
+        <div class="container-input pt-2 px-md-4"
+        [ngStyle]="{
+            'width': labelTop ? '100%': '',
+            'margin-left': labelTop ? '0px': ''
+        }">
+            <div class="d-flex">
+                <mat-radio-group aria-label="Select an option"
+                [class.vertical]="isVertical" 
+                class="d-flex flex-wrap"
+                [disabled]="disabled"
+                (change)="onSelectionChange($event)" 
+                (focusout)="onTouch($event)">
+                    <mat-radio-button class="flex-wrap"
+                    *ngFor="let item of options" 
+                    [class.bottom-space]="isVertical" 
+                    [value]="item"
+                    [checked]="objectComparisonFunction(item)">
+                        <span class="radio-text">{{ item.name || item.value || item.text }}</span>
+                    </mat-radio-button>
+                </mat-radio-group>
+
+                <div class="container-info">
+                    <span class="img-info-container" *ngIf="info">
+                        <img src="/assets/images/icons/info-input-icon.png" 
+                        [matTooltip]="infoTitle"
+                        matTooltipPosition="above"
+                        class="img-fluid">
+                    </span>
+                </div>
+            </div>
+            <p *ngIf="isTouched" class="error-msg">*Empty Field</p>
+        </div>
+
+        
+    </div> 
+</ng-container>

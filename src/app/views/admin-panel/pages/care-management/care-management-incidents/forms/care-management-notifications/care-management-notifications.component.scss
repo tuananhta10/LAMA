@@ -1,0 +1,18 @@
+@import "src/scss/colors";
+.mat-subtitle{
+    padding-left: 23px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-gray;
+}
+
+.p-mat-subtitle{
+    padding-left: 23px;
+}
+
+:host ::ng-deep .notification {
+    .mat-radio-button {
+        margin-right: 20px !important;
+        margin-bottom: 5px;
+    }
+}

@@ -1,0 +1,50 @@
+@import "src/scss/colors";
+
+.btn-outline-primary{
+	border-radius: 4px !important;
+	padding: 5px 10px !important;
+	background: white;
+	border-color: $color-purple;
+	color: $color-purple;
+
+	&:hover{
+		background: $color-purple;
+		color: white;
+	}
+}
+
+.btn-danger-secondary{
+	border: solid 1px $color-red !important;
+	color: $color-red;
+	border-radius: 4px !important;
+	padding: 5px 10px !important;
+
+	&:hover{
+		background: $color-red;
+		color: white;
+	}
+}
+
+
+.btn-header-gray{
+  background: #D0D0D0;
+  color: $color-gray-dark;
+}
+
+
+
+.btn-header{
+  border-radius: 5px !important;
+  padding: 7px 20px !important;
+}
+
+.btn-primary{
+    background: $color-purple !important;
+    border-radius: 5px !important;
+    padding: 7px 20px !important;
+    
+    &:hover{
+        background: $color-purple-dark !important;
+    }
+}
+

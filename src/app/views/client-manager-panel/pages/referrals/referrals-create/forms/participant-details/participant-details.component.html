@@ -1,0 +1,173 @@
+<div class="card card-body mt-3 py-5 px-md-5">
+	<form *ngIf="!loading" [formGroup]="participantDetailsForm"
+	[@animate]="{value:'*', params:{ x:'-50px'}}">
+		<div class="row">
+			<div class="col-12 col-md-4 mb-3">
+				<h5 class="mat-subtitle mb-3 text-start">Participant Details</h5>
+				<app-textfield 
+					label="First Name" 
+					[labelTop]="true"
+					formControlName="first_name"
+					[required]="true">
+				</app-textfield>
+
+				<app-textfield 
+					label="Last Name" 
+					[labelTop]="true"
+					formControlName="last_name"
+					[required]="true">
+				</app-textfield>
+
+				<app-textfield 
+					label="Preferred Name" 
+					[labelTop]="true"
+					formControlName="preferred_name"
+					>
+				</app-textfield>
+
+				<app-dropdown 
+					label="Cultural Identification" 
+					[labelTop]="true"
+					formControlName="background"
+					[options]="backgroundOption"
+					(keyevents)="showOthers($event)"
+					>
+				</app-dropdown>
+				
+				<app-textarea *ngIf="showOther"
+					label="Input the Cultural Identification" 
+					[labelTop]="true"
+					formControlName="background_other"
+				>
+				</app-textarea>
+
+				<app-date-picker 
+					label="Date of Birth" 
+					[labelTop]="true"
+					formControlName="birthdate"
+					(keyevents)="computeAge($event)"
+					[maxDate]="dateNow"
+					>
+				</app-date-picker>
+
+
+				<ng-container *ngIf="participantDetailsForm?.controls['birthdate'].value">
+					<app-textfield 
+						label="Age" 
+						[labelTop]="true"
+						[disabled]="true" 
+						formControlName="age"
+						[inputType]="'number'"
+						>
+					</app-textfield>
+				</ng-container>
+
+				
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<h5 class="mat-subtitle mb-3 text-start">Address</h5>
+				<app-google-places-input
+					label="Address 1" 
+					[required]="true"
+					[labelTop]="true"
+					formControlName="address_a"
+					(addressChange)="onAddressChange($event)">
+				</app-google-places-input>
+
+				<app-textfield 
+					label="Suburb" 
+					[required]="true"
+					[labelTop]="true"
+					formControlName="suburb"
+					>
+				</app-textfield>
+
+				<app-dropdown 
+					label="State" 
+					[required]="true"
+					[labelTop]="true"
+					[options]="stateOption"
+					formControlName="state"
+					>
+				</app-dropdown>
+
+				<app-textfield 
+					label="Post Code" 
+					[required]="true"
+					[labelTop]="true"
+					[inputType]="'number'"
+					formControlName="post_code"
+					>
+				</app-textfield>
+
+				<app-search-list id="main_branch" 
+					label="Main Branch" 
+					[labelTop]="true"
+					formControlName="main_branch_id" 
+					placeholder="Select"
+					[options]="branchesEnum" 
+				></app-search-list>
+
+				<ng-container *ngIf="isUpdate">
+					<h5 class="mat-subtitle mb-1 text-start">Status Details</h5>
+					<app-dropdown 
+						[labelTop]="true"
+						formControlName="status"
+						[options]="status"
+						>
+					</app-dropdown>
+				</ng-container>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<h5 class="mat-subtitle mb-3 text-start">Contact Details</h5>
+
+				<app-textfield 
+					label="Email Address" 
+					[labelTop]="true"
+					formControlName="email_address"
+					[required]="true">
+				</app-textfield>
+
+				<app-textfield 
+					label="Phone Number" 
+					[labelTop]="true"
+					formControlName="mobile_phone_no"
+					[required]="true">
+				</app-textfield>
+
+				<h5 class="mat-subtitle mb-3 text-start">Other Contact Details</h5>
+
+				<app-textfield 
+					label="Other Contact Person" 
+					[labelTop]="true"
+					formControlName="emergency_contact_name"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Other Contact Number" 
+					[labelTop]="true"
+					formControlName="emergency_contact_no"
+					>
+				</app-textfield>
+
+				<app-textfield 
+					label="Other Contact Relationship" 
+					[labelTop]="true"
+					formControlName="emergency_contact_relationship"
+					>
+				</app-textfield>
+			</div>
+		</div>
+	</form>
+	
+	<div class="px-5">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

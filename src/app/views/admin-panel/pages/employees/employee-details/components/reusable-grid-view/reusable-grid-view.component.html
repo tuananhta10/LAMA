@@ -1,0 +1,70 @@
+<div class="container-fluid p-0" *ngIf="listDataSource?.length > 0">
+	<div class="row">
+		<div class="col-12 col-md-6 col-lg-3 mb-2" *ngFor="let details of dataStatus">
+			<button class="btn btn-status"
+			[ngClass]="details?.title_sub">{{details?.title}}</button>
+
+			<div class="card card-body mt-3" 
+			*ngFor="let item of details?.data">
+				<div>
+					<button mat-icon-button 
+					[matMenuTriggerFor]="menu" 
+					class="float-end menu-item">
+						<mat-icon>more_horiz</mat-icon>
+					</button>
+
+					<mat-menu #menu="matMenu">
+						<button mat-menu-item>
+							<mat-icon>info</mat-icon>
+							<span>View Details</span>
+						</button>
+						<button mat-menu-item>
+							<mat-icon>edit_note</mat-icon>
+							<span>Edit Details</span>
+						</button>
+						<button mat-menu-item>
+							<mat-icon>delete_sweep</mat-icon>
+							<span>Delete</span>
+						</button>
+					</mat-menu>
+
+					<p class="main-title truncate">{{ item?.qualification }}</p>
+				</div>
+
+				<span class="main-description">
+					<span *ngIf="item?.description?.length > 1">
+						<span *ngIf="item?.description?.length > 1">
+							<ul>
+								<li *ngFor="let description of item?.description">
+									{{description}}
+								</li>
+							</ul>
+						</span>
+					</span>
+					<span *ngIf="item?.description?.length === 1">
+						{{item?.description}}
+					</span>
+				</span>
+
+				<div class="mt-3 mb-2 date-details">
+					<span [ngClass]="item?.label_style">
+						<img src="/assets/images/icons/clock-white.png" class="img-fluid me-1" width="15px">
+						{{ convertDate(item?.completion_date) }}
+					</span>
+
+					<div class="float-end">
+						<img src="/assets/images/faces/face-11.jpg" class="profile hvr-grow" width="25px">
+						<img src="/assets/images/faces/face-15.jpg" class="profile hvr-grow" width="25px">
+					</div>
+				</div>
+
+				<div class="mt-2" *ngIf="item?.attachment?.length > 0">
+					<img src="/assets/images/icons/attachment-icon-2.png" 
+					class="img-fluid me-2 hvr-grow" width="18px">
+					<img src="/assets/images/icons/attachment-icon.png" 
+					class="img-fluid me-2 hvr-grow" width="18px">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

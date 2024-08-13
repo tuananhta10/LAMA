@@ -1,0 +1,203 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+	.mat-stepper-vertical.horizontal{
+		box-shadow: none !important;
+	}
+}
+
+#branch-details{
+	.stepper-container{
+		padding-left: 18%;
+		//padding-right: 15%;
+		background: #fff !important;
+		border-radius: 8px !important;
+		box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+		-webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+		-moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+	}
+
+	.banner-container{
+		background: red;
+		margin-top: 20px;
+		padding: 20px 40px;
+		background: $color-purple-gradient;
+		border-radius: 6px;
+		position: relative;
+		overflow: hidden;
+
+		h4{
+			color: white;
+			font-size: 35px;
+			font-weight: bold;
+		}
+
+		h5{
+			color: white;
+			font-weight: 500;
+			font-size: 24px;
+		}
+
+		.banner-main{
+			width: 270px;
+			position: absolute;
+			right: 15%;
+			top: 0;
+			z-index: 99;
+		}
+
+		.banner-dots-left{
+			position: absolute;
+			width: 150px; 
+			left: 22%;
+			bottom: 0;
+			z-index: 9;
+		}
+
+		.banner-eclipse-left{
+			position: absolute;
+			width: 500px;
+			left: 3%;
+			bottom: 0;
+			z-index: 9;
+		}
+
+		.banner-dots-right{
+			position: absolute;
+			width: 150px;
+			right: 10%;
+			top: 0;
+			z-index: 9;
+		}
+
+		.banner-eclipse-right{
+			position: absolute;
+			width: 530px;
+			right: 0.1%;
+			top: 0;
+			z-index: 9;
+		}
+	}
+
+}
+
+#contact-details{
+	.stepper-container{
+		padding-left: 25%;
+		padding-right: 25%;
+		background: #ffffff !important;
+	}
+
+	.banner-container{
+		background: red;
+		margin-top: 20px;
+		padding: 20px 40px;
+		background: linear-gradient(91.16deg, #89ADF9 0%, #97CDDF 100%);
+		border-radius: 6px;
+		position: relative;
+		overflow: hidden;
+
+		h4{
+			color: white;
+			font-size: 35px;
+			font-weight: bold;
+		}
+
+		h5{
+			color: white;
+			font-weight: 500;
+			font-size: 24px;
+		}
+
+		.banner-main{
+			width: 230px;
+			position: absolute;
+			right: 10%;
+			top: 0;
+			z-index: 99;
+		}
+
+		.banner-dots-left{
+			position: absolute;
+			width: 150px; 
+			left: 15%;
+			bottom: 0;
+			z-index: 9;
+		}
+
+		.banner-eclipse-left{
+			position: absolute;
+			width: 500px;
+			left: 3%;
+			bottom: 0;
+			z-index: 9;
+		}
+
+		.banner-dots-right{
+			position: absolute;
+			width: 150px;
+			right: 10%;
+			top: 0;
+			z-index: 9;
+		}
+
+		.banner-eclipse-right{
+			position: absolute;
+			width: 530px;
+			right: 0.1%;
+			top: 0;
+			z-index: 9;
+		}
+	}
+}
+
+.main-title{
+	font-size: 24px;
+	font-weight: 600;
+	color: $color-gray;
+
+}
+
+.img-title{
+	margin-top: -8px !important;
+}
+
+.btn-primary{
+	border-radius: 4px !important;
+	box-shadow: 0px 4px 10px rgba(153, 95, 236, 0.2) !important;
+}
+
+.btn-menu{
+	background: #F0F1F5 !important;
+	border: 1px solid rgba(93, 93, 93, 0.2) !important;
+	box-sizing: border-box !important;
+	border-radius: 8px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+.btn-header-gray{
+    background: #D0D0D0;
+    color: $color-gray-dark;
+}
+
+.btn-header{
+    border-radius: 5px !important;
+    padding: 10px 30px !important;
+}
+
+.btn-view-more{
+	padding: 7px 15px !important;
+	margin-top: 8px;
+	//margin-left: -4px;
+	background: white;
+	color: $color-purple;
+	font-size: 11px !important;
+	border-radius: 4px !important;
+	border: solid 1px $color-purple;
+	font-weight: 600 !important;
+	&:hover{
+		background: $color-purple;
+		color: white;
+	}
+}

@@ -1,0 +1,92 @@
+
+<div class="row mt-3" id="statistic-data">
+	<div class="col-12 col-md-6 mb-3" [ngClass]="screenWidth < 1349 ? 'col-lg-6' : 'col-lg-4'"
+	*ngIf="!loading" [@animate]="{value:'*', params:{ y:'-20px', delay:'100ms' }}">
+		<div class="card incident" routerLink="/admin/care/incidents">
+			<div class="card-body text-start p-0 d-flex"
+			>
+				<div class="w-100 ps-3 pt-2">
+					<h5>Incidents</h5>
+					<p class="stat-header d-flex">
+						<button class="btn stat-button me-2">
+							<ng-container *ngIf="IncidentMetrics?.percentage; else showZero">
+							{{shortifyAmount(IncidentMetrics?.percentage || 0, 1)}}</ng-container>
+							<ng-template #showZero>0.00</ng-template>%
+						</button> 
+						<span class="ms-2 text-truncate">{{getOpenIncident() || 0}}
+							<span class="stat-subtitle mt-2 text-truncate" style="margin-left: -5px">Open</span>
+							<!-- {{IncidentMetrics?.total_incident}} -->
+						</span>
+					</p>
+					<p class="stat-subtitle mt-2">Total for this month</p>
+				</div>
+				<div class="bg-incident" style="">
+					<img src="/assets/images/icons/dashboard/accident.png" style="margin-top: 45px !important;">
+				</div>
+
+				<!-- <a routerLink="/admin" class="btn btn-view-all">View All</a> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="col-12 col-md-6 mb-3" [ngClass]="screenWidth < 1349 ? 'col-lg-6' : 'col-lg-4'"
+	*ngIf="!loading" [@animate]="{value:'*', params:{ y:'-20px', delay:'300ms' }}">
+		<div class="card funding " routerLink="/admin/clients/client-funding">
+			<div class="card-body text-start p-0 d-flex">
+				<div class="w-100 ps-3 pt-2">
+					<h5>Funding</h5>
+					<div class="stat-header d-flex">
+						<button class="btn stat-button me-2"> 
+							{{
+								shortifyAmount(roundPercent(fundingMetrics?.funding_percent || 0), 1)
+							}}%
+							<!-- <mat-icon *ngIf="fundingMetrics?.current_month_publish < fundingMetrics?.total_publish" class="mat-icon mt-2">arrow_downward</mat-icon>
+							<mat-icon *ngIf="fundingMetrics?.current_month_publish > fundingMetrics?.total_publish" class="mat-icon mt-2">arrow_upward</mat-icon> -->
+						</button>
+						<div class="d-flex text-truncate">
+							{{fundingMetrics?.current_month_publish.toFixed(0)}} 
+							<div class="stat-subtitle ms-1 text-truncate" style="margin-top: 18px;">Published</div>
+						</div>
+							<!-- ${{ shortifyAmount((fundingMetrics?.current_month_publish || 0), 1) }} -->
+					</div>
+					<p class="stat-subtitle mt-2">Total for this month</p>
+				</div>
+				<div class="bg-funding" style="">
+					<img src="/assets/images/icons/dashboard/funding.png" >
+				</div>
+				<!-- <a routerLink="/admin" class="btn btn-view-all">View All</a> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="col-12 col-md-6 mb-3" [ngClass]="screenWidth < 1349 ? 'col-lg-6' : 'col-lg-4'"
+	*ngIf="!loading" [@animate]="{value:'*', params:{ y:'-20px', delay:'500ms' }}">
+		<div class="card careworker " routerLink="/admin/employees">
+			<div class="card-body text-start p-0 d-flex">
+				<div class="w-100 ps-3 pt-2">
+					<h5>Support Workers</h5>
+					<div class="stat-header d-flex">
+						<button class="btn stat-button me-2">
+							<span class="me-1">
+								{{ shortifyAmount(supportWorkerMetrics?.percentage || 0, 1) }}% 
+							</span>
+							<mat-icon *ngIf="supportWorkerMetrics?.total_employee_this_month < supportWorkerMetrics?.total_employee_last_month" class="mat-icon mt-2">arrow_downward</mat-icon>
+							<mat-icon *ngIf="supportWorkerMetrics?.total_employee_this_month > supportWorkerMetrics?.total_employee_last_month" class="mat-icon mt-2">arrow_upward</mat-icon>
+						</button>
+						<div class="d-flex text-truncate">
+							{{supportWorkerMetrics?.total_employee_this_month}} 
+							<div class="stat-subtitle ms-1 text-truncate" style="margin-top: 18px;">New</div>
+						</div>
+						<!--  {{ shortifyAmount((dashboardData?.employee?.employee_total) || 0, 1) }} -->
+					</div>
+					<p class="stat-subtitle mt-2">Total for this month</p>
+				</div>
+				
+				<div class="bg-careworker" style="">
+					<img src="/assets/images/icons/dashboard/careworker.png" style="width:60px !important; margin-top: 40px !important;">
+				</div>
+				<!-- <a routerLink="/admin" class="btn btn-view-all">View All</a> -->
+			</div>
+		</div>
+	</div>
+</div>

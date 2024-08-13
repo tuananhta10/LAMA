@@ -1,0 +1,55 @@
+<mat-stepper orientation="vertical" 
+	[linear]="isLinear" 
+	[disableRipple]="true" 
+	[ngClass]="{'no-click': isVerticalClickEnabled()}"
+	[selectedIndex]="selectedIndex" #stepper class="{{ orientation }}"
+	(selectionChange)="navigateToStep($event)">
+
+	
+
+	<ng-container *ngFor="let step of stepperList; let i = index;">
+		<mat-step #matStep 
+		state="{{ step.stepName }}" 
+		[aria-labelledby]="!step.isStepValid && matStep.interacted ? 'invalid' : null"
+		[hasError]="!step.isStepValid && matStep.interacted"
+		[attr.state]="step.isStepperIcon ? step.stepName : null">
+			<!-- ORIGINAL ICON -->
+			<ng-template matStepperIcon="{{ step.stepName }}" *ngIf="step.isStepperIcon">
+				<div class="stepper-icon {{ step.stepName }}"></div>
+			</ng-template>
+
+			<!-- <ng-template matStepperIcon="warning" *ngIf="!step.isStepValid && matStep.interacted">
+			    <mat-icon>insert_drive_file</mat-icon>
+			</ng-template> -->
+
+			<!-- <ng-template matStepperIcon="warning">
+			    <mat-icon>call_end</mat-icon>
+			</ng-template> -->
+
+			<!-- IF FORM IS INVALID AND CLICK HAVE BEEN SAVED -->
+			<!-- <ng-template matStepperIcon="{{ step.stepName }}" *ngIf="step.isStepperIcon && !step.isStepValid && saveClicked">
+				<div class="stepper-icon invalid"></div>
+			</ng-template> -->
+
+			<ng-template matStepLabel>
+				<span *ngIf="orientation === 'vertical'">{{ step.step }}</span>
+				<label [innerHtml]="step.stepLabel"></label>
+			</ng-template>
+
+			<ul class="step-bullets" *ngIf="step.isStepperBullets"
+			[ngClass]="{ 
+				'active': stepper.selectedIndex === i || stepsList[i]?.completed === true,
+				'reduce-margin-label': orientation === 'horizontal'
+			}" >
+				<li [ngClass]="orientation === 'horizontal' ? 'reduce-margin-li': ''"></li>
+				<li [ngClass]="orientation === 'horizontal' ? 'reduce-margin-li': ''"></li>
+				<li [ngClass]="orientation === 'horizontal' ? 'reduce-margin-li': ''"></li>
+			</ul>
+
+		</mat-step>
+	</ng-container>
+</mat-stepper>
+
+<!-- <button (click)="previous()">Previous</button>
+<button (click)="next()">Next</button>
+<button (click)="reset()">Reset</button> -->

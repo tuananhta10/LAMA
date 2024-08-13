@@ -1,0 +1,50 @@
+<div class="row px-0">
+	<div class="col-md-12 text-center my-5 assign-container">
+		<img src="/assets/images/placeholder/matching-preference.png" class="img img-fluid">
+	</div>
+
+	<div class="col-md-12 text-center mb-0 assign-container px-5">
+		<h5 class="header-text">Matching Preference</h5>
+	</div>
+
+	<div class="col-md-8 offset-md-2 text-center mb-3 assign-container px-5">
+		<hr class="px-5">
+	</div>
+
+	<section class="row px-lg-3 ms-lg-1 assign-action-container">
+		<div class="col-12 col-md-4 text-center mb-3 px-2" 
+		*ngFor="let item of criteria">
+			<div class="card-action" 
+			[ngClass]="[item?.class, selection === item?.id ? 'set-focus': '']"
+			(click)="selectPreference(item?.id)">
+				<div class="img-container" 
+				>
+					<img [src]="item?.image">
+				</div>
+
+				<p class="header-text-action mt-2">{{item?.title}}</p>
+			</div>
+		</div>
+
+	</section>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container ps-3">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			cdkFocusInitial 
+			class="btn btn-header-gray btn-header ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="proceedSelection()" 
+			[disabled]="selection === ''"
+			cdkFocusInitial 
+			class="btn btn-primary btn-header">Proceed</button>
+		</div>
+	</div>
+</div>

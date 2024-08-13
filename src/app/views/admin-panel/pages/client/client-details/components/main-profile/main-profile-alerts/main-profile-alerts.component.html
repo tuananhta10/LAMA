@@ -1,0 +1,62 @@
+<div class="mb-3" id="client-goals">
+	<h5 class="card-title">Participant Goals
+		<span class="float-end view-edit" (click)="navigateTo(6)" style="font-weight: 500 !important">Edit</span>
+	</h5>
+
+	<div class="search-container">
+		<div class="search-div me-1">
+			<div class="input-group">
+			  <img src="/assets/images/icons/search.png">
+			  
+			  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+			  [(ngModel)]="search" (ngModelChange)="searchDataSource()">
+			</div>
+		</div>
+
+		<!-- <h5 class="header-filter">
+			<div class="dropdown">
+			  <button class="btn btn-secondary-filter d-flex" type="button" id="filterButton" data-bs-toggle="dropdown">
+			    Filter <span class="ms-1 material-icons">arrow_drop_down</span>
+			  </button>
+			  <ul class="dropdown-menu" aria-labelledby="filterButton">
+			    <li><a class="dropdown-item" href="#">Action</a></li>
+			    <li><a class="dropdown-item" href="#">Another action</a></li>
+			    <li><a class="dropdown-item" href="#">Something else here</a></li>
+			  </ul>
+			</div>
+		</h5> -->
+	</div>
+	
+
+	<div class="goal-container mt-3" *ngIf="dataSource?.length > 0">
+		<div class="w-100 d-flex mb-3 goal-data" *ngFor="let goal of dataSource">
+			
+
+			<div class="flex-wrap w-100 ms-2 pe-2">
+				<h5 class="goal-title">{{ goal?.goal }}</h5>
+				<p class="goal-description">{{ goal?.description }}</p>
+
+				<div class="mt-2">
+					<span class="goal-status">
+						{{ goal?.status }}
+					</span>
+
+					<span class="goal-type ms-2" *ngFor="let type of goal?.goal_type">
+						{{ type }}
+					</span>
+				</div>
+
+				<p class="mt-2">
+					{{ goal?.duration }}: {{ goal?.start_date * 1000 | date: 'MMM dd, yyyy' }} - 
+					{{ goal?.end_date * 1000 | date: 'MMM dd, yyyy' }}
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="goal-container px-3  mt-3" *ngIf="dataSource?.length === 0">
+		<div class="goal-data pb-3">
+			<h5 class="goal-title">Participant goals will be displayed here soon. Thank you.</h5>
+		</div>
+	</div>
+</div>

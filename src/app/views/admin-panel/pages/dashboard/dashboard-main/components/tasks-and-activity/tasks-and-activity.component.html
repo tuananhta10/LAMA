@@ -1,0 +1,60 @@
+<div class="row">
+	<div class="col-12 px-0 mb-3" id="my-tasks-container">
+		<div class="card px-3">
+			<div *ngIf="!loading" class="card-body p-0 py-3">
+				<div class="w-100 px-2">
+					<div class="mb-3 pb-0" style="border-bottom: 1px dashed rgba(196, 196, 196, 0.6);">
+						<div class="row">
+							<div class="col-12 col-md-6 col-lg-4">
+								<h5 class="main-title">Employee Tasks</h5>
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 text-center"></div>
+							<div class="col-12 col-md-6 col-lg-4 text-end">
+								<a routerLink="/admin/employees/employee-task" class="btn btn-view-all mt-2">View All</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="employee-task-table" style="max-height: 350px !important; min-height: 350px; overflow-y: auto">
+						<table class="table">
+							<thead>
+								<tr>
+									<th (click)="sortTask('task_name')">Task</th>
+									<th (click)="sortTask('employee')">Assigned to</th>
+									<th (click)="sortTask('due_date')">Due Date</th>
+									<th (click)="sortTask('status')">Status</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr *ngFor="let task of taskData" (click)="openTaskDetails(task)">
+									<td class="text-capitalize">{{task?.task_name}}</td>
+									<td>{{task?.employee_name || '--'}}</td>
+									<td>{{task?.due_date * 1000 | date: 'dd-MM-yyyy': 'GMT'}}</td>
+									<td>
+										<button class="btn btn-status text-capitalize" [ngClass]="task?.status?.split(' ').join('-').toLowerCase()">
+											{{task?.status}}
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<global-admin-loader 
+		        [withSideBar]="false"
+		        [fromDetailTab]="true"
+		        [loading]="loading">
+		    </global-admin-loader>	
+		</div>
+	</div>
+
+	<section class="col-12 px-0  mb-3">
+		<!-- ADMIN INCIDENTS -->
+		<admin-dashboard-incidents [incidentGraphData]="incidentGraphData"
+		[referralsData]="referralsData"></admin-dashboard-incidents>
+	</section>
+</div>	
+
+

@@ -1,0 +1,82 @@
+<div id="client-careworker-container">
+	<!-- BUTTONS CONTROLLER -->
+	<client-details-navigation
+		[id]="id"
+		[activeLink]="'service-details'">
+	</client-details-navigation>
+
+	<!-- STATISTICS DATA -->
+	<div class="mb-3">
+		<client-main-profile-stats></client-main-profile-stats>
+	</div>
+
+	<div class="row">
+		<div class="col-12 col-md-3">
+			<div class="search-div me-1">
+				<div class="input-group">
+				  <img src="/assets/images/icons/search.png">
+				  
+				  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				  [(ngModel)]="searchBy" (ngModelChange)="multipleSearch()">
+				</div>
+			</div>
+		</div>
+		<div class="col-8 col-md-9"></div>
+		
+	</div>
+	<hr>
+
+	<!-- DOCUMENT FILE DATA -->
+	<div style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<app-client-service-details-table *ngIf="!loading"
+			[loading]="loading"
+			[showSearch]="false"
+			[componentTitle]="'Client Funding'"
+			[displayedColumns]="clientFundingColumns"
+			[selectedColumns]="selectedClientFundingCol"
+			[selectedColumnsMobile]="selectedClientFundingCol"
+			[searchSource]="{}"
+			[maxRows]="10"
+			[listDataSource]="filteredClientFundingList">
+		</app-client-service-details-table> 
+		<br>
+		<div class="row">
+			<div class="col-12 col-md-12">
+				<app-client-service-details-table *ngIf="!loading"
+					[loading]="loading"
+					[showSearch]="false"
+					[componentTitle]="'Service Template'"
+					[displayedColumns]="serviceTemplateColumns"
+					[selectedColumns]="selectedServiceTemplateCol"
+					[selectedColumnsMobile]="selectedServiceTemplateCol"
+					[searchSource]="{}"
+					[maxRows]="10"
+					[listDataSource]="filteredServiceTemplateList">
+				</app-client-service-details-table> 
+				<br>
+			</div>
+
+			<div class="col-12 col-md-12">
+				<app-client-service-details-table *ngIf="!loading"
+					[loading]="loading"
+					[showSearch]="false"
+					[componentTitle]="'Plan Review'"
+					[displayedColumns]="planReviewColumns"
+					[selectedColumns]="selectedplanReviewCol"
+					[selectedColumnsMobile]="selectedplanReviewCol"
+					[searchSource]="{}"
+					[maxRows]="10"
+					[listDataSource]="filteredPlanReviewList">
+				</app-client-service-details-table> 
+			</div>
+		</div>
+
+		<!-- LOADING ANIMATION SCREEN -->
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

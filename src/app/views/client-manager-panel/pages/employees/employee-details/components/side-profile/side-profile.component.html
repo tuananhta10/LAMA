@@ -1,0 +1,110 @@
+
+<div id="employee-sidebar-profile-container" class="mb-3" 
+[@animate]="{value:'*', params:{ x:'-100px', delay:'200ms' }}">
+	<div class="side-profile" style="min-height: 600px;">
+		<div>
+			<img src="/assets/images/icons/lock.png" width="21px" class="hvr-grow password"
+			(click)="openUpdatePassword()">
+			
+		</div>
+
+		<div class="text-center profile-image">
+			<img (click)="openUpdatePhoto()"
+			[defaultImage]="defaultImage"
+			[lazyLoad]="employeeData?.profile_pic_url_download_url" alt="User Image"
+			class="card-img-top img-fluid my-4 avatar">
+
+			<h5 style="margin-left: -20px !important;">
+				<img *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }" src="/assets/images/icons/edit.png" class="hvr-grow edit-details me-1"
+				style="width: 22px !important; height: 22px !important " 
+				routerLink="/staff/employees/edit/{{employeeData?.id}}">
+				{{employeeData?.first_name}} {{employeeData?.last_name}}
+			</h5>
+			<span>{{employeeData?.preferred_name || '-'}}</span>
+		</div>
+
+		<!-- <div class="text-center pt-3">
+			<img src="/assets/images/icons/additional-menu.png" 
+			(click)="openEmployeeMenu()"
+			class="img-fluid additional-menu hvr-grow" width="45px">
+		</div> -->
+
+		<br>
+		<div class="px-1 d-flex">
+			<div class="text-center active-data me-3 flex-wrap mb-2">
+				<small>Active Tasks</small><br>
+				<h4 class="active-data-text">13</h4>
+			</div>
+			<div class="text-center active-data flex-wrap mb-2">
+				<small>Available Shifts</small><br>
+				<h4 class="active-data-text">5</h4>
+			</div>
+		</div>
+
+
+		<div class="d-block mt-3">
+			<button class="btn btn-primary-secondary mb-2 w-100"  
+			(click)="assignClient()">Assigned Participants</button>
+			<button class="btn btn-primary-secondary mb-3 w-100" routerLink="/staff/employees/details/{{id}}/employee-shift">Shift</button>
+		</div>
+
+
+		<div class="px-1 d-flex">
+			<div class="employee-details flex-wrap mb-2">
+				<dl>
+					<dd>
+						<strong class="me-2">Gender</strong> 
+						<span>{{employeeData?.gender  || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd class="d-inline d-lg-flex">
+						<strong class="me-2 flex-wrap">Address</strong> 
+						<span class="flex-wrap">{{employeeData?.address_a  || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd>
+						<strong class="me-2">Home Phone</strong> 
+						<span>{{employeeData?.home_phone_no  || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd>
+						<strong class="me-2">Mobile Phone</strong> 
+						<span>{{employeeData?.mobile_phone_no  || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd class="d-inline d-lg-flex w-100">
+						<strong class="me-2 flex-wrap" style="width:50% !important;">Position</strong> 
+						<span class="flex-wrap" style="width:50% !important;">{{employeeData?.employee_position_name || '-'}}</span>
+					</dd>
+					<dd class="text-center ps-2"><hr class="details-border"></dd>
+
+					<dd class="d-inline d-lg-flex w-100">
+						<strong class="me-2 flex-wrap" style="width:50% !important;">Company</strong> 
+						<span class="flex-wrap text-capitalize" style="width:50% !important;">{{loggedUser?.organization_input  || '-' }}</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
+
+		<div *appRoleHide="{roles: adminAccess, role:loggedUser.system_role }" class="px-1 d-flex">
+			<div class="membership-details flex-wrap mb-2 hvr-grow">
+				<div>
+					<span>Get all access to</span><br>	
+					<span>this software</span>
+					<br>
+					<p>Upgrade to</p>
+					<h5>Premium!</h5>	
+				</div>		
+
+				<div>
+					<img class="img-fluid" src="/assets/images/placeholder/membership-rocket.png">
+				</div>
+			</div>
+		</div>
+	</div>
+  
+</div>

@@ -1,0 +1,220 @@
+<div class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+
+		<form [formGroup]="teamLeaderCoordForm">
+			<mat-card>
+				<mat-card-content>
+					<div class="row pt-3">
+						<!-- TEAM LEADER AND COORDINATOR -->
+						<ng-container>
+							<div class="col-12 col-md-6 my-4">
+								<div class="d-flex">
+									<app-textfield 
+									label="Team Leader" 
+									placeholder="Assign a Team Leader" 
+									formControlName="team_leader"
+									[readonly]="true"
+									></app-textfield>
+
+									<button class="btn btn-primary-inner" (click)="openInternalExternalModal($event, 'Team Leader')"><img src="/assets/images/icons/add-contact.png" style="height: 14px"></button>
+
+									<button class="btn remove-linked-person btn-default" 
+									(click)="removePerson('Team Leader')" 
+									*ngIf="teamLeaderCoordForm.controls['team_leader'].value">
+										<img src="/assets/images/icons/close-dialog.png" 
+									style="height: 14px"></button>
+								</div>
+							</div>
+
+
+							<div class="col-12 col-md-6 my-4">
+								<div class="d-flex">
+									<app-textfield 
+									label="Coordinator" 
+									placeholder="Assign a Coordinator" 
+									formControlName="coordinator"
+									[readonly]="true"
+									></app-textfield>
+
+									<button class="btn btn-primary-inner" (click)="openInternalExternalModal($event, 'Coordinator')"><img src="/assets/images/icons/add-contact.png" style="height: 14px"></button>
+
+									<button class="btn remove-linked-person btn-default" 
+									(click)="removePerson('Coordinator')"
+									*ngIf="teamLeaderCoordForm.controls['coordinator'].value">
+									<img src="/assets/images/icons/close-dialog.png" 
+									style="height: 14px"></button>
+								</div>
+							</div>
+						</ng-container>
+					</div>
+				</mat-card-content>
+			</mat-card>
+		</form>
+
+		<form [formGroup]="careWorkersForm">
+			<mat-card>
+				<!-- <mat-card-title>
+					Care Workers
+					<hr>
+				</mat-card-title> -->
+				<mat-card-content>
+					<div class="row ">
+						<!-- <div class="row">
+							<div class="col-sm-12 col-md-6" *ngIf="isUpdate" >
+								<app-search-list id="preferred_language_id" 
+								label="Preferred language"
+								placeholder="Select" 
+								formControlName="preferred_language_id"
+								[options]="languagesEnums" 
+								></app-search-list>
+							</div>
+
+							<div class="col-sm-12 col-md-6">
+								<app-search-list 
+								label="Preferred Careworker" 
+								placeholder="Select" 
+								formControlName="preferred_employee_id"
+								[options]="employeeOptions"
+								></app-search-list>
+							</div>
+
+							<div class="col-12 mb-3"><hr></div>
+						</div> -->
+
+						
+
+						<ng-container  *ngIf="formStepVal === 4">
+							<div class="col-sm-12 col-md-6" *ngIf="!isUpdate">
+								<app-textfield id="careWorkers"
+								label="Support Workers" 
+								[disabled]="true" 
+								placeholder="Please save record first" 
+								formControlName="careWorkers"></app-textfield>
+								
+								<app-textfield id="careWorkersNotToUse" 
+								label="Support Workers <br>Not to Use" 
+								[disabled]="true" 
+								placeholder="Please save record first" 
+								formControlName="careWorkersNotToUse"></app-textfield>
+								
+								<app-textfield id="brokerageNumbers" 
+								label="Brokerage Numbers/<br>Plan Manager" 
+								[disabled]="true" 
+								placeholder="Please save record first" 
+								formControlName="brokerageNumbers"></app-textfield>
+
+								<!-- <app-search-list id="preferred_language_id" 
+								label="Preferred language" 
+								placeholder="Select" 
+								formControlName="preferred_language_id"
+								[options]="languagesEnums" 
+								></app-search-list> -->
+							</div>
+						</ng-container>
+
+						<ng-container  *ngIf="formStepVal === 5">
+							<div class="col-sm-12 col-md-6"  *ngIf="!isUpdate">
+								<app-textfield id="medications" 
+								label="Medications" 
+								[disabled]="true" 
+								placeholder="Please save record first" 
+								formControlName="medications"></app-textfield>
+
+								<app-textfield id="clientNotes" 
+								label="Client Notes" 
+								[disabled]="true" 
+								placeholder="Please save record first" 
+								formControlName="clientNotes"></app-textfield>
+							</div>
+						</ng-container>
+					</div>
+
+					<div *ngIf="isUpdate" class="edit-table">
+						<div class="care-workers-table">
+							<app-form-table
+								label='Support Workers'
+								[columns]="careWorkersColumns"
+								[data]="careWorkersTableData"
+								(addEvent)="openCareWorkerModal($event)"
+								(deleteEvent)="deleteCareWorkerToUse($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+						<div class="care-workers-not-use-table">
+							<app-form-table
+								label='Support Workers Not To use'
+								[columns]="careworkerNotToUse"
+								[data]="careWorkersNotToUseTableData"
+								(addEvent)="openCareWorkerNotToUseModal($event)"
+								(deleteEvent)="deleteCareWorkerNotToUse($event)"
+								[isAddEnabled]="true"
+								[isDeleteEnabled]="true"
+							></app-form-table>
+						</div>
+						<!-- <div class="brokerage-table">
+							<app-form-table
+								label='Brokerage'
+								[columns]="brokerageColumns"
+								[data]="brokerageTableData"
+								(addEvent)="openBrokerageModal($event)"
+								(deleteEvent)="deleteBrokerage($event)"
+								[isAddEnabled]="true"
+								[editable]="true"
+								[isDeleteEnabled]="true"
+								(editEvent)="editBrokerageModal($event)"
+							></app-form-table>
+						</div> -->
+					</div>
+
+					
+				</mat-card-content>
+				<mat-card-actions>
+					<hr>
+					<div *ngIf="!isUpdate" class="row">
+						<div class="col-sm-12 justify-content-end d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+
+							<button mat-button class="btn btn-header btn-header-gray" 
+							(click)="saveAsDraft()" 
+							style="padding-left: 14px !important; padding-right: 14px !important;" 
+							*ngIf="!isUpdate || currentStatus === 'draft'" >
+								Save as Draft
+							</button>
+							
+							<button (click)="next()" 
+							[disabled]="!careWorkersForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Next
+							</button>
+						</div>
+					</div>
+					<div *ngIf="isUpdate" class="row">
+						<div class="col-sm-6 justify-content-start d-flex">
+							<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+								Back
+							</button>
+						</div>
+						<div class="col-sm-6 justify-content-end d-flex">
+							<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+								Next
+							</button>
+							
+							<button (click)="submit()" 
+							[disabled]="!careWorkersForm.valid"
+							mat-button class="btn btn-header btn-primary">
+								Save
+							</button>
+						</div>
+					</div>
+				</mat-card-actions>
+			</mat-card>
+		</form>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="loading"></global-admin-loader>
+</div>

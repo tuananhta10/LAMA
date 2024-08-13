@@ -1,0 +1,24 @@
+<div class="card card-body mt-3 py-5 px-md-5">
+	
+	<form [formGroup]="serviceAgreementForm">
+		<h5 class="text-center mb-4">Service Agreement Templates</h5>
+
+		<div class="letter-head-main text-center">
+			<div class="letter-head-container">
+				<div class="uploader">
+					<app-field-upload
+					    #upload
+					    [labelTop]="true"
+						[isMultiple]="true"
+					    [chips]="false"
+					    [subtitle]="'Upload Files'"
+					    (upload)="onUpload($event)"
+					    >
+					</app-field-upload>
+				</div>
+
+				
+			</div>
+		</div>
+	</form>
+</div>

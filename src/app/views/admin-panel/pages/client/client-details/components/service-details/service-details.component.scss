@@ -1,0 +1,199 @@
+@import "src/scss/colors";
+.card{
+    margin-top: -7px;
+    //border-top: dashed #c9c9c9 1px !important;
+    //border-radius: 0 !important;
+
+}
+
+.shadow-3{
+    box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.15);
+    -webkit-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.15);
+    -moz-box-shadow: 2px 2px 8px rgba(89, 89, 89, 0.15);
+}
+
+.search-div{
+    vertical-align: center !important;
+    background: #F0F1F5;
+    padding: 10px 20px 10px 15px !important;
+    border-radius: 8px !important;
+    //width: 80% !important;
+    //margin-left: 50px;
+
+    //margin-right: 30px;
+    .input-group-text{
+        /* background: none;
+        border:none; */
+    }
+
+    .input-group{
+        padding: 0px !important;
+        outline: none !important;
+        img{
+            width: 15px !important;
+            height: 15px !important;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+    }
+
+    .form-control{
+        border-radius: 0px !important;
+        font-size: 14px !important;
+        margin-left: 10px;
+        padding: 0 !important;
+        border: none !important;
+        background: #F0F1F5 !important;
+        outline: none !important;
+        //border-color: #a8a8a8 !important;
+    }
+
+    input{
+    	outline: none !important;
+    }
+}
+
+.view-edit{
+    background: rgba(140, 127, 249, 0.1) !important;
+    color: $color-purple !important;
+    padding: 3px 15px !important;
+    cursor: pointer;
+    border-radius: 7px;
+    font-weight: 500 !important;
+    font-size: 13px;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.title-main{
+    font-weight: 600;
+}
+
+/* CLIENT DETAILS DATA */
+#client-details, 
+#client-worker-preference,
+#client-demographics,
+#client-background{
+    @extend .shadow-3;
+    padding: 20px 10px 20px 10px !important;
+    padding-top: 20px;
+    padding-bottom: 0px !important;
+    // /border-radius: 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    min-height: 205px;
+    color: #595959 !important;
+    background: white;
+
+    dl{
+        dd{
+            padding-bottom: 1px !important;
+            padding-top: 1px !important;
+            text-transform: capitalize !important;
+        }
+    }
+
+    .img-icon{
+        border-radius: 50%;
+        width: 42px;
+        height: 40px !important;
+        padding: 5px 0px 0px 6px;
+        margin-top: 3px;
+    }
+
+    .client-img-icon{
+        &-details{
+            @extend .img-icon;
+            background: #BFE7FF;
+            img{
+                width: 26px;
+            }
+        }
+
+        &-demographics{
+            @extend .img-icon;
+            background: #E1FEB1;
+            padding-bottom: 0 !important;
+            height: 35px !important;
+            img{
+                width: 26px;
+            }
+        }
+
+        &-preference{
+            @extend .img-icon;
+            padding-bottom: 0;
+            padding-top: 11px;
+            padding-left: 5px;
+            background: #FCDDEC;
+
+            img{
+                width: 28px;
+            }
+        }
+
+        &-background{
+            @extend .img-icon;
+            background: none;
+            padding-top: 0;
+            img{
+                width: 38px;
+            }
+        }   
+    }
+
+    .client-data{
+        padding-left: 13px;
+        padding-right: 20px;
+        width: 100%;
+    }
+
+    .card-title{
+
+    }
+
+    strong{
+        color: #4D4D4D;
+    }
+
+    span{
+        color: #767676;
+    }
+
+    ::ng-deep .mat-radio-outer-circle {
+        border-color: #BDBDBD;
+    }
+
+    ::ng-deep .mat-radio-checked  {
+        /* .mat-radio-outer-circle {
+            border-color: $color-purple !important;
+        } */
+
+        position: relative !important;
+
+        .mat-radio-inner-circle{
+            height: 27.5px !important;
+            width: 27.5px !important;
+            //background: red;
+            position: absolute !important;
+            left: -4px !important;
+            top: -4px !important;
+            border-radius: 50%;
+        }
+    } 
+
+    ::ng-deep .mat-radio-inner-circle, .mat-radio-outer-circle {
+        background-color: $color-purple;
+    }
+
+    ::ng-deep .mat-radio-ripple .mat-ripple-element {
+        background-color: rgba($color-purple, 0.26);
+    }
+
+    ::ng-deep .mat-radio-button{
+        margin-right: 10px;
+    } 
+}
+

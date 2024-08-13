@@ -1,0 +1,118 @@
+<div *ngIf="!loading">
+	<div class="container-fluid"  [@animate]="{value:'*', params:{ y:'-100px', delay:'200ms' }}">
+		<div class="float-end">
+			<h5 class="header-filter d-flex">
+				<div class="dropdown">
+				  <button class="btn btn-secondary-filter d-flex" type="button" id="filterButton" data-bs-toggle="dropdown">
+				    Filter <span class="ms-1 material-icons">arrow_drop_down</span>
+				  </button>
+				  <ul class="dropdown-menu" aria-labelledby="filterButton">
+				    <li><a class="dropdown-item" href="#">Action</a></li>
+				    <li><a class="dropdown-item" href="#">Another action</a></li>
+				    <li><a class="dropdown-item" href="#">Something else here</a></li>
+				  </ul>
+				</div>
+
+				<button (click)="openCreateClientGoalModal()" class="btn btn-primary btn-header d-flex ms-4" type="button">
+				  Create Goals  
+				</button>
+			</h5>
+		</div>
+		<br><br><br>
+	</div>
+
+	<div class="container-fluid"  [@animate]="{value:'*', params:{ y:'-100px', delay:'200ms' }}">
+		<!-- NO PROGRESS -->
+		<section class="mb-3">
+			<div class="d-flex float-end me-4">
+				<button class="btn btn-outline btn-outline-success ms-2 me-1">Complete</button>
+				<button class="btn btn-outline btn-outline-primary ms-2 me-1">Create Task</button>
+				<button class="btn btn-outline btn-outline-primary ms-2 me-1">Edit Goals</button>
+			</div>
+
+			<client-goals-container
+			[goalData]="goals[0]">
+			</client-goals-container>
+		</section>
+
+		<!-- CURRENT GOALS -->
+		<section class="mb-3">
+			<div class="d-flex float-end me-4">
+				<button class="btn btn-outline btn-outline-success ms-2 me-1">Active</button>
+			</div>
+
+			<client-goals-container
+			[goalData]="goals[1]">
+			</client-goals-container>
+		</section>
+
+		<!-- TASKS -->
+		<section class="mb-3">
+			<div class="d-flex float-end me-4">
+				<button class="btn btn-outline btn-outline-primary ms-2 me-1">Edit Task</button>
+			</div>
+
+			<h5 class="task-header">Tasks</h5>
+
+			<div class="bg-white px-3 py-3">
+				<div class="task-container mb-0" *ngFor="let task of tasks">
+					<h5 class="task-title">{{task?.name}}</h5>
+					<p class="task-due">Due in {{task?.due}}</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- PARTIAL GOALS -->
+		<section class="mb-3">
+			<div class="d-flex float-end me-4">
+				<button class="btn btn-outline btn-outline-warning ms-2 me-1">On Hold</button>
+			</div>
+
+			<client-goals-container
+			[goalData]="goals[2]">
+			</client-goals-container>
+		</section>
+
+		<!-- Goal achieved at target level -->
+		<section class="mb-3">
+			<div class="d-flex float-end me-4">
+				<button class="btn btn-outline btn-outline-danger ms-2 me-1">Cancelled</button>
+			</div>
+
+			<client-goals-container
+			[goalData]="goals[3]">
+			</client-goals-container>
+		</section>
+
+		<!-- Goal achieved beyond target -->
+		<section class="mb-3">
+			<div class="d-flex float-end me-4">
+				<button class="btn btn-outline btn-outline-warning ms-2 me-1">On Hold</button>
+			</div>
+
+			<client-goals-container
+			[goalData]="goals[4]">
+			</client-goals-container>
+		</section>
+
+		<!-- N/A -->
+		<section class="mb-3">
+			<div class="d-flex float-end me-4">
+				<button class="btn btn-outline btn-outline-warning ms-2 me-1">On Hold</button>
+			</div>
+
+			<client-goals-container
+			[goalData]="goals[5]">
+			</client-goals-container>
+		</section>
+	</div>
+</div>
+
+<div  [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+	<!-- LOADING ANIMATION SCREEN -->
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>

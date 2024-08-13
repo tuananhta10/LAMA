@@ -1,0 +1,65 @@
+<div class="row mb-5">
+	<div class="col-sm-6">
+		<h5 class="table-label">{{label}}</h5>
+	</div>
+	<div class="col-sm-6 text-end">
+		<ng-container *ngIf="link">
+			<a *ngIf="isViewMore" class="view-more me-3" 
+			[routerLink]="link"> View More </a>
+		</ng-container>
+
+		<span class="float-end view-edit me-2" 
+		*ngIf="fromProfile"
+		(click)="add()">Edit</span>
+
+		<a *ngIf="isAddEnabled && !toAdd && !fromProfile" class="add-new" (click)="add()"> 
+			<img src="/assets/images/icons/plus-purple.png" class="img-fluid" width="13px">
+		</a>
+	</div>
+	<div class="col-sm-12 table-border form-table-main mt-2"  style="overflow-x: auto; ">
+		<table class="table">
+			<thead>
+			  	<tr>
+					<th *ngFor="let col of columns" scope="col" [title]="col?.sub_title || ''">{{col.name}}</th>
+					<th *ngIf="isDeleteEnabled" scope="col"></th>
+			  	</tr>
+			</thead>
+			<tbody *ngIf="data?.length > 0; else elseBlock">
+			  	<tr *ngFor="let row of data; let i = index">
+					<td *ngFor="let col of columns; let j = index">
+						<div [ngClass]="!col?.capitalize ? 'text-capitalize' : ''"
+						*ngIf="!col.field.match('date') && !col?.editable">
+							{{ row[col.field] || '-' }}
+						</div>
+
+						<div *ngIf="!col.field.match('date') && col?.editable">
+							<input type="number" matInput #value="ngModel" 
+							  #inputs (keyup)="$event.preventDefault()"
+							  class="form-control input-price" 
+							  [(ngModel)]="row[col.field]" name="value" 
+							  (blur)="getMaxRate(col.field, data, i)"
+							  (keyup.enter)="getMaxRate(col.field, data, i)"
+							  (keyup.delete)="row[col.field] = 0"
+							  (keydown.arrowup)="(false)" 
+							  (keydown.arrowdown)="(false)"			
+							  min="1"			  
+							>
+						</div>
+						
+						<div *ngIf="col.field.match('date')">{{ row[col.field] * 1000 | date : 'MM-dd-yyyy' }}</div>
+					</td>
+					<td *ngIf="isDeleteEnabled">
+						<img src="/assets/images/icons/delete-circle-red.png" class="hvr-grow delete-image" (click)="delete(i)" style="width: 30px !important; cursor: pointer;">
+					</td>
+			  	</tr>
+			</tbody>
+			<ng-template #elseBlock>
+				<tbody>
+					<tr>
+						<td [attr.colspan]="colSpan" class="text-start"><p>No {{label}} Available</p></td>
+					</tr>
+				</tbody>
+			</ng-template>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,85 @@
+<div class="row" mat-dialog-content>
+     <div class="col-12" >
+         <form [formGroup]="detailsForm">
+             <div class="row">
+                 <div class="col-12">
+                    <h5 class="mat-subtitle">Details</h5>
+
+                     <app-dropdown 
+                         label="Status"
+                         [required]="true"
+                         [labelTop]="true"
+                         formControlName="status"
+                         [options]="status">
+                     </app-dropdown>
+
+                     <app-textarea 
+                         label="Description"
+                         [required]="true"
+                         [labelTop]="true"
+                         formControlName="description">
+                     </app-textarea>
+
+                     <app-textfield 
+                         label="Location"
+                         [labelTop]="true"
+                         formControlName="location">
+                     </app-textfield>
+
+                     <app-date-picker 
+                         label="Date of Incident"
+                         [labelTop]="true"
+                         formControlName="date_signed">
+                     </app-date-picker>
+
+                     <app-time-picker 
+                         label="Time of Incident"
+                         [labelTop]="true"
+                         formControlName="time_of_incident">
+                     </app-time-picker>
+
+
+                     <app-radio-button 
+                         label="Allow Staff Access"
+                         [labelTop]="true"
+                         [required]="true"
+                         [info]="true"
+                         [infoTitle]="'Allow staff access via mobile app'"
+                         formControlName="allow_staff_access"
+                         [options]="radioOptions">
+                     </app-radio-button>
+
+                     <app-radio-button 
+                         label="Allow Client Access"
+                         [labelTop]="true"
+                         [required]="true"
+                         [info]="true"
+                         [infoTitle]="'Whether incident shows for Client in their mobile app'"
+                         formControlName="allow_client_access"
+                         [options]="radioOptions">
+                     </app-radio-button>
+
+                     <h5 class="mat-subtitle">Events</h5>
+
+                     <app-textarea 
+                         label="What Happened Before?"
+                         [labelTop]="true"
+                         formControlName="event_before">
+                     </app-textarea>
+
+                     <app-textarea 
+                         label="What Happened During?"
+                         [labelTop]="true"
+                         formControlName="event_during">
+                     </app-textarea>
+
+                     <app-textarea 
+                         label="What Happened After?"
+                         [labelTop]="true"
+                         formControlName="event_after">
+                     </app-textarea>
+                 </div>
+             </div>
+         </form>   
+     </div>
+</div>

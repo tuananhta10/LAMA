@@ -1,0 +1,12 @@
+.publish-funding{
+	text-decoration: underline;
+	color: rgba(blue, 0.9);
+	cursor: pointer;
+}
+
+
+.overflow-x-lg{
+	@media(min-width: 1599px){
+		overflow-x: hidden;
+	}
+}

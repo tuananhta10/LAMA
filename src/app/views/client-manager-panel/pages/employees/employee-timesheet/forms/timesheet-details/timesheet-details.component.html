@@ -1,0 +1,72 @@
+<div>
+    <form [formGroup]="timesheetDetailsForm" *ngIf="!serviceTypeLoading">
+        <div >
+        	<h5 class="mat-subtitle">Service Details</h5>
+
+            <app-search-list 
+                label="Employee"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="employee_id"
+                [options]="employee">
+            </app-search-list>
+    
+            <app-search-list 
+                label="Service Schedule"
+                [labelTop]="true"
+                [isTextArea]="true"
+                [required]="true"
+                (keyevents)="setSelectedServiceType($event)"
+                formControlName="service_schedule"
+                [options]="serviceSchedule">
+            </app-search-list>
+    
+            <app-search-list class="d-none"
+                label="Service Types"
+                [labelTop]="true"
+                [isTextArea]="true"
+                (keyevents)="setVal($event)"
+                formControlName="service_type_id"
+                [options]="servicecTypeEnum">
+            </app-search-list>
+
+            <app-textarea
+                label="Service Types"
+                [labelTop]="true"
+                [readonly]="true"
+                formControlName="service_type">
+            </app-textarea>
+
+            <h5 class="mat-subtitle">Approval</h5>
+
+            <app-radio-button 
+                label="Approved"
+                [required]="true"
+                [labelTop]="true"
+                formControlName="approved"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            <app-radio-button 
+                label="Paid"
+                [required]="true"
+                [labelTop]="true"
+                formControlName="paid"
+                [options]="radioOptions">
+            </app-radio-button>
+
+            <app-textfield 
+                label="Batch Number"
+                [labelTop]="true"
+                formControlName="batch_number">
+            </app-textfield>
+        </div>
+    </form>    
+
+     <global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="serviceTypeLoading"
+        [formOnly]="true">
+    </global-admin-loader>
+</div>

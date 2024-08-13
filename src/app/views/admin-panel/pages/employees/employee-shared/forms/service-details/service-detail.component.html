@@ -1,0 +1,286 @@
+<div *ngIf="!branchLoading && !employeePayRateLoading && !employeeLoading && !positionLoading" class="row mt-2" [@animate]="{value:'*', params:{ x:'100px', delay:'200ms' }}">
+	<div class="col-sm-12 col-md-12 card-form">
+		<form [formGroup]="serviceDetailForm">
+			<mat-card>
+				<!-- <mat-card-title *ngIf="isUpdate">
+					Employment Details
+					<hr>
+				</mat-card-title> -->
+				
+				<mat-card-content>
+					<div class="row">
+						<div class="col-12 col-md-6">
+							<app-search-list id="main_branch_id" 
+								label="Main Branch" 
+								formControlName="main_branch_id"
+								[options]="mainBranchEnum" 
+								[required]="true" 
+							></app-search-list>
+
+							<app-date-picker id="date_started"  
+								label="Date Started" 
+								formControlName="date_started">
+							</app-date-picker>
+
+							<app-date-picker id="date_left"  
+								label="Date Left" 
+								formControlName="date_left">
+							</app-date-picker>
+
+							<app-date-picker id="last_roster_date"  
+								label="Last Roster Date" 
+								formControlName="last_roster_date"
+								[info]="true"
+								[infoTitle]="'System Generated Date of last scheduled shift recorded in the system'" >
+							</app-date-picker>
+
+							<app-dropdown id="job_type"  
+								label="Job Type"
+								placeholder="Select" 
+								formControlName="job_type" 
+								[required]="true"
+								[options]="jobTypeEnum">
+							</app-dropdown>
+
+							<app-search-list id="position"  
+								label="Position" 
+								formControlName="position_id"
+								[required]="true"
+								[options]="positionEnum" 
+								[newOption]="true"
+								[newOptionLabel]="'Employee Position'"
+								[newOptionRoute]="'/admin/setup/employee-position'"
+							></app-search-list>
+
+							<app-search-list id="manager"  
+								label="Manager" 
+								formControlName="manager"
+								[options]="managerEnum" 
+							></app-search-list>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<app-radio-button id="on_hold"  
+								label="On Hold" 
+								formControlName="on_hold" 
+								[info]="true"
+								[infoTitle]="'If placed on hold, employee will not be shown when rostering. Employee is usually placed on hold while you wait for outstanding paperwork.'"
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button id="volunteer"  
+								label="Volunteer" 
+								formControlName="volunteer" 
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button id="risk_asses_roles"  
+								label="Risk Assessed Role" 
+								[disabled]="false"
+								formControlName="risk_assessed_roles" 
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<app-radio-button *ngIf="serviceDetailForm.get('employment_type').value === 'Full-Time'"
+								id="paid_annually"  
+								label="Paid Annually" 
+								[info]="true"
+								[infoTitle]="'Select Yes if the Employee will be paid annually or select No if you want to use the SCHADS Payrate'"
+								formControlName="paid_annually" 
+								[options]="radioOptions">
+							</app-radio-button>
+
+							<!-- Pay Rates-->
+							<hr><br> 
+
+							<app-dropdown id="employment_type"  
+								label="Employment Type" 
+								formControlName="employment_type"
+								[options]="employementTypeOption" 
+								[info]="true"
+								[required]="true" 
+								[infoTitle]="'Penalty rates for employee will be calculated based on the employment type selected here.'"
+							></app-dropdown>
+
+							<app-textfield *ngIf="!isUpdate"
+								id="qualifications"  
+								label="Qualifications"
+								[disabled]="true"
+								placeholder= "Save record first">
+							</app-textfield>
+							<ng-container *ngIf="isSuperAdmin">
+								<app-textfield *ngIf="(serviceDetailForm.get('employment_type').value === 'Full-Time') && serviceDetailForm.get('paid_annually').value === true"
+									[inputType]="'number'"
+									id="annual_rate"  
+									formControlName="annual_rate"
+									label="Annual Rate"
+									[info]="true"
+									[infoTitle]="'Annual rate of the Employee'">
+								</app-textfield>
+							</ng-container>
+
+							<div *ngIf="serviceDetailForm.get('employment_type').value !== 'Contractor' && isUpdate && !serviceDetailForm.get('paid_annually').value">
+			                    <app-search-list style="width: 320px !important;" 
+			                        label="Payrate Category"
+			                        [options]="employeePayRateSelected"
+			                        [isTextArea]="true"
+			                        [objectReturn]="true" 
+			                        [rows]="1"
+			                        formControlName="employee_payrate">
+			                    </app-search-list>
+
+			                    <app-search-list style="width: 320px !important;" 
+			                        label="Classification"
+			                        [options]="paymentClassification"
+			                        [isTextArea]="true"
+			                        [objectReturn]="true" 
+			                        [rows]="1"
+			                        formControlName="classification">
+			                    </app-search-list>
+			                </div>
+
+
+			                <div *ngIf="serviceDetailForm.get('employment_type').value && serviceDetailForm.get('employment_type').value !== 'Contractor' && !isUpdate">
+			                    <i class="mat-subtitle-2 ms-2">Please create employee record first before setting up the Payrates</i>
+			                </div>
+
+			                <div class="text-start" style="position: relative;">
+			                	<div class="btn-link" 
+			                	*ngIf="serviceDetailForm.get('employment_type').value !== 'Contractor'
+			                		&& serviceDetailForm.get('employee_payrate').value 
+			                		&& serviceDetailForm.get('classification').value && linkSupport && toBeUpdated
+			                		&& !serviceDetailForm.get('paid_annually').value">
+			                		<button class="btn btn-primary btn-include mt-3"  
+			                		(click)="addEmployeePayrate()" 
+			                		>Recalculate Payrate 	
+			                		</button>
+
+			                		<img src="/assets/images/icons/info-input-icon.png" 
+			                			class="ms-2 mt-3"
+			                			[matTooltip]="'This will recalculate the Hourly Rates for Afternoon, Night, Sunday, etc based on Payrate Loading of this Organisation'"
+			                			matTooltipPosition="above" 
+			                			style="height: 17px; cursor: pointer;">
+			                	</div>
+			                </div>
+
+							<app-textfield id="hourly_rate"  
+							*ngIf="serviceDetailForm.get('employment_type').value && serviceDetailForm.get('employment_type').value === 'Contractor'"
+								label="Hourly Rate"
+								[info]="true"
+								[required]="true"
+								[inputType]="'number'"
+								[infoTitle]="'This should be the base hourly rate paid to the employee. Penalty rates will be automatically calculated by the system.'"
+								formControlName="hourly_rate">
+							</app-textfield>
+						</div>
+
+						<div *ngIf="!serviceDetailForm.get('employment_type').value 
+						&& isUpdate" style="height: 60px"></div>
+					
+						<div class="col-12" style="padding-top: 20px;"><hr></div>
+
+						<ng-container  *ngIf="serviceDetailForm.get('employment_type').value && serviceDetailForm.get('employment_type').value !== 'Contractor' && isUpdate
+						&& serviceDetailForm.get('paid_annually').value === false">
+							<div class="col-12 px-1">
+								<section class="payrate-style" style="padding: 0px 30px 20px 30px !important; position: relative;">
+									
+									<br>
+									<app-editable-form-table 
+								        (addEvent)="openLinkEmployeePayrate($event)"
+								        [isAddEnabled]="false"
+								        [columns]="employeePayrateColumn"
+								        [data]="employeePayrateData"
+								        (deleteEvent)="deleteEmployeePayrate($event)"
+								        (updateEvent)="updateEmployeePayrate($event)"
+								        [isDeleteEnabled]="true"
+								        label="Employee Pay Rates"
+								    ></app-editable-form-table>
+								</section>
+							</div>
+						</ng-container>
+
+						<div class="col-12 col-lg-12 px-0">
+
+							<section id="compliance-docs"
+							[ngStyle]="{ 'margin-top': (serviceDetailForm.get('employment_type').value !== 'Contractor' && isUpdate && serviceDetailForm.get('paid_annually').value === false) && serviceDetailData?.status !== 'draft' ? '-50px' : '' }">
+							    <app-form-table 
+							        [isAddEnabled]="false"
+							        [columns]="employeeComplianceColumn"
+							        [data]="employeeComplianceData"
+							        [isDeleteEnabled]="false"
+							        [editable]="true"
+							        (editEvent)="editQualification($event, 'compliance')"
+							        label="Compliance Check Requirements"
+							    ></app-form-table>
+
+							    <app-form-table 
+							    *ngIf="serviceDetailData?.employee_training?.length > 0"
+							        [isAddEnabled]="false"
+							        [columns]="employeeTrainingComplianceColumn"
+							        [data]="employeeTrainingComplianceData"
+							        [isDeleteEnabled]="false"
+							        [editable]="true"
+							        (editEvent)="editQualification($event, 'training')"
+							        label="Training Compliance Documents"
+							    ></app-form-table>
+							</section>
+						</div>
+					</div>
+
+				</mat-card-content>
+
+				<mat-card-actions>
+					<hr>
+
+					<div>
+						<div class="row">
+							<div *ngIf="!isUpdate" class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header-gray">
+									Back
+								</button>
+							</div>
+
+							<div *ngIf="!isUpdate" class="col-sm-6 justify-content-end d-flex">
+								<button mat-button class="btn btn-header btn-header-gray" 
+								(click)="saveAsDraft()" 
+								style="padding-left: 14px !important; padding-right: 14px !important;" 
+								*ngIf="!isUpdate || currentStatus === 'draft'" >
+									Save as Draft
+								</button>
+								
+								<button (click)="next()" 
+								[disabled]="!serviceDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Next
+								</button>
+							</div>
+						</div>
+						<div *ngIf="isUpdate" class="row">
+							<div class="col-sm-6 justify-content-start d-flex">
+								<button (click)="back()" mat-button class="btn btn-header btn-header-gray">
+									Back
+								</button>
+							</div>
+							<div class="col-sm-6 justify-content-end d-flex">
+								<button (click)="skip()" mat-button class="btn btn-header btn-header-gray">
+									Next
+								</button>
+								
+								<button (click)="submit()" 
+								[disabled]="!serviceDetailForm.valid"
+								mat-button class="btn btn-header btn-primary">
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card-actions>
+
+			</mat-card>
+		</form>
+	</div>
+</div>
+
+<div class="mt-2 ps-2">
+	<global-admin-loader [loading]="branchLoading || employeePayRateLoading || employeeLoading || positionLoading"></global-admin-loader>
+</div>

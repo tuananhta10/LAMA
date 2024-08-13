@@ -1,0 +1,123 @@
+@import "src/scss/colors";
+
+.dropdown{
+	width: 80px !important;
+	font-family: 'Noto Sans' !important;
+
+	.btn-secondary-filter{
+		border: solid 1px #C9C9C9;
+		border-radius: 6px !important;
+		background: #F0F1F5 !important;
+		font-size: 13.5px !important;
+		font-family: 'Noto Sans' !important;
+		color: #5D5D5D;
+		height: 39px !important;
+		//font-weight: 600 !important;
+		//width: 80px !important;
+		padding: 10px 10px 10px 10px !important;
+
+		.material-icons{
+			vertical-align: top;
+			margin-top: -7px !important;
+			font-size: 30px !important;
+		}
+	}
+}
+
+
+.btn-header{
+	padding: 10px 15px !important;
+	border-radius: 6px !important;
+}
+
+.goal-header{
+	color: $color-gray;
+	font-size: 14px;
+	font-weight: bold !important;
+	padding-left: 0 !important;
+	margin-bottom: 15px;
+}
+
+.btn-outline{
+	height: 30px !important;
+	padding: 3px 20px 3px 20px !important;
+	margin-top: 65px;
+
+	&-success{
+		background: #F2FAE9;
+		border: 1px solid #96D647;
+		box-sizing: border-box;
+		border-radius: 21px;
+		color: #96D647;
+
+		&:hover{
+			background: #96D647;
+			color: #F2FAE9;
+		}
+	}
+
+	&-primary{
+		background: #FFFFFF;
+		border: 1px solid $color-purple;
+		box-sizing: border-box;
+		border-radius: 21px;
+		color: $color-purple;
+
+		&:hover{
+			background: $color-purple;
+			color: #FFFFFF;
+		}
+	}
+
+	&-warning{
+		background: rgba(255, 191, 64, 0.2);
+		border: 1px solid #FFAA00;
+		box-sizing: border-box;
+		border-radius: 21px;
+		color: #FFAA00;
+
+		&:hover{
+			background: #FFAA00;
+			color: white;
+		}
+	}
+
+	&-danger{
+		background: rgba(208, 62, 0, 0.2);
+		border: 1px solid #D03E00;
+		box-sizing: border-box;
+		border-radius: 21px;
+		color: rgba(208, 62, 0, 1);
+
+		&:hover{
+			background: white;
+			color: rgba(208, 62, 0, 0.2);
+		}
+	}
+}
+
+.task-header{
+	color: $color-gray;
+	font-size: 14px;
+	font-weight: bold !important;
+	padding-left: 0 !important;
+	margin-bottom: 15px;
+}
+
+
+.task-container{
+	padding: 10px 10px 10px 40px;
+
+	.task-title{
+		color: $color-gray;
+		font-size: 14px;
+		font-weight: 600px;
+		margin: 0 !important;
+	}
+
+	.task-due{
+		font-size: 13px;
+		color: rgba($color-gray, 0.5);
+		margin-bottom: 0px !important;
+	}
+}

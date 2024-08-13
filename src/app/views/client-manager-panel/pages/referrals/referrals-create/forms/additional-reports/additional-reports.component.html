@@ -1,0 +1,134 @@
+<div class="card card-body mt-3 py-5 px-md-5">
+	<form *ngIf="!loading" [formGroup]="additionalReportsForm"
+ 	[@animate]="{value:'*', params:{ x:'-50px'}}">
+		<h5 class="mat-subtitle text-start mb-4">Additional Reports / Information to Help Assign a Suitable Staff</h5>
+
+		<div class="row">
+			<div class="col-12 col-md-4 mb-3">
+				<app-radio-button 
+					[labelTop]="true"
+					label="Health Summary" 
+					formControlName="health_summary"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+
+				<app-field-upload 
+				*ngIf="!!additionalReportsForm.controls['health_summary'].value"
+					[labelTop]="true"
+					label="Health Summary File" 
+					formControlName="health_summary_file"
+					(upload)="onUpload($event, 'health_summary_file')"
+					>
+				</app-field-upload>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-radio-button 
+					[labelTop]="true"
+					label="Specialist Reports" 
+					formControlName="specialist_reports"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+
+				<app-field-upload 
+				*ngIf="!!additionalReportsForm.controls['specialist_reports'].value"
+					[labelTop]="true"
+					label="Specialist Reports File" 
+					formControlName="specialist_reports_file"
+					(upload)="onUpload($event, 'specialist_reports_file')"
+					>
+				</app-field-upload>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<app-radio-button 
+					[labelTop]="true"
+					label="NDIS Plan" 
+					formControlName="ndis_plan"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+
+				<app-field-upload 
+				*ngIf="!!additionalReportsForm.controls['ndis_plan'].value"
+					[labelTop]="true"
+					label="NDIS Plan File" 
+					formControlName="ndis_plan_file"
+					(upload)="onUpload($event, 'ndis_plan_file')"
+					>
+				</app-field-upload>
+			</div>
+
+			<div class="col-12 col-md-4 mb-3">
+				<h5 class="mat-subtitle text-start mb-4">Safety / Access information</h5>
+				<app-radio-button 
+					[labelTop]="true"
+					label="Is there adequate parking available?" 
+					formControlName="adequate_parking"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+
+				<app-radio-button 
+					[labelTop]="true"
+					label="Are animals restrained?" 
+					formControlName="animal_restrained"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+
+				<app-radio-button 
+					[labelTop]="true"
+					label="Is there mobile phone coverage?" 
+					formControlName="mobile_phone_coverage"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+
+				<app-radio-button 
+					[labelTop]="true"
+					label="Does anyone smoke in the home?" 
+					formControlName="smoke_in_home"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+			</div>
+
+			<div class="col-12 col-md-8 mb-3">
+				<br><br>
+				<app-radio-button 
+					[labelTop]="true"
+					label="Are there any safety of access issues to be aware of?
+					(eg. Firearms, weapons, history of illicit drug <br>and alcohol dependence, isolated area)" 
+					formControlName="safety_issue_unit"
+					[options]="radioOptions"
+					>
+				</app-radio-button>
+
+				<div class="row">
+					<div class="col-12 col-md-6">
+						<app-textarea
+							[labelTop]="true"
+							label="If Yes, Please Provide Details" 
+							formControlName="safety_issue_unit_text">
+						</app-textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			
+		</div>
+	</form>
+	
+	<div class="px-5">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

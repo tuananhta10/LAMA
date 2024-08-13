@@ -1,0 +1,218 @@
+<div id="client-careworker-container">
+	<!-- BUTTONS CONTROLLER -->
+	<client-details-navigation
+		[id]="id"
+		[activeLink]="'service-details'">
+	</client-details-navigation>
+
+	<!-- STATISTICS DATA -->
+	<div class="card card-body pt-4 shadow-3">
+		<client-main-profile-stats></client-main-profile-stats>
+	</div>
+
+	<div class="mt-3">
+		<div class="row">
+			<div class="col-12 col-md-3">
+				<div class="search-div me-1">
+					<div class="input-group">
+					  <img src="/assets/images/icons/search.png">
+					  
+					  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+					  [(ngModel)]="searchBy" (ngModelChange)="multipleSearch()">
+					</div>
+				</div>
+			</div>
+			<div class="col-8 col-md-9"></div>
+			
+		</div>
+		<hr style="margin-bottom: 10px">
+
+		<!-- DOCUMENT FILE DATA -->
+		<div style="width: 100% !important; min-height: 400px;" 
+		[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+			<!-- LOADING ANIMATION SCREEN -->
+			<global-admin-loader 
+				[withSideBar]="false"
+				[fromDetailTab]="true"
+				[loading]="loading">
+			</global-admin-loader>
+			<div class="row">
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="mb-3 d-flex" id="client-background">
+						<div class="client-data flex-wrap">
+							<h5 class="title-main">Funding Detail
+								<span class="float-end view-edit" (click)="navigateTo(6)">Edit</span>
+							</h5>
+
+							<hr>
+							<dl>
+								<dd class="text-truncate">
+									<strong class="me-3">Fund Type</strong> 
+									<span>{{clientData?.funding_type || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate" *ngIf="clientData?.funding_source"><strong class="me-3">Preferred Funding Source</strong> 
+									<span>{{clientData?.funding_source ? clientData?.funding_source[0]?.full_name : '-'}}</span>
+								</dd>
+								
+								<dd class="text-truncate">
+									<strong class="me-3">NDIS Plan Start Date</strong> 
+									<span>{{
+										clientData?.ndis_plan_start_date ? 
+										((clientData?.ndis_plan_start_date * 1000) | date : 'dd-MM-yyyy') : '-'
+									}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">NDIS Plan End Date</strong> 
+									<span>{{
+										clientData?.ndis_plan_end_date ? 
+										((clientData?.ndis_plan_end_date * 1000) | date : 'dd-MM-yyyy') : '-'
+									}}</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="mb-3 d-flex" id="client-details">
+						<div class="client-data flex-wrap">
+							<h5 class="title-main">Services
+								<span class="float-end view-edit" (click)="navigateTo(6)">Edit</span>
+							</h5>
+
+							<hr>
+							<dl>
+								<dd class="text-truncate capitalize">
+									<strong>Entry Date   </strong> 
+									<span>{{
+										clientData?.entry_date ? 
+										((clientData?.entry_date * 1000) | date : 'dd-MM-yyyy') : '-'
+									}}</span>
+								</dd>
+
+								<dd class="text-truncate capitalize">
+									<strong>Service Required    </strong> 
+									<span>{{clientData?.service_required || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate capitalize"><strong>Service Location    </strong> 
+									<span>{{clientData?.service_location || '-'}}</span>
+								</dd>
+
+								<dd class="capitalize">
+									<strong>Risk Notification    </strong>
+									<span>{{clientData?.risk_notification || '-'}}</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-6 col-lg-4" *ngIf="clientData?.funding_type === 'Plan managed'">
+					<div class="mb-3 d-flex" id="client-demographics">
+						<div class="client-data flex-wrap">
+							<h5 class="title-main">
+								Plan Manager
+								<span class="float-end view-edit" (click)="navigateTo(6)">Edit</span>
+								<!-- <span class="float-end view-edit">Edit</span> -->
+							</h5>
+							<hr>
+							<dl>
+								<dd class="text-truncate">
+									<strong class="me-3">Company Name</strong> 
+									<span>{{clientData?.plan_manager_full_name || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate"><strong class="me-3">Key Contact</strong> 
+									<span>{{clientData?.plan_manager_key_contact}}</span>
+								</dd>
+
+								<dd class="text-truncate">
+									<strong class="me-3">Work Phone</strong>
+									<span>{{clientData?.plan_manager_work_phone}}</span>
+								</dd>
+								
+								<dd class="text-truncate">
+									<strong class="me-3">Email</strong> 
+									<span>{{clientData?.plan_manager_email || '-'}}</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+
+				
+			</div>
+
+			<div class="px-2">
+				<app-client-service-details-table *ngIf="!loading"
+					[loading]="loading"
+					[showSearch]="false"
+					[componentTitle]="'Participant Funding'"
+					[displayedColumns]="clientFundingColumns"
+					[selectedColumns]="selectedClientFundingCol"
+					[selectedColumnsMobile]="selectedClientFundingCol"
+					[searchSource]="{}"
+					[maxRows]="25"
+					[isAddEnabled]="true"
+					(addEvent)="navigateToClientEdit()"
+					[listDataSource]="filteredClientFundingList">
+				</app-client-service-details-table> 
+			</div>
+
+			<div class="px-2 mt-3" id="participant-goals">
+				<app-client-service-details-table *ngIf="!loading"
+					[loading]="loading"
+					[showSearch]="false"
+					[componentTitle]="'Participant Goals'"
+					[displayedColumns]="clientGoalColumns"
+					[selectedColumns]="selectedClientGoalCol"
+					[selectedColumnsMobile]="selectedClientGoalCol"
+					[searchSource]="{}"
+					[maxRows]="25"
+					[isAddEnabled]="true"
+					(addEvent)="navigateToClientEdit()"
+					[listDataSource]="clientGoalData">
+				</app-client-service-details-table> 
+			</div>
+
+			<div class="row">
+				<div class="col-12 col-md-12 px-3 mt-3">
+					<app-client-service-details-table *ngIf="!loading"
+						[loading]="loading"
+						[showSearch]="false"
+						[componentTitle]="'Service Template'"
+						[displayedColumns]="serviceTemplateColumns"
+						[selectedColumns]="selectedServiceTemplateCol"
+						[selectedColumnsMobile]="selectedServiceTemplateCol"
+						[searchSource]="{}"
+						[maxRows]="25"
+						[isAddEnabled]="true"
+						(addEvent)="navigateToClientEdit()"
+						[listDataSource]="filteredServiceTemplateList">
+					</app-client-service-details-table> 
+				</div>
+
+				<div class="col-12 col-md-12 px-3 mt-3">
+					<app-client-service-details-table *ngIf="!loading"
+						[loading]="loading"
+						[showSearch]="false"
+						[componentTitle]="'Plan Review'"
+						[displayedColumns]="planReviewColumns"
+						[selectedColumns]="selectedplanReviewCol"
+						[selectedColumnsMobile]="selectedplanReviewCol"
+						[searchSource]="{}"
+						[maxRows]="25"
+						[isAddEnabled]="true"
+						(addEvent)="navigateToClientEdit()"
+						[listDataSource]="filteredPlanReviewList">
+					</app-client-service-details-table> 
+				</div>
+			</div>
+
+			
+		</div>
+	</div>
+</div>

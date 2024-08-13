@@ -1,0 +1,50 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">New Pre-defined Provider</h5>
+		<hr>
+	</div>
+	<form [formGroup]="preDefinedProviderForm">
+		<div mat-dialog-content>
+			<app-dropdown 
+			label="Pre-defined Provider" 
+			[labelTop]="true"
+			formControlName="preDefinedProvider" 
+			[options]="preDefinedProviderOptions">
+			</app-dropdown>
+
+			<app-dropdown 
+			label="Membership Number" 
+			[labelTop]="true"
+			formControlName="membershipNumber" 
+			[options]="membershipNumberOptions">
+			</app-dropdown>
+			
+			<app-date-picker 
+			label="Expiry Date" 
+			[labelTop]="true"
+			formControlName="expiryDate">
+			</app-date-picker>
+
+			<app-field-upload
+			label="Upload File"
+			#upload 
+			[labelTop]="true"
+			formControlName="file"
+			(upload)="onUpload($event)"
+			>
+			</app-field-upload>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+</div>

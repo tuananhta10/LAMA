@@ -1,0 +1,88 @@
+<div class="row mb-5">
+    <div class="col-sm-7">
+        <h4 class="container-title">Finance and Legal</h4>
+        <p class="mb-4">Need help setting up your account? Contact our team at info@lamacare.com.au</p>
+        
+        <form [formGroup]="financeAndLegalForm">
+            <div class="gst-code">
+                <app-dropdown 
+                label="GST Code"
+                formControlName="gst_code_input"
+                [labelTop]="true"
+                [options]="gstCodeOptions">
+                </app-dropdown>
+            </div>
+
+            <app-date-picker 
+                label="When does your public liability insurance policy expire?" 
+                [labelTop]="true"
+                formControlName="insurance_expiration">
+            </app-date-picker>
+            
+            <app-radio-button 
+                label="What’s the limit of your public liability insurance?" 
+                formControlName="liability_insurance" 
+                [labelTop]="true"
+                [options]="insuranceOptions"
+                [isVertical]="true">
+            </app-radio-button>
+
+            <app-textfield 
+                label="Your organisation payment terms"
+                subLabel="Insert number of days" 
+                formControlName="payment_terms" 
+                [labelTop]="true"
+                [required]="true"
+                [inputType]="'number'">
+            </app-textfield>
+
+            <app-textfield 
+                label="Bank Name" 
+                subLabel='Name of the bank where the account is held.'
+                [labelTop]="true"
+                formControlName="bank">
+            </app-textfield>
+
+            <app-textfield 
+                label="BSB" 
+                subLabel='BSB stands for "Bank State Branch." It is a six-digit number that identifies the individual branch of an Australian financial institution.'
+                [labelTop]="true"
+                formControlName="bsb">
+            </app-textfield>
+
+            <app-textfield 
+                label="Account Number" 
+                subLabel='This is your bank account number'
+                [labelTop]="true"
+                formControlName="acct_number">
+            </app-textfield>
+            
+            <app-textfield 
+                label="Account Name" 
+                subLabel='This is your bank account name'
+                [labelTop]="true"
+                formControlName="acct_name">
+            </app-textfield>
+
+        </form>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <button (click)="back()" mat-button class="btn btn-header btn-outline-primary">
+                Back
+            </button>
+        </div>
+
+         <div class="col-12 col-md-6 text-end">
+
+            <button 
+            (click)="next()"
+            [disabled]="!financeAndLegalForm.valid || submitting"
+            mat-button class="btn btn-header btn-primary">
+               Save
+            </button>
+        </div>    
+    </div>
+</div>

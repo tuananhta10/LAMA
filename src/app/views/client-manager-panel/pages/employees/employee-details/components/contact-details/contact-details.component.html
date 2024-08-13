@@ -1,0 +1,277 @@
+<div id="employee-contact-detail-container">
+	<!-- BUTTONS CONTROLLER -->
+	<employee-details-navigation
+		[id]="id"
+		[activeLink]="'contact-detail'">
+	</employee-details-navigation>
+
+	<!-- STATISTICS DATA -->
+	<div class="mb-3">
+		<employee-main-profile-stats></employee-main-profile-stats>
+	</div>
+
+	<!-- DOCUMENT FILE DATA -->
+	<div 
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="row">
+			<div class="col-12 col-md-6 col-lg-8">
+				<div class="mb-3 d-flex" id="employee-demographics">
+					<div class="employee-img-icon-demographics flex-wrap">
+						<img src="/assets/images/icons/client-demographics.png">
+					</div>
+
+					<div class="employee-data flex-wrap mb-3">
+						<h5 class="card-title">
+							Background and Address
+							<!-- <span class="float-end view-edit">Edit</span> -->
+						</h5>
+						<hr>
+						<dl>
+							<!-- <dd class="text-truncate">
+								<strong class="me-3">Place of Birth</strong>
+								<span>{{employeeData?.birthplace || 'Australia'}}</span>
+							</dd>
+							
+							<dd class="text-truncate">
+								<strong class="me-3">Country of Birth</strong> 
+								<span>{{employeeData?.birthplace || '-'}}</span>
+							</dd> 
+							
+							<dd class="text-truncate">
+								<strong class="me-3">Citizenship</strong> 
+								<span>{{employeeData?.citizenship || 'Australian'}}</span>
+							</dd>
+
+							<dd><hr></dd> -->
+
+							<dd class="text-truncate">
+								<strong class="me-3">Address 1</strong> 
+								<span>{{employeeData?.address_a || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Address 2</strong> 
+								<span>{{employeeData?.address_b || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Suburb</strong>
+								<span>{{employeeData?.suburb || '-'}}</span>
+							</dd>
+							
+							<dd class="text-truncate">
+								<strong class="me-3">State</strong> 
+								<span>{{employeeData?.state || '-'}}</span>
+							</dd>
+							
+							<dd class="text-truncate">
+								<strong class="me-3">Post Code</strong> 
+								<span>{{employeeData?.post_code || '-'}}</span>
+							</dd>
+
+							<dd><hr></dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Travel Distance</strong> 
+								<span>{{contactDetails?.travel_distance}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Travel Time</strong> 
+								<span>{{contactDetails?.travel_time}}</span>
+							</dd>
+							
+						</dl>
+					</div>
+				</div>
+
+				<div class="mb-3 d-flex" id="employee-background">
+					<div class="employee-img-icon-background flex-wrap">
+						<img src="/assets/images/icons/phone.png">
+					</div>
+
+					<div class="employee-data flex-wrap">
+						<h5 class="card-title">Contact Details
+							<!-- <span class="float-end view-edit">Edit</span> -->
+						</h5>
+						<hr>
+						<dl>
+							<dd class="text-truncate">
+								<strong class="me-3">Home Phone</strong> 
+								<span><span>{{employeeData?.home_phone_no || '-'}}</span></span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Work Phone</strong> 
+								<span><span>{{employeeData?.work_phone_no || '-'}}</span></span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Home Phone</strong>
+								<span><span>{{employeeData?.work_phone_no || '-'}}</span></span>
+							</dd>
+
+							
+						</dl>
+
+						<hr>
+						<h5 class="card-title">Emergency Details
+							<!-- <span class="float-end view-edit">Edit</span> -->
+						</h5>
+						
+						<dl>
+							<dd class="text-truncate">
+								<strong class="me-3">Emergency Contact Name</strong> 
+								<span>{{contactDetails?.emergency_contact_name}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Emergency Contact Relationship</strong> 
+								<span>{{contactDetails?.emergency_contact_relationship}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Emergency Contact Email</strong> 
+								<span>{{contactDetails?.emergency_contact_email}}</span>
+							</dd>
+
+							<dd><hr></dd>
+
+							<dd class="text-truncate"><strong class="me-3">Emergency Contact Home Phone</strong> 
+								<span>{{contactDetails?.emergency_contact_home_phone_no}}</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Emergency Contact Mobile Phone</strong> 
+								<span>{{contactDetails?.emergency_contact_mobile_phone_no}}</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Emergency Contact Work Phone</strong> 
+								<span>{{contactDetails?.emergency_contact_work_phone_no}}</span>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 col-lg-4">
+				<div class="mb-3 d-flex" id="employee-details">
+					<div class="employee-img-icon-details flex-wrap">
+						<img src="/assets/images/icons/client-details.png">
+					</div>
+
+					<div class="employee-data flex-wrap">
+						<h5 class="card-title">Personal Details
+							<!-- <span class="float-end view-edit">Edit</span> -->
+						</h5>
+
+						<hr>
+
+						<dl>
+							<dd class="text-truncate capitalize">
+								<strong>Title    </strong> 
+								<span>{{employeeData?.title || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate capitalize">
+								<strong>First Name    </strong>
+								<span>{{employeeData?.first_name || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate capitalize">
+								<strong>Middle Name    </strong>
+								<span>{{employeeData?.middle_name || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate capitalize"><strong>Last Name    </strong> 
+								<span>{{employeeData?.last_name || '-'}}</span>
+							</dd>
+							
+							<dd class="text-truncate capitalize">
+								<strong>Preferred Name    </strong> 
+								<span>{{employeeData?.preferred_name || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Email</strong> 
+								<span>{{employeeData?.email_address || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Personal Email</strong> 
+								<span>{{employeeData?.private_email || '-'}}</span>
+							</dd>
+
+							<dd><hr></dd>
+
+							<dd class="text-truncate"><strong class="me-3">Payrol Id</strong> 
+								<span>{{employeeData?.payroll_id}}</span>
+							</dd>
+
+							<dd><hr></dd>
+							
+							<dd class="text-truncate">
+								<strong class="me-3">Gender</strong> 
+								<span>{{employeeData?.gender || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Date of Birth</strong> 
+								<span>{{employeeData?.birthdate * 1000 | date: 'dd-MM-y' || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Age</strong> 
+								<span>{{employeeData?.age}}</span>
+							</dd>
+
+							
+
+							<!-- <dd class="text-truncate">
+								<strong class="me-3">Family Status</strong> 
+								<span>Single</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">Religion</strong> 
+								<span>Catholic</span>
+							</dd> -->
+						</dl>
+
+						<!-- <h5 class="card-title">Worker Preference
+						</h5>
+						<hr>
+
+						<dl>
+							<dd class="text-truncate">
+								<strong class="me-3">Preferred C/W Gender</strong> 
+								<span>Female</span>
+							</dd>
+
+							<dd class="text-truncate"><strong class="me-3">NDIS No.</strong> 
+								<span>{{employeeData?.id || '-'}}</span>
+							</dd>
+
+							<dd class="text-truncate">
+								<strong class="me-3">Main Branch</strong>
+								<span>{{employeeData?.branch_name || '-'}}</span>
+							</dd>
+							
+							<dd class="">
+								<strong class="me-3 ">PM Require Approval</strong> 
+								<span class="">
+									<mat-radio-group aria-label="Select an option" 
+									disabled="true"
+									[(ngModel)]="pmRequireApproval" id="require-approval">
+										<mat-radio-button [value]="true">Yes</mat-radio-button>
+										<mat-radio-button [value]="false">No</mat-radio-button>
+									</mat-radio-group>
+								</span>
+							</dd>
+						</dl> -->
+						<br>
+					</div>
+				</div>
+			</div>
+
+
+			
+		</div>
+	</div>
+</div>

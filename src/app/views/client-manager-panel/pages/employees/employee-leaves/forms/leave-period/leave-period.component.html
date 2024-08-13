@@ -1,0 +1,72 @@
+<div>
+  <form *ngIf="!loading" [formGroup]="leavePeriodForm">
+    <div>
+      <h5 class="mat-subtitle">Leave Period</h5>
+      <app-search-list
+        label="Employee Name"
+        [required]="true"
+        [labelTop]="true"
+        formControlName="employee_id"
+        [options]="employeeEnums"
+      >
+      </app-search-list>
+
+      <app-dropdown
+        label="Status"
+        [required]="true"
+        [labelTop]="true"
+        formControlName="status"
+        [options]="statusOptions"
+      >
+      </app-dropdown>
+
+      <app-dropdown
+        label="Leave Reason"
+        [required]="true"
+        [labelTop]="true"
+        formControlName="reasons"
+        [options]="leaveReason"
+      >
+      </app-dropdown>
+
+      <app-date-picker
+        label="Leave From"
+        [required]="true"
+        [labelTop]="true"
+        formControlName="start_date"
+      >
+      </app-date-picker>
+
+      <app-date-picker
+        label="Leave To"
+        [required]="true"
+        [labelTop]="true"
+        formControlName="end_date"
+      >
+      </app-date-picker>
+
+      <app-textarea
+        label="Leave Comments"
+        [labelTop]="true"
+        formControlName="comment"
+      >
+      </app-textarea>
+
+      <h5 class="mat-subtitle">Approval</h5>
+
+      <app-textarea
+        label="Manager Comments"
+        [labelTop]="true"
+        formControlName="manager_comment"
+      >
+      </app-textarea>
+    </div>
+  </form>
+  <global-admin-loader
+    [withSideBar]="false"
+    [fromDetailTab]="true"
+    [loading]="loading"
+    [formOnly]="true"
+  >
+  </global-admin-loader>
+</div>

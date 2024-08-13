@@ -1,0 +1,141 @@
+@import "src/scss/colors";
+
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #BDBDBD;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #BDBDBD;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #BDBDBD;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #BDBDBD;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #BDBDBD;
+}
+::placeholder { /* Most modern browsers support this now. */
+   color:    #BDBDBD;
+}
+
+.text-input {
+    margin-bottom: 5px;
+    
+    .label-top{
+        //margin-left: -20px !important;
+        font-weight: 500;
+        padding-left: 25px;
+        font-size: 13px;
+        //width: 160px;
+        text-align: left;
+    }
+
+    .vertical {
+        display: flex; 
+        flex-direction: column;
+    }
+
+    .bottom-space {
+        margin-bottom: 15px;
+    }
+
+    p {
+        text-align: right;
+        margin-bottom: 0px; 
+        font-weight: 500;
+        color: $color-gray;
+    }
+
+    span{
+        color: $color-gray;
+    }
+
+    .error {
+        border: 1px solid #E01515;
+    }
+
+    .error-msg {
+        margin-top: 5px;
+        text-align: left !important;
+        color:#E01515;
+        font-size: 10px;
+    }
+
+    .asterisk-required {
+        margin-left: 4px;
+        color: #FF0000 !important;
+    }
+
+    .container{
+        &-label{
+            width: 150px;
+            text-align: right;
+            font-weight: 500;
+            color: #595959;
+            font-size: 13px !important;
+            font-family: "Noto Sans" !important;
+        }
+
+        &-input{
+            //background: red;
+            width: 55%;
+            padding-left: 40px;
+            text-align: center;
+        }
+    }
+
+    .container-info{
+        .img-info-container{
+            color: $color-purple !important;
+            img{
+                margin-left: 13px;
+                margin-top: 2px;
+                width: 16px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+/* NEED TO BE OUTSIDE */
+::ng-deep .mat-radio-button {
+    margin-right: 40px;
+}
+
+::ng-deep .mat-radio-outer-circle {
+    border-color: #BDBDBD  !important;
+}
+
+::ng-deep .mat-radio-checked  {
+    position: relative !important;
+
+    .mat-radio-inner-circle{
+        height: 27.5px !important;
+        width: 27.5px !important;
+        background: $color-purple !important;
+        position: absolute !important;
+        left: -4px !important;
+        top: -4px !important;
+        border-radius: 55%;
+    }
+} 
+
+::ng-deep .mat-radio-inner-circle, .mat-radio-outer-circle {
+    background-color: $color-purple;
+}
+
+::ng-deep .mat-radio-ripple .mat-ripple-element {
+    background-color: rgba($color-purple, 0.6) !important;
+}
+

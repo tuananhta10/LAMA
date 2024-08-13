@@ -1,0 +1,54 @@
+@import "src/scss/colors";
+
+.text-primary{
+	color: $color-purple !important;
+}
+
+.date-grouping-container{
+	position: relative;
+	.container-date{
+		margin-top: 7px;
+		margin-right: 10px;
+		font-size: 14px;
+		font-weight: 600 !important;
+		vertical-align: center;
+
+		.btn{
+			margin-top: -7px !important;
+		}
+	}
+
+	.btn{
+		//background: red !important;
+		padding: 5px 10px !important;
+		vertical-align: top !important;
+		border-radius: 4px !important;
+	}
+
+	.this-week{
+		color: $color-purple;
+		background: rgba(239, 238, 252, 1);
+		padding: 5px 15px !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		cursor: pointer;
+		border-radius: 4px !important;
+
+		&-active{
+			color: $color-purple;
+			background: rgba(239, 238, 252, 1);
+			padding: 5px 15px !important;
+			font-size: 13px !important;
+			font-weight: 600 !important;
+		}
+	}
+
+	.grouping-navigator{
+		position: absolute;
+		right: 5px;
+		border-radius: 4px !important;
+		border: solid 2px $color-purple;
+		padding: 2px !important;
+	}
+}
+

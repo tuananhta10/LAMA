@@ -1,0 +1,65 @@
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+
+.asterisk-required {
+    margin-left: 4px;
+    color: #FF0000 !important;
+    //color: $color-purple;
+}
+
+.analog-clock-container{
+	margin-bottom: 25px;
+	.analog-clock{
+		border: dashed 1px #c9c9c9;
+		// width: 220px;
+		width: max-content;
+		border-radius: 4px;
+		padding: 8px 8px 0px 10px;
+	}
+	.main-label{
+		//margin-left: -20px !important;
+		font-weight: 500 !important;
+		//padding-left: 25px;
+		font-size: 13px;
+		//width: 160px;
+		text-align: left;
+		margin-bottom: 7px;
+	}
+
+
+	.time-selector{
+		input{
+			width: 47px;
+			height: 27px;
+			font-size: 15px;
+			border-radius: 4px;
+			padding-left:8px;
+			border: 2px solid #5E4EA0;
+		}
+	}
+
+	.time-separator{
+		font-size: 25px !important;
+	}
+
+	.am-pm-picker{
+		margin-left: 5px;;
+		.btn-picker{
+			border: 1px solid #c9c9c9;
+			border-radius: 3px !important;
+			margin-bottom: 3px;
+			padding: 4px 5px !important;
+
+		}
+
+		.active{
+			background: #6D5DA7;
+			color: white;
+		}
+	}
+}

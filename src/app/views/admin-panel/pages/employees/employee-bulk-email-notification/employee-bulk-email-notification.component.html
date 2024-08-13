@@ -1,0 +1,120 @@
+<div class="mt-3  px-lg-5">
+	<div class=""
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div>
+			<!-- <img src="/assets/images/icons/employees-purple.svg" width="25px" class="me-2 img-fluid img-title"> -->
+			<span class="ms-2 main-title">Bulk Email Notifications</span>
+			<div class="float-end">
+				<!-- <button class="btn btn-menu me-3 ">
+					<img src="/assets/images/icons/menu-icon.png" width="15px" class="img-fluid">
+				</button> -->
+				
+				<!-- <button class="btn btn-primary-outline ms-3">Templates</button> -->
+			</div>
+		</div>	
+
+		<p class="ms-2">Send an email to multiple employees by selecting their respective groups.</p>
+
+
+		<div class="pt-4 me-3 mt-4 card card-body">
+			<form [formGroup]="emailForm" class="row">
+				<div class="col-12 col-md-4">
+
+					<div class="card card-body pt-4 px-lg-4">
+						<h5 class="ms-3 mb-0">Primary Details</h5>
+						<hr>
+						
+						<app-search-list
+						[labelTop]="true"
+						[options]="employeeList"
+						formControlName="email_from" 
+						label="From"
+						[newOption]="true"
+						[newOptionLabel]="'Employee'"
+						[newOptionRoute]="'/admin/employees'"></app-search-list>
+
+						<app-textarea
+						[labelTop]="true"
+						formControlName="email_subject"
+						[rows]="5" 
+						label="Subject"></app-textarea>
+
+						<app-search-list
+						[labelTop]="true"
+						[options]="email_templates"
+						formControlName="email_template" 
+						label="Email Template"
+						[newOption]="true"
+						[newOptionLabel]="'Email Template'"
+						[isTextArea]="true"
+						[rows]="1"
+						[newOptionRoute]="'/admin/setup/interests'"></app-search-list>
+
+						<app-search-list
+						[labelTop]="true"
+						[options]="emailGroupList"
+						formControlName="email_group" 
+						label="Email Group"
+
+						[newOption]="true"
+						[newOptionLabel]="'Email Group'"
+						[isTextArea]="true"
+						[rows]="1"
+						[newOptionRoute]="'/admin/setup/bulk-communication-groups'"></app-search-list>
+
+						<app-date-picker
+						[labelTop]="true"
+						formControlName="email_report_date" 
+						label="Report Date"></app-date-picker>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-8">
+					<div class="px-lg-2 pt-4 pb-5">
+						<div class="d-flex mb-2"  *ngIf="communicationGroupDetail">
+							<h5 class="text-capitalize me-3">{{communicationGroupDetail?.name}}: </h5>
+							<div class="flex-wrap" *ngFor="let item of communicationGroupDetail?.communication_group_member">
+								<span class="badge-employee">{{item?.employee[0]?.first_name}} {{item?.employee[0]?.last_name}}</span>
+							</div>
+						</div>
+						<hr *ngIf="communicationGroupDetail">
+
+						<h5>Email Body</h5>
+						
+						<div class="card card-body">
+							<ckeditor
+							    formControlName="email_content"
+							    [config]="editorConfig"
+							    (change)="onChange($event)"
+							    (editorChange)="onEditorChange($event)" 
+							    (ready)="onReady($event)"
+							    (focus)="onFocus($event)"
+							    (blur)="onBlur($event)"
+							    (contentDom)="onContentDom($event)"
+							    (fileUploadRequest)="onFileUploadRequest($event)"
+							    (fileUploadResponse)="onFileUploadResponse($event)"
+							    (paste)="onPaste($event)"
+							    (drop)="onDrop($event)"
+							    debounce="500">
+							  </ckeditor>
+						</div>
+
+						<div class="text-end mt-2">
+							<button class="btn btn-header me-2" 
+							(click)="saveTemplate()"
+							[disabled]="loading">Save Template</button>
+
+							<button class="btn btn-primary me-3" 
+							[disabled]="loading"
+							(click)="sendEmail()">Send Email
+								<img src="/assets/images/icons/send.png" 
+								style="height: 15px; margin-left: 5px; margin-top: -3px;">
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-12 col-md-12">
+		<form [formGroup]="createClientForm">
+			<app-dropdown 
+				label="Status" 
+				[labelTop]="true"
+				formControlName="status" 
+				[options]="statusOptions">
+			</app-dropdown>
+
+			<app-date-picker 
+				label="Date Achieved" 
+				[labelTop]="true"
+				formControlName="dateAchieved">
+			</app-date-picker>
+
+			<app-textarea 
+				label="Achievement Comment" 
+				[labelTop]="true"
+				formControlName="achievementComment"
+			>
+			</app-textarea>
+
+		</form>
+	</div>
+</div>

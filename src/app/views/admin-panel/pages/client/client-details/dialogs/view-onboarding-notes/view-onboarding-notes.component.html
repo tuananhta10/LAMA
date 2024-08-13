@@ -1,0 +1,51 @@
+<div class="row">
+	<!-- ON BOARDING NOTES -->
+	<div class="col-12 col-md-12 col-lg-12">
+		<div class="mb-3" id="onboarding-notes">
+			<h5 class="card-title">Participant Care Notes</h5>
+
+			<div class="row">
+				<div class="col-12 col-md-12 mb-2 px-1 pb-0">
+					<div class="notes-container">
+						<button class="btn btn-view-more btn-active-client admin">General Notes</button>
+
+						<p class="text-justify mt-2 text-capitalize">{{data?.general_notes || '-'}}</p>
+					</div>
+				</div>
+
+				<div class="col-6 col-md-12 mb-2 px-1 pb-0">
+					<div class="notes-container">
+						<button class="btn btn-view-more btn-active-client co-worker">Care Notes</button>
+
+						<p class="text-justify mt-2 text-capitalize">{{data?.care_notes || '-'}}</p>
+					</div>
+				</div>
+
+				<div class="col-6 col-md-12 mb-2 px-1 pb-0">
+					<div class="notes-container">
+						<button class="btn btn-view-more btn-active-client current-worker">Participant Health needs</button>
+
+						<p class="text-justify mt-2 text-capitalize">{{data?.client_care_notes || '-'}}</p>
+					</div>
+				</div>
+
+
+				<div class="col-6 col-md-12 mb-2 px-1 pb-0">
+					<div class="notes-container">
+						<button class="btn btn-view-more btn-active-client scheduler">Scheduler Notes</button>
+
+						<p class="text-justify mt-2 text-capitalize">{{data?.scheduler_notes || '-'}}</p>
+					</div>
+				</div>
+
+				<!-- <div class="col-6 col-md-3 mb-3 px-1 pb-0">
+					<div class="notes-container">
+						<button class="btn btn-view-more btn-active-client client">Client</button>
+
+						<p class="text-justify mt-2">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form ipsum is a</p>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>

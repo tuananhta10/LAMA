@@ -1,0 +1,232 @@
+<div id="client-careworker-container">
+	<!-- BUTTONS CONTROLLER -->
+	<client-details-navigation
+		[id]="id"
+		[activeLink]="'contact-details'">
+	</client-details-navigation>
+
+	
+
+	<!-- DOCUMENT FILE DATA -->
+	<div class="row" 
+	style="width: 100% !important; min-height: 400px;" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="col-12 col-lg-12">
+			<div class="row">
+				<div class="col-12 col-md-6 col-lg-6">
+					<div class="mb-3 d-flex" id="client-demographics" style="min-height:423px">
+						<div class="client-img-icon-demographics flex-wrap">
+							<img src="/assets/images/icons/client-demographics.png">
+						</div>
+
+						<div class="client-data flex-wrap mb-3">
+							<h5 class="card-title">
+								Background and Address
+								<!-- <span class="float-end view-edit">Edit</span> -->
+							</h5>
+							<hr>
+							<dl>
+								<dd class="text-truncate">
+									<strong class="me-3">Place of Birth</strong>
+									<span>{{clientData?.birthplace}}</span>
+								</dd>
+								
+								<!-- <dd class="text-truncate">
+									<strong class="me-3">Country of Birth</strong> 
+									<span>{{clientData?.birthplace || '-'}}</span>
+								</dd> -->
+								
+								<dd class="text-truncate">
+									<strong class="me-3">Citizenship</strong> 
+									<span>{{clientData?.citizenship || '-'}}</span>
+								</dd>
+
+								<dd><hr></dd>
+
+								<dd class="text-truncate">
+									<strong class="me-3">Address 1</strong> 
+									<span>{{clientData?.address_a || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate"><strong class="me-3">Address 2</strong> 
+									<span>{{clientData?.address_b || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate">
+									<strong class="me-3">Suburb</strong>
+									<span>{{clientData?.suburb || '-'}}</span>
+								</dd>
+								
+								<dd class="text-truncate">
+									<strong class="me-3">State</strong> 
+									<span>{{clientData?.state || '-'}}</span>
+								</dd>
+								
+								<dd class="text-truncate">
+									<strong class="me-3">Post Code</strong> 
+									<span>{{clientData?.post_code || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate">
+									<strong class="me-3">Email</strong> 
+									<span>{{clientData?.email_address || '-'}}</span>
+								</dd>
+								
+							</dl>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-6 col-lg-6">
+					<div class="mb-3 d-flex" id="client-details">
+						<div class="client-img-icon-details flex-wrap">
+							<img src="/assets/images/icons/client-details.png">
+						</div>
+
+						<div class="client-data flex-wrap">
+							<h5 class="card-title">Personal Details
+								<!-- <span class="float-end view-edit">Edit</span> -->
+							</h5>
+
+							<hr>
+
+							<dl>
+								<dd class="text-truncate capitalize">
+									<strong>Title    </strong> 
+									<span>{{clientData?.title || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate capitalize"><strong>Last Name    </strong> 
+									<span>{{clientData?.last_name || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate capitalize">
+									<strong>First Name    </strong>
+									<span>{{clientData?.first_name || '-'}}</span>
+								</dd>
+								
+								<dd class="text-truncate capitalize">
+									<strong>Preferred Name    </strong> 
+									<span>{{clientData?.preferred_name || '-'}}</span>
+								</dd>
+
+								<dd><hr></dd>
+								
+								<dd class="text-truncate">
+									<strong class="me-3">Gender</strong> 
+									<span>{{clientData?.preferred_gender || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate">
+									<strong class="me-3">Date of Birth</strong> 
+									<span>{{clientData?.birthdate * 1000 | date: 'dd-MM-y' || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate"><strong class="me-3">Age</strong> 
+									<span>{{clientData?.age}}</span>
+								</dd>
+
+								
+
+								<dd class="text-truncate">
+									<strong class="me-3">Family Status</strong> 
+									<span>Single</span>
+								</dd>
+
+								<dd class="text-truncate"><strong class="me-3">Religion</strong> 
+									<span>Catholic</span>
+								</dd>
+							</dl>
+
+							<!-- <h5 class="card-title">Worker Preference
+							</h5>
+							<hr>
+
+							<dl>
+								<dd class="text-truncate">
+									<strong class="me-3">Preferred C/W Gender</strong> 
+									<span>Female</span>
+								</dd>
+
+								<dd class="text-truncate"><strong class="me-3">NDIS No.</strong> 
+									<span>{{clientData?.id || '-'}}</span>
+								</dd>
+
+								<dd class="text-truncate">
+									<strong class="me-3">Main Branch</strong>
+									<span>{{clientData?.branch_name || '-'}}</span>
+								</dd>
+								
+								<dd class="">
+									<strong class="me-3 ">PM Require Approval</strong> 
+									<span class="">
+										<mat-radio-group aria-label="Select an option" 
+										disabled="true"
+										[(ngModel)]="pmRequireApproval" id="require-approval">
+											<mat-radio-button [value]="true">Yes</mat-radio-button>
+											<mat-radio-button [value]="false">No</mat-radio-button>
+										</mat-radio-group>
+									</span>
+								</dd>
+							</dl> -->
+							<br>
+						</div>
+					</div>
+				</div>		
+
+				<div class="col-12">
+					<div class="mb-3 d-flex" id="client-background">
+						<div class="client-img-icon-background flex-wrap">
+							<img src="/assets/images/icons/phone.png">
+						</div>
+
+						<div class="client-data flex-wrap">
+							<h5 class="card-title">Contact Details
+								<!-- <span class="float-end view-edit">Edit</span> -->
+							</h5>
+							<hr>
+							<dl>
+								<dd class="text-truncate">
+									<strong class="me-3">Home Phone</strong> 
+									<span><span>{{clientData?.home_phone_no || '-'}}</span></span>
+								</dd>
+
+								<dd class="text-truncate"><strong class="me-3">Work Phone</strong> 
+									<span><span>{{clientData?.work_phone_no || '-'}}</span></span>
+								</dd>
+
+								<dd class="text-truncate">
+									<strong class="me-3">Home Phone</strong>
+									<span><span>{{clientData?.work_phone_no || '-'}}</span></span>
+								</dd>
+							</dl>
+
+							<hr>
+							<h5 class="card-title">Emergency Details
+								<!-- <span class="float-end view-edit">Edit</span> -->
+							</h5>
+							
+							<dl>
+								<dd class="text-truncate">
+									<strong class="me-3">Emergency Contact Name</strong> 
+									<span>{{contactDetails?.emergency_contact_name}}</span>
+								</dd>
+
+								<dd class="text-truncate"><strong class="me-3">Emergency Contact Number</strong> 
+									<span>{{contactDetails?.emergency_contact_no}}</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>		
+			</div>
+		</div>
+
+		<div class="col-12 col-lg-4">
+			<!-- STATISTICS DATA 
+			<div class="mb-3">
+				<client-main-profile-stats></client-main-profile-stats>
+			</div>-->
+		</div>
+	</div>
+</div>

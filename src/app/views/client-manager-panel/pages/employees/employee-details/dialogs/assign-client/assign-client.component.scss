@@ -1,0 +1,155 @@
+@import "src/scss/colors";
+:host ::ng-deep{
+  ::-webkit-scrollbar {
+    width: 3px !important;
+    height: 10px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+  }
+}
+.assign-container{
+    .header-msg {
+        color: $color-purple;
+        font-size: 30px;
+        font-weight: 700 !important;
+        line-height: 40.86px;
+    }
+
+    .header-text{
+        font-size: 15px;
+        font-weight: 600;
+        color: $color-gray !important;
+    }
+
+    img{
+        width: 60%;
+
+        @media (max-width: 768px){
+            width: 70% !important;
+        }
+    }
+}
+
+
+.assign-action-container{
+    padding: 0 30px 0 10px;
+    width: 650px !important;
+
+    @media (max-width: 768px){
+        padding: 0 !important;
+    }
+
+    .set-focus{
+        padding: 40px 55px 60px 55px !important; 
+        transition: all 0.35s ease-out !important;
+    }
+
+    .header-text{
+        font-size: 15px;
+        font-weight: 500;
+        color: $color-gray !important;
+    }
+
+    .header-text-action{
+        margin-top: 25px !important;
+        font-size: 15px;
+        font-weight: 600;
+        color: $color-gray !important;
+    }
+
+    .card-action{
+        height: 195px;
+        max-width: 182px !important;
+        padding: 40px 60px 60px 60px;
+        border-radius: 20px;
+        box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+        -webkit-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+        -moz-box-shadow: 0px 4px 5px rgba(102, 102, 102, 0.25);
+        cursor: pointer;
+
+        @media (max-width: 768px){
+            height: 100% !important;
+        }
+    }
+
+    .img-container-main{
+        border-radius: 50%;
+        padding: 15px;
+
+        img{
+            width: 100%;
+
+            @media (max-width: 768px){
+                width: 60px !important;
+                height: auto !important;
+            }
+        }
+    }
+
+    .employee-location{
+        @extend .card-action;
+        background: #FCF3EE;
+
+        .img-container{
+            @extend .img-container-main;
+            background: #FDC5A6;
+        }
+
+        
+    }
+
+    .employee-interest{
+        @extend .card-action;
+        background: #D7F4F8;
+
+        .img-container{
+            @extend .img-container-main;
+            //padding: 35px 0px;
+            background: #9EDDE7;
+
+            img{
+                //width: 100%;
+            }
+        }
+    }
+
+    .employee-age{
+        @extend .card-action;
+        background: #FEF1FC;
+
+        .img-container{
+            @extend .img-container-main;
+            //padding: 28px 0px;
+            background: #FDCBF5;
+
+            img{
+                //width: 100%;
+            }
+        }
+    }
+}
+
+.btn-header-gray{
+  background: #D0D0D0;
+  color: $color-gray-dark;
+}
+
+
+
+.btn-header{
+  border-radius: 5px !important;
+  padding: 7px 30px !important;
+}
+
+
+.dialog-responsive .mat-dialog-container
+{
+  
+    //min-height: 70% !important;
+    min-width: 660px !important;
+    //max-height: 70% !important;
+
+    @media (max-width: 768px){
+      min-height: 50%;
+      min-height: 500px;
+    }
+}

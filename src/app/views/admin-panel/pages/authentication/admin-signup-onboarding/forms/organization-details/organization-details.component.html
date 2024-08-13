@@ -1,0 +1,150 @@
+<div class="row">
+    <div class="col-sm-7">
+        <h4 class="container-title">Your Organisation Details</h4>
+        <p class="mb-4">Need help setting up your account? Contact our team at info@lamacare.com.au</p>
+
+        <form [formGroup]="organizationDetailForm">
+            <div class="img-circle"*ngIf="!imgSrc">
+                <img class="image-placeholder" src="/assets/images/placeholder/placeholder-png.png">
+            </div>
+
+            <img *ngIf="imgSrc" [src]="imgSrc" class="image-placeholder-add">
+
+            <app-field-upload
+                label=""
+                #upload
+                formControlName="logo"
+                [labelTop]="true"
+                [chips]="false"
+                [acceptType]="'image/png, image/gif, image/jpeg'"
+                [subtitle]="'Upload Logo'"
+                (upload)="onUpload($event)"
+                >
+            </app-field-upload>
+
+            <ng-template #showOrgName>
+                <app-textfield 
+                    label="Legal Name" 
+                    subLabel="Organisation Legal Name typically refers to the official name of a company or organisation, as registered with the relevant government agency."
+                    formControlName="organization_register"
+                    [required]="true"
+                    [labelTop]="true">
+                </app-textfield>
+            </ng-template>
+
+            <app-textfield
+                label="Trading Name" 
+                subLabel="The organisation trade name refers to the name or title that your company uses to conduct business with your participants."
+                formControlName="trading_name"
+                [required]="true"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-radio-button
+                label="Is your Organisation NDIS registered?"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="is_ndis_provider"
+                [options]="radioOptions">
+                
+            </app-radio-button>
+
+            <ng-container *ngIf="!!organizationDetailForm.controls['is_ndis_provider']?.value; else showOrgName">
+                <app-textfield
+                    label="What name is your organisation registered under with the NDIS?" 
+                    subLabel="You can check by searching for your organisation on https://www.ndiscommission.gov.au/resources/ndis-provider-register/search"
+                    formControlName="organization_register"
+                    [required]="organizationDetailForm.controls['is_ndis_provider']?.value == true"
+                    [labelTop]="true">
+                </app-textfield>
+
+                <app-textfield 
+                    label="Organisation ID"
+                    subLabel="What is your organisation's PRODA provider number?" 
+                    formControlName="organization_registration_number"
+                    [labelTop]="true">
+                </app-textfield>
+            </ng-container>
+
+            <br>
+            <app-textfield 
+                label="ABN" 
+                subLabel="ABN stands for Australian Business Number. It is an 11-digit identifier that is unique to each business or organization in Australia. "
+                formControlName="abn"
+                [inputType]="'text'"
+                [required]="true"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Website" 
+                subLabel="Type N/A if you don’t have a website"
+                formControlName="website"
+                [required]="true"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Primary Address" 
+                subLabel="The registered or primary address of your organisation or company"
+                formControlName="primary_address"
+                [inputType]="'text'"
+                [required]="true"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Email Address" 
+                subLabel="The registered email address of your organisation"
+                formControlName="primary_email"
+                [inputType]="'email'"
+                [required]="true"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Phone Number"
+                subLabel="The registered phone number of your organisation"
+                formControlName="phone"
+                [inputType]="'tel'"
+                [required]="true"
+                [labelTop]="true">
+            </app-textfield>
+
+            <app-textarea 
+                label="About Us"
+                subLabel="Please provide more information about your organisation to help us better understand your needs and provide you with the best possible service." 
+                [labelTop]="true"
+                [rows]="5"
+                formControlName="about_us"
+            >
+            </app-textarea>
+
+            <!-- <app-textarea 
+                label="Support Needs"
+                subLabel="Describe your clients and the type of support they require from LAMA workers. Include client age range, 
+                typical disability types and level of support needed, and whether it’s 1:1, group, or both." 
+                [labelTop]="true"
+                formControlName="support_needs"
+            >
+            </app-textarea>
+
+            <app-textarea 
+                label="How will you share detailed information about your clients with our workers?"
+                subLabel="Information about each client must be shared directly with workers before or at the start of the shift - either in hard copy, 
+                by email or another suitable method." 
+                [labelTop]="true"
+                formControlName="client_information"
+            >
+            </app-textarea> -->
+        </form>
+        <div>
+            <button 
+            [disabled]="!organizationDetailForm.valid"
+            (click)="next()"
+            mat-button class="btn btn-header btn-primary">
+               Continue
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">
+            <span *ngIf="!data; else showUpdate">Add </span>
+            <ng-template #showUpdate>Update </ng-template>   
+            Communication Template
+
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	<form [formGroup]="newCommunicationTemplate">
+		<div mat-dialog-content>
+            <div class="card card-body pt-3">
+                <div class="row">
+                	<div class="col-12 col-md-6 col-lg-4">
+                		<app-textfield 
+	                	    label="Template Name"
+	                	    [labelTop]="true"
+	                	    [required]="true"
+	                	    formControlName="name">
+                		</app-textfield>
+
+                		<app-dropdown 
+	                	    label="Communication Type"
+	                	    [labelTop]="true"
+	                	    [required]="true"
+	                	    formControlName="communication_type"
+	                	    [options]="communicationType">
+                		</app-dropdown>
+
+                		<app-dropdown 
+	                	    label="Recipient Type"
+	                	    [labelTop]="true"
+	                	    [required]="true"
+	                	    formControlName="recipient_type"
+	                	    [options]="recipientType">
+                		</app-dropdown>
+
+                		<ng-container 
+                		*ngIf="newCommunicationTemplate.controls['recipient_type'].value === 'Employees'">
+                			<app-dropdown 
+		                	    label="Employee Fields"
+		                	    [labelTop]="true"
+		                	    formControlName="field_to_include"
+		                	    [options]="employee_template">
+	                		</app-dropdown>
+                		</ng-container>
+
+                		<ng-container 
+                		*ngIf="newCommunicationTemplate.controls['recipient_type'].value === 'Participants'">
+                			<app-dropdown 
+		                	    label="Participant Fields"
+		                	    [labelTop]="true"
+		                	    formControlName="field_to_include"
+		                	    [options]="participant_template">
+	                		</app-dropdown>
+                		</ng-container>
+
+                		<button class="btn btn-primary" (click)="includeToTemplate()"
+                		*ngIf="newCommunicationTemplate.controls['recipient_type'].value">Include to Template</button>
+                	</div>
+
+                	<div class="col-12 col-md-6 col-lg-8">
+                		<ng-container 
+                		*ngIf="newCommunicationTemplate.controls['communication_type'].value === 'SMS'">
+                			<app-textarea
+	                			label="SMS Content"
+	                			[labelTop]="true"
+	                			[required]="true"
+	                			formControlName="content"
+	                			[rows]="8">
+                			</app-textarea>
+                		</ng-container>
+
+                		<div class="px-3"
+                		*ngIf="newCommunicationTemplate.controls['communication_type'].value === 'Email'">
+                			<label class="mb-2">Email Content</label>
+	                		<ckeditor
+		                	    formControlName="content"
+		                	    [config]="editorConfig"
+		                	    (change)="onChange($event)"
+		                	    (editorChange)="onEditorChange($event)" 
+		                	    (ready)="onReady($event)"
+		                	    (focus)="onFocus($event)"
+		                	    (blur)="onBlur($event)"
+		                	    (contentDom)="onContentDom($event)"
+		                	    (fileUploadRequest)="onFileUploadRequest($event)"
+		                	    (fileUploadResponse)="onFileUploadResponse($event)"
+		                	    (paste)="onPaste($event)"
+		                	    (drop)="onDrop($event)"
+		                	    debounce="500">
+	                	  	</ckeditor>
+                		</div>
+                	</div>
+                </div>
+            </div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn  btn-header-gray me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!newCommunicationTemplate.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">
+                    <span *ngIf="!data else showSave">Save</span>
+                    <ng-template #showSave>Save</ng-template> Template
+                </button>
+			</div>
+		</div>
+	</form>
+
+</div>

@@ -1,0 +1,82 @@
+<div mat-dialog-content>
+
+    <form [formGroup]="hourForm">
+        
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                 <app-textarea 
+                     label="Activity"
+                     [labelTop]="true"
+                     [readonly]="true"
+                     formControlName="activity">
+                 </app-textarea>
+
+                 <app-dropdown 
+                     label="A/H Calculation"
+                     [labelTop]="true"
+                     [required]="true"
+                     [readonly]="true"
+                     formControlName="a_h_calculator"
+                     [options]="ahCalculation">
+                 </app-dropdown>
+
+                 <app-dropdown 
+                     label="Status"
+                     [required]="true"
+                     [labelTop]="true"
+                     formControlName="status"
+                     [disabled]="true"
+                     [options]="status">
+                 </app-dropdown>
+
+                  <app-textarea 
+                      label="Additional Roster Comments"
+                      [labelTop]="true"
+
+                      [disabled]="true"
+                      formControlName="additional_roster_comment">
+                  </app-textarea>
+            </div>
+            <div class="col-12 col-md-6">
+                  <app-radio-button
+                  label="Billable"
+                  [labelTop]="true"
+                  formControlName="billable"
+                  [options]="radioOptions"
+                  [disabled]="true"
+                  [info]="true"
+                  [infoTitle]="'Whether or not to charge the client for this service'">
+                  </app-radio-button>
+
+                  <app-radio-button
+                  label="Override Availability"
+                  [labelTop]="true"
+                  formControlName="override_availability"
+                  [options]="radioOptions"
+                  [info]="true"
+                  [readonly]="true"
+                  [infoTitle]="'If overridden system will not consider employee availability for the shift'">
+                  </app-radio-button>
+
+                  <app-radio-button
+                  label="Override Qualifications"
+                  [labelTop]="true"
+                  formControlName="override_qualifications"
+                  [options]="radioOptions"
+                  [readonly]="true"
+                  >
+                  </app-radio-button>
+
+                  <app-textarea 
+                      [readonly]="true"
+                      label="Override Qualifications Comments"
+                      [labelTop]="true"
+                      formControlName="override_qualifications_comment">
+                  </app-textarea>
+            </div>
+        </div>
+    </form>  
+
+    
+</div>

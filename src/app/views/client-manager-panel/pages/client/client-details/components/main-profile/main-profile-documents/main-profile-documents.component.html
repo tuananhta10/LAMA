@@ -1,0 +1,62 @@
+<section id="document-data">
+	<div class="card card-body mb-3 pt-4" style="height: 205px;">
+		<h5 class="document-title">Participant Documents
+			<button type="button" class="btn add-new ms-1 text-white" 
+			style="color: white !important; z-index: 9999 !important;" 
+			(click)="openCustomDocumentModal()"> 
+				<span class="material-icons text-white">add</span>Add
+			</button>
+			<a routerLink="related-documents" class="float-end">View All</a>
+		</h5>
+
+		<table class="table mt-2" *ngIf="clientDocs?.length > 0; else showEmptyDocs">
+			<tr *ngFor="let document of clientDocs">
+				<td style="width: 20px;">
+					<img src="/assets/images/icons/folder-file.png" width="32px">
+				</td>
+				<td class="file-title">{{document?.title}}</td>
+				<td class="file-title-date text-end">
+					{{document?.dateAdded}}
+					<img (click)="deleteDataDialog(document)" 
+					src="/assets/images/icons/delete-red.png" class="img-fluid delete" width="30px"> 
+				</td>
+			</tr>
+		</table>
+
+		<ng-template #showEmptyDocs>
+			<div *ngIf="!loading" class="mt-2">List of Participant Documents is currently empty.</div>
+		</ng-template>
+	</div>
+	
+	<!-- <div class="card card-body mb-3 pt-4" style="min-height: 195px;">
+		<h5 class="document-title">Recent Communication and Notes
+			<a routerLink="/client/details/id" class="float-end">View All</a>
+		</h5>
+
+		<table class="table mt-2">
+			<tr>
+				<td style="width: 20px;">
+					<img src="/assets/images/icons/sms-file.png" width="32px">
+				</td>
+				<td class="file-title-recent" style="width: 200px;">SMS Received</td>
+				<td class="file-title-date text-end">9-12-2021</td>
+			</tr>
+
+			<tr>
+				<td style="width: 20px;">
+					<img src="/assets/images/icons/folder-file.png" width="32px">
+				</td>
+				<td class="file-title-recent" style="width: 200px;">PDF Received</td>
+				<td class="file-title-date text-end">9-12-2021</td>
+			</tr>
+
+			<tr>
+				<td style="width: 20px;">
+					<img src="/assets/images/icons/email-file.png" width="32px">
+				</td>
+				<td class="file-title-recent" style="width: 200px;">Email Received</td>
+				<td class="file-title-date text-end">9-12-2021</td>
+			</tr>
+		</table>
+	</div> -->
+</section>

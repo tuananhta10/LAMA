@@ -1,0 +1,51 @@
+<section class="p-3 text-center alternate-theme" id="edit-client-list-dialog">
+	<h4 class="selection-title-outer pe-2">Choose which {{data?.groupBy}} you want to include</h4>
+	<hr>
+	<div class="ms-2" cdkDropListGroup>
+		<div class="selection-container">
+			<!-- SEARCH CLIENT -->
+			<div class="search-div me-1">
+				<div class="input-group">
+				  <img src="/assets/images/icons/search.png">
+				  
+				  <input type="text" class="form-control" placeholder="Search" aria-label="Search" 
+				  [(ngModel)]="searchBy" (ngModelChange)="searchByType()">
+				</div>
+			</div>
+			<hr>
+			<h5 class="selection-title-inner">{{data?.groupBy}} Name</h5>
+
+			<div class="selection-list" *ngIf="!drag">
+				<mat-checkbox  
+				class="selection-check" 
+				[(ngModel)]="all" 
+				(change)="updateSelectedItem('All')">
+					<span>All</span>
+		        </mat-checkbox> 
+
+				<mat-checkbox
+				*ngFor="let item of filteredColumns; let i = index" 
+				class="selection-check"  
+				[(ngModel)]="filteredColumns[i].selected"
+				(change)="updateSelectedItem(item)">
+					<span class="text-capitalize">{{item?.title}}</span>
+		        </mat-checkbox> 
+			</div> 
+		</div>
+	</div>
+
+	<!-- <div class="text-start ms-2">
+		<small class="text-muted">*Drag items to the left if you want to hide the column.</small>
+	</div> -->
+	<br>
+	<div class="text-center">
+		<button mat-button class="btn btn-header btn-header-gray me-3" (click)="closeDialog()">
+			Cancel
+		</button>
+
+		<button mat-button class="btn btn-header btn-primary" (click)="closeSaveDialog()"
+		[disabled]="selected?.length <= 0">
+			Save
+		</button>
+	</div>
+</section>

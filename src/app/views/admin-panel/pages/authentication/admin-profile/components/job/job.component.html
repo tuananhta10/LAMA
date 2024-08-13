@@ -1,0 +1,228 @@
+<admin-navigation [activeLink]="'jobs'"></admin-navigation>
+
+<div style="width: 100% !important" *ngIf="!loading">
+	<div class="row" [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="col-12 col-md-12 col-lg-12">
+			<div class="mb-3 d-flex" id="client-details">
+				<div class="client-img-icon-details flex-wrap">
+					<img src="/assets/images/icons/client-details.png">
+				</div>
+
+				<div class="client-data flex-wrap">
+					<h5 class="card-title">Job Information
+						<span class="float-end view-edit">Edit</span>
+					</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3 mb-md-0">
+							<dl>
+								<dd>
+									<strong class="me-3">Title</strong> 
+									<span>{{adminData?.title}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Last Name</strong> 
+									<span>{{adminData?.last_name}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">First Name</strong>
+									<span>{{adminData?.first_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Preferred Name</strong> 
+									<span>{{adminData?.preferred_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Gender</strong> 
+									<span>{{adminData?.preferred_gender}}</span>
+								</dd>
+							</dl>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3 mb-md-0">
+							<dl>
+								<dd>
+									<strong class="me-3">Title</strong> 
+									<span>{{adminData?.title}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Last Name</strong> 
+									<span>{{adminData?.last_name}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">First Name</strong>
+									<span>{{adminData?.first_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Preferred Name</strong> 
+									<span>{{adminData?.preferred_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Gender</strong> 
+									<span>{{adminData?.preferred_gender}}</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3 d-flex" id="client-details">
+				<div class="client-img-icon-details flex-wrap">
+					<img src="/assets/images/icons/client-details.png">
+				</div>
+
+				<div class="client-data flex-wrap">
+					<h5 class="card-title">Work Schedule
+						<span class="float-end view-edit">Edit</span>
+					</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3 mb-md-0">
+							<dl>
+								<dd>
+									<strong class="me-3">Title</strong> 
+									<span>{{adminData?.title}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Last Name</strong> 
+									<span>{{adminData?.last_name}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">First Name</strong>
+									<span>{{adminData?.first_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Preferred Name</strong> 
+									<span>{{adminData?.preferred_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Gender</strong> 
+									<span>{{adminData?.preferred_gender}}</span>
+								</dd>
+							</dl>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3 mb-md-0">
+							<dl>
+								<dd>
+									<strong class="me-3">Title</strong> 
+									<span>{{adminData?.title}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Last Name</strong> 
+									<span>{{adminData?.last_name}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">First Name</strong>
+									<span>{{adminData?.first_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Preferred Name</strong> 
+									<span>{{adminData?.preferred_name}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Gender</strong> 
+									<span>{{adminData?.preferred_gender}}</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-12 col-lg-12">
+			<div class="mb-3 d-flex" id="client-demographics">
+				<div class="client-img-icon-demographics flex-wrap">
+					<img src="/assets/images/icons/client-demographics.png">
+				</div>
+
+				<div class="client-data flex-wrap">
+					<h5 class="card-title">Job History
+						<span class="float-end view-edit">Edit</span>
+					</h5>
+
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<dl>
+								<dd>
+									<strong class="me-3">Date of Birth</strong> 
+									<span>{{adminData?.birthdate}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Age</strong> 
+									<span>{{adminData?.age}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">Place of Birth</strong>
+									<span>{{adminData?.birthplace}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Country of Birth</strong> 
+									<span>Philippines</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Citizenship</strong> 
+									<span>Permanent Residence</span>
+								</dd>
+							</dl>
+						</div>
+
+						<div class="col-12 col-md-6 mb-3">
+							<dl>
+								<dd>
+									<strong class="me-3">Date of Birth</strong> 
+									<span>{{adminData?.birthdate}}</span>
+								</dd>
+
+								<dd><strong class="me-3">Age</strong> 
+									<span>{{adminData?.age}}</span>
+								</dd>
+
+								<dd>
+									<strong class="me-3">Place of Birth</strong>
+									<span>{{adminData?.birthplace}}</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Country of Birth</strong> 
+									<span>Philippines</span>
+								</dd>
+								
+								<dd>
+									<strong class="me-3">Citizenship</strong> 
+									<span>Permanent Residence</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div  [@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+	<!-- LOADING ANIMATION SCREEN -->
+	<global-admin-loader 
+		[withSideBar]="false"
+		[fromDetailTab]="true"
+		[loading]="loading">
+	</global-admin-loader>
+</div>

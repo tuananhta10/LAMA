@@ -1,0 +1,271 @@
+
+<div class="row" mat-dialog-content>
+     <div class="col-12" >
+            <form [formGroup]="serviceScheduleForm">
+                <div *ngIf="riskNotification" class="mb-3 text-danger text-justify ps-3">
+                    <strong>Risk Notification</strong>: {{riskNotification}}
+                    <hr>
+                </div>
+
+                <div *ngIf="schedulerNotes" class="mb-3 text-justify px-4">
+                    <strong>Scheduler Notes</strong>: {{schedulerNotes}}
+                    <hr>
+                </div>
+
+                <div class="row" *ngIf="!clientLoading && !priceListLoading" >
+                    <div class="col-12" 
+                    *ngIf="serviceScheduleForm?.controls['type'].value === 'Group'">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <app-dropdown 
+                                      label="Type"
+                                     [labelTop]="true"
+                                     [required]="true"
+                                     formControlName="type"
+                                     (keyevents)="getGroupPricelist()"
+                                     [options]="type">
+                                 </app-dropdown>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <app-search-list 
+                                    label="Group"
+                                    [labelTop]="true"
+                                    [required]="true"
+                                    formControlName="group_id"
+                                    (keyevents)="setGroupClients($event)"
+                                    [options]="groupEnums">
+                                </app-search-list>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="px-3 mt-4">
+                            <app-form-table
+                                label='Participants'
+                                [columns]="clientColumns"
+                                [data]="clientTableData"
+                                (addEvent)="openClientModal($event)"
+                                (deleteEvent)="deleteClientModal($event)"
+                                [isAddEnabled]="true"
+                                [isDeleteEnabled]="true"
+                            ></app-form-table>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 col-md-6">
+                        <ng-container *ngIf="serviceScheduleForm?.controls['type'].value === 'Individual'">
+                            <app-dropdown 
+                                 label="Type"
+                                 [labelTop]="true"
+                                 [required]="true"
+                                 [disabled]="true"
+                                 formControlName="type"
+                                 [options]="type">
+                             </app-dropdown>
+
+                             <app-search-list 
+                                 label="Participant"
+                                 [labelTop]="true"
+                                 [readonly]="data"
+                                 [required]="serviceScheduleForm?.controls['type'].value === 'Individual'"
+                                 formControlName="client_id"
+                                 [options]="clientEnum">
+                             </app-search-list>
+
+                             <ng-container *ngIf="!updateFunding && data">
+                                 <div style="position: relative;" class="w-100">
+                                    <!-- <label class="update-funding" (click)="setClientFunding()" *ngIf="data">
+                                        (Update Funding)
+                                    </label> -->
+
+                                     <app-textfield
+                                     label="Participant Funding"
+                                     [labelTop]="true"
+                                     [readonly]="true"
+                                     [disabled]="true"
+                                     [required]="serviceScheduleForm?.controls['type'].value === 'Individual'"
+                                     formControlName="client_funding_id">
+                                         
+                                     </app-textfield>
+
+                                     <app-textarea
+                                     label="Support Item Name"
+                                     [labelTop]="true"
+                                     formControlName="price_list_id"
+                                     [required]="true"
+                                     [readonly]="true"
+                                     [disabled]="true"
+                                     >
+                                         
+                                     </app-textarea>
+                                 </div>
+                             </ng-container>
+
+                             <ng-container *ngIf="updateFunding || !data">
+                                 <div style="position: relative;" class="w-100">
+                                    <app-search-list
+                                     label="Client Funding"
+                                     [labelTop]="true"
+                                     [required]="serviceScheduleForm?.controls['type'].value === 'Individual'"
+                                     formControlName="client_funding_id"
+                                     [options]="clientFundingEnum">
+                                    </app-search-list> 
+
+                                    <app-search-list 
+                                     label="Support Item Name"
+                                     [isTextArea]="true"
+                                     [labelTop]="true"
+                                     formControlName="price_list_id"
+                                     [required]="true"
+                                     [readonly]="!serviceScheduleForm?.controls['client_funding_id'].value"
+                                     [options]="priceListEnum">
+                                    </app-search-list>
+                                 </div>
+                             </ng-container>
+                        </ng-container>
+                
+                        <app-dropdown *ngIf="serviceScheduleForm?.controls['type'].value === ''"
+                              label="Type"
+                             [labelTop]="true"
+                             [required]="true"
+                             formControlName="type"
+                             [options]="type">
+                         </app-dropdown>
+
+                        <!-- <app-dropdown
+                            label="Service Location"
+                            [labelTop]="true"
+                            [required]="true"
+                            formControlName="service_location"
+                            (keyevents)="setPricelist($event)"
+                            [options]="serviceLocation">
+                        </app-dropdown> -->
+
+                        <ng-container>
+                            <!-- <app-textfield
+                                label="Support Item Code"
+                                [labelTop]="true"
+                                formControlName="support_item_number"
+                                [readonly]="true">
+                            </app-textfield> -->
+                            
+                            <app-dropdown
+                                label="Shift Rates"
+                                [labelTop]="true"
+                                formControlName="shift_rate"
+                                [required]="true"
+                                [readonly]="!serviceScheduleForm?.controls['price_list_id']?.value"
+                                [disabled]="data && !serviceScheduleForm?.controls['price_list']?.value"
+                                [options]="rateTypes">
+                            </app-dropdown>
+
+                            <app-textfield 
+                                label="Support Item Price"
+                                [labelTop]="true"
+                                formControlName="editable_rate_value"
+                                [inputType]="'number'"
+                                [info]="true"
+                                [readonly]="disableRate"
+                                [required]="true"
+                                [infoTitle]="'Price of the selected support item'">
+                            </app-textfield> 
+
+                            <app-radio-button
+                                label="TTP"
+                                [labelTop]="true"
+                                formControlName="ttp"
+                                [options]="radioOptions"
+                             >
+                            </app-radio-button>
+                        </ng-container>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <app-date-picker 
+                            label="Start Date"
+                            [labelTop]="true"
+                            [required]="true"
+                            [disabled]="data"
+                            [datepickerFilter]="weekendsDatesFilter"
+                            (keyevents)="setEndDateFromHoursEvents($event, 'start_date')"
+                            formControlName="start_date">
+                        </app-date-picker >
+                        
+                        <app-time-analog 
+                            label="Start Time"
+                            [labelTop]="true"
+                            [required]="true"
+                            [disabled]="data"
+                            (focus)="activeFocus($event, 'start_time')"
+                            [defaultTime]="minStartTime"
+                            [minTime]="minStartTime"
+                            [maxTime]="maxStartTime" 
+                            [value24Hour]="true"
+                            formControlName="start_time">
+                        </app-time-analog >
+                        
+                        <app-date-picker  
+                            label="End Date"
+                            [labelTop]="true"
+                            [required]="true"
+                            [disabled]="disableDates"
+                            [datepickerFilter]="weekendsDatesFilter"
+                            [minDate]="serviceScheduleForm?.controls['start_date']?.value"
+                            (keyevents)="setEndDateFromHoursEvents($event, 'end_date')"
+                            formControlName="end_date">
+                        </app-date-picker >
+
+                        <app-time-analog  
+                            label="End Time"
+                            [labelTop]="true"
+                            [required]="true"
+                            [disabled]="disableDates"
+                            (focus)="activeFocus($event, 'end_time')"
+                            [defaultTime]="minEndTime"
+                            [minTime]="minEndTime"
+                            [maxTime]="maxEndTime"
+                            [value24Hour]="true" 
+                            formControlName="end_time">
+                        </app-time-analog >
+                        
+                        <app-textfield 
+                            label="Total Hours"
+                            [labelTop]="true"
+                            [inputType]="'number'"
+                            [readonly]="data && !serviceScheduleForm?.controls['shift_type']?.value"
+                            (focus)="activeFocus($event, 'total_hours')"
+                            formControlName="total_hours">
+                        </app-textfield>
+
+                        <app-textfield 
+                            label="Admin Hours"
+                            [labelTop]="true"
+                            formControlName="admin_hours"
+                            [inputType]="'number'"
+                            [info]="true"
+                            [infoTitle]="'Whether or not to charge the client for this service'">
+                        </app-textfield>
+
+                        <app-textfield 
+                            label="Service Hours"
+                            [labelTop]="true"
+                            formControlName="service_hours"
+                            [inputType]="'number'"
+                            [info]="true"
+                            [infoTitle]="'Core service delivery hours'">
+                        </app-textfield>
+
+                    </div>
+                </div>
+            </form> 
+           
+         <global-admin-loader 
+            [withSideBar]="false"
+            [fromDetailTab]="true"
+            [loading]="clientLoading || priceListLoading"
+            [formOnly]="true">
+        </global-admin-loader>
+     </div>
+</div>

@@ -1,0 +1,24 @@
+
+<div class="assign-action-container px-0">
+	<img src="/assets/images/icons/calculator.png" class="img-fluid" width="30px">
+
+	<h5 class="header-text-action">{{data?.title || 'Recalculate Charges'}}</h5>
+	<h5 class="header-text mt-2">Are you sure you want to recalculate the cost, travel and transport for the selected schedules? Click continue to proceed</h5>
+</div>
+
+<div mat-dialog-actions>
+	<div class="row container">
+
+		<div class="col-md-12 text-center">
+			<button 
+			mat-button 
+			(click)="dialogRef.close()" 
+			class="btn  btn-header-gray ms-3">Cancel</button>
+
+			<button 
+			mat-button 
+			(click)="closeSaveDialog()" 
+			class="btn btn-primary">Continue</button>
+		</div>
+	</div>
+</div>

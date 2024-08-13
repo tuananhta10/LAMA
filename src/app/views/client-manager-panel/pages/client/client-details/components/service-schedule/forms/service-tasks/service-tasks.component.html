@@ -1,0 +1,109 @@
+<div class="row">
+	<div class="col-12 col-md-12">
+		<form [formGroup]="serviceTaskForm">
+			<app-textfield 
+				label="Completed Tasks" 
+				[labelTop]="true"
+				[disabled]="true"
+				formControlName="completed_tasks">
+			</app-textfield>
+
+			<app-textfield 
+				label="Total Tasks" 
+				[labelTop]="true"
+				[disabled]="true"
+				formControlName="total_tasks">
+			</app-textfield>
+
+			<h5 class="ps-4">Hours</h5>
+
+			<app-time-picker 
+				label="Start Time"
+				[required]="true"
+				[labelTop]="true"
+				formControlName="start_time">
+			</app-time-picker>
+
+			<app-time-picker 
+				label="End Time" 
+				[required]="true"
+				[labelTop]="true"
+				formControlName="end_time">
+			</app-time-picker>
+
+			<app-textfield 
+				label="Total Hours" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="total_hours">
+			</app-textfield>
+
+			<app-textfield 
+				label="Admin Hours" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="admin_hours">
+			</app-textfield>
+
+			<app-textfield 
+				label="Service Hours" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="service_hours">
+			</app-textfield>
+
+			<app-textfield 
+				label="Break Hours" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				formControlName="break_hours">
+			</app-textfield>
+
+			<h5 class="ps-4">Client Totals</h5>
+
+			<app-textfield 
+				label="Calculated Cost" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				[disabled]="true"
+				formControlName="calculated_cost">
+			</app-textfield>
+
+			<app-textfield 
+				label="Expenses Total" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				[disabled]="true"
+				formControlName="expenses_total">
+			</app-textfield>
+
+			<app-textfield 
+				label="Service Fees" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				[disabled]="true"
+				formControlName="service_fees">
+			</app-textfield>
+
+			<app-textfield 
+				label="Travel Total" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				[disabled]="true"
+				formControlName="travel_total">
+			</app-textfield>
+
+			<app-textfield 
+				label="Client Total" 
+				[inputType]="'number'"
+				[labelTop]="true"
+				[disabled]="true"
+				formControlName="client_total">
+			</app-textfield>
+
+
+			<!-- <p class="ps-4 text-muted">End of Service Date</p> -->
+
+		</form>
+	</div>
+</div>

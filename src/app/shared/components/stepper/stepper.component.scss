@@ -1,0 +1,16 @@
+:host ::ng-deep {
+
+    .mat-step-header[aria-labelledby="invalid"] {
+       .mat-step-icon {
+           border-radius: 50% !important;
+           background-color: white !important;
+       }
+
+    }
+
+
+    .mat-step-icon-state-error{
+      border-radius: 50%;
+      background-color: red;
+    }
+}

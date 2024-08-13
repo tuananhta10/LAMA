@@ -1,0 +1,161 @@
+<div class="row">
+	<div class="card px-3 mb-3 ">
+		<div class="card-body">
+			<!-- <h5 class="main-title">
+				Employee Shifts
+				<a (click)="redirectToScheduleBoard()" class="btn btn-view-all float-end">View All</a>
+			</h5> -->
+
+			<div id="shift-graph">
+				<div>
+					<h5 class="shift-total">{{totalShift}} Weekly Shifts
+						<a (click)="redirect('/admin/employees/employee-shift')" class="btn btn-view-all float-end">View All</a>
+					</h5>
+					<p class="shift-subtitle">The shift report for this week includes a breakdown of the total number of shifts by status.</p>
+
+					<div class="d-flex flex-wrap">
+						<div class="me-2" style="width: 100px !important;"> <div class="d-flex">
+								<h5 class="shift-sub-total">{{shiftData?.unassigned || 0}}</h5>
+								<p class="shift-subtitle" style="overflow: visible; white-space: nowrap;">Unassigned</p>
+							</div>
+							<div class="progress progress-shift">
+							  <div class="progress-bar bg-scheduled" role="progressbar"
+							  [ngStyle]="{ 'width' : ((shiftData?.unassigned/totalShift) * 100) + 'px' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					
+						<div class="me-2"  style="width: 100px !important;"> <div class="d-flex">
+								<h5 class="shift-sub-total">{{shiftData?.cancelled || 0}}</h5>
+								<p class="shift-subtitle">Cancelled</p>
+							</div>
+							<div class="progress progress-shift">
+							  <div class="progress-bar bg-cancelled" role="progressbar" 
+							  [ngStyle]="{ 'width' : ((shiftData?.cancelled/totalShift) * 100) + 'px' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+
+						<div class="me-2" style="width: 100px !important;"> <div class="d-flex">
+								<h5 class="shift-sub-total">{{shiftData?.scheduled || 0}}</h5>
+								<p class="shift-subtitle">Scheduled</p>
+							</div>
+							<div class="progress progress-shift">
+							  <div class="progress-bar bg-setup" role="progressbar"
+							  [ngStyle]="{ 'width' : ((shiftData?.scheduled/totalShift) * 100) + 'px' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+
+						<div class="me-2"  style="width: 100px !important;"> <div class="d-flex">
+								<h5 class="shift-sub-total">{{shiftData?.completed || 0}}</h5>
+								<p class="shift-subtitle">Completed</p>
+							</div>
+							<div class="progress progress-shift">
+							  <div class="progress-bar bg-completed" role="progressbar" 
+							  [ngStyle]="{ 'width' : ((shiftData?.completed/totalShift) * 100) + 'px' }"
+							  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+
+
+				<div class="chart-container mt-3">
+					<div style="position: relative;">
+					    <div class="chart-text d-flex">
+					        <h5 class="chart-total me-2"
+					        [ngStyle]="{ 
+					        	'font-size': (totalShift * 1) >= 100 ? '22px' : '',
+					        	'margin-left': (totalShift * 1) >= 100 ? '-3px' 
+					        	: (totalShift * 1) < 100 && (totalShift * 1) > 9 ? '10px' 
+					        	: '17px'
+					        }">{{totalShift}}</h5>
+					        <p class="text-start pt-2" style="font-weight: 600 !important; color: #5D5D5D">TOTAL</p>
+					    </div>
+					    <canvas baseChart *ngIf="!loading"
+							[datasets]="doughnutChartData" 
+							[legend]="doughnutChartLegend"
+							[labels]="doughnutChartLabels" 
+							[options]="doughnutChartOptions"
+							[type]="doughnutChartType"> 
+						</canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card mb-3 mx-0">
+		<div class="card-body">
+			<h5 class="shift-total" style="padding-bottom: 10px; border-bottom: 1px dashed rgba(196, 196, 196, 0.6);">
+				Participant Summary
+				<a (click)="redirect('/admin/clients')" class="btn btn-view-all float-end">View All</a>
+			</h5>
+
+			<div id="shift-graph">
+				<div>
+					<p class="shift-subtitle">The participant report for this month includes a breakdown of the total number of participants by status.</p>
+
+					<div class="d-flex w-100">
+						<div class="me-3" style="width: 110px !important;">
+							<div class="d-flex">
+								<h5 class="shift-sub-total">{{clientData?.active|| 0}}</h5>
+								<p class="shift-subtitle" style="overflow: visible; white-space: nowrap;">Active</p>
+							</div>
+							<div class="progress progress-shift">
+							  <div class="progress-bar bg-scheduled" role="progressbar"
+							  [ngStyle]="{ 'width' : ((clientData?.active/totalClient) * 100) + 'px' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					
+						<div class="me-3"  style="width: 110px !important;">
+							<div class="d-flex">
+								<h5 class="shift-sub-total">{{clientData?.pending|| 0}}</h5>
+								<p class="shift-subtitle">Pending</p>
+							</div>
+							<div class="progress progress-shift">
+							  <div class="progress-bar bg-cancelled" role="progressbar" 
+							  [ngStyle]="{ 'width' : ((clientData?.pending/totalClient) * 100) + 'px' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+
+						<div class="me-3" style="width: 110px !important;">
+							<div class="d-flex">
+								<h5 class="shift-sub-total">{{clientData?.inactive || 0}}</h5>
+								<p class="shift-subtitle">Inactive</p>
+							</div>
+							<div class="progress progress-shift">
+							  <div class="progress-bar bg-setup" role="progressbar"
+							  [ngStyle]="{ 'width' : ((clientData?.inactive/totalClient) * 100) + 'px' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="chart-container mt-3">
+					<div style="position: relative;">
+					    <div class="chart-text d-flex">
+					        <h5 class="chart-total"
+					        [ngClass]="(totalClient * 1) >= 100 ? 'me-1' : 'me-2'"
+					        [ngStyle]="{ 
+					        	'font-size': (totalClient * 1) >= 100 ? '22px' : '',
+					        	'margin-left': (totalClient * 1) >= 100 ? '-3px' 
+					        	: (totalClient * 1) < 100 && (totalClient * 1) > 9 ? '10px' 
+					        	: '17px'
+					        }">
+					    		{{totalClient}}
+					    	</h5>
+					        <p class="text-start pt-2" style="font-weight: 600 !important; color: #5D5D5D">TOTAL</p>
+					    </div>
+					    <canvas baseChart *ngIf="!loadingClient"
+							[datasets]="doughnutChartClientData" 
+							[legend]="doughnutChartClientLegend"
+							[labels]="doughnutChartClientLabels" 
+							[options]="doughnutChartClientOptions"
+							[type]="doughnutChartClientType"> 
+						</canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

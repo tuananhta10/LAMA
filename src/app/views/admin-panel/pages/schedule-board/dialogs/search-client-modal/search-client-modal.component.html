@@ -1,0 +1,116 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title" *ngIf="data?.type !== 'employee'">Search Participants</h5>
+		<h5 class="mat-dialog-title" *ngIf="data?.type == 'employee'">Search Employee</h5>
+		<hr>
+	</div>
+	
+	<form *ngIf="!loading && data?.type !== 'employee'" [formGroup]="clientForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-md-12">
+					<ng-container *ngIf="clientOptions?.length === 0">
+						<h5>
+							You already selected all the available participants for this group
+						</h5>
+
+						<hr>
+					</ng-container>
+
+					<app-search-list 
+					label="Participant" 
+					[required]="true" 
+					placeholder="Select" 
+					formControlName="client"
+					[options]="clientOptions"
+					[labelTop]="true"
+					[objectReturn]="true" 
+					></app-search-list>
+
+					<!-- <app-search-list
+					    label="Participant Funding"
+					    [labelTop]="true"
+					    [required]="true"
+					    [readonly]="!clientForm?.controls['client']?.value"
+					    formControlName="client_funding"
+					    [options]="clientFundingEnum"
+					    [objectReturn]="true" >
+					</app-search-list> -->
+					 
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				[disabled]="!clientForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+	<form *ngIf="!loading && data?.type == 'employee'" [formGroup]="employeeForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-md-12">
+					<ng-container *ngIf="data?.selectedGroup?.no_max_employee >= data?.employee_added?.length">
+						<h5>
+							You can only assign {{data?.selectedGroup?.no_max_employee || 1}} employees for this group. 
+						</h5>
+
+						<hr>
+					</ng-container>
+
+
+					<app-dropdown 
+					label="Employee" 
+					[required]="true" 
+					placeholder="Select" 
+					formControlName="employee"
+					[options]="employeeEnumFiltered"
+					[maxSelection]="data?.selectedGroup?.no_max_employee - data?.employee_added?.length"
+					[labelTop]="true"
+					[isMultiple]="true"
+					></app-dropdown>
+
+					<!--
+					
+					 <app-search-list
+					    label="Participant Funding"
+					    [labelTop]="true"
+					    [required]="true"
+					    [readonly]="!clientForm?.controls['client']?.value"
+					    formControlName="client_funding"
+					    [options]="clientFundingEnum"
+					    [objectReturn]="true" >
+					</app-search-list> -->
+					 
+				</div>
+			</div>
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()" 
+				[disabled]="!employeeForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Save</button>
+			</div>
+		</div>
+	</form>
+
+	<global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading"
+        [formOnly]="true">
+    </global-admin-loader>
+</div>

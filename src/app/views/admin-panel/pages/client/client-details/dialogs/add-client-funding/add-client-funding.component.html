@@ -1,0 +1,135 @@
+<div class="card-form" *ngIf="!data?.to_publish">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title"><span *ngIf="!data?.client_id || !data?.funding_type; else showUpdate">Add</span>
+            <ng-template #showUpdate>Update</ng-template> Participant Funding
+            <img src="/assets/images/icons/close-dialog.png" 
+            class="float-end mt-2" 
+            style="width: 13px; cursor: pointer;" 
+            (click)="dialogRef.close()"> 
+        </h5>
+		<hr>
+	</div>
+	
+	<div [hidden]="priceListLoading || saveLoading ">
+		
+		<div class="w-100 my-3 mx-3" *ngIf="data?.status">
+			
+			<div class="row col-6">
+				<button class="btn btn-status text-capitalize" [ngClass]="data?.status.toLowerCase() === 'published' ? 'unpublished' : 'published'" (click)="publishFundingAlert(true)"> 
+					{{data?.status === 'Published' ? 'Unpublish' : 'Publish'}} 
+				</button>
+			</div>
+			<div class="row col-6"></div>
+		</div>
+		<div class="w-100">
+		    <button class="btn" (click)="stepper = 1"
+		    [ngClass]="stepper === 1 ? 'btn-active-tab' : 'btn-active-next'">Funding Details</button>
+
+		    <button class="btn" (click)="stepper = 2"
+		    [ngClass]="stepper === 2 ? 'btn-active-tab' : 'btn-active-next'">Funding Budget</button>
+
+		    <button class="btn" (click)="stepper = 3"
+		    [ngClass]="stepper === 3 ? 'btn-active-tab' : 'btn-active-next'">Support Items</button>
+		</div>
+
+		<div [ngClass]="(stepper === 1 || stepper === 3) ? 'card card-body': ''">
+			<app-client-funding-details
+			[stepper]="stepper"
+			[data]="data"
+			[isDisabled]="data ? data?.status === 'Published' : false"
+			(client_funding_price_list)="getClientFundingPriceList($event)"
+			[partnerDetailsForm]="partnerDetailsForm">
+			</app-client-funding-details>
+		</div>
+
+		<div [ngClass]="stepper === 2 ? 'card card-body': ''">
+			<app-funding-budget
+			[stepper]="stepper"
+			[data]="data"
+			[isDisabled]="data ? data?.status === 'Published' : false"
+			[fundingBudgetForm]="fundingBudgetForm">
+			</app-funding-budget> 
+
+		</div>
+	</div>
+
+	<global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="priceListLoading || saveLoading"
+        [formOnly]="true">
+    </global-admin-loader>
+
+	<div mat-dialog-actions>
+		<div class="text-center mb-3 px-0 w-100">
+			<hr><br>
+
+			<button mat-button (click)="dialogRef.close()" 
+			*ngIf="stepper === 1 || (partnerDetailsForm?.valid && fundingBudgetForm?.valid)"
+			class="btn btn-header-gray btn-header me-3">Cancel</button>
+
+			<button mat-button (click)="stepper = stepper - 1" 
+			*ngIf="stepper > 1 && (!partnerDetailsForm?.valid || !fundingBudgetForm?.valid)"
+			class="btn btn-header-gray btn-header me-3">Back</button>
+
+
+			<button mat-button (click)="save()" [disabled]="!checkFormDisabled()"
+			cdkFocusInitial class="btn btn-primary btn-header me-3" *ngIf="(partnerDetailsForm?.valid && fundingBudgetForm?.valid) || (!partnerDetailsForm?.valid || !fundingBudgetForm?.valid) && stepper === 3">Save</button>
+
+			<button mat-button (click)="stepper = stepper + 1" 
+			cdkFocusInitial class="btn btn-primary btn-header me-3" 
+			*ngIf="(!partnerDetailsForm?.valid || !fundingBudgetForm?.valid) && stepper < 3">Next</button>
+		</div>
+	</div>
+</div>
+
+
+<ng-container *ngIf="data?.to_publish">
+	<global-admin-loader 
+        [withSideBar]="false"
+        [fromDetailTab]="true"
+        [loading]="loading"
+        [formOnly]="true">
+    </global-admin-loader>
+
+	<div class="assign-action-container ">
+		<div [hidden]="true">
+			<app-client-funding-details 
+			[stepper]="stepper"
+			[data]="data"
+			(client_funding_price_list_display)="getDisplayedFundingSupport($event)"
+			[partnerDetailsForm]="partnerDetailsForm">
+			</app-client-funding-details>
+		</div>
+
+		<ng-container *ngIf="!loading">
+			<div class="px-0" >
+				<!-- <img src="/assets/images/icons/report.png" class="img-fluid" width="25px">
+			 -->
+				<h5 class="header-text-action">{{ data?.status === 'Published' ? 'Unpublish' : 'Publish' }} Participant Funding</h5>
+
+				<div class="text-danger mb-2" *ngIf="data?.status === 'Unpublished' && displayedFundingSupport?.length === 0">
+					The funding you are about to publish doesn't have a linked support item yet. Please linked a support item first before publishing.
+				</div>
+
+				<h5 class="header-text mt-2" *ngIf="displayedFundingSupport?.length > 0">You are about to {{data?.status === 'Published' ? 'unpublish' : 'publish'}} the selected participant funding. Click Continue to proceed.</h5>
+			</div>
+
+			<div mat-dialog-actions>
+				<div class="row container">
+
+					<div class="col-md-12 text-center">
+						<button 
+						mat-button (click)="dialogRef.close()"
+						class="btn  btn-header-gray ms-3">Cancel</button>
+
+						<button 
+						mat-button (click)="publishFunding()"
+						class="btn btn-primary">Continue</button>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+
+</ng-container>

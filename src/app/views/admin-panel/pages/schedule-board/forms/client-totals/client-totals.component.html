@@ -1,0 +1,143 @@
+<div mat-dialog-content [ngStyle]="{
+    'min-width': !data?.schedule?.employee?.paid_annually ? '700px' : '700px',
+    'max-width': !data?.schedule?.employee?.paid_annually ? '' : '700px',
+    'overflow-x': 'auto' 
+}"> 
+    <!-- 
+    
+    (addEvent)="openLinkEmployeePayrate($event)"
+    (deleteEvent)="deleteSupportItem($event)"
+    (updateEvent)="updateEmployeePayrate($event)"
+     -->
+    
+    <!-- *ngIf="!!data?.schedule?.employee?.paid_annually" -->
+
+    <ng-container *ngIf="!data?.schedule?.employee?.paid_annually && data?.schedule?.type !== 'Group'">
+        <div class="ps-lg-3 mt-2" *ngIf="!loading">
+            <app-editable-form-table 
+                [isAddEnabled]="false"
+                [columns]="clientTotalColumn"
+                [data]="clientTotalData"
+                [isDeleteEnabled]="false"
+                label="Participant Total"
+            ></app-editable-form-table>
+
+            <section id="payratelist">
+                <app-editable-form-table 
+                    [isAddEnabled]="false"
+                    [columns]="employeePayrateColumn"
+                    [data]="employeePayrateData"
+                    [isDeleteEnabled]="false"
+                    label="Employee Pay Rates"
+                ></app-editable-form-table>
+            </section>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!data?.schedule?.employee?.paid_annually && data?.schedule?.type === 'Group'">
+        <div class="ps-lg-3 mt-2" *ngIf="!loading">
+            <app-editable-form-table 
+                [isAddEnabled]="false"
+                [columns]="clientColumns"
+                [data]="clientTableData"
+                [isDeleteEnabled]="false"
+                label="Participants Total"
+            ></app-editable-form-table>
+
+            <section id="payratelist">
+                <app-editable-form-table 
+                    [isAddEnabled]="false"
+                    [columns]="employeeColumns"
+                    [data]="employeesTableData"
+                    [isDeleteEnabled]="false"
+                    label="Employees Pay Rates"
+                ></app-editable-form-table>
+            </section>
+        </div>
+    </ng-container>
+
+
+    <!-- If Paid Annually -->
+    <form class="row" [formGroup]="clientTotalForm"
+    *ngIf="(data?.schedule?.employee?.employment_type === 'Full-Time') && data?.schedule?.employee?.paid_annually === true" >
+        <div class="col-12">
+            <h5 class="mat-subtitle">Participant Total</h5>
+        </div>
+
+        <div class="col-12 col-md-6">
+             <app-textfield 
+                label="Support Item Price"
+                [labelTop]="true"
+                [disabled]="isDisabled"
+                formControlName="editable_rate_value"
+                [inputType]="'number'"
+                [info]="true"
+                [readonly]="true"
+                [infoTitle]="'Price of the selected support item'">
+            </app-textfield> 
+
+            <app-textfield 
+                label="Rate Type"
+                [labelTop]="true"
+                [disabled]="isDisabled"
+                formControlName="rate_type"
+                [readonly]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Total Hours"
+                [labelTop]="true"
+                [disabled]="isDisabled"
+                formControlName="total_hours"
+                [readonly]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Calculated Cost"
+                [labelTop]="true"
+                [disabled]="isDisabled"
+                formControlName="calculated_cost"
+                [readonly]="true">
+            </app-textfield>
+            <hr>
+            <app-textfield 
+                label="Main Total"
+                [labelTop]="true"
+                [disabled]="isDisabled"
+                formControlName="client_total"
+                [readonly]="true">
+            </app-textfield>
+        </div>
+
+        <div class="col-12 col-md-6">
+        
+            <app-textfield 
+                label="Expenses Total"
+                [labelTop]="true"
+                [disabled]="isDisabled"
+                formControlName="expenses_total"
+                [readonly]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Service Fees"
+                [labelTop]="true"
+                [disabled]="isDisabled"
+                formControlName="service_fee"
+                [readonly]="true">
+            </app-textfield>
+
+            <app-textfield 
+                label="Travel Total"
+                [inputType]="'number'"
+                [labelTop]="true"
+                [disabled]="isDisabled"
+                formControlName="travel_total"
+                [readonly]="true"
+                [info]="true"
+                [infoTitle]="'Total travel charge for this service'">
+            </app-textfield>
+        
+        </div>
+    </form>  
+</div>

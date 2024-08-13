@@ -1,0 +1,219 @@
+<div class="card card-body px-md-5" [ngClass]="stepper === 1 ? 'mt-3 py-5' : 'pt-5'">
+	<form *ngIf="!loading" [formGroup]="serviceDetailsForm">
+		<div class="row">
+			<div class="col-12 col-md-12" *ngIf="stepper === 1"
+			[@animate]="{value:'*', params:{ x:'-50px'}}">
+				<h5 class="mat-subtitle mb-4 text-start">NDIS Details</h5>
+
+				<div class="row">
+					<app-textfield class="col-12 col-md-6 col-lg-4"
+						label="NDIS Number" 
+						[labelTop]="true"
+						formControlName="ndis_participant_number"
+						>
+					</app-textfield>
+
+					<app-date-picker class="col-12 col-md-6 col-lg-4"
+						label="NDIS Plan Start Date" 
+						[labelTop]="true"
+						formControlName="ndis_plan_start_date"
+						>
+					</app-date-picker>
+
+					<app-date-picker class="col-12 col-md-6 col-lg-4"
+						label="NDIS Plan End Date" 
+						[labelTop]="true"
+						formControlName="ndis_plan_end_date"
+						>
+					</app-date-picker>
+
+
+					<div class="col-12 col-md-4 mb-3">
+						<app-radio-button 
+							[labelTop]="true"
+							label="Do you have NDIS Plan?" 
+							formControlName="ndis_plan"
+							[options]="radioOptions"
+							>
+						</app-radio-button>
+
+						<div class="text-start mb-4 ps-4" *ngIf="ndisPlan">
+							<div class="truncate">
+								Download: <a [href]="ndisPlan?.download_url" targe="_blank" >{{ndisPlan?.filename}}</a>
+							</div>
+						</div>
+
+						<app-field-upload 
+						*ngIf="!!serviceDetailsForm.controls['ndis_plan'].value"
+							[labelTop]="true"
+							label="NDIS Plan File" 
+							formControlName="ndis_plan_file"
+							(upload)="onUpload($event, 'ndis_plan_file')"
+							>
+						</app-field-upload>
+					</div>
+
+					<app-dropdown class="col-12 col-md-6 col-lg-4"
+						label="Plan Type" 
+						[labelTop]="true"
+						formControlName="ndis_funding"
+						[options]="ndisFundingOption"
+						>
+					</app-dropdown>
+
+					<ng-container 
+					*ngIf="serviceDetailsForm.controls['ndis_funding'].value === 'Plan managed'">
+						<app-textfield class="col-12 col-md-6 col-lg-4"
+							label="Plan Manager Name" 
+							[labelTop]="true"
+							formControlName="plan_manager_name"
+							>
+						</app-textfield>
+
+
+						<app-textfield class="col-12 col-md-6 col-lg-4"
+							label="Plan Manager Organisation" 
+							[labelTop]="true"
+							formControlName="plan_manager_agency"
+							>
+						</app-textfield>
+
+						<app-textfield class="col-12 col-md-6 col-lg-4"
+							label="Plan Manager Work Phone" 
+							[labelTop]="true"
+							[inputType]="'tel'"
+							formControlName="plan_manager_work_phone"
+							>
+						</app-textfield>
+
+						<app-textfield class="col-12 col-md-6 col-lg-4"
+							label="Plan Manager Email" 
+							[labelTop]="true"
+							formControlName="plan_manager_email"
+							>
+						</app-textfield>
+					</ng-container>
+				</div>
+
+				<h5 class="mat-subtitle mt-3 text-start">Goals as stated in the NDIS Plan</h5>
+
+				<div class="row">
+					<ng-container *ngFor="let item of ndisGoals; let i = index">
+						<div class="col-12 col-md-6 col-lg-4">
+							<app-dropdown 
+							label="Goal Term" 
+							[labelTop]="true"
+							[(ngModel)]="item.goal_term"
+							[ngModelOptions]="{standalone: true}" 
+							(ngModelChange)="updateGoal(item)"
+							[options]="goalTermOption"
+							>
+							</app-dropdown>
+						</div>
+
+						<div class="col-12 col-md-6 col-lg-4">
+							<app-textfield
+							[(ngModel)]="item.participant_goal"
+							[ngModelOptions]="{standalone: true}" 
+							(ngModelChange)="updateGoal(item)"
+							label="Participant Goals"
+							[labelTop]="true">
+								
+							</app-textfield>
+						</div>
+
+						<div class="col-12 col-md-6 col-lg-4 text-start">
+							<div class="d-flex">
+								<img src="/assets/images/icons/carousel-delete.png" *ngIf="ndisGoals?.length > 1"
+								style="height: 26px; width: auto; cursor: pointer; margin-top: 25px;" class="me-3 hvr-grow" (click)="deleteGoal(item)">
+
+								<button class="btn btn-primary" (click)="addNdisGoal()" 
+								*ngIf="i === ndisGoals?.length - 1">Add More Goals</button>
+							</div>
+						</div>
+					</ng-container>
+				</div>  
+			</div>
+
+			<div class="col-12 col-md-12" *ngIf="stepper === 2"
+				[@animate]="{value:'*', params:{ x:'-50px'}}">
+				<h5 class="mat-subtitle mb-4 text-start">Medication Details</h5>
+
+				<div class="row">
+					<div class="col-12 col-md-4">
+						<app-textfield 
+							label="Doctor's Name" 
+							[labelTop]="true"
+							formControlName="doctor_name"
+							>
+						</app-textfield>
+
+						<app-textfield 
+							label="Doctor Phone Number" 
+							[labelTop]="true"
+							[inputType]="'tel'"
+							formControlName="doctor_phone_no"
+							>
+						</app-textfield>
+
+						<app-textfield 
+							label="Clinic Name" 
+							[labelTop]="true"
+							formControlName="clinic_name"
+							>
+						</app-textfield>
+					</div>
+
+					<div class="col-12 col-md-4 mb-3">
+						<app-dropdown 
+							label="Primary Diagnosis/Disability" 
+							[labelTop]="true"
+							formControlName="disability_type"
+							[options]="conditionOptions"
+							(keyevents)="showOthers($event)"
+							>
+						</app-dropdown>
+						
+						<app-textarea *ngIf="showOther"
+							label="Input the Primary Diagnosis/Disability" 
+							[labelTop]="true"
+							formControlName="disability_type_other"
+						>
+						</app-textarea>
+
+						<app-textarea 
+							label="Services Referred" 
+							[labelTop]="true"
+							formControlName="services_referred"
+							>
+						</app-textarea>
+					</div>
+
+					<div class="col-12 col-md-4">
+						<!-- <app-textarea 
+							label="Relevant Medical Information" 
+							[labelTop]="true"
+							formControlName="other_medical_social_history"
+							>
+						</app-textarea> -->
+
+						<app-textarea 
+							label="Identified Risk" 
+							[labelTop]="true"
+							formControlName="identified_risk"
+							>
+						</app-textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<div class="px-5">
+		<global-admin-loader 
+			[withSideBar]="false"
+			[fromDetailTab]="true"
+			[loading]="loading">
+		</global-admin-loader>
+	</div>
+</div>

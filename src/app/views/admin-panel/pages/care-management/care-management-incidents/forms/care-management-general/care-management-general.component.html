@@ -1,0 +1,78 @@
+<div class="row" mat-dialog-content>
+     <div class="col-12" >
+         <form *ngIf="!clientLoading && !employeeLoading" [formGroup]="generalForm">
+             <div class="row">
+                 <div class="col-12">
+                     <app-dropdown 
+                         label="Type"
+                         [required]="true"
+                         [labelTop]="true"
+                         formControlName="type"
+                         [options]="type">
+                     </app-dropdown>
+
+                     <app-dropdown 
+                         label="Severity"
+                         [required]="true"
+                         [labelTop]="true"
+                         formControlName="severity"
+                         [options]="severity">
+                     </app-dropdown>
+
+                     <app-search-list 
+                         label="Participant"
+                         [required]="true"
+                         [labelTop]="true"
+                         formControlName="client_id"
+                         [options]="clientEnums"
+                         [newOption]="true"
+                         [newOptionLabel]="'Participants'"
+                         [newOptionRoute]="'/admin/clients'">
+                     </app-search-list>
+
+                     <app-search-list 
+                         label="Employee"
+                         [labelTop]="true"
+                         formControlName="employee_id"
+                         [options]="employeeEnums"
+                         [newOption]="true"
+                         [newOptionLabel]="'Employee'"
+                         [newOptionRoute]="'/admin/employees'">
+                     </app-search-list>
+
+                     <app-textfield
+                        label="Support Coordination Service Provider"
+                        [labelTop]="true"
+                        formControlName="service_provider">
+                     </app-textfield>
+
+                     <app-textfield
+                     label="Reported By"
+                     [labelTop]="true"
+                     [required]="true"
+                     formControlName="reported_by">
+                     </app-textfield>
+
+                     <app-textfield
+                     label="Phone"
+                     [labelTop]="true"
+                     formControlName="phone">
+                     </app-textfield>
+
+                     <app-date-picker
+                     label="Date Received"
+                     [labelTop]="true"
+                     [required]="true"
+                     formControlName="date_received">
+                     </app-date-picker>
+                 </div>
+             </div>
+         </form>
+         <global-admin-loader 
+            [withSideBar]="false"
+            [fromDetailTab]="true"
+            [loading]="clientLoading || employeeLoading"
+            [formOnly]="true">
+        </global-admin-loader>   
+     </div>
+</div>

@@ -1,0 +1,178 @@
+<ng-container *ngIf="!labelTop">
+    <div class="text-input" style="margin-bottom: 16px !important;">
+        <div class="d-flex" [ngClass]="isMultiple ? 'mb-4 pb-2' : ''">
+            <div class="container-label flex-wrap me-3 justify-content-end d-flex align-items-center" *ngIf="label">
+                <div class="d-flex">
+                    <p [innerHtml]="label"></p>
+                    <div *ngIf="required" class="asterisk-required">*</div>
+                </div>
+            </div>
+
+            <div class="img-search-container flex-wrap" style="width:30px !important;">
+                <img [src]="img_icon" style="width: 15.3px !important">
+            </div>
+
+            <div class="container-input flex-wrap remove-border-left-radius">
+                <mat-form-field panelClass="remove-border-left-radius"
+                class="text-capitalize" 
+                [ngClass]="[isTouched ? 'error' : '']" 
+                [title]="control.value || ''"
+                appearance="outline">
+                    <mat-select class="text-capitalize" panelClass="remove-border-left-radius"
+                    #mySelect
+                    style="border-top-left-radius: 0px !important; border-bottom-left-radius: 0px !important;"
+                        [disableOptionCentering]="true"
+                        [disabled]="(!isMultiple && disabled) || (isMultiple && initialVal?.length > maxSelection)"
+                        (selectionChange)="onSelectionChange($event)"
+                        (closed)="onTouch(); checkOptions()"
+                        [(ngModel)]="initialVal"
+                        [compareWith]="objectComparisonFunction"
+                        [placeholder]="placeholder"
+                        [multiple]="isMultiple"
+                    >
+                        <div class="d-flex bg-light-gray">
+                            <img src="/assets/images/icons/search.png" class="search">
+                            
+                            <input matInput class="filter-control" 
+                                [formControl]="filterControl" 
+                                type="text" 
+                                name="filter-options" 
+                                id="filter-options" 
+                                placeholder="Search">
+                        </div>
+
+                        <div class="bg-add-option" (click)="navigateToOption()" *ngIf="newOption">
+                            Add {{newOptionLabel}} 
+                            <img src="/assets/images/icons/carousel-add.png" 
+                            class="ms-1" style="height: 17px; margin-top: -2px;">
+                        </div>
+
+                        <ng-template *ngIf="isObjectValue; else single">
+                            <mat-option *ngFor="let item of optionSearch" [value]="item" 
+                            class="text-capitalize">
+                                {{ item.name || item.value || item.text }}
+                            </mat-option>
+                        </ng-template>
+                        <ng-template #single>
+                            <mat-option *ngFor="let item of optionSearch" 
+                            [value]="fromObjectOptions ? item?.id : item"
+                            [disabled]="isMultiple && initialVal?.length >= maxSelection"
+                            class="text-capitalize">
+                                {{ fromObjectOptions ? item?.name : item }}
+                            </mat-option>
+                        </ng-template>
+                    </mat-select> 
+                </mat-form-field>
+
+                <p *ngIf="isTouched" class="error-msg">*Empty Fields</p>
+                <mat-chip-list *ngIf="isMultiple && showChip">
+                    <mat-chip class="text-capitalize max-width-top" *ngFor="let item of initialVal; let i = index" 
+                    [title]="item">
+                        <span class="text-truncate">{{item}}</span>
+                        <mat-icon (click)="removeItem(i)" matChipRemove>close</mat-icon> 
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+
+            <div class="container-info">
+                <span class="img-info-container" *ngIf="info">
+                    <img src="/assets/images/icons/info-input-icon.png" 
+                    [matTooltip]="infoTitle"
+                    matTooltipPosition="above"
+                    class="img-fluid">
+                </span>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="labelTop">
+    <div class="text-input" (blur)="checkOptions()">
+        <div>
+            <p class="label-top text-start text-truncate">
+                <span [innerHtml]="label"></span>
+                <span *ngIf="required" class="asterisk-required">*</span>
+            </p> 
+        </div>
+
+        <div class="container-input pt-2 px-md-4"
+        [ngStyle]="{
+            'width': labelTop ? '100%': '',
+            'margin-left': labelTop ? '0px': ''
+        }">
+            <div class="d-flex mb-2">
+                <div class="img-search-container flex-wrap" style="width:31px !important">
+                    <img [src]="img_icon" style="width: 16px !important">
+                </div>
+
+                <mat-form-field class="remove-border-left-radius" 
+                style="margin-left: -2px;"
+                [title]="control.value || ''"
+                [ngClass]="[isTouched ? 'error' : '', classType ? classType : 'text-capitalize']" appearance="outline">
+                    <mat-select #mySelect
+                        [disableOptionCentering]="true"
+                        [disabled]="(!isMultiple && disabled) || (isMultiple && initialVal?.length - 1 > maxSelection)"
+                        (selectionChange)="onSelectionChange($event)"
+                        (closed)="onTouch(); checkOptions()"
+                        [(ngModel)]="initialVal"
+                        [compareWith]="objectComparisonFunction"
+                        [placeholder]="placeholder"
+                        [multiple]="isMultiple"
+                    >
+                        <div class="d-flex bg-light-gray">
+                            <img src="/assets/images/icons/search.png" class="search">
+                            
+                            <input matInput class="filter-control" 
+                                [formControl]="filterControl" 
+                                type="text" 
+                                name="filter-options" 
+                                id="filter-options" 
+                                placeholder="Search">
+                        </div>
+
+                        <div class="bg-add-option" (click)="navigateToOption()" *ngIf="newOption">
+                            Add {{newOptionLabel}} 
+                            <img src="/assets/images/icons/carousel-add.png" 
+                            class="ms-1" style="height: 17px; margin-top: -2px;">
+                        </div>
+
+                        <ng-template *ngIf="isObjectValue; else single">
+                            <mat-option *ngFor="let item of optionSearch" [value]="item" 
+                            class="text-capitalize">
+                                {{ item.name || item.value || item.text }}
+                            </mat-option>
+                        </ng-template>
+                        <ng-template #single>
+                            <mat-option *ngFor="let item of optionSearch" 
+                            [value]="fromObjectOptions ? item?.id : item"
+                            [disabled]="isMultiple && initialVal?.length >= maxSelection"
+                            class="text-capitalize">
+                                {{ fromObjectOptions ? item?.name : item }}
+                            </mat-option>
+                        </ng-template>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="container-info">
+                    <span class="img-info-container" *ngIf="info">
+                        <img src="/assets/images/icons/info-input-icon.png" 
+                        [matTooltip]="infoTitle"
+                        matTooltipPosition="above"
+                        class="img-fluid">
+                    </span>
+                </div>
+            </div>
+            <mat-chip-list *ngIf="isMultiple && showChip">
+                <mat-chip class="text-capitalize max-width-top" [title]="item"
+                *ngFor="let item of initialVal; let i = index">
+                    <span class="text-truncate">{{item}}</span>
+                    <mat-icon (click)="removeItem(i)" matChipRemove>close</mat-icon> 
+                </mat-chip>
+            </mat-chip-list>
+
+            <p *ngIf="isTouched || showError" class="error-msg">{{customErrorMessage ? customErrorMessage : '*Empty Field'}}</p>
+        </div>
+
+        
+    </div> 
+</ng-container>

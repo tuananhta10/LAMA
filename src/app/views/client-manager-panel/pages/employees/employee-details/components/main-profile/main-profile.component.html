@@ -1,0 +1,60 @@
+<div id="employee-profile-container" *ngIf="employeeData && !loading">
+	<!-- BUTTONS CONTROLLER -->
+	<div class="mb-3 row" id="profile-header">
+		<div class="pe-1 col-6 col-lg-2 ">
+			<button class="btn btn-header btn-primary" 
+			routerLink="/staff/employees/details/{{id}}"
+			title="Employee Details">Employee Details</button>
+		</div>
+
+		<ng-container *ngFor="let item of childLinks">
+			<div class="px-lg-1 col-6 col-lg-2" *ngIf="checkAccess(item.access)">
+				<button class="btn btn-header btn-header-secondary" 
+				[routerLink]="item?.routerLink"
+				[title]="item?.title">{{item?.title}}</button>
+			</div>
+		</ng-container>
+	</div>
+	
+	<!-- STATISTICS DATA -->
+	<div class="mb-3" *ngIf="id">
+		<employee-main-profile-stats
+		[employeeData]="employeeData"
+		[id]="id"></employee-main-profile-stats> 
+	</div>
+
+	<!-- DOCUMENT FILE DATA -->
+	<div style="width: 100% !important" 
+	[@animate]="{value:'*', params:{ x:'-50px', delay:'200ms' }}">
+		<div class="row">
+			<!-- EMPLOYEE FILES -->
+			<div class="col-12 col-lg-6">
+				<employee-main-profile-documents
+				[id]="id"
+				[employeeData]="employeeData"></employee-main-profile-documents>
+			</div>
+
+			<!-- COMPLIANCE CHECK -->
+			<div class="col-12 col-lg-6">
+				<employee-main-profile-compliance-check
+				[employeeData]="employeeData">
+				</employee-main-profile-compliance-check>
+			</div>
+		</div>
+	</div>
+
+	<!-- EMPLOYEE DETAILS -->
+	<div style="width: 100% !important">
+		<employee-main-profile-details 
+			[employeeDataMain]="employeeDataMain"
+			[employeeData]="employeeData">
+		</employee-main-profile-details> 
+	</div>
+</div>
+
+<!-- LOADING ANIMATION SCREEN -->
+<global-admin-loader 
+	[withSideBar]="false"
+	[fromDetailTab]="true"
+	[loading]="loading">
+</global-admin-loader>

@@ -1,0 +1,79 @@
+<div class="card-form ">
+	
+	<form [formGroup]="priceListForm">
+		<h5 class="mat-subtitle" *ngIf="data?.details">Details</h5>
+		<div class="row">
+			<div class="col-md-6" *ngIf="data?.details">
+				<app-textfield 
+					label="Name" 
+					[labelTop]="true"
+					formControlName="name" 
+					[required]="true">
+				</app-textfield>
+			</div>
+
+			<div class="col-md-6" *ngIf="data?.details">
+				<app-dropdown 
+					label="Type" 
+					[labelTop]="true"
+					formControlName="type" 
+					[required]="true"
+					[options]="typeOptions">
+				</app-dropdown>
+			</div>
+
+			<div class="col-md-5" *ngIf="!data?.details">
+				<h5 class="mat-subtitle">Details</h5>
+				<app-textfield 
+					label="Name" 
+					[labelTop]="true"
+					formControlName="name" 
+					[required]="true">
+				</app-textfield>
+	
+				<app-dropdown 
+					label="Type" 
+					[labelTop]="true"
+					formControlName="type" 
+					[required]="true"
+					[options]="typeOptions">
+				</app-dropdown>
+			</div>
+			<div class="col-md-7" *ngIf="!data?.details">
+				<h5 class="mat-subtitle">Pricelist Periods</h5>
+				
+				<div class="row">
+					<div class="col-12 col-md-6 pe-0">
+						<app-date-picker 
+							label="Effective From" 
+							[labelTop]="true"
+							[required]="true"
+							formControlName="effective_date_from">
+						</app-date-picker>
+
+						<app-date-picker 
+							label="Effective To" 
+							[labelTop]="true"
+							[required]="true"
+							formControlName="effective_date_to">
+						</app-date-picker>
+					</div>
+
+					<div class="col-12 col-md-6 ps-0">
+						<app-time-analog 
+							label=" "
+							[labelTop]="true"
+							formControlName="effective_time_from">
+						</app-time-analog>
+
+						<app-time-analog 
+							label=" "
+							[labelTop]="true"
+							formControlName="effective_time_to">
+						</app-time-analog>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

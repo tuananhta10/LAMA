@@ -1,0 +1,139 @@
+<div class="card-form">
+	<div mat-dialog-title>
+		<h5 class="mat-dialog-title">New Funding Code</h5>
+		<hr>
+	</div>
+	<form [formGroup]="fundingCodeForm">
+		<div mat-dialog-content>
+			<div class="row">
+				<div class="col-md-6">
+					<h5 class="mat-subtitle">Funding Source Code Details</h5>
+					<app-dropdown 
+						label="Funding Source Code Provider" 
+						[labelTop]="true"
+						formControlName="funding_source_code_provider" 
+						[required]="true"
+						[options]="fundingSourceCodeProviderOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Funding Source" 
+						[labelTop]="true"
+						formControlName="funding_source" 
+						[required]="true"
+						[options]="fundingSourceOptions">
+					</app-dropdown>
+
+					<app-radio-button 
+						label="Group Service" 
+						[labelTop]="true"
+						[required]="true"
+						formControlName="group_service"
+						[options]="radioOptions">
+					</app-radio-button>
+
+					<app-dropdown 
+						label="Service Type" 
+						[labelTop]="true"
+						formControlName="service_type" 
+						[required]="true"
+						[options]="serviceTypeOptions">
+					</app-dropdown>
+				</div>
+				<div class="col-md-6">
+					<h5 class="mat-subtitle">Codes</h5>
+					<app-dropdown 
+						label="Code" 
+						[labelTop]="true"
+						formControlName="code" 
+						[required]="true"
+						[options]="codeOptions">
+					</app-dropdown>
+
+					<app-radio-button 
+						label="Has A/H Rates"
+						[labelTop]="true" 
+						[required]="true"
+						formControlName="has_ah_rates"
+						[options]="radioOptions">
+					</app-radio-button>
+
+					<app-dropdown 
+						label="After Hour Rate Code" 
+						[labelTop]="true"
+						formControlName="after_hour_rate_code" 
+						[options]="rateCodeOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Saturday Rate Code" 
+						[labelTop]="true"
+						formControlName="saturday_rate_code" 
+						[options]="rateCodeOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Saturday Rate A/H Code" 
+						[labelTop]="true"
+						formControlName="saturday_rate_ah_code" 
+						[options]="rateCodeOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Sunday Rate Code" 
+						[labelTop]="true"
+						formControlName="sunday_rate_code" 
+						[options]="rateCodeOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Sunday Rate A/H Code" 
+						[labelTop]="true"
+						formControlName="sunday_rate_ah_code" 
+						[options]="rateCodeOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Public Holiday Rate Code" 
+						[labelTop]="true"
+						formControlName="public_holiday_rate_code" 
+						[options]="rateCodeOptions">
+					</app-dropdown>
+
+					<app-dropdown 
+						label="Public Holiday Rate A/H Code" 
+						[labelTop]="true"
+						formControlName="public_holiday_rate_ah_code"
+						[options]="rateCodeOptions">
+					</app-dropdown>
+
+				</div>
+			</div>
+            <!-- <app-textfield 
+                label="Name"
+                [labelTop]="true"
+                [required]="true"
+                formControlName="name">
+            </app-textfield>
+
+            <app-textarea 
+                label="Description"
+                [labelTop]="true"
+                formControlName="description">
+            </app-textarea> -->
+		</div>
+		<div mat-dialog-actions>
+			<div class="text-center mb-3 px-0 w-100">
+				<hr><br>
+
+				<button mat-button (click)="close()" 
+				class="btn btn-header-gray btn-header me-3">Close</button>
+
+				<button mat-button (click)="save()"
+                [disabled]="!fundingCodeForm.valid"
+				cdkFocusInitial class="btn btn-primary btn-header me-3">Add</button>
+			</div>
+		</div>
+	</form>
+
+</div>
